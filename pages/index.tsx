@@ -1,13 +1,38 @@
-import Head from 'next/head'
 import styles from '../styles/Home.module.scss'
+import { NextSeo } from 'next-seo';
+
+const seo = {
+  "title": "Home Page",
+  "description": "description of home page",
+  "canonical": "https://www.example.com",
+  "openGraph": {
+    "url": "https://www.example.com",
+    "title": "Home Page",
+    "description": "description of home page",
+    "site_name": "Page Name",
+    "images": [
+      {
+        "url": "https://www.example.ie/og-image-01.jpg",
+        "width": 800,
+        "height": 600,
+        "alt": "Og Image Alt"
+      },
+      {
+        "url": "https://www.example.ie/og-image-02.jpg",
+        "width": 900,
+        "height": 800,
+        "alt": "Og Image Alt Second"
+      },
+      { "url": "https://www.example.ie/og-image-03.jpg" },
+      { "url": "https://www.example.ie/og-image-04.jpg" }
+    ]
+  }
+};
 
 const Home = () => {
   return (
     <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo {...seo} />
 
       <main className={styles.main}>
         <h1 className={styles.title}>
