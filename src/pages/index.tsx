@@ -3,7 +3,6 @@ import {
   Text,
   Code,
   List,
-  ListIcon,
   ListItem,
 } from '@chakra-ui/react'
 import { Icon } from "@chakra-ui/react"
