@@ -1,6 +1,6 @@
 import type { AppProps } from 'next/app'
 import { DefaultSeo } from 'next-seo'
-import SEO from '../next-seo.config'
+import SEO from '../../next-seo.config'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 
