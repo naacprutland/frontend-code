@@ -27,13 +27,18 @@
     "@chakra-ui/theme": "^1.6.2",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.1.5",
+    "dotenv": "^8.2.0",
     "framer-motion": "^3.3.0",
     "next": "10.0.6",
     "next-seo": "^4.19.0",
+    "next-tinacms-github": "^0.37.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
-    "sass": "^1.32.7"
+    "react-tinacms-github": "^0.37.0",
+    "sass": "^1.32.7",
+    "styled-components": "^5.2.1",
+    "tinacms": "^0.37.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.28",
@@ -45,6 +50,7 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
     "husky": "^5.0.9",
+    "hygen-next-tinacms-github": "https://github.com/dwalkr/hygen-next-tinacms-github",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "stylelint": "^13.10.0",
