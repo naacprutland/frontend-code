@@ -7,7 +7,6 @@ import {
 } from '@chakra-ui/react'
 import { Icon } from "@chakra-ui/react"
 import { AiFillCheckCircle, AiOutlineLink } from "react-icons/ai"
-
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
 import { Main } from '../components/Main'
@@ -21,7 +20,6 @@ import { GetStaticProps } from 'next'
 
 const Index = ({data ={}}) => (
   <Container height="100vh">
-    {console.log(data)}
     <NextSeo {...data.seo} />
     <Hero />
     <Main>
@@ -68,29 +66,22 @@ export const getStaticProps: GetStaticProps = async function({
   previewData,
  }) {
   if (preview) {
-    console.log('preview mode', previewData);
-    const prevProp = {
+
+    const gitHubProps = await getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: '/src/data/home.md',
+      fileRelativePath: '/src/data/home.json',
       parse: parseJson,
-    }
-    console.log(prevProp)
-
-    // const gitHubProps = await getGithubPreviewProps(prevProp)
-
-    // console.log(gitHubProps);
-
-    // const file = gitHubProps;
+    })
 
     return {
       props: {
         preview: true,
-        fileRelativePath: 'src/data/home.json',
-        data: (await import('../data/home.json')).default
+        error: gitHubProps?.props.error,
+        ...gitHubProps?.props?.file
       }
     }
   }
-  console.log('ok', previewData)
+
   return {
     props: {
       sourceProvider: null,

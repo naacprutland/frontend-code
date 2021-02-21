@@ -5,7 +5,11 @@ import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
 import { useMemo } from 'react';
 import { TinaProvider, TinaCMS } from 'tinacms';
-import { GithubClient, TinacmsGithubProvider } from 'react-tinacms-github';
+import {
+  GithubClient,
+  TinacmsGithubProvider,
+  GithubMediaStore,
+} from 'react-tinacms-github'
 
 const onLogin = async () => {
   const token = localStorage.getItem('tinacms-github-token') || null;
@@ -19,7 +23,6 @@ const onLogin = async () => {
   const data = await resp.json();
 
   if (resp.status === 200) {
-    console.log(resp, data);
     window.location.reload();
   } else {
     throw new Error(data.message);
@@ -44,6 +47,7 @@ const github = new GithubClient({
  * @param {{cms: TinaCMS}} param0
  */
 export const EditLink = ({ cms }) => {
+
   return (
     <button onClick={() => cms.toggle()}>
       {cms.enabled ? 'Exit Edit Mode' : 'Edit This Site'}
@@ -54,12 +58,13 @@ export const EditLink = ({ cms }) => {
 const MyApp = ({ Component, pageProps }: AppProps) => {
   const cms = useMemo(() => {
     return new TinaCMS({
-      enabled: pageProps?.preview,
+      enabled: !!pageProps?.preview,
       apis: {
         github,
       },
       toolbar: pageProps?.preview,
       sidebar: pageProps?.preview,
+      media: new GithubMediaStore(github)
     });
   }, []);
 
