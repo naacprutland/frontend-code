@@ -1,5 +1,5 @@
 {
-  "title": "Give me your tots 🦙",
+  "title": "Give me your tots 🦙!",
   "seo": {
     "title": "Home Page",
     "description": "description of home page",
@@ -22,8 +22,12 @@
           "height": 800,
           "alt": "Og Image Alt Second"
         },
-        { "url": "https://www.example.ie/og-image-03.jpg" },
-        { "url": "https://www.example.ie/og-image-04.jpg" }
+        {
+          "url": "https://www.example.ie/og-image-03.jpg"
+        },
+        {
+          "url": "https://www.example.ie/og-image-04.jpg"
+        }
       ]
     }
   }
