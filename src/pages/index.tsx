@@ -1,7 +1,6 @@
 import {
   Link as ChakraLink,
   Text,
-  Code,
   List,
   ListItem,
 } from '@chakra-ui/react'
@@ -16,16 +15,36 @@ import { Footer } from '../components/Footer'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
+import { usePlugin } from 'tinacms'
+import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
 
+interface Props {
+  file: {
+    data: {
+      title: string;
+      seo: unknown;
+    }
+  }
+}
 
-const Index = ({data ={}}) => (
+const Index = ({ file }: Props) => {
+  const formOptions = {
+    label: 'Home Page',
+    fields: [{ name: 'title', component: 'text' }],
+  }
+
+  // Registers a JSON Tina Form
+  const [data, form] = useGithubJsonForm(file, formOptions)
+  usePlugin(form)
+  useGithubToolbarPlugins()
+
+  return (
   <Container height="100vh">
     <NextSeo {...data.seo} />
     <Hero />
     <Main>
       <Text>
-        Example repository of <Code>Next.js</Code>  <Code>chakra-ui</Code> {' '}
-        <Code>typescript</Code>.
+        {data.title}
       </Text>
 
       <List spacing={3} my={0}>
@@ -56,7 +75,7 @@ const Index = ({data ={}}) => (
     </Footer>
     <CTA />
   </Container>
-)
+)}
 
 // /**
 //  * Fetch data with getStaticProps based on 'preview' mode
@@ -67,19 +86,11 @@ export const getStaticProps: GetStaticProps = async function({
  }) {
   if (preview) {
 
-    const gitHubProps = await getGithubPreviewProps({
+    return getGithubPreviewProps({
       ...previewData,
       fileRelativePath: '/src/data/home.json',
       parse: parseJson,
     })
-
-    return {
-      props: {
-        preview: true,
-        error: gitHubProps?.props.error,
-        ...gitHubProps?.props?.file
-      }
-    }
   }
 
   return {
@@ -87,8 +98,10 @@ export const getStaticProps: GetStaticProps = async function({
       sourceProvider: null,
       error: null,
       preview: false,
-      fileRelativePath: '/src/data/home.json',
-      data: (await import('../data/home.json')).default,
+      file: {
+        fileRelativePath: '/src/data/home.json',
+        data: (await import('../data/home.json')).default,
+      }
     },
   }
  }
