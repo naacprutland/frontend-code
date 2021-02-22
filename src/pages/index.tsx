@@ -17,6 +17,7 @@ import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
 import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
+import { SEO } from '../interface/seo'
 
 interface Props {
   file: {
@@ -24,7 +25,7 @@ interface Props {
     sha: string;
     data: {
       title: string;
-      seo: unknown;
+      seo: SEO;
     }
   }
 }
