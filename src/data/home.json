@@ -30,5 +30,12 @@
         }
       ]
     }
+  },
+  "Page Structure": {
+    "Components": [
+      "",
+      "Component B",
+      "Component C"
+    ]
   }
 }
