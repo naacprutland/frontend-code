@@ -18,6 +18,7 @@ import { GetStaticProps } from 'next'
 import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
 import { SEO } from '../interface/seo'
+import { formOptions } from '../data/tinaForms/homeForm'
 
 interface Props {
   file: {
@@ -31,10 +32,10 @@ interface Props {
 }
 
 const Index = ({ file }: Props) => {
-  const formOptions = {
-    label: 'Home Page',
-    fields: [{ name: 'title', component: 'text' }],
-  }
+  // const formOptions = {
+  //   label: 'Home Page',
+  //   fields: [{ name: 'title', component: 'text' }],
+  // }
 
   // Registers a JSON Tina Form
   const [data, form] = useGithubJsonForm(file, formOptions)
