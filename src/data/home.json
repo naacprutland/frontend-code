@@ -33,6 +33,7 @@
   },
   "pageStructure": {
     "components": [
+      "",
       "Component B"
     ],
     "Component B": "#ff0000",
