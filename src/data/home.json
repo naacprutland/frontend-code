@@ -36,6 +36,8 @@
       "Component B",
       "Component A",
       "Component C"
-    ]
+    ],
+    "Component B": "#000000",
+    "Component A": "ok"
   }
 }
