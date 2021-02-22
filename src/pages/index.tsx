@@ -20,6 +20,8 @@ import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github
 
 interface Props {
   file: {
+    fileRelativePath: string;
+    sha: string;
     data: {
       title: string;
       seo: unknown;
