@@ -33,8 +33,8 @@
   },
   "pageStructure": {
     "components": [
-      "Component A",
       "Component B",
+      "Component A",
       "Component C"
     ]
   }
