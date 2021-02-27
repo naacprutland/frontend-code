@@ -38,5 +38,11 @@
     ],
     "Component B": "#ff0000",
     "Component A": "ok"
+  },
+  "email": {
+    "components": [
+      "car",
+      "boat"
+    ]
   }
 }
