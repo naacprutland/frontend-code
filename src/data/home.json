@@ -44,5 +44,24 @@
       "car",
       "boat"
     ]
+  },
+  "pageSEO": {
+    "title": "Home Page",
+    "description": "description of home page",
+    "canonical": "https://www.example.com",
+    "openGraph": {
+      "url": "https://www.example.com",
+      "title": "Home Page",
+      "description": "description of home page",
+      "site_name": "Page Name",
+      "images": [
+        {
+          "url": "https://www.example.ie/og-image-01.jpg",
+          "width": 800,
+          "height": 600,
+          "alt": "Og Image Alt"
+        }
+      ]
+    }
   }
 }
