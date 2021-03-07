@@ -26,17 +26,12 @@ interface Props {
     sha: string;
     data: {
       title: string;
-      seo: SEO;
+      pageSEO: SEO;
     }
   }
 }
 
 const Index = ({ file }: Props) => {
-  // const formOptions = {
-  //   label: 'Home Page',
-  //   fields: [{ name: 'title', component: 'text' }],
-  // }
-
   // Registers a JSON Tina Form
   const [data, form] = useGithubJsonForm(file, formOptions)
   usePlugin(form)
@@ -44,7 +39,7 @@ const Index = ({ file }: Props) => {
 
   return (
   <Container height="100vh">
-    <NextSeo {...data.seo} />
+    <NextSeo {...data.pageSEO} />
     <Hero />
     <Main>
       <Text>

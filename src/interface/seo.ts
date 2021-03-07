@@ -1,14 +1,16 @@
+export interface SEOImage {
+    url: string;
+    width?: number;
+    height?: number;
+    alt?: string;
+}
+
 export interface OpenGraph {
     url: string;
     title: string;
     description: string;
     site_name: string;
-    images: {
-        url: string;
-        width?: number;
-        height?: number;
-        alt?: string;
-    }[]
+    images: SEOImage[]
 }
 
 export interface SEO {

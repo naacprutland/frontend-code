@@ -1,10 +1,27 @@
 interface FieldConfig {
-  name: string
+  name: string;
   component: string;
-  label?: string
+  label?: string;
+  fields?: SeoFields[];
 }
 
-interface GroupConfig {
+interface NumberConfig {
+  component: 'number'
+  name: string
+  label?: string
+  description?: string
+  step?: string | number
+}
+
+interface GroupListConfig {
+  component: 'group-list'
+  name: string;
+  fields: SeoFields[];
+  label?: string;
+  defaultItem?: unknown | (() => unknown);
+}
+
+export interface GroupConfig {
   name: string
   component: 'group'
   label?: string
@@ -26,7 +43,7 @@ interface TextareaConfig {
   description?: string
 }
 
-type SeoFields = TextConfig | TextareaConfig | GroupConfig;
+type SeoFields = TextConfig | TextareaConfig | GroupConfig | GroupListConfig | NumberConfig;
 
 export interface PageSeo {
   label: string;
