@@ -31,19 +31,4 @@
       ]
     }
   },
-  "rawJson": {
-    "blocks": [
-      {
-        "content": "",
-        "center": false,
-        "_template": "ContentBlock"
-      },
-      {
-        "title": "test",
-        "center": true,
-        "underline": false,
-        "_template": "TitleBlock"
-      }
-    ]
-  }
 }
