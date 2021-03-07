@@ -21,6 +21,7 @@ import { SEO } from '../interface/seo'
 import { formOptions } from '../data/tinaForms/homeForm'
 
 interface Props {
+  preview: boolean;
   file: {
     fileRelativePath: string;
     sha: string;
@@ -31,11 +32,15 @@ interface Props {
   }
 }
 
-const Index = ({ file }: Props) => {
+const Index = ({ file, preview }: Props) => {
+  let data = file.data
   // Registers a JSON Tina Form
-  const [data, form] = useGithubJsonForm(file, formOptions)
-  usePlugin(form)
-  useGithubToolbarPlugins()
+  if (preview) {
+    const [dataForm, form] = useGithubJsonForm(file, formOptions)
+    data = dataForm;
+    usePlugin(form)
+    useGithubToolbarPlugins()
+  }
 
   return (
   <Container height="100vh">
