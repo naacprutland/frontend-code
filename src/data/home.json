@@ -33,9 +33,16 @@
   },
   "pageStructure": {
     "components": [
-      "Component A",
-      "Component B",
-      "Component C"
+      "",
+      "Component B"
+    ],
+    "Component B": "#ff0000",
+    "Component A": "ok"
+  },
+  "email": {
+    "components": [
+      "car",
+      "boat"
     ]
   }
 }
