@@ -3,12 +3,14 @@ import { DefaultSeo } from 'next-seo'
 import SEO from '../../next-seo.config'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from '../theme'
-
+import Layout from './Layout'
 
 const App = ({ Component, pageProps }: AppProps) => (
   <ChakraProvider resetCSS theme={theme}>
     <DefaultSeo {...SEO} />
-    <Component {...pageProps} />
+    <Layout>
+      <Component {...pageProps} />
+    </Layout>
   </ChakraProvider>
 )
 

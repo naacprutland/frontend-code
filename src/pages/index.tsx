@@ -11,7 +11,6 @@ import { Container } from '../components/Container'
 import { Main } from '../components/Main'
 import { DarkModeSwitch } from '../components/DarkModeSwitch'
 import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
@@ -74,9 +73,6 @@ const Index = ({ file, preview }: Props) => {
     </Main>
 
     <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
     <CTA />
   </Container>
 )}
