@@ -8,9 +8,6 @@ import { Icon } from "@chakra-ui/react"
 import { AiFillCheckCircle, AiOutlineLink } from "react-icons/ai"
 import { Hero } from '../components/Hero'
 import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
@@ -45,7 +42,6 @@ const Index = ({ file, preview }: Props) => {
   <Container height="100vh">
     <NextSeo {...data.pageSEO} />
     <Hero />
-    <Main>
       <Text>
         {data.title}
       </Text>
@@ -70,10 +66,6 @@ const Index = ({ file, preview }: Props) => {
           </ChakraLink>
         </ListItem>
       </List>
-    </Main>
-
-    <DarkModeSwitch />
-    <CTA />
   </Container>
 )}
 
