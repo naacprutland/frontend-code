@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react'
 import { Icon } from "@chakra-ui/react"
 import { AiFillCheckCircle, AiOutlineLink } from "react-icons/ai"
-import { Hero } from '../components/Hero'
+import Hero from '../components/Hero'
 import { Container } from '../components/Container'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
@@ -39,34 +39,34 @@ const Index = ({ file, preview }: Props) => {
   }
 
   return (
-  <Container height="100vh">
+  <>
     <NextSeo {...data.pageSEO} />
     <Hero />
-      <Text>
+    <Text>
         {data.title}
       </Text>
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <Icon as={AiFillCheckCircle} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-          
-            Chakra UI <Icon as={AiOutlineLink} />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <Icon as={AiFillCheckCircle} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <Icon as={AiOutlineLink} />
-          </ChakraLink>
-        </ListItem>
-      </List>
-  </Container>
+    <List spacing={3} my={0}>
+      <ListItem>
+        <Icon as={AiFillCheckCircle} color="green.500" />
+        <ChakraLink
+          isExternal
+          href="https://chakra-ui.com"
+          flexGrow={1}
+          mr={2}
+        >
+        
+          Chakra UI <Icon as={AiOutlineLink} />
+        </ChakraLink>
+      </ListItem>
+      <ListItem>
+        <Icon as={AiFillCheckCircle} color="green.500" />
+        <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
+          Next.js <Icon as={AiOutlineLink} />
+        </ChakraLink>
+      </ListItem>
+    </List>
+  </>
 )}
 
 // /**
