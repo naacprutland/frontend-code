@@ -109,12 +109,24 @@ const Hero = ({
                 {detail && <ReactMarkdown>{detail}</ReactMarkdown>}
                 {(cta?.length > 0) && <HStack spacing={2} py={2}>
                     {cta && cta.map(({label, link, external}, i) => {
-                      return (
-                      <Link key={label + i} href={link}
-                            target={external && "_blank"}
-                            rel={external &&"noopener noreferrer"} >
-                          <Button as="a" colorScheme="purple" size="md">{label}</Button>     
-                      </Link>)
+                      if ( external) {
+                        return <Button as="a"
+                                href={link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                cursor="pointer"
+                                colorScheme="purple" size="md">
+                              {label}
+                              </Button>
+                      }
+                      return (<Link key={label + i} href={link}>
+                            <Button as="a"
+                              href=""
+                              target={external && "_blank"}
+                              rel={external &&"noopener noreferrer"}
+                              cursor="pointer"
+                              colorScheme="purple" size="md">{label}</Button>     
+                        </Link>)
                       })}
                   </HStack>}
               </GridItem>}
