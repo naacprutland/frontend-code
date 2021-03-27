@@ -111,6 +111,7 @@ const Hero = ({
                     {cta && cta.map(({label, link, external}, i) => {
                       if ( external) {
                         return <Button as="a"
+                                key={label + i}
                                 href={link}
                                 target="_blank"
                                 rel="noopener noreferrer"
@@ -122,8 +123,6 @@ const Hero = ({
                       return (<Link key={label + i} href={link}>
                             <Button as="a"
                               href=""
-                              target={external && "_blank"}
-                              rel={external &&"noopener noreferrer"}
                               cursor="pointer"
                               colorScheme="purple" size="md">{label}</Button>     
                         </Link>)
