@@ -7,7 +7,7 @@ const DynamicApp = dynamic(() => import('../components/App'))
 const DynamicAppEditor =  dynamic(() => import('../components/AppEditor'))
 
 const MyApp = (props: AppProps) => {
-  const [editMode] = useState(false)
+  const [editMode] = useState(true)
 
   return (
     <>

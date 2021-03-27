@@ -7,7 +7,6 @@ import {
 import { Icon } from "@chakra-ui/react"
 import { AiFillCheckCircle, AiOutlineLink } from "react-icons/ai"
 import Hero from '../components/Hero'
-import { Container } from '../components/Container'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
@@ -80,7 +79,7 @@ export const getStaticProps: GetStaticProps = async function({
 
     return getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: '/src/data/pages/home.json',
+      fileRelativePath: './src/data/pages/home.json',
       parse: parseJson,
     })
   }
@@ -91,7 +90,7 @@ export const getStaticProps: GetStaticProps = async function({
       error: null,
       preview: false,
       file: {
-        fileRelativePath: '/src/data/pages/home.json',
+        fileRelativePath: './src/data/pages/home.json',
         data: (await import('../data/pages/home.json')).default,
       }
     },

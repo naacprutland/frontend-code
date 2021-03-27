@@ -53,17 +53,16 @@ export const EditLink = ({ cms }) => {
 };
 
 const AppEditor = ( props: AppProps) => {
-  const cms = useMemo(() => {
-    return new TinaCMS({
-      enabled: !!props.pageProps?.preview,
-      apis: {
-        github,
-      },
-      toolbar: props.pageProps?.preview,
-      sidebar: props.pageProps?.preview,
-      media: new GithubMediaStore(github)
-    });
-  }, []);
+  const tinaConfig = {
+    enabled: !!props.pageProps?.preview,
+    apis: {
+      github,
+    },
+    toolbar: props.pageProps?.preview,
+    sidebar: props.pageProps?.preview,
+    media: new GithubMediaStore(github),
+  }
+  const cms = useMemo(() => new TinaCMS(tinaConfig), []);
 
   return (
     <TinaProvider cms={cms}>
