@@ -40,6 +40,7 @@
     "react-markdown": "^5.0.3",
     "react-tinacms-github": "^0.37.0",
     "sass": "^1.32.7",
+    "storybook": "^6.1.21",
     "styled-components": "^5.2.1",
     "tinacms": "^0.37.0"
   },

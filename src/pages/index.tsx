@@ -14,21 +14,19 @@ import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
 import { SEO } from '../interface/seo'
 import { formOptions } from '../data/tinaForms/homeForm'
+import { HomePage } from '../interface/homePage'
 
 interface Props {
   preview: boolean;
   file: {
     fileRelativePath: string;
     sha: string;
-    data: {
-      title: string;
-      pageSEO: SEO;
-    }
+    data: HomePage;
   }
 }
 
 const Index = ({ file, preview }: Props) => {
-  let data = file.data
+  let data: HomePage = file.data
   // Registers a JSON Tina Form
   if (preview) {
     const [dataForm, form] = useGithubJsonForm(file, formOptions)
@@ -41,30 +39,6 @@ const Index = ({ file, preview }: Props) => {
   <>
     <NextSeo {...data.pageSEO} />
     <Hero />
-    <Text>
-        {data.title}
-      </Text>
-
-    <List spacing={3} my={0}>
-      <ListItem>
-        <Icon as={AiFillCheckCircle} color="green.500" />
-        <ChakraLink
-          isExternal
-          href="https://chakra-ui.com"
-          flexGrow={1}
-          mr={2}
-        >
-        
-          Chakra UI <Icon as={AiOutlineLink} />
-        </ChakraLink>
-      </ListItem>
-      <ListItem>
-        <Icon as={AiFillCheckCircle} color="green.500" />
-        <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-          Next.js <Icon as={AiOutlineLink} />
-        </ChakraLink>
-      </ListItem>
-    </List>
   </>
 )}
 
