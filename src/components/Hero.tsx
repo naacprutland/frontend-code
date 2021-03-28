@@ -136,27 +136,4 @@ const Hero = ({
   )
 }
 
-Hero.defaultProps = {
-  title: 'with-chakra-ui-typescript',
-  backgroundImage: {
-    src: '/jonathan-riley-city.jpg',
-    alt: 'the city'
-  },
-  theme: 'dark',
-  imgOverlayPer: 30,
-  horPos: 'left',
-  verPos: 'middle',
-  textPos: 'start',
-  cta: [{
-    label: 'Button',
-    link: '/about',
-    external: false
-  }, 
-  {
-    label: 'Button',
-    link: 'https://www.google.com/',
-    external: true
-  }]
-}
-
 export default Hero
