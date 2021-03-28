@@ -1,20 +1,11 @@
-import {
-  Link as ChakraLink,
-  Text,
-  List,
-  ListItem,
-} from '@chakra-ui/react'
-import { Icon } from "@chakra-ui/react"
-import { AiFillCheckCircle, AiOutlineLink } from "react-icons/ai"
-import Hero from '../components/Hero'
 import { NextSeo } from 'next-seo'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
 import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
-import { SEO } from '../interface/seo'
 import { formOptions } from '../data/tinaForms/homeForm'
 import { HomePage } from '../interface/homePage'
+import DynamicComponent from '../components/DynamicComponent'
 
 interface Props {
   preview: boolean;
@@ -38,7 +29,13 @@ const Index = ({ file, preview }: Props) => {
   return (
   <>
     <NextSeo {...data.pageSEO} />
-    <Hero />
+    {data.pageBlocks.map((cProps, i) => {
+      return <DynamicComponent 
+        key={`${cProps}${i}`}
+        {...cProps} pagePos={i}/>
+     })}
+     
+    {/* <Hero /> */}
   </>
 )}
 

@@ -1,8 +1,8 @@
 import { SEO } from './seo'
-import { PageBlock } from './componentBlock'
+import { PageBlocks } from './componentBlock'
 
 export interface HomePage {
   title: string;
   pageSEO: SEO;
-  pageBlocks: PageBlock;
+  pageBlocks: PageBlocks;
 }

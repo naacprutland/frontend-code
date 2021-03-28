@@ -8,4 +8,6 @@ export interface HeroBlock extends ComponentBlock, HeroProps {
   "_template": 'hero-block'
 }
 
-export type PageBlock = HeroBlock[]
+export type Block = HeroBlock
+
+export type PageBlocks = Block[]

@@ -33,8 +33,44 @@
   },
   "pageBlocks": [
     {
-      "content": "**Billions upon billions** are creatures of the cosmos Orion's sword cosmic fugue at the edge of forever science?",
-      "_template": "content-block"
+      "_template": "hero-block",
+      "title": "Harte Starter",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "the city"
+      },
+      "theme": "dark",
+      "imgOverlayPer": 30,
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "start",
+      "cta": [
+        {
+          "label": "Button",
+          "link": "/about",
+          "external": false
+        }, 
+        {
+          "label": "Button",
+          "link": "https://www.google.com/",
+          "external": true
+        }
+      ]
+    },
+    {
+      "_template": "hero-block",
+      "title": "Next.js",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "the city"
+      },
+      "theme": "dark",
+      "imgOverlayPer": 80,
+      "horPos": "center",
+      "verPos": "middle",
+      "textPos": "end",
+      "cta": [
+      ]
     }
   ]
 }
