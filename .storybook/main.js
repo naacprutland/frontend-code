@@ -1,4 +1,5 @@
-var webpack = require('webpack');
+const path = require("path");
+const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
   "stories": [
@@ -10,16 +11,16 @@ module.exports = {
     "@storybook/addon-essentials"
   ],
   webpackFinal: (config) => {
-    config.plugins.push(new webpack.DefinePlugin({
-      'process.env.__NEXT_IMAGE_OPTS': JSON.stringify({
-        deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
-        imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
-        domains: [],
-        path: '/',
-        loader: 'default',
-      }),
-    }));
-    return config;
+    return {
+        ...config,
+        resolve: {
+          ...config.resolve,
+          alias: {
+            ...config.resolve.alias,
+            "@emotion/core": toPath("node_modules/@emotion/react"),
+            "emotion-theming": toPath("node_modules/@emotion/react"),
+          },
+        },
+    };
   },
-  
 }

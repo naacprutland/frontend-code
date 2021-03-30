@@ -3,23 +3,26 @@
 //   actions: { argTypesRegex: "^on[A-Z].*" },
 // }
 
-import { ChakraProvider } from '@chakra-ui/react'
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from '../src/theme'
-// import * as nextImage from 'next/image';
+import * as nextImage from 'next/image';
 
-// Object.defineProperty(nextImage, 'default', {
-//   configurable: true,
-//   value: (props) => {
-//     return <img {...props} />;
-//   },
-// });
+Object.defineProperty(nextImage, 'default', {
+  configurable: true,
+  value: (props) => {
+    return <img {...props} />;
+  },
+});
 
 
 const withThemeProvider=(Story,context)=>{
   return (
-    <ChakraProvider resetCSS theme={theme}>
-      <Story {...context} />
-    </ChakraProvider>
+    <>
+      <ColorModeScript />
+      <ChakraProvider resetCSS theme={theme}>
+        <Story {...context} />
+      </ChakraProvider>
+    </>
   )
 }
 

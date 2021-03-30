@@ -11,7 +11,7 @@
     "type-check": "tsc --pretty --noEmit",
     "format": "prettier --write .",
     "lint": "eslint . --ext ts --ext tsx --ext js",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006 public --no-dll",
     "start-storybook": "start-storybook -s ./public -p 9001",
     "build-storybook": "build-storybook"
   },

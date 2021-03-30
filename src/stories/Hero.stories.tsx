@@ -18,7 +18,7 @@ export const ctaButtons = Template.bind({});
 ctaButtons.args = {
   title: "Harte Hero",
   backgroundImage: {
-    src: "/jimmy-dean-unsplash.jpg",
+    src: "https://source.unsplash.com/WLUHO9A_xik/1600x900",
     alt: "the city"
   },
   theme: "dark",
