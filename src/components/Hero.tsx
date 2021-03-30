@@ -15,7 +15,7 @@ export interface HeroProps {
   };
   horPos: 'left' | 'right' | 'center';
   verPos: 'top' | 'middle' | 'bottom';
-  pagePos: number;
+  pagePos?: number;
   textPos?: 'start' | 'center' | 'end';
   cta?: CTABtn[]
 }
@@ -73,7 +73,7 @@ const posProMobile = {
 }
 
 const Hero = ({
-  title, detail, theme, imgOverlayPer,
+  title, detail, theme, imgOverlayPer = 0,
   textPos = "start", cta,
   backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
   const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
