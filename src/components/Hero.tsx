@@ -1,7 +1,6 @@
 import { Heading, Box, AspectRatio, Grid, GridItem,
   useBreakpointValue, Container, Button, HStack  } from '@chakra-ui/react'
 import Image from 'next/image'
-import ReactMarkdown from 'react-markdown'
 import Link from 'next/link'
 
 export interface HeroProps {
@@ -24,6 +23,12 @@ export interface CTABtn {
   label: string;
   link: string;
   external: boolean;
+}
+
+enum BtnAlign {
+  start = 'flex-start',
+  center = 'center',
+  end = 'flex-end'
 }
 
 enum VerPos {
@@ -106,8 +111,8 @@ const Hero = ({
                   {title}
                 </Heading>
                 }
-                {detail && <ReactMarkdown>{detail}</ReactMarkdown>}
-                {(cta?.length > 0) && <HStack spacing={2} py={2}>
+                {detail && <Box maxW="300px">{detail}</Box>}
+                {(cta?.length > 0) && <HStack justifyContent={BtnAlign[textPos]} spacing={2} py={2}>
                     {cta && cta.map(({label, link, external}, i) => {
                       if ( external) {
                         return <Button as="a"
