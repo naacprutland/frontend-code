@@ -83,7 +83,7 @@ const Hero = ({
   textPos = "start", cta,
   backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
   const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
-  const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4 })
+  const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4, lg: 7 / 3 })
   const decOverlay = imgOverlayPer / 100;
 
   return (
