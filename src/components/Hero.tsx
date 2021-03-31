@@ -1,6 +1,7 @@
 import { Heading, Box, AspectRatio, Grid, GridItem,
   useBreakpointValue, Container, Button, HStack  } from '@chakra-ui/react'
 import Image from 'next/image'
+
 import Link from 'next/link'
 
 export interface HeroProps {
@@ -82,13 +83,13 @@ const Hero = ({
   textPos = "start", cta,
   backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
   const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
-  const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 3})
+  const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4})
   const decOverlay = imgOverlayPer / 100;
 
   return (
     <AspectRatio w="100%" ratio={ratio} >
       <Box>
-        <Box position="absolute" w="100%" h="100%" top="0"
+        <Box position="absolute" bg="black" w="100%" h="100%" top="0"
             zIndex="-1"
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >

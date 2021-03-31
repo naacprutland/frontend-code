@@ -3,6 +3,7 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Hero, { HeroProps } from '../components/Hero'
+import testImg1 from './assets/jimmy-dean-unsplash.jpg'
 
 export default {
   title: "Blocks/Hero",
@@ -18,7 +19,7 @@ export const ctaButtons = Template.bind({});
 ctaButtons.args = {
   title: "Harte Hero",
   backgroundImage: {
-    src: "https://source.unsplash.com/WLUHO9A_xik/1600x900",
+    src: testImg1,
     alt: "the city"
   },
   theme: "dark",
