@@ -1,24 +1,63 @@
 import { Container } from "@chakra-ui/react"
-import { Flex, Box, Text, Image,  HStack } from "@chakra-ui/react"
+import { Box, Text, Image,  HStack, useColorMode, } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
+import Link from 'next/link'
 
-const Header = () => {
+export interface HeaderProps {
+  logo: {
+    src: string;
+    alt: string;
+  },
+  pageLinks: {
+    label: string;
+    path: string;
+  }[],
+  includeDarkMode?: boolean;
+  fixed?: boolean;
+  transparent?:boolean;
+}
+
+const Header = ({ logo, 
+  pageLinks = [],
+  includeDarkMode,
+  fixed,
+  transparent
+}: HeaderProps) => {
+  const { colorMode } = useColorMode()
   return (
-    <Box as="header" d="flex" alignItems="center" bg="blue.900" color="white" h="50px" >
-      <Container  maxW="container.xl">
-        <Flex color="white" h="100%" justifyContent="space-between">
+    <Box as="header" d="flex" alignItems="center" 
+      top="0" position={fixed ? 'fixed' : 'static'}
+      w="100%"
+      bg={transparent ? 'none' : "blue.900"}
+       h="3.5rem" >
+      <Container d="flex" 
+        justifyContent="space-between" 
+        paddingTop="2"
+        paddingBottom="2"
+        color={transparent && colorMode === 'light' ? "black" : "white"}
+        maxW="container.xl" h="100%">  
           <Box d="flex" alignItems="center" w="100px" h="100%">
-            <Image src="/vercel.svg" 
-              alt="Segun Adebayo" w="80px" />
+            <Link href="/" passHref>
+              <Box as="a" h="100%" cursor="pointer">
+                <Image height="100%" src={logo.src} 
+                  alt={logo.alt} />
+              </Box>
+            </Link>
           </Box>
           <HStack as="nav" spacing={4} h="100%" justifyContent="flex-end">
             <HStack as="ul" spacing={3} sx={{"list-style-type": "none"}}>
-              <li> <Text>About</Text></li>
-              <li><Text>blog</Text></li>
+              {pageLinks.map((links) => (
+                <Box as="li" key={links.path} margin="0">
+                  <Link href={links.path} passHref>
+                    <Text as="a" cursor="pointer" textTransform="capitalize">
+                      {links.label}
+                    </Text>
+                  </Link>
+                </Box>
+              ))}
             </HStack>
-            <DarkModeSwitch />
+            {includeDarkMode && <DarkModeSwitch />}
           </HStack>
-        </Flex>
       </Container>
     </Box>
    )
