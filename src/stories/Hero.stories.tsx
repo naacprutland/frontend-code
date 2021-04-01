@@ -9,7 +9,13 @@ export default {
   title: "Blocks/Hero",
   component: Hero,
   argTypes: {
-    
+    imgOverlayPer: {
+      control: {
+        type:'range',
+        min: 0,
+        max: 100
+      }
+    }
   }
 } as Meta;
 
@@ -23,7 +29,6 @@ maxOfFourCta.args = {
     alt: "the city"
   },
   theme: "dark",
-  imgOverlayPer: 30,
   horPos: "center",
   verPos: "bottom",
   textPos: "start",
