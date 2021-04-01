@@ -29,6 +29,7 @@ maxOfFourCta.args = {
     alt: "the city"
   },
   theme: "dark",
+  imgOverlayPer: 30,
   horPos: "center",
   verPos: "bottom",
   textPos: "start",
