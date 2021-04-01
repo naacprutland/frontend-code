@@ -34,8 +34,6 @@ const Index = ({ file, preview }: Props) => {
         key={`${cProps}${i}`}
         {...cProps} pagePos={i}/>
      })}
-     
-    {/* <Hero /> */}
   </>
 )}
 
