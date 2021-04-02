@@ -2,11 +2,11 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import Hero, { HeroProps } from '../components/Hero'
+import Hero, { HeroProps } from '../components/HeroBlock'
 import testImg1 from './assets/jimmy-dean-unsplash.jpg'
 
 export default {
-  title: "Blocks/Hero",
+  title: "Blocks/Hero Block",
   component: Hero,
   argTypes: {
     imgOverlayPer: {

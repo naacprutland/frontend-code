@@ -77,7 +77,7 @@ const posProMobile = {
   span: 12
 }
 
-const Hero = ({
+const HeroBlock = ({
   title, detail, theme, imgOverlayPer = 0,
   textPos = "start", cta,
   backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
@@ -86,7 +86,7 @@ const Hero = ({
   const decOverlay = imgOverlayPer / 100;
 
   return (
-    <AspectRatio w="100%" ratio={ratio} >
+    <AspectRatio maxW="container.xl" m="auto" ratio={ratio} >
       <Box>
         <Box position="absolute" bg="black" w="100%" h="100%" top="0"
             zIndex="-1"
@@ -96,7 +96,7 @@ const Hero = ({
                 layout="fill"
                   objectFit="cover" objectPosition="center" {...backgroundImage} />
         </Box>
-        <Container h="100%" paddingBottom="1.5rem" paddingTop="1.5rem" maxW="100%">
+        <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
           <Grid
             h="100%"
             templateRows="repeat(3, 1fr)"
@@ -146,4 +146,4 @@ const Hero = ({
   )
 }
 
-export default Hero
+export default HeroBlock
