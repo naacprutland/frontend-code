@@ -43,7 +43,6 @@
     "react-icons": "^4.2.0",
     "react-markdown": "^5.0.3",
     "react-tinacms-github": "^0.37.0",
-    "sass": "^1.32.7",
     "styled-components": "^5.2.1",
     "tinacms": "^0.37.0"
   },
