@@ -1,9 +1,9 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 import type { Block } from '../interface/componentBlock'
-import { HeroProps } from './Hero'
+import { HeroProps } from './HeroBlock'
 
-const DynamicHero: React.ComponentType<HeroProps> = dynamic(() => import('./Hero'))
+const DynamicHero: React.ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 
 function DynamicComponent({ _template, ...props}: Block) {
   switch (_template) {

@@ -34,6 +34,7 @@ const Header = ({ logo,
         justifyContent="space-between" 
         paddingTop="2"
         paddingBottom="2"
+        centerContent
         color={transparent && colorMode === 'light' ? "black" : "white"}
         maxW="container.xl" h="100%">  
           <Box d="flex" alignItems="center" w="100px" h="100%">

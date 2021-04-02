@@ -1,4 +1,4 @@
-import { HeroProps } from '../components/Hero'
+import { HeroProps } from '../components/HeroBlock'
 
 interface ComponentBlock {
   "_template": string;

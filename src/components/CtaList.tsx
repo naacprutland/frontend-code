@@ -12,7 +12,7 @@ export interface CTABtn {
 export interface CTAListProps {
   cta: CTABtn[];
   groupPosition: AlignItemsOptions;
-  size: 	"sm" | "md" | "lg" | "xs";
+  size: "xs" | "sm" | "md" | "lg";
   colorScheme: BtnColor;
   variant: BtnVariant;
 }
