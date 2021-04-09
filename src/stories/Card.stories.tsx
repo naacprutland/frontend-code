@@ -25,9 +25,20 @@ const cardData: CardProps = {
   }
 }
 
-export const fullData = Template.bind({});
-fullData.args = {
+export const column = Template.bind({});
+column.args = {
   ...cardData
 };
 
+export const row = Template.bind({});
+row.args = {
+  ...cardData,
+  layout: 'row'
+};
+
+export const rowReverse = Template.bind({});
+rowReverse.args = {
+  ...cardData,
+  layout: 'row-reverse'
+};
 

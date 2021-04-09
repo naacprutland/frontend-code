@@ -14,16 +14,24 @@ export interface CardProps {
     label?: string;
     path: string;
     isExternal: boolean;
-  }
+  },
+  layout?: 'column' | 'row' | 'row-reverse'
 }
 
-const Card = ({ image, title, copy, link }: CardProps) => {
+const rowArr = ['row', 'row-reverse']
+
+const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
   return (
-    <LinkBox as="figure" display="flex" flexDirection="column" borderWidth="1px" backgroundColor="gray.50">
-      <AspectRatio ratio={4 / 3}>
-        <Image layout="fill" src={image.src} alt={image.alt}/>
+    <LinkBox as="figure" display="flex" flexDirection={layout} borderWidth="1px" backgroundColor="gray.50">
+      <AspectRatio ratio={4 / 3} flex={`1 1 ${rowArr.includes(layout) ? '30%' : '100%'}`}>
+        <Image objectFit="cover" layout="fill" src={image.src} alt={image.alt}/>
       </AspectRatio>
-      <Box as="figcaption" p="2" display="flex"  flex="1 1" flexDirection="column">
+      <Box as="figcaption" p="2" 
+        pl={layout === 'row' && 6 } 
+        pr={layout === 'row-reverse' && 6 } 
+        display="flex"  
+        flex={`1 1 ${rowArr.includes(layout) ? '70%' : '100%'}`}
+        flexDirection="column">
         <Heading size="md" >        
           {title}
         </Heading>
