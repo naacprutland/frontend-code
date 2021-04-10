@@ -40,3 +40,21 @@ export const sixCards = Template.bind({});
 sixCards.args = {
   cards: new Array(6).fill(cardData)
 };
+
+export const rowsOfCards = Template.bind({});
+rowsOfCards.args = {
+  cards: new Array(6).fill(cardData),
+  layout: 'rows'
+};
+
+export const reverseRowsOfCards = Template.bind({});
+reverseRowsOfCards.args = {
+  cards: new Array(6).fill(cardData),
+  layout: 'rowsReverse'
+};
+
+export const alternatingRowsOfCards = Template.bind({});
+alternatingRowsOfCards.args = {
+  cards: new Array(6).fill(cardData),
+  layout: 'alternatingRows'
+};
