@@ -46,3 +46,17 @@ mediaVideo.args = {
   },
   overlayOpacity: 50
 };
+
+export const mediaImagePlay = Template.bind({});
+mediaImagePlay.args = {
+  bgType: 'image',
+  bgImg: {
+    src: testImg1,
+    alt: "in the rain"
+  },
+  overlayOpacity: 25,
+  youTubeVideo: {
+    key: 'SUxD_hzWRWU',
+    label: 'AMV'
+  }
+};
