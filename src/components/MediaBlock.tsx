@@ -90,6 +90,7 @@ const MediaBlock = ({
                 h="32"
                 w="32" 
                 overflow="hidden"
+                color="white"
                 colorScheme="whiteAlpha"
                 aria-label="Play Video" 
                 icon={<Icon paddingLeft="4" as={BiPlay} />} />
@@ -99,12 +100,18 @@ const MediaBlock = ({
           </Box>
         </AspectRatio>
       </Container>
-      {youTubeVideo && <Modal onClose={onClose} size="full" isOpen={isOpen} isCentered>
+      {youTubeVideo && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
         <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>{youTubeVideo.label}</ModalHeader>
+        <ModalContent 
+          sx={{
+            "@media only screen and (orientation : landscape) and (min-width: calc(100vh * 1.8)) ": {
+              maxWidth: "calc(100vh * 1.8)",
+            }
+          }}
+          color="white"
+          backgroundColor="blackAlpha.300">
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody pl="12" pr="12"> 
             <AspectRatio bgColor="black" ratio={16/9}>
               <YouTube
                 videoId={youTubeVideo.key}
