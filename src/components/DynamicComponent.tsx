@@ -1,13 +1,15 @@
 import { ComponentType } from 'react'
 import dynamic from 'next/dynamic'
-import type { Block, HeroBlock, TextBlock, DeckBlock } from '../interface/componentBlock'
+import type { Block, HeroBlock, TextBlock, DeckBlock, MediaBlock } from '../interface/componentBlock'
 import { HeroProps } from './HeroBlock'
 import { TextBlockProps } from './TextBlock'
 import { DeckBlockProps } from './DeckBlock'
+import { MediaBlockProps } from './MediaBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
 const DynamicDeckBlock: ComponentType<DeckBlockProps> = dynamic(() => import('./DeckBlock'))
+const DynamicMediaBlock: ComponentType<MediaBlockProps> = dynamic(() => import('./MediaBlock'))
 
 function DynamicComponent({ _template, ...props}: Block) {
   switch (_template) {
@@ -17,6 +19,8 @@ function DynamicComponent({ _template, ...props}: Block) {
       return <DynamicTextBlock {...props as TextBlock}/>
     case 'deck-block':
       return <DynamicDeckBlock {...props as DeckBlock} />
+    case 'media-block': 
+      return <DynamicMediaBlock {...props as MediaBlock} />
     default :
       return null
   }
