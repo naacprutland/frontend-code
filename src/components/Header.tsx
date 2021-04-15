@@ -30,7 +30,8 @@ const Header = ({ logo,
       w="100%"
       bg={transparent ? 'none' : "blue.900"}
        h="3.5rem" >
-      <Container d="flex" 
+      <Container 
+        flexDir="row"
         justifyContent="space-between" 
         paddingTop="2"
         paddingBottom="2"
