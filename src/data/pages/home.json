@@ -68,7 +68,9 @@
           "link": "https://www.google.com",
           "external": true
         }
-      ]
+      ],
+      "colorScheme": "purple",
+      "groupPosition": "center"
     },
     {
       "_template": "hero-block",
