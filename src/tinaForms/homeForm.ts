@@ -1,5 +1,6 @@
 import { seoFields } from './seo'
-import { HeroBlock } from './heroBlock'
+import { heroBlock } from './heroBlock'
+import { textBlock } from './textBlock'
 
 // const base = {
 //   name: "customInput",
@@ -164,7 +165,8 @@ export const formOptions = {
       name: "pageStructure",
       component: "blocks",
       templates: {
-        'hero-block': HeroBlock
+        'hero-block': heroBlock,
+        'text-block': textBlock
       },
     }
   ],

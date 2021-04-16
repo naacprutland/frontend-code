@@ -6,7 +6,7 @@ import styled from 'styled-components'
 export interface TextBlockProps {
   richText: string;
   cta: CTABtn[];
-  textAlign: AlignItemsOptions;
+  textPos: AlignItemsOptions;
   groupPosition: AlignItemsOptions;
   colorScheme: BtnColor;
   variant: BtnVariant;
@@ -69,10 +69,10 @@ function createMarkup(richText: string) {
   return {__html: richText};
 }
 
-const TextBlock = ({ richText, textAlign, ...ctaListProps }: TextBlockProps)=> {
+const TextBlock = ({ richText, textPos, ...ctaListProps }: TextBlockProps)=> {
   const theme = useTheme()
   return (
-    <Container maxW="container.md" textAlign={textAlign} centerContent>
+    <Container maxW="container.md" textAlign={textPos} centerContent>
         <ContentContainer {...theme} dangerouslySetInnerHTML={createMarkup(richText)} />
         <CtaList size="md" {...ctaListProps} />
     </Container>
