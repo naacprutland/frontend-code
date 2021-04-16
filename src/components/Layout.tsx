@@ -1,10 +1,16 @@
+import * as React from 'react'
 import Footer from './Footer'
-import Header from './Header'
+import Header, { HeaderProps } from './Header'
 import Main from './Main'
 
-const Layout = ({ children }) => {
+export interface LayoutProps {
+  headerData: HeaderProps;
+  children: React.ReactNode;
+}
+
+const Layout = ({ headerData, children }: LayoutProps) => {
   return (<>
-    <Header />
+    <Header {...headerData} />
     <Main>
       {children}
     </Main>

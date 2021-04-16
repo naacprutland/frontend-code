@@ -1,0 +1,31 @@
+{
+  "logo": {
+    "src": "/Firefox_logo.svg",
+    "alt": "firefox"
+  },
+  "pageLinks": [
+    {
+      "label": "about",
+      "path": "/about"
+    },
+    {
+      "label": "blog",
+      "path": "/blog"
+    }
+  ],
+  "defaultSeo": {
+    "title": "Page Meta Title",
+    "description": "This will be the page meta description",
+    "canonical": "/",
+    "openGraph": {
+        "type": "website",
+        "locale": "en_IE",
+        "site_name": "SiteName"
+    },
+    "twitter": {
+        "handle": "@handle",
+        "site": "@site",
+        "cardType": "summary_large_image"
+    }
+  }
+}
