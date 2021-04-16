@@ -164,7 +164,7 @@ export const formOptions = {
       name: "pageStructure",
       component: "blocks",
       templates: {
-        HeroBlock
+        'hero-block': HeroBlock
       },
     }
   ],

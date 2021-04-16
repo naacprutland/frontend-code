@@ -24,7 +24,7 @@ const Index = ({ file, preview }: Props) => {
     usePlugin(form)
     useGithubToolbarPlugins()
   }
-  console.log(data)
+
   return (
   <>
     <NextSeo {...data.pageSEO} />
