@@ -28,7 +28,7 @@ const Index = ({ file, preview }: Props) => {
   return (
   <>
     <NextSeo {...data.pageSEO} />
-    {data?.pageBlocks?.map((cProps, i) => {
+    {data?.pageStructure?.map((cProps, i) => {
       return <DynamicComponent 
         key={`${cProps}${i}`}
         {...cProps} pagePos={i}/>
