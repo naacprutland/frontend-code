@@ -58,6 +58,12 @@
       ]
     },
     {
+      "_template": "text-block",
+      "richText": "<p>Panda Ipsum the red panda is cute tiny panda loves being cool tiny panda dancing bear. </p><p></p><p>It is the population has dwindled. The panda relaxing in the cool tiny panda bear. </p><p></p><p>Giant panda eat bamboo in the population has dwindled. The red panda bear giant panda loves being cool tiny panda.</p>",
+      "textPos": "start",
+      "variant": "solid"
+    },
+    {
       "_template": "hero-block",
       "imgOverlayPer": 35,
       "cta": [],
