@@ -45,13 +45,11 @@ export async function getPageProps(
   const config =  await getConfigData();
 
   if (preview) {
-    console.log('getting data')
     const gitHubProps = await getGithubPreviewProps({
       ...previewData,
       fileRelativePath: `/src/data/pages/${page}.json`,
       parse: parseJson,
     })
-    console.log('got data', gitHubProps)
 
     return {
       props: {

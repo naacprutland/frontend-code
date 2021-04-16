@@ -20,7 +20,7 @@ export interface CTAListProps {
 const CtaList = ({ cta, groupPosition, ...btnProps }: CTAListProps) => (
     <>
       {(cta?.length > 0) && <Wrap justify={AlignItems[groupPosition]} width="100%" spacing={2} py={2}>
-        {cta && cta.map(({label, link, external}, i) => {
+        {cta && cta.map(({ label="", link="", external=false}, i) => {
             return (<> 
               {external ? (
                 <WrapItem key={label + i}>
