@@ -49,7 +49,7 @@
           "label": "Button",
           "link": "/about",
           "external": false
-        }, 
+        },
         {
           "label": "Button",
           "link": "https://www.google.com/",
@@ -69,8 +69,13 @@
       "horPos": "center",
       "verPos": "middle",
       "textPos": "end",
-      "cta": [
-      ]
+      "cta": []
+    }
+  ],
+  "pageStructure": [
+    {
+      "_template": "HeroBlock",
+      "title": "harte starter"
     }
   ]
 }
