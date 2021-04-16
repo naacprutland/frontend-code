@@ -31,7 +31,7 @@
       ]
     }
   },
-  "pageBlocks": [
+  "pageStructure": [
     {
       "_template": "hero-block",
       "title": "Harte Starter",
@@ -70,12 +70,6 @@
       "verPos": "middle",
       "textPos": "end",
       "cta": []
-    }
-  ],
-  "pageStructure": [
-    {
-      "_template": "HeroBlock",
-      "title": "harte starter"
     }
   ]
 }
