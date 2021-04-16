@@ -24,11 +24,11 @@ const Index = ({ file, preview }: Props) => {
     usePlugin(form)
     useGithubToolbarPlugins()
   }
-
+  console.log(data)
   return (
   <>
     <NextSeo {...data.pageSEO} />
-    {data.pageBlocks.map((cProps, i) => {
+    {data?.pageBlocks?.map((cProps, i) => {
       return <DynamicComponent 
         key={`${cProps}${i}`}
         {...cProps} pagePos={i}/>

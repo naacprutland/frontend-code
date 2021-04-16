@@ -86,7 +86,7 @@ const HeroBlock = ({
   const decOverlay = imgOverlayPer / 100;
 
   return (
-    <AspectRatio maxW="container.xl" m="auto" ratio={ratio} >
+    <AspectRatio w="100%" maxW="container.xl" m="auto" ratio={ratio} >
       <Box>
         <Box position="absolute" bg="black" w="100%" h="100%" top="0"
             zIndex="-1"

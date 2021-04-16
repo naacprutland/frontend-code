@@ -4,11 +4,11 @@ import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
 
 export interface HeaderProps {
-  logo: {
+  logo?: {
     src: string;
     alt: string;
   },
-  pageLinks: {
+  pageLinks?: {
     label: string;
     path: string;
   }[],
@@ -41,8 +41,9 @@ const Header = ({ logo,
           <Box d="flex" alignItems="center" w="100px" h="100%">
             <Link href="/" passHref>
               <Box as="a" h="100%" cursor="pointer">
-                <Image height="100%" src={logo.src} 
+                {logo && <Image height="100%" src={logo.src} 
                   alt={logo.alt} />
+                }
               </Box>
             </Link>
           </Box>
