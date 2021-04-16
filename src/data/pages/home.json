@@ -34,6 +34,22 @@
   "pageStructure": [
     {
       "_template": "hero-block",
+      "imgOverlayPer": 35,
+      "cta": [
+        {
+          "label": "button",
+          "link": "/"
+        }
+      ],
+      "title": "Harte Test",
+      "detail": "blah blah",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "in the city"
+      }
+    },
+    {
+      "_template": "hero-block",
       "title": "Harte Starter",
       "backgroundImage": {
         "src": "/jonathan-riley-city.jpg",
