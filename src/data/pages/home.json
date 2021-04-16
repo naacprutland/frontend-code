@@ -35,18 +35,17 @@
     {
       "_template": "hero-block",
       "imgOverlayPer": 35,
-      "cta": [
-        {
-          "label": "button",
-          "link": "/"
-        }
-      ],
-      "title": "Harte Test",
-      "detail": "blah blah",
+      "cta": [],
+      "title": "",
+      "detail": "",
       "backgroundImage": {
-        "src": "/jonathan-riley-city.jpg",
+        "src": "/brooke-lark-pGM4sjt_BdQ-unsplash.jpg",
         "alt": "in the city"
-      }
+      },
+      "theme": "dark",
+      "horPos": "center",
+      "verPos": "middle",
+      "textPos": "center"
     },
     {
       "_template": "hero-block",
