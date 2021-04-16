@@ -1,4 +1,4 @@
-import { PageSeo, GroupConfig } from '../../interface/tinaForm'
+import { PageSeo, GroupConfig } from '../interface/tinaForm'
 
 
 const openGraph: GroupConfig = {

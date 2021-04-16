@@ -1,7 +1,7 @@
 import { NextSeo } from 'next-seo'
 import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
-import { formOptions } from '../data/tinaForms/homeForm'
+import { formOptions } from '../tinaForms/homeForm'
 import { HomePage } from '../interface/homePage'
 import DynamicComponent from '../components/DynamicComponent'
 import { getPageProps } from '../lib/pageProps'
