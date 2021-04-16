@@ -7,6 +7,7 @@ import {
   GithubMediaStore,
 } from 'react-tinacms-github'
 import App from './App'
+import { HtmlFieldPlugin } from 'react-tinacms-editor'
 
 const onLogin = async () => {
   const token = localStorage.getItem('tinacms-github-token') || null;
@@ -63,6 +64,7 @@ const AppEditor = ( props: AppProps) => {
     media: new GithubMediaStore(github),
   }
   const cms = useMemo(() => new TinaCMS(tinaConfig), []);
+  cms.plugins.add(HtmlFieldPlugin)
 
   return (
     <TinaProvider cms={cms}>
