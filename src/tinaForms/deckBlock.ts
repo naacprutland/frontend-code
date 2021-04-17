@@ -41,25 +41,6 @@ export const deckBlock = {
               toggleLabels: false
             }
           ]
-        },
-        { 
-          name: "layout",
-          label: "Layout",
-          component: "select",
-          options: [
-            {
-              value: 'rows',
-              label: 'Rows'
-            }, 
-            {
-              value: 'row-reverse',
-              label: 'Row Reverse'
-            },
-            {
-              value: 'column',
-              label: 'Column'
-            }
-          ]
         }
       ]
     },

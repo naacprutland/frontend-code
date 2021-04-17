@@ -168,7 +168,7 @@ export const formOptions = {
       templates: {
         'hero-block': heroBlock,
         'text-block': textBlock,
-        'desk-block': deckBlock
+        'deck-block': deckBlock
       },
     }
   ],

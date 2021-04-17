@@ -23,9 +23,12 @@ const rowArr = ['row', 'row-reverse']
 const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
   return (
     <LinkBox as="figure" display="flex" flexDirection={layout} borderWidth="1px" backgroundColor="gray.50">
-      <AspectRatio ratio={4 / 3} flex={`1 1 ${rowArr.includes(layout) ? '30%' : '100%'}`}>
-        <Image objectFit="cover" layout="fill" src={image.src} alt={image.alt}/>
-      </AspectRatio>
+      {
+        image && (
+          <AspectRatio ratio={4 / 3} flex={`1 1 ${rowArr.includes(layout) ? '30%' : '100%'}`}>
+            <Image objectFit="cover" layout="fill" src={image?.src} alt={image?.alt}/>
+          </AspectRatio>)
+      }
       <Box as="figcaption" p="2" 
         pl={layout === 'row' && 6 } 
         pr={layout === 'row-reverse' && 6 } 
@@ -41,13 +44,13 @@ const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
           </Text> : <Spacer flex="1 1" />
         }
         {
-          link.label && (
-          <NextLink href={link.path} passHref>
-            <LinkOverlay isExternal={link.isExternal} 
+          (link?.label && link?.path) && (
+          <NextLink href={link?.path} passHref>
+            <LinkOverlay isExternal={link?.isExternal} 
               display="flex"
               alignItems="center"
               mt="3" color="teal.400" fontWeight="bold">
-              {link.label}<Icon ml="1" as={BiCaretRightCircle} />
+              {link?.label}<Icon ml="1" as={BiCaretRightCircle} />
             </LinkOverlay>
           </NextLink>
           )

@@ -20,7 +20,7 @@ const alternateRow = (
   return alternate !== opts[index % 2] ? 'row-reverse' : 'row'
 }
 
-const DeckBlock = ({ cards, layout = "cards", alternate ='odds' }: DeckBlockProps) => (
+const DeckBlock = ({ cards=[], layout = "cards", alternate ='odds' }: DeckBlockProps) => (
   <Container as="section" maxW={`container.${layout === 'cards' ? 'lg': 'md'}`} centerContent>
     <GridLayout columns={layout === 'cards' ? [1, 2, 3 ] : 1}>
       {cards.map((data, i) => (
