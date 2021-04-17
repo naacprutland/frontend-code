@@ -79,6 +79,12 @@
           "image": {
             "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
             "alt": "eyes"
+          },
+          "title": "Example Card",
+          "copy": "Panda Ipsum the red panda is cute tiny panda loves being cool tiny panda dancing bear. It is the population has dwindled. The panda relaxing in the cool tiny panda bear",
+          "link": {
+            "label": "Panda",
+            "path": "/"
           }
         }
       ]
