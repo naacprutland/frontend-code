@@ -33,6 +33,46 @@
   },
   "pageStructure": [
     {
+      "_template": "hero-block",
+      "title": "Harte Starter",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "the city"
+      },
+      "theme": "dark",
+      "imgOverlayPer": 30,
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "start",
+      "cta": [
+        {
+          "label": "Button",
+          "link": "/about",
+          "external": false
+        },
+        {
+          "label": "Button",
+          "link": "https://www.google.com/",
+          "external": true
+        }
+      ]
+    },
+    {
+      "_template": "text-block",
+      "richText": "<p>Panda Ipsum the red panda is cute tiny panda loves being cool tiny panda dancing bear. </p><p></p><p>It is the population has dwindled. The panda relaxing in the cool tiny panda bear. </p><p></p><p>Giant panda eat bamboo in the population has dwindled. The red panda bear giant panda loves being cool tiny panda.</p>",
+      "textPos": "start",
+      "variant": "solid",
+      "cta": [
+        {
+          "label": "Get Some Now",
+          "link": "https://www.google.com",
+          "external": true
+        }
+      ],
+      "colorScheme": "purple",
+      "groupPosition": "center"
+    },
+    {
       "_template": "deck-block",
       "cards": [
         {
@@ -72,46 +112,6 @@
           "copy": "Panda Ipsum panda dancing panda. Board panda ipsum eating bamboo in the earth as early as three million years ago. There are only ovulate once each year."
         }
       ]
-    },
-    {
-      "_template": "hero-block",
-      "title": "Harte Starter",
-      "backgroundImage": {
-        "src": "/jonathan-riley-city.jpg",
-        "alt": "the city"
-      },
-      "theme": "dark",
-      "imgOverlayPer": 30,
-      "horPos": "center",
-      "verPos": "bottom",
-      "textPos": "start",
-      "cta": [
-        {
-          "label": "Button",
-          "link": "/about",
-          "external": false
-        },
-        {
-          "label": "Button",
-          "link": "https://www.google.com/",
-          "external": true
-        }
-      ]
-    },
-    {
-      "_template": "text-block",
-      "richText": "<p>Panda Ipsum the red panda is cute tiny panda loves being cool tiny panda dancing bear. </p><p></p><p>It is the population has dwindled. The panda relaxing in the cool tiny panda bear. </p><p></p><p>Giant panda eat bamboo in the population has dwindled. The red panda bear giant panda loves being cool tiny panda.</p>",
-      "textPos": "start",
-      "variant": "solid",
-      "cta": [
-        {
-          "label": "Get Some Now",
-          "link": "https://www.google.com",
-          "external": true
-        }
-      ],
-      "colorScheme": "purple",
-      "groupPosition": "center"
     },
     {
       "_template": "hero-block",
