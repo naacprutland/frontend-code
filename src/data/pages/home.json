@@ -37,6 +37,18 @@
       "cards": [
         {
           "image": {
+            "src": "/stewart-maclean-JgvT3Mt8Bkw-unsplash.jpg",
+            "alt": "rain"
+          },
+          "title": "Example",
+          "link": {
+            "label": "Panda",
+            "path": "/"
+          },
+          "copy": " Cute panda relaxing in the giant panda red panda dances. The red panda red panda loves leaves to dance and eat bamboo in the forest. Cute panda relaxing."
+        },
+        {
+          "image": {
             "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
             "alt": "eyes"
           },
