@@ -41,3 +41,21 @@ export const textPos = {
     }
   ] 
 }
+
+export const imageFields = [
+  {
+    label: "Image Src",
+    name: "src",
+    description: "The src of the image",
+    component: "image",
+    parse: media => `/${media.filename}`,
+    uploadDir: () => '/public/',
+    previewSrc: fullSrc => fullSrc.replace('/public', '')
+  },
+  {
+    label: "Image Alt",
+    name: "alt",
+    description: "The alt text for the image",
+    component: "text"
+  }
+]

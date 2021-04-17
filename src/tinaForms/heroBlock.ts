@@ -1,4 +1,4 @@
-import { ctaBtn, textPos } from './commonFields'
+import { ctaBtn, textPos, imageFields } from './commonFields'
 
 export const heroBlock = {
   label: "Hero",
@@ -35,23 +35,7 @@ export const heroBlock = {
       name: "backgroundImage",
       description: "The hero background image",
       component: "group",
-      fields: [
-        {
-          label: "Image Src",
-          name: "src",
-          description: "The src of the image",
-          component: "image",
-          parse: media => `/${media.filename}`,
-          uploadDir: () => '/public/',
-          previewSrc: fullSrc => fullSrc.replace('/public', '')
-        },
-        {
-          label: "Image Alt",
-          name: "alt",
-          description: "The alt text for the image",
-          component: "text"
-        },
-      ]
+      fields: imageFields
     },
     { 
       name: "horPos",

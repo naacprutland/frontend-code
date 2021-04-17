@@ -1,6 +1,7 @@
 import { seoFields } from './seo'
 import { heroBlock } from './heroBlock'
 import { textBlock } from './textBlock'
+import { deckBlock } from './deckBlock'
 
 // const base = {
 //   name: "customInput",
@@ -166,7 +167,8 @@ export const formOptions = {
       component: "blocks",
       templates: {
         'hero-block': heroBlock,
-        'text-block': textBlock
+        'text-block': textBlock,
+        'desk-block': deckBlock
       },
     }
   ],
