@@ -33,6 +33,35 @@
   },
   "pageStructure": [
     {
+      "_template": "deck-block",
+      "cards": [
+        {
+          "image": {
+            "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
+            "alt": "eyes"
+          },
+          "title": "Example",
+          "copy": "Panda Ipsum the red panda is cute tiny panda loves being cool tiny panda dancing bear. It is the population has dwindled.",
+          "link": {
+            "label": "Panda",
+            "path": "/"
+          }
+        },
+        {
+          "image": {
+            "src": "/gideon-hezekiah-1I3_xTAXTxo-unsplash.jpg",
+            "alt": "gold"
+          },
+          "title": "Example",
+          "link": {
+            "label": "Panda",
+            "path": "/"
+          },
+          "copy": "Panda Ipsum panda dancing panda. Board panda ipsum eating bamboo in the earth as early as three million years ago. There are only ovulate once each year."
+        }
+      ]
+    },
+    {
       "_template": "hero-block",
       "title": "Harte Starter",
       "backgroundImage": {
