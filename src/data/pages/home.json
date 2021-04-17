@@ -73,6 +73,17 @@
       "groupPosition": "center"
     },
     {
+      "_template": "desk-block",
+      "cards": [
+        {
+          "image": {
+            "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
+            "alt": "eyes"
+          }
+        }
+      ]
+    },
+    {
       "_template": "hero-block",
       "imgOverlayPer": 35,
       "cta": [
