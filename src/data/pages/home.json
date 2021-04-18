@@ -33,15 +33,6 @@
   },
   "pageStructure": [
     {
-      "bgType": "image",
-      "overlayOpacity": 35,
-      "_template": "media-block",
-      "bgImg": {
-        "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
-        "alt": "eyes"
-      }
-    },
-    {
       "_template": "hero-block",
       "title": "Harte Starter",
       "backgroundImage": {
@@ -80,6 +71,15 @@
       ],
       "colorScheme": "purple",
       "groupPosition": "center"
+    },
+    {
+      "bgType": "image",
+      "overlayOpacity": 35,
+      "_template": "media-block",
+      "bgImg": {
+        "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
+        "alt": "eyes"
+      }
     },
     {
       "_template": "deck-block",
@@ -139,6 +139,10 @@
       "horPos": "center",
       "verPos": "middle",
       "textPos": "center"
+    },
+    {
+      "_template": "text-block",
+      "richText": "<p></p><p>Panda Ipsum the genus Ailurus and the population has dwindled. The panda dances. Ailuridae. Panda, panda, panda, panda, panda, panda is one of pandas, the forest as three days. That is the giant panda is the forest. Panda Ipsum the forest. Panda Ipsum the only living species of pandas, the giant black-and-white panda is one of the cool tiny dancing panda. Board panda bear. Giant panda bear. It is cute panda. Panda Ipsum panda cute panda.</p><p></p><p>Likes great panda ipsum with giant panda cute panda. Board panda likes great panda and eat bamboo in the population has dwindled. The red panda bear giant panda bear. Giant panda likes great panda and the ipsum all about pandas. The panda and eat bamboo in the forest. Panda Ipsum the reasons why the Red panda likes great panda bear. Giant panda and eat bamboo leaves. Red Panda. Female pandas only fertile for two main types of the forest as early as three million years ago. There are only fertile for two or three million years ago. There are two main types of the ipsum eating bamboo in the forest as three million years ago. There are only fertile for two main types of the population.</p>"
     },
     {
       "_template": "hero-block",
