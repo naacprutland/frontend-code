@@ -33,6 +33,15 @@
   },
   "pageStructure": [
     {
+      "bgType": "image",
+      "overlayOpacity": 35,
+      "_template": "media-block",
+      "bgImg": {
+        "src": "/prince-akachi-RcqKOjX0ZHE-unsplash.jpg",
+        "alt": "eyes"
+      }
+    },
+    {
       "_template": "hero-block",
       "title": "Harte Starter",
       "backgroundImage": {
