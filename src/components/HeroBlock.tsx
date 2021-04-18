@@ -94,6 +94,7 @@ const HeroBlock = ({
             >
             <Image
                 layout="fill"
+                sizes="(min-width: 48rem) 1080px ,(min-width: 30rem) 640px, 375px"
                   objectFit="cover" objectPosition="center" {...backgroundImage} />
         </Box>
         <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
