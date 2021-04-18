@@ -1,7 +1,6 @@
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github';
-import { GetStaticProps } from 'next'
-import { SiteConfig } from '../interface/siteConfig'
-import { HomePage } from '../interface/homePage'
+// import { SiteConfig } from '../interface/siteConfig'
+// import { HomePage } from '../interface/homePage'
 
 /**
  * Get data associated with page from markdown file
@@ -15,22 +14,23 @@ export async function getPageData(page) {
 /**
  * Get Data associated with the app
  */
-export async function getConfigData(): Promise<SiteConfig> {
+export async function getConfigData() {
   const data = await import('../data/siteConfig.json');
   return data.default;
 }
 
-interface Props {
-  sourceProvider?: unknown;
-  error?: unknown;
-  preview: boolean;
-  config: SiteConfig;
-  file: {
-    fileRelativePath: string;
-    sha: string;
-    data: HomePage;
-  }
-}
+// figure out how to use the type
+// interface Props {
+//   sourceProvider?: unknown;
+//   error?: unknown;
+//   preview: boolean;
+//   config: SiteConfig;
+//   file: {
+//     fileRelativePath: string;
+//     sha: string;
+//     data: HomePage;
+//   }
+// }
 
 
 /**
@@ -41,7 +41,7 @@ interface Props {
 export async function getPageProps(
   page: string,
   preview = false,
-  previewData = null): Promise<{ props: Props }> {
+  previewData = null) {
   const config =  await getConfigData();
 
   if (preview) {
