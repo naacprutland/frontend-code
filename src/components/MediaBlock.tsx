@@ -3,7 +3,6 @@ import { Box, AspectRatio, IconButton, Icon,
   Modal,
   ModalOverlay,
   ModalContent,
-  ModalHeader,
   ModalBody,
   ModalCloseButton } from '@chakra-ui/react'
 import Image from 'next/image'
@@ -17,6 +16,7 @@ export interface VideoType {
 
 export interface MediaBlockProps {
   bgType: 'video' | 'image';
+  blockSize?: 'md' | 'lg' | 'xl' | 'full';
   bgImg?: {
     src: string;
     alt: string;
@@ -46,21 +46,24 @@ const MediaBlock = ({
     bgImg,
     bgVid,
     overlayOpacity = 0,
-    youTubeVideo
+    youTubeVideo,
+    blockSize = 'lg'
   }: MediaBlockProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      <Container maxW="container.lg">
+      <Container 
+        p={blockSize === 'full' && '0'}
+        maxW={`container.${blockSize === 'full' ? 'xl' : blockSize}`}>
         <AspectRatio bgColor="black" ratio={16/9}>
           <Box >
-            {bgType === 'image' && (
+            {(bgType === 'image' && bgImg?.src) && (
               <Image layout="fill"
                 objectFit="cover"
                 objectPosition="center" {...bgImg} />
             )}
-            {bgType === 'video' && (
+            {(bgType === 'video' && bgVid) && (
               <Box as="video" 
                 objectFit="cover"
                 objectPosition="center"
@@ -69,7 +72,7 @@ const MediaBlock = ({
                 autoPlay
                 playsInline
                 loop muted poster={bgVid?.poster}>
-                {(bgVid.video || []).map((val, i) => <source 
+                {(bgVid?.video || []).map((val, i) => <source 
                     key={val.type + i} src={val.src}
                       type={`video/${val.type}`} />)
                 }
@@ -100,7 +103,7 @@ const MediaBlock = ({
           </Box>
         </AspectRatio>
       </Container>
-      {youTubeVideo && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
+      {youTubeVideo?.key && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
         <ModalOverlay />
         <ModalContent 
           sx={{
@@ -114,7 +117,7 @@ const MediaBlock = ({
           <ModalBody pl="12" pr="12"> 
             <AspectRatio bgColor="black" ratio={16/9}>
               <YouTube
-                videoId={youTubeVideo.key}
+                videoId={youTubeVideo?.key || ''}
                 opts={opts}
               />
             </AspectRatio>  
