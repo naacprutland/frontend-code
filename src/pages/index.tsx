@@ -1,40 +1,22 @@
-import { NextSeo } from 'next-seo'
-import { usePlugin } from 'tinacms'
-import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
-import { formOptions } from '../tinaForms/homeForm'
-import { HomePage } from '../interface/homePage'
-import DynamicComponent from '../components/DynamicComponent'
 import { getPageProps } from '../lib/pageProps'
+import { PageTemplateProps, PageProps } from '../interface/page'
+import dynamic from 'next/dynamic'
+import { ComponentType, useState } from 'react'
 
-interface Props {
-  preview: boolean;
-  file: {
-    fileRelativePath: string;
-    sha: string;
-    data: HomePage;
-  }
-}
+const DynamicPlainPage: ComponentType<PageTemplateProps> = dynamic(() => import('../components/PageTemplate'))
+const DynamicEditorPage: ComponentType<PageProps> = dynamic(() => import('../components/PageEditor'))
 
-const Index = ({ file, preview }: Props) => {
-  let data: HomePage = file.data
-  // Registers a JSON Tina Form
-  if (preview) {
-    const [dataForm, form] = useGithubJsonForm(file, formOptions)
-    data = dataForm;
-    usePlugin(form)
-    useGithubToolbarPlugins()
-  }
+
+const Index = ({ file }: PageProps) => {
+  const [editMode] = useState(true)
 
   return (
-  <>
-    <NextSeo {...data.pageSEO} />
-    {data?.pageStructure?.map((cProps, i) => {
-      return <DynamicComponent 
-        key={`${cProps}${i}`}
-        {...cProps} pagePos={i}/>
-     })}
-  </>
-)}
+    <>
+      {editMode ? <DynamicEditorPage file={file} /> 
+      : <DynamicPlainPage {...file?.data}/>}
+    </>
+  )
+}
 
  export const getStaticProps = async ({ preview, previewData }) =>
  getPageProps('home', preview, previewData);
