@@ -1,4 +1,5 @@
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github';
+import { formOptions } from '../tinaForms/contentPageForm'
 // import { SiteConfig } from '../interface/siteConfig'
 // import { HomePage } from '../interface/homePage'
 
@@ -43,18 +44,23 @@ export async function getPageProps(
   preview = false,
   previewData = null) {
   const config =  await getConfigData();
+  const pageName = page.toLowerCase();
+  console.log('hey', formOptions(page))
 
   if (preview) {
     const gitHubProps = await getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: `/src/data/pages/${page}.json`,
+      fileRelativePath: `/src/data/pages/${pageName}.json`,
       parse: parseJson,
     })
+    const formData = formOptions(page)
+    console.log(gitHubProps)
 
     return {
       props: {
         ...gitHubProps?.props,
-        config
+        config,
+        formOptions: JSON.parse(JSON.stringify(formData))
       },
     };
   }
@@ -67,8 +73,8 @@ export async function getPageProps(
       config,
       file: {
         sha: '',
-        fileRelativePath: `/src/data/pages/${page}.json`,
-        data: (await import(`../data/pages/${page}.json`)).default,
+        fileRelativePath: `/src/data/pages/${pageName}.json`,
+        data: (await import(`../data/pages/${pageName}.json`)).default,
       }
     },
   }

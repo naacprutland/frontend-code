@@ -1,11 +1,11 @@
 import { usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
-import { formOptions } from '../tinaForms/homeForm'
 import PageTemplate from './PageTemplate'
 import { PageProps } from '../interface/page'
 
 
-const PageEditor = ({ file }: PageProps) => {
+const PageEditor = ({ file, formOptions }: PageProps) => {
+  console.log(formOptions)
   const [data, form] = useGithubJsonForm(file, formOptions);
   usePlugin(form)
   useGithubToolbarPlugins()

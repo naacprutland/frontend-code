@@ -84,6 +84,7 @@ const HeroBlock = ({
   const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
   const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4, lg: 7 / 3 })
   const decOverlay = imgOverlayPer / 100;
+  console.log(backgroundImage);
 
   return (
     <AspectRatio w="100%" maxW="container.xl" m="auto" ratio={ratio} >
@@ -92,10 +93,11 @@ const HeroBlock = ({
             zIndex="-1"
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >
-            <Image
+            {(backgroundImage?.src && backgroundImage?.alt) && <Image
                 layout="fill"
                 sizes="(min-width: 48rem) 1080px ,(min-width: 30rem) 640px, 375px"
                   objectFit="cover" objectPosition="center" {...backgroundImage} />
+            }
         </Box>
         <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
           <Grid

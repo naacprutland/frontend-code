@@ -45,10 +45,30 @@ interface TextareaConfig {
 
 type SeoFields = TextConfig | TextareaConfig | GroupConfig | GroupListConfig | NumberConfig;
 
+export interface Blocks {
+  label: string;
+  name: string;
+  key: string;
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  fields: object[];
+}
+
 export interface PageSeo {
   label: string;
   name: string;
   description: string;
   component: 'group';
   fields: SeoFields[]
+}
+
+export interface PageStructure {
+  label: "Page Sections";
+  name: "pageStructure";
+  component: "blocks";
+  templates: {
+    'hero-block': Blocks;
+    'text-block': Blocks;
+    'deck-block': Blocks;
+    'media-block': Blocks;
+  }
 }
