@@ -1,22 +1,10 @@
+import ContentPage from '../components/ContentPage'
 import { getPageProps } from '../lib/pageProps'
-import { PageTemplateProps, PageProps } from '../interface/page'
-import dynamic from 'next/dynamic'
-import { ComponentType, useState } from 'react'
+import { PageProps } from '../interface/page'
 
-const DynamicPlainPage: ComponentType<PageTemplateProps> = dynamic(() => import('../components/PageTemplate'))
-const DynamicEditorPage: ComponentType<PageProps> = dynamic(() => import('../components/PageEditor'))
-
-
-const Index = ({ file }: PageProps) => {
-  const [editMode] = useState(false)
-
-  return (
-    <>
-      {editMode ? <DynamicEditorPage file={file} /> 
-      : <DynamicPlainPage {...file?.data}/>}
-    </>
-  )
-}
+const Index = (Props: PageProps) => (
+  <ContentPage {...Props} />
+)
 
  export const getStaticProps = async ({ preview, previewData }) =>
  getPageProps('home', preview, previewData);

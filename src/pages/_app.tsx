@@ -1,13 +1,13 @@
 import dynamic from 'next/dynamic'
-import { useState } from 'react'
 import type { AppProps } from 'next/app'
+import useEditModeState from '../lib/hooks/editModeState'
 
 const DynamicApp = dynamic(() => import('../components/App'))
 
 const DynamicAppEditor =  dynamic(() => import('../components/AppEditor'))
 
 const MyApp = (props: AppProps) => {
-  const [editMode] = useState(false)
+  const editMode = useEditModeState()
 
   return (
     <>
