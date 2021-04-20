@@ -8,7 +8,7 @@ const DynamicEditorPage: ComponentType<PageProps> = dynamic(() => import('../com
 
 
 const Index = ({ file }: PageProps) => {
-  const [editMode] = useState(true)
+  const [editMode] = useState(false)
 
   return (
     <>

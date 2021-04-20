@@ -6,8 +6,7 @@ import { ComponentType, useState } from 'react'
 const DynamicPlainPage: ComponentType<PageTemplateProps> = dynamic(() => import('../components/PageTemplate'))
 const DynamicEditorPage: ComponentType<PageProps> = dynamic(() => import('../components/PageEditor'))
 
-
-const About = ({ file }: PageProps) => {
+const PageNotFound = ({ file }: PageProps) => {
   const [editMode] = useState(false)
 
   return (
@@ -19,6 +18,6 @@ const About = ({ file }: PageProps) => {
 }
 
  export const getStaticProps = async ({ preview, previewData }) =>
- getPageProps('about', preview, previewData);
+ getPageProps('404', preview, previewData);
 
-export default About
+export default PageNotFound
