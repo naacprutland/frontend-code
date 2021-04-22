@@ -2,5 +2,20 @@
   "pageSEO": {
     "title": "About",
     "canonical": "/about"
-  }
+  },
+  "pageStructure": [
+    {
+      "_template": "hero-block",
+      "title": "ABOUT US",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "city"
+      },
+      "theme": "dark",
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "center",
+      "imgOverlayPer": 60
+    }
+  ]
 }
