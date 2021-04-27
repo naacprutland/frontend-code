@@ -3,9 +3,9 @@
   "pageSEO": {
     "title": "Home Page Sample",
     "description": "description of home page",
-    "canonical": "https://www.example.com",
+    "canonical": "http://localhost:3000/",
     "openGraph": {
-      "url": "https://www.example.com",
+      "url": "http://localhost:3000/",
       "title": "Home Page",
       "description": "description of home page",
       "site_name": "Page Name",
