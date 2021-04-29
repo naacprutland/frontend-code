@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 function useEditModeState() {
-  const [isEditMode] = useState(false);
+  const [isEditMode] = useState(true);
 
   return isEditMode;
 }
