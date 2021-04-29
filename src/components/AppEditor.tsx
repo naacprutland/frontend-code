@@ -1,5 +1,5 @@
 import type { AppProps } from 'next/app'
-import { useMemo } from 'react';
+import { useMemo, useEffect } from 'react';
 import { TinaProvider, TinaCMS } from 'tinacms';
 import {
   GithubClient,
@@ -8,6 +8,7 @@ import {
 } from 'react-tinacms-github'
 import App from './App'
 import { HtmlFieldPlugin } from 'react-tinacms-editor'
+import { useRouter } from 'next/router'
 
 const onLogin = async () => {
   const token = localStorage.getItem('tinacms-github-token') || null;
@@ -47,13 +48,32 @@ const github = new GithubClient({
 export const EditLink = ({ cms }) => {
 
   return (
-    <button onClick={() => cms.toggle()}>
-      {cms.enabled ? 'Exit Edit Mode' : 'Edit This Site'}
-    </button>
+    <>
+      <button onClick={() => {
+        console.log('click')
+        cms.toggle()
+      }}>
+        {cms.enabled ? 'Exit Edit Mode' : 'Edit Site'}
+      </button>
+      <style jsx>{`
+          background: green;
+          border-radius: 20px 0 0 20px;
+          bottom: 20%;
+          color: white;
+          font-size: 20px;
+          padding: 8px;
+          position: fixed;
+          right: 0;
+          width: 100px;
+          z-index: 99999;
+        `}</style>
+    </>
   );
 };
 
+
 const AppEditor = ( props: AppProps) => {
+  const router = useRouter()
   const tinaConfig = {
     enabled: !!props.pageProps?.preview,
     apis: {
@@ -65,6 +85,23 @@ const AppEditor = ( props: AppProps) => {
   }
   const cms = useMemo(() => new TinaCMS(tinaConfig), []);
   cms.plugins.add(HtmlFieldPlugin)
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      if (props.pageProps?.preview) {
+        // needed to bypass the next route change so the form options load
+        window.location.href = url
+      }
+    }
+
+    router.events.on('routeChangeStart', handleRouteChange)
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method:
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [])
 
   return (
     <TinaProvider cms={cms}>
