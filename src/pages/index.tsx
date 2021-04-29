@@ -6,7 +6,7 @@ const Index = (Props: PageProps) => (
   <ContentPage {...Props} />
 )
 
- export const getStaticProps = async ({ preview, previewData }) =>
- getPageProps('home', preview, previewData);
+export const getStaticProps = async ({ preview, previewData }) =>
+ getPageProps('Home', preview, previewData);
 
 export default Index

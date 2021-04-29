@@ -1,6 +1,4 @@
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github';
-// import { SiteConfig } from '../interface/siteConfig'
-// import { HomePage } from '../interface/homePage'
 
 /**
  * Get data associated with page from markdown file
@@ -19,56 +17,43 @@ export async function getConfigData() {
   return data.default;
 }
 
-// figure out how to use the type
-// interface Props {
-//   sourceProvider?: unknown;
-//   error?: unknown;
-//   preview: boolean;
-//   config: SiteConfig;
-//   file: {
-//     fileRelativePath: string;
-//     sha: string;
-//     data: HomePage;
-//   }
-// }
-
-
 /**
  * Generates props for static props
  * @param {string} page The name of the page
  * @returns Page Props
  */
 export async function getPageProps(
-  page: string,
+  formTitle: string,
   preview = false,
   previewData = null) {
   const config =  await getConfigData();
+  const pageName = formTitle.toLowerCase();
 
   if (preview) {
     const gitHubProps = await getGithubPreviewProps({
       ...previewData,
-      fileRelativePath: `/src/data/pages/${page}.json`,
+      fileRelativePath: `/src/data/pages/${pageName}.json`,
       parse: parseJson,
     })
 
     return {
       props: {
         ...gitHubProps?.props,
-        config
+        config,
+        formTitle
       },
     };
   }
 
   return {
     props: {
-      sourceProvider: null,
-      error: null,
+      formTitle,
       preview: false,
       config,
       file: {
         sha: '',
-        fileRelativePath: `/src/data/pages/${page}.json`,
-        data: (await import(`../data/pages/${page}.json`)).default,
+        fileRelativePath: `/src/data/pages/${pageName}.json`,
+        data: (await import(`../data/pages/${pageName}.json`)).default,
       }
     },
   }

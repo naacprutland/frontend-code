@@ -86,16 +86,17 @@ const HeroBlock = ({
   const decOverlay = imgOverlayPer / 100;
 
   return (
-    <AspectRatio w="100%" maxW="container.xl" m="auto" ratio={ratio} >
+    <AspectRatio w="100%" maxW="container.xl" mr="auto" ml="auto" ratio={ratio} >
       <Box>
         <Box position="absolute" bg="black" w="100%" h="100%" top="0"
             zIndex="-1"
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >
-            <Image
+            {(backgroundImage?.src && backgroundImage?.alt) && <Image
                 layout="fill"
                 sizes="(min-width: 48rem) 1080px ,(min-width: 30rem) 640px, 375px"
                   objectFit="cover" objectPosition="center" {...backgroundImage} />
+            }
         </Box>
         <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
           <Grid

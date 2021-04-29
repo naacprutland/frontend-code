@@ -7,12 +7,12 @@ const DynamicPlainPage: ComponentType<PageTemplateProps> = dynamic(() => import(
 const DynamicEditorPage: ComponentType<PageProps> = dynamic(() => import('../components/PageEditor'))
 
 
-const ContentPage = ({ file }: PageProps) => {
+const ContentPage = ({ file, formTitle }: PageProps) => {
   const editMode = useEditModeState()
 
   return (
     <>
-      {editMode ? <DynamicEditorPage file={file} /> 
+      {editMode ? <DynamicEditorPage formTitle={formTitle} file={file} /> 
       : <DynamicPlainPage {...file?.data}/>}
     </>
   )

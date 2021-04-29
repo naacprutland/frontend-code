@@ -7,6 +7,6 @@ const About = (Props: PageProps) => (
 )
 
 export const getStaticProps = async ({ preview, previewData }) =>
- getPageProps('about', preview, previewData);
+ getPageProps('About', preview, previewData);
 
 export default About

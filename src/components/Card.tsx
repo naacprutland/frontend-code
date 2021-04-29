@@ -49,7 +49,7 @@ const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
             <LinkOverlay isExternal={link?.isExternal} 
               display="flex"
               alignItems="center"
-              mt="3" color="teal.400" fontWeight="bold">
+              mt="3" color="teal.700" fontWeight="bold">
               {link?.label}<Icon ml="1" as={BiCaretRightCircle} />
             </LinkOverlay>
           </NextLink>
