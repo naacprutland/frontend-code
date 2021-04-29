@@ -84,10 +84,9 @@ const HeroBlock = ({
   const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
   const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4, lg: 7 / 3 })
   const decOverlay = imgOverlayPer / 100;
-  console.log(backgroundImage);
 
   return (
-    <AspectRatio w="100%" maxW="container.xl" m="auto" ratio={ratio} >
+    <AspectRatio w="100%" maxW="container.xl" mr="auto" ml="auto" ratio={ratio} >
       <Box>
         <Box position="absolute" bg="black" w="100%" h="100%" top="0"
             zIndex="-1"
