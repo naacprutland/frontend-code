@@ -1,9 +1,9 @@
-import { useState } from 'react'
+import { useSession } from 'next-auth/client'
 
 function useEditModeState() {
-  const [isEditMode] = useState(true);
+  const [ session ] = useSession()
 
-  return isEditMode;
+  return !!session;
 }
 
 export default useEditModeState
