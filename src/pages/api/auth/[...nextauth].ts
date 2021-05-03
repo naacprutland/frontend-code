@@ -10,22 +10,26 @@ interface Credentials {
 interface User {
   id: number;
   username: string;
-  password: string;
+  email: string;
 }
 
 const getUser = (credentials: Credentials): User | null => {
 
   const approvedUser = {
     id: 1,
-    username: 'hartes',
-    password: 'test'
+    username: process.env.EDITOR_USERNAME,
+    password: process.env.EDITOR_PASSWORD
   }
 
   if (credentials.username !== approvedUser.username) return null
 
   if (credentials.password !== approvedUser.password) return null
 
-  return approvedUser
+  return {
+    id: 1,
+    username: process.env.EDITOR_USERNAME,
+    email: 'hartecode@gmail.com'
+  }
 }
 
 export default NextAuth({
@@ -42,14 +46,9 @@ export default NextAuth({
         password: {  label: "Password", type: "password" }
       },
      async authorize(credentials: Credentials) {
-        console.log(credentials)
-        const user = getUser(credentials)
-        if (user) {
-          // Any user object returned here will be saved in the JSON Web Token
-          return user
-        } else {
-          return null
-        }
+        const user = await getUser(credentials)
+        // find a better type solution
+        return user as any
       }
     })
   ]
