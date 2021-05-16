@@ -10,10 +10,11 @@ interface Credentials {
 interface User {
   id: number;
   username: string;
-  email: string;
+  firstName: string;
+  lastName: string;
 }
 
-const getUser = (credentials: Credentials): User | null => {
+const getUser = async (credentials: Credentials): User | null => {
 
   const approvedUser = {
     id: 1,
@@ -25,11 +26,9 @@ const getUser = (credentials: Credentials): User | null => {
 
   if (credentials.password !== approvedUser.password) return null
 
-  return {
-    id: 1,
-    username: process.env.EDITOR_USERNAME,
-    email: 'hartecode@gmail.com'
-  }
+  const usersJson  = await import(`../../../data/editors/editors.json`)
+  const loggedInUser = usersJson.users.find(val => val.userName === credentials.username)
+  return loggedInUser
 }
 
 export default NextAuth({
