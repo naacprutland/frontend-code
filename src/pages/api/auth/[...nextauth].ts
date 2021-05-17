@@ -14,7 +14,7 @@ interface User {
   lastName: string;
 }
 
-const getUser = async (credentials: Credentials): User | null => {
+const getUser = async (credentials: Credentials): Promise<User> => {
 
   const approvedUser = {
     id: 1,
@@ -28,7 +28,7 @@ const getUser = async (credentials: Credentials): User | null => {
 
   const usersJson  = await import(`../../../data/editors/editors.json`)
   const loggedInUser = usersJson.users.find(val => val.userName === credentials.username)
-  return loggedInUser
+  return loggedInUser as unknown as User
 }
 
 export default NextAuth({
