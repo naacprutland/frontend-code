@@ -1,6 +1,32 @@
-#Harte Code Starter
+# Harte Code Starter
+
 Still under construction
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+## Tina Login
+
+- Go to `/hcadmin`
+- click sign in
+- Add Test username and password is in env. file
+  ```
+    #editor login
+    EDITOR_USERNAME=Hartecode
+    EDITOR_PASSWORD=TEST
+  ```
+- create the Hartecode editor in the data/editors director. In side the editors.json
+  ```
+    {
+      "users": [
+        {
+          "id": 1,
+          "userName": "Hartecode",
+          "firstName": "Sean",
+          "lastName": "Harte"
+        }
+      ]
+    }
+  ```
+- Once logged in you can go to edit mode
 
 ## Getting Started
 
@@ -31,19 +57,7 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Set up local test
-
-### GitHub OAuth set up
-
-To get started, we need to set up an OAuth App in Github. Within your GitHub Account Settings, click [OAuth Apps](https://github.com/settings/developers) under Developer Settings. Go ahead and create a "New OAuth App".
-
-Since you are testing your app locally, you'll create a development GitHub app that redirects to localhost. Eventually you'll need to create separate OAuth Apps: one for development and a production app whose URLs will connect to the live domain. We'll circle back to the production app once when we cover hosting.
-
-For now, fill in http://localhost:3000 for the Homepage URL. With the Authorization callback URL, enter http://localhost:3000/github/authorizing. This is the URL for an authorizing redirect page that we will create at a later step.
-
-Once the details are filled in, Go ahead and click 'Register Application'. After creating the app, you should see a page with information such as Client ID and Client Secret. Next, we'll add those as environment variables to the project to connect this App to the Tina-GitHub helpers.
-
-### Set up environment file
+## Set up environment file
 
 ```
 # OAuth App Credentials from GitHub
