@@ -4,9 +4,13 @@ import { getGithubPreviewProps, parseJson } from 'next-tinacms-github';
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
-export async function getPageData(page) {
-  const content  = await import(`../data/pages/${page}.json`);
-  return content ;
+export async function getPageData(page): Promise<unknown| null> {
+  try {
+    const content  = await import(`../data/pages/${page}.json`);
+    return content.default ;
+  } catch (e) {
+    return null
+  }
 }
 
 /**
@@ -27,7 +31,12 @@ export async function getPageProps(
   preview = false,
   previewData = null) {
   const config =  await getConfigData();
-  const pageName = formTitle.toLowerCase();
+  let data = await getPageData(formTitle);
+  const pageName = data ? formTitle.toLowerCase() : '404';
+
+  if (!data) {
+    data = await getPageData(pageName)
+  }
 
   if (preview) {
     const gitHubProps = await getGithubPreviewProps({
@@ -53,7 +62,7 @@ export async function getPageProps(
       file: {
         sha: '',
         fileRelativePath: `/src/data/pages/${pageName}.json`,
-        data: (await import(`../data/pages/${pageName}.json`)).default,
+        data
       }
     },
   }

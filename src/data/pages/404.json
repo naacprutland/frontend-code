@@ -1,1 +1,21 @@
-{}
+{
+  "pageSEO": {
+    "title": "Page Not Found",
+    "canonical": "/404"
+  },
+  "pageStructure": [
+    {
+      "_template": "hero-block",
+      "title": "404",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "city"
+      },
+      "theme": "dark",
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "center",
+      "imgOverlayPer": 60
+    }
+  ]
+}
