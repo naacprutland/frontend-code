@@ -1,5 +1,5 @@
 import { Heading, Box, AspectRatio, Grid, GridItem,
-  useBreakpointValue, Container, Button, Wrap, WrapItem  } from '@chakra-ui/react'
+  Container, Button, Wrap, WrapItem  } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -81,8 +81,6 @@ const HeroBlock = ({
   title, detail, theme, imgOverlayPer = 0,
   textPos = "start", cta,
   backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
-  const variant = useBreakpointValue({ base: posProMobile, md: posPropMd[horPos], lg: posPropLG[horPos] })
-  // const ratio = useBreakpointValue({ base: 3 / 4, sm: 7 / 4, lg: 7 / 3 })
   const decOverlay = imgOverlayPer / 100;
 
   return (
@@ -110,35 +108,24 @@ const HeroBlock = ({
                 flexDirection="column"
                 alignItems={AlignItems[textPos]}
                 color={theme === 'dark' ? 'white' : 'black'}
-                colStart={variant?.col}
-                colSpan={variant?.span}>
+                colStart={[posProMobile?.col, posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
+                colSpan={[posProMobile?.span, posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}>
                 {title && <Heading as={pagePos > 0 ? 'h2' : 'h1'}>
                   {title}
                 </Heading>
                 }
                 {detail && <Box maxW="lg">{detail}</Box>}
                 {(cta?.length > 0) && <Wrap justify={AlignItems[textPos]} spacing={2} py={2}>
-                    {cta && cta.map(({label, link, external}, i) => {
-                      if ( external) {
-                        return <WrapItem key={label + i}>
-                            <Button as="a"
-                                
-                                href={link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                cursor="pointer"
-                                colorScheme="purple" size="md">
-                              {label}
-                              </Button>
-                            </WrapItem>
-                      }
-                      return (<WrapItem key={label + i}><Link href={link}>
+                    {cta && cta.map(({label, link, external}, i) => (<WrapItem key={label + i}>
+                        <Link href={link} passHref>
                             <Button as="a"
                               href=""
+                              target={external && "_blank"}
+                              rel={external && "noopener noreferrer"}
                               cursor="pointer"
                               colorScheme="purple" size="md">{label}</Button>     
                         </Link></WrapItem>)
-                      }).slice(0, 4)}
+                      ).slice(0, 4)}
                   </Wrap>}
               </GridItem>}
           </Grid>
