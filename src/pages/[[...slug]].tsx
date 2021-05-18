@@ -9,6 +9,9 @@ const DynamicPage = (Props: PageProps) => (
 export async function getStaticPaths() {
   const paths = [
     {
+      params: { slug: ['']}
+    },
+    {
       params: { slug:  ['about']},
     },
 
