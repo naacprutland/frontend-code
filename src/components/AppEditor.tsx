@@ -7,8 +7,6 @@ import {
   GithubMediaStore,
 } from 'react-tinacms-github'
 import App from './App'
-import { HtmlFieldPlugin } from 'react-tinacms-editor'
-import { useRouter } from 'next/router'
 
 const onLogin = async () => {
   const token = localStorage.getItem('tinacms-github-token') || null;
@@ -50,7 +48,6 @@ export const EditLink = ({ cms }) => {
   return (
     <>
       <button onClick={() => {
-        console.log('click')
         cms.toggle()
       }}>
         {cms.enabled ? 'Exit Edit Mode' : 'Edit Site'}
@@ -73,7 +70,6 @@ export const EditLink = ({ cms }) => {
 
 
 const AppEditor = ( props: AppProps) => {
-  const router = useRouter()
   const tinaConfig = {
     enabled: !!props.pageProps?.preview,
     apis: {
@@ -84,24 +80,13 @@ const AppEditor = ( props: AppProps) => {
     media: new GithubMediaStore(github),
   }
   const cms = useMemo(() => new TinaCMS(tinaConfig), []);
-  cms.plugins.add(HtmlFieldPlugin)
+  
 
   useEffect(() => {
-    const handleRouteChange = (url: string) => {
-      if (props.pageProps?.preview) {
-        // needed to bypass the next route change so the form options load
-        window.location.href = url
-      }
-    }
-
-    router.events.on('routeChangeStart', handleRouteChange)
-
-    // If the component is unmounted, unsubscribe
-    // from the event with the `off` method:
-    return () => {
-      router.events.off('routeChangeStart', handleRouteChange)
-    }
-  }, [])
+    import('react-tinacms-editor').then(({ HtmlFieldPlugin }) => {
+      cms.plugins.add(HtmlFieldPlugin)
+    })
+  }, [props.pageProps?.preview])
 
   return (
     <TinaProvider cms={cms}>
@@ -110,7 +95,7 @@ const AppEditor = ( props: AppProps) => {
         onLogout={onLogout}
         error={props.pageProps?.error}
       >
-        <EditLink cms={cms} />
+        {props.pageProps.editorMode && (<EditLink cms={cms} />)} 
         <App {...props} />
       </TinacmsGithubProvider>
     </TinaProvider>

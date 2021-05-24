@@ -33,6 +33,7 @@ export async function getPageProps(
   const config =  await getConfigData();
   let data = await getPageData(formTitle);
   const pageName = data ? formTitle.toLowerCase() : '404';
+  const editorMode = process.env?.EDIT_SITE === 'true';
 
   if (!data) {
     data = await getPageData(pageName)
@@ -49,13 +50,15 @@ export async function getPageProps(
       props: {
         ...gitHubProps?.props,
         config,
-        formTitle
+        formTitle,
+        editorMode
       },
     };
   }
 
   return {
     props: {
+      editorMode,
       formTitle,
       preview: false,
       config,

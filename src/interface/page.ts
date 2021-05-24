@@ -6,6 +6,7 @@ export interface PageTemplateProps {
 }
 
 export interface PageProps {
+  preview?: boolean;
   formTitle?: string;
   file: {
     fileRelativePath: string;
