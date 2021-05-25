@@ -3,30 +3,14 @@
 Still under construction
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Tina Login
+## Editing Environment
 
-- Go to `/hcadmin`
-- click sign in
-- Add Test username and password is in env. file
-  ```
-    #editor login
-    EDITOR_USERNAME=Hartecode
-    EDITOR_PASSWORD=TEST
-  ```
-- create the Hartecode editor in the data/editors director. In side the editors.json
-  ```
-    {
-      "users": [
-        {
-          "id": 1,
-          "userName": "Hartecode",
-          "firstName": "Sean",
-          "lastName": "Harte"
-        }
-      ]
-    }
-  ```
-- Once logged in you can go to edit mode
+The editing mode can be triggered by an environment variable. This will be great for setting up a staging environment which administrators can edit the site.
+
+```
+  #editor
+  EDIT_SITE=true
+```
 
 ## Getting Started
 
