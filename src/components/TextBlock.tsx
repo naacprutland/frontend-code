@@ -10,23 +10,24 @@ export interface TextBlockProps {
   groupPosition: AlignItemsOptions;
   colorScheme: BtnColor;
   variant: BtnVariant;
+  position?: number;
 }
 
 export const ContentContainer = styled(Box)`
   h1, h2, h3 {
-    font-weight: ${({ fontWeights }) => fontWeights.bold};
+    font-weight: ${({ fontweights }) => fontweights.bold};
   }
 
   h1 {
-    font-size: ${({ fontSizes }) => fontSizes['5xl']};
+    font-size: ${({ fontsizes }) => fontsizes['5xl']};
   }
 
   h2 {
-    font-size: ${({ fontSizes }) => fontSizes['4xl']};
+    font-size: ${({ fontsizes }) => fontsizes['4xl']};
   }
 
   h3 {
-    font-size: ${({ fontSizes }) => fontSizes['3xl']};
+    font-size: ${({ fontsizes }) => fontsizes['3xl']};
   }
 
   p {
@@ -73,7 +74,11 @@ const TextBlock = ({ richText, textPos, ...ctaListProps }: TextBlockProps)=> {
   const theme = useTheme()
   return (
     <Container maxW="container.md" textAlign={textPos} centerContent>
-        <ContentContainer {...theme} dangerouslySetInnerHTML={createMarkup(richText)} />
+        <ContentContainer dangerouslySetInnerHTML={createMarkup(richText)}
+          colors={theme.colors}
+          fontweights={theme.fontWeights}
+          space={theme.space}
+          fontsizes={theme.fontSizes} />
         <CtaList size="md" {...ctaListProps} />
     </Container>
   )

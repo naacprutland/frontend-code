@@ -8,7 +8,7 @@ const PageTemplate = ({ pageSEO,  pageStructure }: PageTemplateProps) => (
       {pageStructure?.map((cProps, i) => {
         return <DynamicComponent 
           key={`pageComp${i}`}
-          {...cProps} pagePos={i}/>
+          {...cProps} position={i}/>
       })}
     </>
 )

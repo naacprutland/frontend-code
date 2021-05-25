@@ -5,7 +5,7 @@ import { MediaBlockProps } from '../components/MediaBlock'
 
 interface ComponentBlock {
   "_template": string;
-  pagePos?: number;
+  position?: number;
 }
 
 export interface HeroBlock extends ComponentBlock, HeroProps {

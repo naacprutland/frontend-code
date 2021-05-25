@@ -48,7 +48,7 @@ const Header = ({ logo,
             </Link>
           </Box>
           <HStack as="nav" spacing={4} h="100%" justifyContent="flex-end">
-            <HStack as="ul" spacing={3} sx={{"list-style-type": "none"}}>
+            <HStack as="ul" spacing={3} sx={{"listStyleType": "none"}}>
               {pageLinks.map((links) => (
                 <Box as="li" key={links.path} margin="0">
                   <Link href={links.path} passHref>

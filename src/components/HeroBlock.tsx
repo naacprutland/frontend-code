@@ -14,7 +14,7 @@ export interface HeroProps {
   };
   horPos: 'left' | 'right' | 'center';
   verPos: 'top' | 'middle' | 'bottom';
-  pagePos?: number;
+  position?: number;
   textPos?: 'start' | 'center' | 'end';
   cta?: CTABtn[]
 }
@@ -80,7 +80,7 @@ const posProMobile = {
 const HeroBlock = ({
   title, detail, theme, imgOverlayPer = 0,
   textPos = "start", cta,
-  backgroundImage, horPos = 'center', verPos = 'middle', pagePos = 0 }: HeroProps) => {
+  backgroundImage, horPos = 'center', verPos = 'middle', position = 0 }: HeroProps) => {
   const decOverlay = imgOverlayPer / 100;
 
   return (
@@ -110,23 +110,28 @@ const HeroBlock = ({
                 color={theme === 'dark' ? 'white' : 'black'}
                 colStart={[posProMobile?.col, posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
                 colSpan={[posProMobile?.span, posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}>
-                {title && <Heading as={pagePos > 0 ? 'h2' : 'h1'}>
-                  {title}
-                </Heading>
+                {title && (
+                  <Heading as={position > 0 ? 'h2' : 'h1'}>
+                    {title}
+                  </Heading>)
                 }
                 {detail && <Box maxW="lg">{detail}</Box>}
-                {(cta?.length > 0) && <Wrap justify={AlignItems[textPos]} spacing={2} py={2}>
-                    {cta && cta.map(({label, link, external}, i) => (<WrapItem key={label + i}>
-                        <Link href={link} passHref>
-                            <Button as="a"
-                              href=""
-                              target={external && "_blank"}
-                              rel={external && "noopener noreferrer"}
-                              cursor="pointer"
-                              colorScheme="purple" size="md">{label}</Button>     
-                        </Link></WrapItem>)
-                      ).slice(0, 4)}
-                  </Wrap>}
+                {(cta?.length > 0) && (
+                    <Wrap justify={AlignItems[textPos]} spacing={2} py={2}>
+                      {cta && cta.map(({label, link, external}, i) => (
+                        <WrapItem key={label + i}>
+                            <Link href={link} passHref>
+                              <Button as="a"
+                                  href=""
+                                  target={external ? "_blank" : undefined}
+                                  rel={external ? "noopener noreferrer" : undefined}
+                                  cursor="pointer"
+                                  colorScheme="purple" size="md">
+                                {label}
+                              </Button>     
+                            </Link>
+                        </WrapItem>)).slice(0, 4)}
+                    </Wrap>)}
               </GridItem>}
           </Grid>
         </Container>

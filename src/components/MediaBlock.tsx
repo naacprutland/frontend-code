@@ -15,6 +15,7 @@ export interface VideoType {
 }
 
 export interface MediaBlockProps {
+  position?: number;
   bgType: 'video' | 'image';
   blockSize?: 'md' | 'lg' | 'xl' | 'full';
   bgImg?: {

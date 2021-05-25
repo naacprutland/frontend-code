@@ -3,6 +3,7 @@ import Card, { CardProps }  from './Card'
 import GridLayout from './GridLayout'
 
 export interface DeckBlockProps {
+  position?: number;
   cards: CardProps[];
   layout?: 'rows' | 'rowsReverse' | 'alternatingRows' | 'cards';
   alternate?: 'odds' | 'evens';
