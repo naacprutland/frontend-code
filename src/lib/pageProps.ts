@@ -70,3 +70,18 @@ export async function getPageProps(
     },
   }
 }
+
+/**
+ * Get full list of static paths
+ * @returns {
+      "params": { "slug": string[]}
+    }[]
+ */
+export async function getPathsList() {
+  try {
+    const data  = await import(`../data/staticPaths.json`);
+    return data.default?.paths;
+  } catch (e) {
+    return []
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "paths": [
+    {
+      "params": { "slug": [""]}
+    },
+    {
+      "params": { "slug":  ["about"]}
+    }
+  ]
+}

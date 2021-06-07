@@ -1,5 +1,5 @@
 import ContentPage from '../components/ContentPage'
-import { getPageProps } from '../lib/pageProps'
+import { getPageProps, getPathsList } from '../lib/pageProps'
 import {  PageProps } from '../interface/page'
 
 const DynamicPage = (Props: PageProps) => (
@@ -7,15 +7,7 @@ const DynamicPage = (Props: PageProps) => (
 )
 
 export async function getStaticPaths() {
-  const paths = [
-    {
-      params: { slug: ['']}
-    },
-    {
-      params: { slug:  ['about']},
-    },
-
-  ];
+  const paths = await getPathsList();
   return { paths, fallback: false };
 }
 
