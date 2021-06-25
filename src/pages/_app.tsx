@@ -1,8 +1,8 @@
 import type { AppProps } from 'next/app'
-import AppEditor from '../components/AppEditor'
+import App from '../components/App'
 
 const MyApp = (props: AppProps) => (
-  <AppEditor {...props} />
+  <App {...props} />
 )
 
 export default MyApp

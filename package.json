@@ -1,5 +1,5 @@
 {
-  "name": "harte-code-starter",
+  "name": "harte-starter",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -37,17 +37,12 @@
     "http-proxy-middleware": "^1.1.0",
     "next": "10.0.6",
     "next-seo": "^4.19.0",
-    "next-tinacms-github": "^0.37.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-icons": "^4.2.0",
     "react-markdown": "^5.0.3",
-    "react-tinacms-editor": "^0.39.0",
-    "react-tinacms-github": "^0.37.0",
-    "react-tinacms-inline": "^0.39.0",
     "react-youtube": "^7.13.1",
     "styled-components": "^5.2.1",
-    "tinacms": "^0.37.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
@@ -66,7 +61,6 @@
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
     "husky": "^5.0.9",
-    "hygen-next-tinacms-github": "https://github.com/dwalkr/hygen-next-tinacms-github",
     "lint-staged": "^10.5.4",
     "prettier": "^2.2.1",
     "stylelint": "^13.10.0",
