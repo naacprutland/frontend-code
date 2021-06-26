@@ -1,0 +1,81 @@
+{
+  "pageSEO": {
+    "title": "Blog Page Sample",
+    "description": "description of blog page",
+    "canonical": "http://localhost:3000/blog/test1",
+    "openGraph": {
+      "url": "http://localhost:3000/blog/test1",
+      "title": "test1 Page",
+      "description": "description of home page",
+      "site_name": "Page Name",
+      "images": [
+        {
+          "url": "https://www.example.ie/og-image-01.jpg",
+          "width": 800,
+          "height": 600,
+          "alt": "Og Image Alt"
+        },
+        {
+          "url": "https://www.example.ie/og-image-02.jpg",
+          "width": 900,
+          "height": 800,
+          "alt": "Og Image Alt Second"
+        },
+        {
+          "url": "https://www.example.ie/og-image-03.jpg"
+        },
+        {
+          "url": "https://www.example.ie/og-image-04.jpg"
+        }
+      ]
+    }
+  },
+  "title": "Test 1 Blog",
+  "description": "Red panda and the only living species of the population has dwindled. The red panda likes great panda likes great panda ipsum with giant black-and-white panda.",
+  "thumbnail": {
+    "src": "/jonathan-riley-city.jpg",
+    "alt": "the city"
+  },
+  "pageStructure": [
+    {
+      "_template": "hero-block",
+      "title": "Test 1 Blog",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "the city"
+      },
+      "theme": "dark",
+      "imgOverlayPer": 30,
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "start",
+      "cta": [
+        {
+          "label": "Button",
+          "link": "/about",
+          "external": false
+        },
+        {
+          "label": "Button",
+          "link": "https://www.google.com/",
+          "external": true
+        }
+      ]
+    },
+    {
+      "_template": "text-block",
+      "richText": "<h1>Alana!</h1><p>Panda Ipsum the forest as the earth as three million years ago. There are only living species of the forest as the earth as three million years ago. There are only living species of the forest. Panda Ipsum the only fertile for two or three days. That is cute panda. Board panda bear giant black-and-white panda red panda relaxing in the cool ipsum eating bamboo in the Red Panda. Female pandas only living species of pandas, the population has dwindled. The red panda and eat bamboo in the forest. Cute panda relaxing in the forest. Panda Ipsum the Red panda red panda eat bamboo leaves. Red panda red panda loves leaves to dance and the only fertile for two or three million years ago. There are.</p><p>It is the population has dwindled. The panda relaxing in the cool tiny panda bear.</p><p></p><p>Giant panda eat bamboo in the population has dwindled. The red panda bear giant panda loves being cool tiny panda.</p>",
+      "textPos": "start",
+      "variant": "solid",
+      "cta": [
+        {
+          "label": "Get Some Now",
+          "link": "https://www.google.com",
+          "external": true
+        }
+      ],
+      "colorScheme": "purple",
+      "groupPosition": "center"
+    }
+  ]
+}

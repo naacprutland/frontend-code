@@ -1,0 +1,76 @@
+{
+  "title": "Give me your tots 🦙!",
+  "pageSEO": {
+    "title": "Blog Page Sample",
+    "description": "description of blog page",
+    "canonical": "http://localhost:3000/blog",
+    "openGraph": {
+      "url": "http://localhost:3000/blog",
+      "title": "Blog Page",
+      "description": "description of home page",
+      "site_name": "Page Name",
+      "images": [
+        {
+          "url": "https://www.example.ie/og-image-01.jpg",
+          "width": 800,
+          "height": 600,
+          "alt": "Og Image Alt"
+        },
+        {
+          "url": "https://www.example.ie/og-image-02.jpg",
+          "width": 900,
+          "height": 800,
+          "alt": "Og Image Alt Second"
+        },
+        {
+          "url": "https://www.example.ie/og-image-03.jpg"
+        },
+        {
+          "url": "https://www.example.ie/og-image-04.jpg"
+        }
+      ]
+    }
+  },
+  "components": {
+    "heroBlock": {
+      "_template": "hero-block",
+      "title": "blog Starter",
+      "backgroundImage": {
+        "src": "/jonathan-riley-city.jpg",
+        "alt": "the city"
+      },
+      "theme": "dark",
+      "imgOverlayPer": 30,
+      "horPos": "center",
+      "verPos": "bottom",
+      "textPos": "start",
+      "cta": [
+        {
+          "label": "Button",
+          "link": "/about",
+          "external": false
+        },
+        {
+          "label": "Button",
+          "link": "https://www.google.com/",
+          "external": true
+        }
+      ]
+    },
+    "textBlock": {
+      "_template": "text-block",
+      "richText": "<p>Alana!</p><p></p><p>It is the population has dwindled. The panda relaxing in the cool tiny panda bear.</p><p></p><p>Giant panda eat bamboo in the population has dwindled. The red panda bear giant panda loves being cool tiny panda.</p>",
+      "textPos": "start",
+      "variant": "solid",
+      "cta": [
+        {
+          "label": "Get Some Now",
+          "link": "https://www.google.com",
+          "external": true
+        }
+      ],
+      "colorScheme": "purple",
+      "groupPosition": "center"
+    }
+  }
+}
