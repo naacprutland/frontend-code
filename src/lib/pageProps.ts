@@ -41,8 +41,6 @@ export async function getPageProps(formTitle: string) {
       preview: false,
       config,
       file: {
-        sha: '',
-        fileRelativePath: `/src/data/pages/${pageName}.json`,
         data
       }
     },
