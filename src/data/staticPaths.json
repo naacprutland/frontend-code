@@ -8,6 +8,18 @@
     },
     {
       "params": { "slug":  ["blog"]}
+    },
+    {
+      "params": { "slug":  ["blog", "test1"]}
+    },
+    {
+      "params": { "slug":  ["blog", "test2"]}
+    },
+    {
+      "params": { "slug":  ["blog", "test3"]}
+    },
+    {
+      "params": { "slug":  ["blog", "test4"]}
     }
   ]
 }
