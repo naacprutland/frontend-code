@@ -15,8 +15,17 @@ export async function getPageData(page): Promise<unknown| null> {
  * Get Data associated with the app
  */
 export async function getConfigData() {
-  const data = await import('../data/siteConfig.json');
-  return data.default;
+  let data;
+  try {
+    data = await fetch('http://localhost:1337/config');
+    data = await data.json();
+  } catch(e) {
+    data = { 
+      status: 'error',
+      message: 'Unable to load config file'
+    };
+  }
+  return data;
 }
 
 /**
