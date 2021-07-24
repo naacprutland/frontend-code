@@ -1,11 +1,19 @@
+const baseApiUrl = 'http://localhost:1337';
+
 /**
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
 export async function getPageData(page): Promise<unknown| null> {
   try {
-    const content  = await import(`../data/pages/${page}.json`);
-    return content.default ;
+    let response = await fetch(`${baseApiUrl}/pages?slug=${page}`);
+    let json = await response.json();
+    if (json.length > 0) {
+      return json.pop();
+    }
+    response = await fetch(`${baseApiUrl}/pages?slug=404`);
+    json = await response.json();
+    return json.pop();
   } catch (e) {
     return null
   }
@@ -14,18 +22,16 @@ export async function getPageData(page): Promise<unknown| null> {
 /**
  * Get Data associated with the app
  */
-export async function getConfigData() {
-  let data;
+export async function getConfigData() { 
   try {
-    data = await fetch('http://localhost:1337/config');
-    data = await data.json();
+    const response = await fetch(`${baseApiUrl}/config`);
+    return response.json();
   } catch(e) {
-    data = { 
+    return { 
       status: 'error',
       message: 'Unable to load config file'
     };
   }
-  return data;
 }
 
 /**
@@ -36,16 +42,13 @@ export async function getConfigData() {
 export async function getPageProps(formTitle: string) {
   const config =  await getConfigData();
   let data = await getPageData(formTitle);
-  const pageName = data ? formTitle.toLowerCase() : '404';
-  const editorMode = process.env?.EDIT_SITE === 'true';
 
   if (!data) {
-    data = await getPageData(pageName)
+    data = {}
   }
 
   return {
     props: {
-      editorMode,
       formTitle,
       preview: false,
       config,
@@ -64,8 +67,8 @@ export async function getPageProps(formTitle: string) {
  */
 export async function getPathsList() {
   try {
-    const data  = await import(`../data/staticPaths.json`);
-    return data.default?.paths;
+    const data  = await fetch(`${baseApiUrl}/staticPaths`);
+    return data.json();
   } catch (e) {
     return []
   }

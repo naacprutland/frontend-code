@@ -1,7 +1,9 @@
 import { Heading, Box, AspectRatio, Grid, GridItem,
   Container, Button, Wrap, WrapItem  } from '@chakra-ui/react'
-import Image from 'next/image'
 import Link from 'next/link'
+import Picture from './Picture'
+import { MediaImage } from '../interface/media' 
+
 
 export interface HeroProps {
   title: string;
@@ -9,7 +11,7 @@ export interface HeroProps {
   theme: 'light' | 'dark';
   imgOverlayPer?: number;
   backgroundImage: {
-    src: string;
+    src: MediaImage;
     alt: string;
   };
   horPos: 'left' | 'right' | 'center';
@@ -77,6 +79,14 @@ const posProMobile = {
   span: 12
 }
 
+const imgSizes: { size: string, bp: number}[] = [
+  { size: 'xsmall', bp: 0 },
+  { size: 'small', bp: 480 },
+  { size: 'medium', bp: 768 },
+  { size: 'large', bp: 1023 },
+  { size: 'xlarge', bp: 1440 }
+]
+
 const HeroBlock = ({
   title, detail, theme, imgOverlayPer = 0,
   textPos = "start", cta,
@@ -90,11 +100,20 @@ const HeroBlock = ({
             zIndex="-1"
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >
-            {(backgroundImage?.src && backgroundImage?.alt) && <Image
+            {/* {(backgroundImage?.src && backgroundImage?.alt) && <Image
                 layout="fill"
                 sizes="(min-width: 48rem) 1080px ,(min-width: 30rem) 640px, 375px"
                   objectFit="cover" objectPosition="center" {...backgroundImage} />
-            }
+               
+            } */}
+            {<Picture src={backgroundImage?.src?.url} alt={backgroundImage?.alt}
+                sources={imgSizes.map(v => {
+                  const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
+                  return {
+                    media,
+                    srcset: backgroundImage?.src.formats[v.size]?.url
+                  }
+                })} />}
         </Box>
         <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
           <Grid

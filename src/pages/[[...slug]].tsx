@@ -12,7 +12,7 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params }) => {
-  const location = params?.slug ? params.slug.join('_') : 'home'
+  const location = params?.slug ? params.slug.pop()  : 'home'
 
   return getPageProps(location);
 

@@ -3,7 +3,10 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Hero, { HeroProps } from '../components/HeroBlock'
-import testImg1 from './assets/jimmy-dean-unsplash.jpg'
+// import originalUrl from './assets/jcs-chen-sGblr5yVXiM-jimmy_dean_toa_Ow_Azq8c_unsplash_ece9ad2bb1.jpg'
+// import xSmallImg from './assets/xsmall_jcs-chen-sGblr5yVXiM-jimmy_dean_toa_Ow_Azq8c_unsplash_ece9ad2bb1.jpg'
+import testImg1 from './assets/image2.jpg'
+import tes from './assets/'
 
 export default {
   title: "Blocks/Hero Block",
@@ -25,7 +28,20 @@ export const maxOfFourCta = Template.bind({});
 maxOfFourCta.args = {
   title: "Harte Hero",
   backgroundImage: {
-    src: testImg1,
+    src: {
+      mime: "image/jpeg",
+      size: 349.68,
+      width: 2400,
+      height: 1600,
+      url: '',
+      formats: {
+        xsmall: {
+          url: '',
+          width: 480,
+          height: 300
+        }
+      }
+    },
     alt: "the city"
   },
   theme: "dark",

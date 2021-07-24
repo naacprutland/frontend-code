@@ -3,27 +3,28 @@ import useIntersectionObserver from '../hooks/intersectionObserver';
 
 export interface Source {
   srcset: string;
-  media: string;
+  media?: string;
 }
 
 interface Props {
-  className: string;
+  picClass?: string;
+  imgClass?: string;
   src: string;
   alt: string;
   sources: Source[];
 }
 
-const Picture = ({ sources, className = '', src, alt }: Props) => {
+const Picture = ({ sources, picClass = '', imgClass = '',  src, alt }: Props) => {
   const pic = useRef(null);
   const isPicVisible = useIntersectionObserver(pic);
   return (
-    <picture className={className} ref={pic}>
+    <picture className={picClass} ref={pic}>
       {sources && sources.map(val => (
         <>
           <source {...val}></source>
         </>
       ))}
-      <img src={isPicVisible ? src : ''} alt={alt} />
+      <img className={imgClass} src={isPicVisible ? src : ''} alt={alt} />
     </picture>
   );
 }

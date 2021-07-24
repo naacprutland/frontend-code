@@ -4,24 +4,24 @@ import { DeckBlockProps } from '../components/DeckBlock'
 import { MediaBlockProps } from '../components/MediaBlock'
 
 interface ComponentBlock {
-  "_template": string;
+  "template": string;
   position?: number;
 }
 
 export interface HeroBlock extends ComponentBlock, HeroProps {
-  "_template": 'hero-block'
+  "template": 'hero-block'
 }
 
 export interface TextBlock extends ComponentBlock, TextBlockProps {
-  "_template": 'text-block'
+  "template": 'text-block'
 }
 
 export interface DeckBlock extends ComponentBlock, DeckBlockProps {
-  "_template": 'deck-block'
+  "template": 'deck-block'
 }
 
 export interface MediaBlock extends ComponentBlock, MediaBlockProps {
-  "_template": 'media-block'
+  "template": 'media-block'
 }
 
 export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock
