@@ -3,10 +3,13 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Hero, { HeroProps } from '../components/HeroBlock'
-// import originalUrl from './assets/jcs-chen-sGblr5yVXiM-jimmy_dean_toa_Ow_Azq8c_unsplash_ece9ad2bb1.jpg'
-// import xSmallImg from './assets/xsmall_jcs-chen-sGblr5yVXiM-jimmy_dean_toa_Ow_Azq8c_unsplash_ece9ad2bb1.jpg'
-import testImg1 from './assets/image2.jpg'
-import tes from './assets/'
+import testImg1 from './assets/xlarge_landscape.jpg'
+import originalUrl from './assets/landscape.jpg'
+import xSmallImg from './assets/xsmall3x4_landscape.jpg'
+import smallImg from './assets/small_landscape.jpg'
+import mediumImg from './assets/medium_landscape.jpg'
+import largeImg from './assets/large_landscape.jpg'
+import xLargeImg from './assets/xlarge_landscape.jpg'
 
 export default {
   title: "Blocks/Hero Block",
@@ -33,13 +36,33 @@ maxOfFourCta.args = {
       size: 349.68,
       width: 2400,
       height: 1600,
-      url: '',
+      url: originalUrl,
       formats: {
-        xsmall: {
-          url: '',
+        xsmall3x4: {
+          url: xSmallImg,
           width: 480,
           height: 300
-        }
+        },
+        small: {
+          url: smallImg,
+          width: 480,
+          height: 300
+        },
+        medium: {
+          url: mediumImg,
+          width: 720,
+          height: 300
+        },
+        large: {
+          url: largeImg,
+          width: 1020,
+          height: 300
+        },
+        xlarge: {
+          url: xLargeImg,
+          width: 1980,
+          height: 300
+        },
       }
     },
     alt: "the city"
