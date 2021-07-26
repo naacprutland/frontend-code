@@ -100,12 +100,6 @@ const HeroBlock = ({
             zIndex="-1"
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >
-            {/* {(backgroundImage?.src && backgroundImage?.alt) && <Image
-                layout="fill"
-                sizes="(min-width: 48rem) 1080px ,(min-width: 30rem) 640px, 375px"
-                  objectFit="cover" objectPosition="center" {...backgroundImage} />
-               
-            } */}
             {<Picture src={backgroundImage?.src?.url} alt={backgroundImage?.alt}
                 sources={imgSizes.map(v => {
                   const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
