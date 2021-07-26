@@ -17,8 +17,8 @@ function DynamicComponent({ template, ...props}: Block) {
       return <DynamicHero {...props as HeroBlock}/>
     case 'text-block':
       return <DynamicTextBlock {...props as TextBlock}/>
-    // case 'deck-block':
-    //   return <DynamicDeckBlock {...props as DeckBlock} />
+    case 'deck-block':
+      return <DynamicDeckBlock {...props as DeckBlock} />
     // case 'media-block': 
     //   return <DynamicMediaBlock {...props as MediaBlock} />
     default :
