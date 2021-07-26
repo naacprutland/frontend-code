@@ -15,8 +15,8 @@ function DynamicComponent({ template, ...props}: Block) {
   switch (template) {
     case 'hero-block':
       return <DynamicHero {...props as HeroBlock}/>
-    // case 'text-block':
-    //   return <DynamicTextBlock {...props as TextBlock}/>
+    case 'text-block':
+      return <DynamicTextBlock {...props as TextBlock}/>
     // case 'deck-block':
     //   return <DynamicDeckBlock {...props as DeckBlock} />
     // case 'media-block': 
