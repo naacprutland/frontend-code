@@ -1,6 +1,5 @@
 import { useRef } from 'react'
 import useIntersectionObserver from '../hooks/intersectionObserver';
-import styled from 'styled-components'
 
 export interface Source {
   srcset: string;
