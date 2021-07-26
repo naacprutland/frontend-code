@@ -80,11 +80,11 @@ const posProMobile = {
 }
 
 const imgSizes: { size: string, bp: number}[] = [
-  { size: 'xsmall', bp: 0 },
-  { size: 'small', bp: 480 },
-  { size: 'medium', bp: 768 },
+  { size: 'xlarge', bp: 1440 },
   { size: 'large', bp: 1023 },
-  { size: 'xlarge', bp: 1440 }
+  { size: 'medium', bp: 768 },
+  { size: 'small', bp: 480 },
+  { size: 'xsmall3x4', bp: 0 }
 ]
 
 const HeroBlock = ({
