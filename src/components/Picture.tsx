@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import useIntersectionObserver from '../hooks/intersectionObserver';
+import styled from 'styled-components'
 
 export interface Source {
   srcset: string;
@@ -14,17 +15,28 @@ interface Props {
   sources: Source[];
 }
 
-const Picture = ({ sources, picClass = '', imgClass = '',  src, alt }: Props) => {
+const Picture = ({ sources, picClass = '', imgClass = '', src, alt }: Props) => {
   const pic = useRef(null);
   const isPicVisible = useIntersectionObserver(pic);
   return (
     <picture className={picClass} ref={pic}>
-      {sources && sources.map(val => (
-        <>
-          <source {...val}></source>
-        </>
+      {sources && sources.map((val, i) => (
+          <source key={val.srcset + i} srcSet={val.srcset} media={val.media} />
       ))}
-      <img className={imgClass} src={isPicVisible ? src : ''} alt={alt} />
+      {isPicVisible &&  <img className={imgClass} src={src} alt={alt} />}
+      <style jsx>{`
+        picture {
+          height: 100%;
+          width: 100%;
+        }
+
+        img {
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          width: 100%;
+        }
+     `}</style>
     </picture>
   );
 }
