@@ -5,6 +5,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import MediaBlock, { MediaBlockProps } from '../components/MediaBlock'
 import testImg1 from './assets/image2.jpg'
 import video1 from './assets/flower.webm'
+import { mediaImageData, mediaImagePlayData } from './data/mediaBlock'
 
 export default {
   title: "Blocks/Media Block",
@@ -23,14 +24,7 @@ export default {
 const Template: Story<MediaBlockProps> = (args) => <MediaBlock {...args} />;
 
 export const mediaImage = Template.bind({});
-mediaImage.args = {
-  bgType: 'image',
-  bgImg: {
-    src: testImg1,
-    alt: "in the rain"
-  },
-  overlayOpacity: 25
-};
+mediaImage.args = mediaImageData;
 
 export const mediaVideo = Template.bind({});
 mediaVideo.args = {
@@ -48,15 +42,4 @@ mediaVideo.args = {
 };
 
 export const mediaImagePlay = Template.bind({});
-mediaImagePlay.args = {
-  bgType: 'image',
-  bgImg: {
-    src: testImg1,
-    alt: "in the rain"
-  },
-  overlayOpacity: 25,
-  youTubeVideo: {
-    key: 'SUxD_hzWRWU',
-    label: 'AMV'
-  }
-};
+mediaImagePlay.args = mediaImagePlayData;
