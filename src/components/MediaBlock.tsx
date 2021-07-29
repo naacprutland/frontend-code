@@ -5,9 +5,10 @@ import { Box, AspectRatio, IconButton, Icon,
   ModalContent,
   ModalBody,
   ModalCloseButton } from '@chakra-ui/react'
-import Image from 'next/image'
 import { BiPlay } from "react-icons/bi";
 import YouTube, { Options } from "react-youtube";
+import Picture from "./Picture";
+import { MediaImage } from '../interface/media'
 
 export interface VideoType {
   src: string;
@@ -19,7 +20,7 @@ export interface MediaBlockProps {
   bgType: 'video' | 'image';
   blockSize?: 'md' | 'lg' | 'xl' | 'full';
   bgImg?: {
-    src: string;
+    src: MediaImage;
     alt: string;
   },
   bgVid?: {
@@ -42,6 +43,15 @@ const opts: Options = {
   }
 };
 
+const imgSizes: { size: string, bp: number}[] = [
+  { size: 'xlarge', bp: 1440 },
+  { size: 'large', bp: 1023 },
+  { size: 'medium', bp: 768 },
+  { size: 'small', bp: 480 },
+  { size: 'xsmall3x4', bp: 0 }
+]
+
+
 const MediaBlock = ({
     bgType,
     bgImg,
@@ -60,9 +70,14 @@ const MediaBlock = ({
         <AspectRatio bgColor="black" ratio={16/9}>
           <Box >
             {(bgType === 'image' && bgImg?.src) && (
-              <Image layout="fill"
-                objectFit="cover"
-                objectPosition="center" {...bgImg} />
+                <Picture src={bgImg?.src?.url} alt={bgImg?.alt}
+                sources={imgSizes.map(v => {
+                  const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
+                  return {
+                    media,
+                    srcset: bgImg?.src.formats[v.size]?.url
+                  }
+                })} />
             )}
             {(bgType === 'video' && bgVid) && (
               <Box as="video" 
