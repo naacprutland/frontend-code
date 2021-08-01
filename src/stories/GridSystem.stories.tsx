@@ -3,29 +3,26 @@ import { Box } from "@chakra-ui/react"
 
 import { Meta } from '@storybook/react';
 
-import GridLayout from '../components/GridLayout';
-
 export default {
-  component: GridLayout,
-  title: 'Components/Grid Layout',
+  title: 'Global Styling/Grid Layout',
 } as Meta;
 
 const columns = 12
 const arr = Array.from(Array(columns).keys()).slice(1)
 
 export const Grid: React.VFC<unknown> = () => (
-  <GridLayout>
+  <Box className="grid">
     {arr.map(val => (
       <>
         <Box className={`gcol-${val}`} bgColor="gray.200">Col {val}</Box>
         <Box className={`gcol-${columns - val}`} bgColor="gray.200">Col {columns - val}</Box>
       </>
     ))}
-  </GridLayout>);
+  </Box>);
 
 
 export const Center: React.VFC<unknown> = () => (
-  <GridLayout>
+  <Box className="grid">
     {arr.reduce((acc,cur) => {
       if (cur % 2 === 0) {
         return [...acc, (
@@ -36,11 +33,11 @@ export const Center: React.VFC<unknown> = () => (
       }
       return acc
     }, [])}
-  </GridLayout>);
+  </Box>);
 
 
 export const Breakpoints: React.VFC<unknown> = () => (
-  <GridLayout>
+  <Box className="grid">
     <Box className="gcol-sm-8 gcol-lg-6 center" bgColor="gray.200">
       gcol-sm-8 gcol-lg-6 center
     </Box>
@@ -62,4 +59,4 @@ export const Breakpoints: React.VFC<unknown> = () => (
     <Box className="gcol-sm-6 gcol-md-4 gcol-xl-3" bgColor="gray.200">
       gcol-sm-6 gcol-md-4 gcol-xl-3
     </Box>
-  </GridLayout>);
+  </Box>);
