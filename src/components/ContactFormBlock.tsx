@@ -1,12 +1,14 @@
 import { useForm } from "react-hook-form";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Container,
   FormErrorMessage,
   FormLabel,
   FormControl,
   Input,
   Textarea,
-  Button
+  Button,
+  useToast
 } from "@chakra-ui/react";
 
 const emailPattern = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/
@@ -15,17 +17,57 @@ const ContactFormBlock = () => {
   const {
     handleSubmit,
     register,
+    reset,
+    setError,
     formState: { errors, isSubmitting }
   } = useForm();
+  const [isDisabled, setIsDisabled] = useState(false)
+  const toast = useToast()
 
-  function onSubmit(values) {
-    // eslint-disable-next-line no-console
-    console.log(values)
+  async function onSubmit(values) {
+    setIsDisabled(true)
+    try {
+      const res = await fetch("http://localhost:1337/contact-messages/send", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(values)
+      });
+      const json =  await res.json();
+      if (res.status < 400) { // if successful
+        toast({
+          title: 'Submitted Successfully!',
+          status: 'success',
+          isClosable: true,
+        })
+        reset({name: '', email: '', subject: '', message: ''})
+      } else { // if error
+        const errors = json.data.errors
+        const errorKeys = Object.keys(errors)
+        errorKeys.forEach(name => {
+          setError(name, { type: 'manual', message: errors[name][0] })
+        })
+        toast({
+          title: 'Submission Error',
+          status: 'error',
+          isClosable: true,
+        })
+      }     
+      setIsDisabled(false);
+    } catch (e) {
+      toast({
+        title: 'Sorry, There was an error with the submission.',
+        status: 'error',
+        isClosable: true,
+      })
+      setIsDisabled(false);
+    }
   }
   return (
-    <section>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={errors.name}>
+    <Container as="section"  maxW="container.md">
+      <form className="grid" onSubmit={handleSubmit(onSubmit)}>
+        <FormControl className="gcol-6" isInvalid={errors.name}>
           <FormLabel htmlFor="name">Name</FormLabel>
           <Input
             id="name"
@@ -41,7 +83,7 @@ const ContactFormBlock = () => {
             {errors.name && errors.name.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.email}>
+        <FormControl className="gcol-6" isInvalid={errors.email}>
           <FormLabel htmlFor="email">Email</FormLabel>
           <Input
             id="email"
@@ -61,7 +103,7 @@ const ContactFormBlock = () => {
             {errors.email && errors.email.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.subject}>
+        <FormControl className="gcol-12" isInvalid={errors.subject}>
           <FormLabel htmlFor="subject">Subject</FormLabel>
           <Input
             id="subject"
@@ -77,7 +119,7 @@ const ContactFormBlock = () => {
             {errors.subject && errors.subject.message}
           </FormErrorMessage>
         </FormControl>
-        <FormControl isInvalid={errors.message}>
+        <FormControl className="gcol-12" isInvalid={errors.message}>
           <FormLabel htmlFor="message">Message</FormLabel>
           <Textarea
             id="message"
@@ -90,11 +132,14 @@ const ContactFormBlock = () => {
             {errors.message && errors.message.message}
           </FormErrorMessage>
         </FormControl>
-        <Button mt={4} colorScheme="teal" isLoading={isSubmitting} type="submit">
+        <Button className="gcol-sm-10 gcol-md-4 center" 
+                isDisabled={isDisabled}
+                mt={4} colorScheme="teal" 
+                isLoading={isSubmitting} type="submit">
           Submit
         </Button>
       </form>
-    </section>
+    </Container>
   )
 }
 
