@@ -1,43 +1,66 @@
-import { extendTheme } from '@chakra-ui/react'
-// import { createBreakpoints } from '@chakra-ui/theme-tools'
+import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
 
-// const fonts = { mono: `'Menlo', monospace` }
+const columns = 12
+const centerStartCol = {
+  2: 6,
+  4: 5,
+  6: 4,
+  8: 3,
+  10: 2,
+  12: 1,
+}
+const bp = [ 'sm', 'md', 'lg', 'xl', '2xl'];
 
-// const breakpoints = createBreakpoints({
-//   sm: '40em',
-//   md: '52em',
-//   lg: '64em',
-//   xl: '80em',
-//   "2xl": '100%'
-// })
+function gCol(bpVal?: string) {
+  const classes = {}
 
-// const Button: ThemeComponents = {
-//   baseStyle: {
-//     fontWeight: "bold",
-//     textTransform: "uppercase",
-//     _hover: {
-//       textDecoration: "none",
-//     }
-//   }
-// }
+  for (let i = 1; i <= columns; i++ ) {
+
+    classes[`.gcol${bpVal ? `-${bpVal}` : ''}-${i}`] = {
+        gridColumn: "span " + i
+    }
+
+    if (i % 2 === 0) {
+      classes[`.gcol${bpVal ? `-${bpVal}` : ''}-${i}.center`] = {
+        gridColumn: `${centerStartCol[i]} / span ${i}`
+      }
+    }
+  }
+  return classes
+}
+
+function gColBP(breakpoints) {
+  return bp.reduce((acc, cur) => {
+    acc[`@media screen and (min-width: ${breakpoints[cur]})`] = gCol(cur)
+    return acc
+  }, {})
+}
+
+let grid = {
+  display: "grid",
+  gridTemplateColumns: "1fr",
+  gap: baseTheme.space['4']
+}
+
+
+
+grid = {
+  ...grid,
+  ...gColBP(baseTheme.breakpoints)
+}
+
+grid[`@media screen and (min-width: ${baseTheme.breakpoints['sm']})`] = {
+  "gridTemplateColumns": `repeat(${columns}, 1fr)`,
+  ...grid[`@media screen and (min-width: ${baseTheme.breakpoints['sm']})`],
+  ...gCol()
+}
 
 const theme = extendTheme({
-  //styles: {
-    // global: {
-    //   // styles for the `body`
-    //   body: {
-    //     bg: "gray.400",
-    //     color: "white",
-    //   },
-    //   // styles for the `a`
-    //   a: {
-    //     color: "teal.500",
-    //     _hover: {
-    //       textDecoration: "underline",
-    //     },
-    //   },
-    // },
-  // },
+  styles: {
+    global: {
+      ".grid": grid,
+    }
+  },
   components: {
     Link: {
       baseStyle: {
