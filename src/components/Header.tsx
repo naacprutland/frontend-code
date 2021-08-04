@@ -3,22 +3,34 @@ import { Box, Text, Image,  HStack, useColorMode, } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
 
+interface MenuItem {
+  title: string;
+  page : {
+    path: string;
+  }
+  subitems: SubItem;
+}
+
+interface SubItem {
+  title: string;
+  page : {
+    path: string;
+  }
+}
+
 export interface HeaderProps {
   logo?: {
     src: string;
     alt: string;
   },
-  pageLinks?: {
-    label: string;
-    path: string;
-  }[],
+  mega_menu?: MenuItem[],
   includeDarkMode?: boolean;
   fixed?: boolean;
   transparent?:boolean;
 }
 
 const Header = ({ logo, 
-  pageLinks = [],
+  mega_menu = [],
   includeDarkMode,
   fixed,
   transparent
@@ -49,11 +61,11 @@ const Header = ({ logo,
           </Box>
           <HStack as="nav" spacing={4} h="100%" justifyContent="flex-end">
             <HStack as="ul" spacing={3} sx={{"listStyleType": "none"}}>
-              {pageLinks.map((links) => (
-                <Box as="li" key={links.path} margin="0">
-                  <Link href={links.path} passHref>
+              {mega_menu.map((item, i) => (
+                <Box as="li" key={item.title + i} margin="0">
+                  <Link href={item?.page?.path} passHref>
                     <Text as="a" cursor="pointer" textTransform="capitalize">
-                      {links.label}
+                      {item.title}
                     </Text>
                   </Link>
                 </Box>
