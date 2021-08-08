@@ -5,7 +5,7 @@ import mediumImg from '../assets/medium_landscape.jpg'
 import largeImg from '../assets/large_landscape.jpg'
 import xLargeImg from '../assets/xlarge_landscape.jpg'
 
-const src = {
+export const src = {
   mime: "image/jpeg",
   size: 349.68,
   width: 2400,
