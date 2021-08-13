@@ -10,6 +10,11 @@ const centerStartCol = {
   12: 1,
 }
 const bp = [ 'sm', 'md', 'lg', 'xl', '2xl'];
+const gap = {
+  base: baseTheme.space['4'],
+  md: baseTheme.space['6'],
+  lg: baseTheme.space['8']
+}
 
 function gCol(bpVal?: string) {
   const classes = {}
@@ -39,9 +44,8 @@ function gColBP(breakpoints) {
 let grid = {
   display: "grid",
   gridTemplateColumns: "1fr",
-  gap: baseTheme.space['4']
+  gap: gap.base
 }
-
 
 
 grid = {
@@ -53,6 +57,16 @@ grid[`@media screen and (min-width: ${baseTheme.breakpoints['sm']})`] = {
   "gridTemplateColumns": `repeat(${columns}, 1fr)`,
   ...grid[`@media screen and (min-width: ${baseTheme.breakpoints['sm']})`],
   ...gCol()
+}
+
+grid[`@media screen and (min-width: ${baseTheme.breakpoints['md']})`] = {
+  gap: gap.md,
+  ...grid[`@media screen and (min-width: ${baseTheme.breakpoints['md']})`]
+}
+
+grid[`@media screen and (min-width: ${baseTheme.breakpoints['lg']})`] = {
+  gap: gap.lg,
+  ...grid[`@media screen and (min-width: ${baseTheme.breakpoints['lg']})`]
 }
 
 const theme = extendTheme({
