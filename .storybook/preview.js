@@ -1,6 +1,7 @@
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from '../src/theme'
 import * as NextImage from 'next/image';
+import { RouterContext } from "next/dist/next-server/lib/router-context";
 
 const OriginalNextImage = NextImage.default;
 Object.defineProperty(NextImage, 'default', {
@@ -23,6 +24,9 @@ const withThemeProvider=(Story,context)=>{
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   layout: 'fullscreen',
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
 }
 
 export const decorators = [withThemeProvider];
