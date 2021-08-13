@@ -2,15 +2,15 @@ import React from 'react';
 // also exported from '@storybook/react' if you can deal with breaking changes in 6.1
 import { Story, Meta } from '@storybook/react/types-6-0';
 
-import ContentLandingPage, { CLPProps } from '../components/ContentLandingPage'
+import SearchSortBlock, { CLPProps } from '../components/SearchSortBlock'
 import { src } from './data/mediaBlock'
 
 export default {
-  title: 'Layout/Content Landing Page',
-  component: ContentLandingPage,
+  title: 'Blocks/Search Sort Block',
+  component: SearchSortBlock,
 } as Meta;
 
-const Template: Story<CLPProps> = (args) => <ContentLandingPage {...args} />;
+const Template: Story<CLPProps> = (args) => <SearchSortBlock {...args} />;
 
 const resultItem = {
   title: 'Test Item',

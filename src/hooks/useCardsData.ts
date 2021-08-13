@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { CardProps } from '../components/Card'
-import { ResultItem } from '../components/ContentLandingPage'
+import { ResultItem } from '../components/SearchSortBlock'
 
 type Tuple = [CardProps[], (results?: ResultItem[]) => void];
 

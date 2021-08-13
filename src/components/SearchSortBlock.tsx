@@ -42,7 +42,7 @@ export interface CLPProps {
   results: ResultItem[];
 }
 
-const ContentLandingPage = ({ collectionType, results }: CLPProps) => {
+const SearchSortBlock = ({ collectionType, results }: CLPProps) => {
   // const router = useRouter()
   // const [curPage, setCurPage] = useState<number>(currentPage)
   // const [totPage, setTotPage] = useState<number>(totalPages)
@@ -111,4 +111,4 @@ const ContentLandingPage = ({ collectionType, results }: CLPProps) => {
   </Stack>)
 }
 
-export default ContentLandingPage
+export default SearchSortBlock
