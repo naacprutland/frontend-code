@@ -3,7 +3,6 @@ import React from 'react';
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import ContentLandingPage, { CLPProps } from '../components/ContentLandingPage'
-import { heroData } from './data/heroBlock'
 import { src } from './data/mediaBlock'
 
 export default {
@@ -36,5 +35,5 @@ Primary.args = {
   totalPages: 1,
   totalResults: 4,
   results: arr,
-  hero: heroData
+  collectionType: 'articles'
 };
