@@ -7,6 +7,11 @@ interface SearchFilter {
   sort: string;
 }
 
+const arg: SearchFilter = { 
+  search: '' ,
+  sort: '' 
+}
+
 /**
  * get request for strapi collection types
  * @param path url minus the domain and shceme
@@ -16,7 +21,6 @@ export const fetchData = async (path) => {
   const resURL = `${STRAPI_API_URL}${path}`
   const res = await fetch(resURL)
   const data =  await res.json()
-  console.log(resURL, data)
 
   return data
 }
@@ -44,7 +48,7 @@ const sortMethod = {
  */
 export const searchSortQuery = async (
   path: string, 
-  { search , sort }: SearchFilter) => {
+  { search , sort }: SearchFilter = arg) => {
   let query = ''
   if (!!search || !!sort ) {
     let queryObject = {}
