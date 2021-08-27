@@ -5,7 +5,7 @@ import { useState, useEffect, RefObject} from 'react'
  * @param reference = Element reference
  * @returns boolean
  */
-const useIntersectionObserver = (reference: RefObject<T>): boolean => {
+const useIntersectionObserver = (reference: RefObject<Element>): boolean => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {

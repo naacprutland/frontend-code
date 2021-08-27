@@ -1,4 +1,4 @@
-import { CardProps } from '../components/Card';
+import { CardProps } from '../../components/Card';
 import originalUrl from '../assets/landscape.jpg'
 import xSmallImg from '../assets/xsmall3x4_landscape.jpg'
 import smallImg from '../assets/small_landscape.jpg'
@@ -14,30 +14,30 @@ export const cardData: CardProps = {
       size: 349.68,
       width: 2400,
       height: 1600,
-      url: originalUrl,
+      url: originalUrl as unknown as string,
       formats: {
         xsmall: {
-          url: xSmallImg,
+          url: xSmallImg as unknown as string,
           width: 480,
           height: 300
         },
         small: {
-          url: smallImg,
+          url: smallImg as unknown as string,
           width: 480,
           height: 300
         },
         medium: {
-          url: mediumImg,
+          url: mediumImg as unknown as string,
           width: 720,
           height: 300
         },
         large: {
-          url: largeImg,
+          url: largeImg as unknown as string,
           width: 1020,
           height: 300
         },
         xlarge: {
-          url: xLargeImg,
+          url: xLargeImg as unknown as string,
           width: 1980,
           height: 300
         },

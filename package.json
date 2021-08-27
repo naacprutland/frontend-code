@@ -61,6 +61,7 @@
     "@typescript-eslint/parser": "^4.15.1",
     "babel-loader": "^8.2.2",
     "eslint": "^7.20.0",
+    "eslint-config-next": "^11.1.0",
     "eslint-config-prettier": "^7.2.0",
     "eslint-plugin-react": "^7.22.0",
     "husky": "^5.0.9",

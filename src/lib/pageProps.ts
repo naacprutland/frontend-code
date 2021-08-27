@@ -1,19 +1,21 @@
+import { PageTemplateProps } from '../interface/page'
+
 const baseApiUrl = 'http://localhost:1337';
 
 /**
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
-export async function getPageData(page): Promise<unknown| null> {
+export async function getPageData(page): Promise<PageTemplateProps| null> {
   try {
-    let response = await fetch(`${baseApiUrl}/pages?slug=${page}`);
-    let json = await response.json();
-    if (json.length > 0) {
-      return json.pop();
-    }
-    response = await fetch(`${baseApiUrl}/pages?slug=404`);
-    json = await response.json();
-    return json.pop();
+    let response = await fetch(`${baseApiUrl}/pages/${page}`);
+    if (response.ok) {
+      return response.json();
+    } else if (response.status === 404) {
+      response = await fetch(`${baseApiUrl}/pages?slug=404`);
+      if (!response.ok) return null
+      return response.json();
+    }  
   } catch (e) {
     return null
   }
@@ -41,16 +43,21 @@ export async function getConfigData() {
  */
 export async function getPageProps(formTitle: string) {
   const config =  await getConfigData();
-  let data = await getPageData(formTitle);
+  let data:PageTemplateProps = await getPageData(formTitle);
 
   if (!data) {
-    data = {}
+    data = {} as PageTemplateProps
+  }
+
+  if (data.pageStructure) {
+    ///
   }
 
   return {
     props: {
       formTitle,
       preview: false,
+      notFound: false,
       config,
       file: {
         data
@@ -65,10 +72,15 @@ export async function getPageProps(formTitle: string) {
       "params": { "slug": string[]}
     }[]
  */
-export async function getPathsList() {
+export async function getPathsList(): Promise<{
+  params: { slug: string[];}
+}[]> {
   try {
-    const data  = await fetch(`${baseApiUrl}/staticPaths`);
-    return data.json();
+    const result  = await fetch(`${baseApiUrl}/staticPaths`);
+    const data: {
+      params: { slug: string[];}
+    }[] = await result.json()
+    return data.filter(v => v.params.slug[0] !== '404');
   } catch (e) {
     return []
   }
