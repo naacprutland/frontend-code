@@ -1,4 +1,6 @@
 import { PageTemplateProps } from '../interface/page'
+import { PageResponseProps } from '../interface/pageResponse';
+import { buildPageStructure } from './pageStructureBuilder';
 
 const baseApiUrl = 'http://localhost:1337';
 
@@ -6,7 +8,7 @@ const baseApiUrl = 'http://localhost:1337';
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
-export async function getPageData(page): Promise<PageTemplateProps| null> {
+export async function getPageData(page: string): Promise<PageResponseProps| null> {
   try {
     let response = await fetch(`${baseApiUrl}/pages/${page}`);
     if (response.ok) {
@@ -43,14 +45,11 @@ export async function getConfigData() {
  */
 export async function getPageProps(formTitle: string) {
   const config =  await getConfigData();
-  let data:PageTemplateProps = await getPageData(formTitle);
+  const pageData:PageResponseProps = await getPageData(formTitle);
+  let data: PageTemplateProps = {} as PageTemplateProps
 
-  if (!data) {
-    data = {} as PageTemplateProps
-  }
-
-  if (data.pageStructure) {
-    ///
+  if (pageData) {
+    data = await buildPageStructure(pageData)
   }
 
   return {
