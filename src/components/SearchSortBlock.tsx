@@ -34,7 +34,7 @@ export interface ResultItem {
   }
 }
 
-export interface CLPProps {
+export interface SearchSortProps {
   // currentPage: number; 
   // totalPages: number;
   // totalResults: number;
@@ -42,7 +42,7 @@ export interface CLPProps {
   results: ResultItem[];
 }
 
-const SearchSortBlock = ({ collectionType, results }: CLPProps) => {
+const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
   // const router = useRouter()
   // const [curPage, setCurPage] = useState<number>(currentPage)
   // const [totPage, setTotPage] = useState<number>(totalPages)
