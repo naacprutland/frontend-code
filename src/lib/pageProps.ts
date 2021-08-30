@@ -3,6 +3,7 @@ import { PageResponseProps } from '../interface/pageResponse';
 import { buildPageStructure } from './pageStructureBuilder';
 
 const baseApiUrl = process.env.STRAPI_API_URL
+const siteBaseUrl = process.env.SITE_BASE_URL
 
 /**
  * Get data associated with page from markdown file
@@ -50,6 +51,9 @@ export async function getPageProps(formTitle: string) {
 
   if (pageData) {
     data = await buildPageStructure(pageData)
+    if (data.pageSEO) {
+      data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
+    }
   }
 
   return {
