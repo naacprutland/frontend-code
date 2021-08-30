@@ -2,7 +2,7 @@ import { PageTemplateProps } from '../interface/page'
 import { PageResponseProps } from '../interface/pageResponse';
 import { buildPageStructure } from './pageStructureBuilder';
 
-const baseApiUrl = 'http://localhost:1337';
+const baseApiUrl = process.env.STRAPI_API_URL
 
 /**
  * Get data associated with page from markdown file

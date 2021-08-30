@@ -1,6 +1,6 @@
 import { stringify } from 'qs'
 
-const STRAPI_API_URL = 'http://localhost:1337'
+const STRAPI_API_URL = process.env.STRAPI_API_URL
 
 interface SearchFilter {
   search: string;
