@@ -2,6 +2,7 @@ import { Container } from "@chakra-ui/react"
 import { Box, Text, Image,  HStack, useColorMode, } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
+import { MediaImage } from '../interface/media'
 
 interface MenuItem {
   title: string;
@@ -20,7 +21,7 @@ interface SubItem {
 
 export interface HeaderProps {
   logo?: {
-    src: string;
+    src: MediaImage;
     alt: string;
   },
   mega_menu?: MenuItem[],
@@ -36,6 +37,7 @@ const Header = ({ logo,
   transparent
 }: HeaderProps) => {
   const { colorMode } = useColorMode()
+  console.log(logo)
   return (
     <Box as="header" d="flex" alignItems="center" 
       top="0" position={fixed ? 'fixed' : 'static'}
@@ -53,7 +55,7 @@ const Header = ({ logo,
           <Box d="flex" alignItems="center" w="100px" h="100%">
             <Link href="/" passHref>
               <Box as="a" h="100%" cursor="pointer">
-                {logo && <Image height="100%" src={logo.src} 
+                {logo && <Image height="100%" src={logo.src.formats?.iconSmall?.url} 
                   alt={logo.alt} />
                 }
               </Box>
