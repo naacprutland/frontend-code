@@ -37,7 +37,6 @@ const Header = ({ logo,
   transparent
 }: HeaderProps) => {
   const { colorMode } = useColorMode()
-  console.log(logo)
   return (
     <Box as="header" d="flex" alignItems="center" 
       top="0" position={fixed ? 'fixed' : 'static'}
