@@ -57,7 +57,7 @@ const Header = ({ logo,
                 height: '100%',
                 width: '100%'
               } }}>
-                {logo && <img src={logo.src.formats?.xxsmall?.url} 
+                {logo && <img src={logo.src.formats?.iconMedium?.url} 
                   alt={logo.alt} />
                 }
               </Box>
