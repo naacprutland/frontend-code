@@ -101,6 +101,7 @@ const HeroBlock = ({
             filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
             >
             {<Picture src={backgroundImage?.src?.url} alt={backgroundImage?.alt}
+                noLazyLoad={position === 0}
                 sources={imgSizes.map(v => {
                   const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
                   return {

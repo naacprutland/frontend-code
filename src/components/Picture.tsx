@@ -9,14 +9,15 @@ export interface Source {
 interface Props {
   picClass?: string;
   imgClass?: string;
+  noLazyLoad?: boolean;
   src: string;
   alt: string;
   sources: Source[];
 }
 
-const Picture = ({ sources, picClass = '', imgClass = '', src, alt }: Props) => {
+const Picture = ({ sources, picClass = '', imgClass = '', src, alt, noLazyLoad = false }: Props) => {
   const pic = useRef(null);
-  const isPicVisible = useIntersectionObserver(pic);
+  const isPicVisible = noLazyLoad || useIntersectionObserver(pic);
   return (
     <picture className={picClass} ref={pic}>
       {sources && sources.map((val, i) => (
