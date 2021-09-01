@@ -1,5 +1,5 @@
 import { Container } from "@chakra-ui/react"
-import { Box, Text, Image,  HStack, useColorMode, } from "@chakra-ui/react"
+import { Box, Text, HStack, useColorMode, } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
 import { MediaImage } from '../interface/media'
@@ -53,8 +53,11 @@ const Header = ({ logo,
         maxW="container.xl" h="100%">  
           <Box d="flex" alignItems="center" w="100px" h="100%">
             <Link href="/" passHref>
-              <Box as="a" h="100%" cursor="pointer">
-                {logo && <Image height="100%" src={logo.src.formats?.iconSmall?.url} 
+              <Box as="a" h="100%" cursor="pointer" sx={{ img: {
+                height: '100%',
+                width: '100%'
+              } }}>
+                {logo && <img src={logo.src.formats?.xxsmall?.url} 
                   alt={logo.alt} />
                 }
               </Box>
