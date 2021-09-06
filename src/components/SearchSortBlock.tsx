@@ -1,5 +1,6 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useRef } from "react";
 import {
+  Box,
   Container,
   InputLeftElement,
   Icon,
@@ -16,6 +17,7 @@ import { MediaImage } from '../interface/media'
 import { useForm, useWatch } from "react-hook-form";
 import { debounce } from '../lib/util';
 import { searchSortQuery } from '../lib/strapiClient'
+import { CardProps } from '../components/Card'
 
 export interface ResultItem {
   id: string;
@@ -39,7 +41,7 @@ export interface SearchSortProps {
   // totalPages: number;
   // totalResults: number;
   collectionType: string;
-  results: ResultItem[];
+  results: CardProps[];
 }
 
 const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
@@ -47,13 +49,16 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
   // const [curPage, setCurPage] = useState<number>(currentPage)
   // const [totPage, setTotPage] = useState<number>(totalPages)
   // const [curSort, setCurSort] = useState<string>('')
-  const [cardsData, setCardsData] = useCardData(results)
+  // console.log({ results })
+//const startData = mapToCards(results, 'View Article')
+ const [cardsData, setCardsData] = useCardData(null)
   const {
     register,
     control
   } = useForm();
 
   const formData = useWatch({ control });
+  const firstTime = useRef(true);
 
   const searchFilter = useCallback(
     debounce(async (data) => {
@@ -67,7 +72,13 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
     [])
 
   useEffect(() => {
-    searchFilter(formData)
+    // eslint-disable-next-line no-console
+    if (!firstTime.current) {
+      // Run the effect.
+      searchFilter(formData)
+    } else {
+      firstTime.current = false;
+    }
   }, [formData])
 
   // useEffect(() => {
@@ -84,7 +95,7 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
 
   return (<Stack align="center" spacing={4}>
     <Container maxW="container.lg">
-      <form className="grid" >
+      <Box as="form" className="grid" w="100%">
         <FormControl className="gcol-6 gcol-md-8">
           <InputGroup id="search">
             <InputLeftElement pointerEvents="none">
@@ -105,9 +116,10 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
               <option value="DESC">Descending</option>
             </Select>
           </FormControl>
-      </form>
+      </Box>
     </Container>
-    <DeckBlock position={2} cards={cardsData} />
+    <DeckBlock position={2} cards={cardsData || results} />
+
   </Stack>)
 }
 

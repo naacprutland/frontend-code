@@ -3,6 +3,7 @@ import { Block, ResponseBlocks, SearchSortBlock, SearchSortRespBlock } from "../
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
 import { searchSortQuery } from "./strapiClient";
+import { mapToCards } from "../lib/helper";
 
 interface BlockBuilder {
   'search-sort-block': (data: SearchSortRespBlock) => Promise<SearchSortBlock>
@@ -11,7 +12,8 @@ interface BlockBuilder {
 const blockBuilder: BlockBuilder = {
   'search-sort-block': async ({ collection_type, template }: SearchSortRespBlock): Promise<SearchSortBlock> => {
     const collectionType = collection_type
-    const results: ResultItem[] = await searchSortQuery(collectionType)
+    const queryResults: ResultItem[] = await searchSortQuery(collectionType)
+    const results = mapToCards(queryResults, 'View Article')
     return {
       template,
       collectionType,

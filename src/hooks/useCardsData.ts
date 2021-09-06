@@ -5,15 +5,15 @@ import { mapToCards } from "../lib/helper";
 
 type Tuple = [CardProps[], (results?: ResultItem[]) => void];
 
-const useCardData = (results: ResultItem[] = []): Tuple => {
-  const [data, setData] = useState<CardProps[]>([])
+const useCardData = (results: ResultItem[] | null): Tuple => {
+  const [data, setData] = useState<CardProps[]>(null)
 
   const setCardsData = (results: ResultItem[] = []) => {
     setData(mapToCards(results, 'View Article'))
   }
 
   useEffect(() => {
-    setCardsData(results)
+    if (results) setCardsData(results)
   }, [results])
 
   return [data, setCardsData]
