@@ -34,3 +34,18 @@ export const throttle = (func: () => void, duration: number) => {
     }
   }
 }
+
+/**
+ * Wrapper for the fetch api
+ * @param api - API Url
+ * @returns 
+ */
+export const fetchApi = async (api: string) => {
+  const response = await fetch(api)
+  const json = await response.json();
+  if (response.status >= 200 && response.status <= 299) {
+    return json;
+  } else {
+    throw Error(json);
+  }
+}
