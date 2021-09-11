@@ -4,9 +4,9 @@ const Main = (props: StackProps) => (
   <Stack
     as="main"
     alignItems="center"
-    spacing="3"
+    spacing="16"
     width="100%"
-    minH="80vh"
+    minH="90vh"
     {...props}
   />
 )

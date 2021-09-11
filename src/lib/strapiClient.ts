@@ -1,4 +1,5 @@
 import { stringify } from 'qs'
+import { fetchApi } from './util'
 
 const STRAPI_API_URL = process.env.STRAPI_API_URL
 
@@ -10,19 +11,6 @@ interface SearchFilter {
 const arg: SearchFilter = { 
   search: '' ,
   sort: '' 
-}
-
-/**
- * get request for strapi collection types
- * @param path url minus the domain and shceme
- * @returns 
- */
-export const fetchData = async (path) => {
-  const resURL = `${STRAPI_API_URL}${path}`
-  const res = await fetch(resURL)
-  const data =  await res.json()
-
-  return data
 }
 
 const sortMethod = {
@@ -74,5 +62,5 @@ export const searchSortQuery = async (
     query = stringify(queryObject); 
   }
 
-  return await fetchData(`/${path}${query ? '?' : ''}${query}`)
+  return await fetchApi(`${STRAPI_API_URL}/${path}${query ? '?' : ''}${query}`)
 }

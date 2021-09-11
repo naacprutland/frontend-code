@@ -8,12 +8,12 @@ import {
   Input,
   Stack,
   Select,
+  useToast,
   FormControl } from '@chakra-ui/react'
 import { AiOutlineSearch } from "react-icons/ai"
 import DeckBlock from "./DeckBlock"
 import useCardData from '../hooks/useCardsData'
 import { MediaImage } from '../interface/media'
-// import { useRouter } from 'next/router'
 import { useForm, useWatch } from "react-hook-form";
 import { debounce } from '../lib/util';
 import { searchSortQuery } from '../lib/strapiClient'
@@ -37,61 +37,42 @@ export interface ResultItem {
 }
 
 export interface SearchSortProps {
-  // currentPage: number; 
-  // totalPages: number;
-  // totalResults: number;
   collectionType: string;
   results: CardProps[];
 }
 
 const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
-  // const router = useRouter()
-  // const [curPage, setCurPage] = useState<number>(currentPage)
-  // const [totPage, setTotPage] = useState<number>(totalPages)
-  // const [curSort, setCurSort] = useState<string>('')
-  // console.log({ results })
-//const startData = mapToCards(results, 'View Article')
- const [cardsData, setCardsData] = useCardData(null)
-  const {
-    register,
-    control
-  } = useForm();
+  const [ cardsData, setCardsData ] = useCardData(null)
+  const { register, control } = useForm();
 
   const formData = useWatch({ control });
   const firstTime = useRef(true);
+  const toast = useToast()
 
   const searchFilter = useCallback(
     debounce(async (data) => {
       if (Object.keys(data)?.length > 0 ) {
-        const response = await searchSortQuery( collectionType, data)
-
-        if (response) setCardsData(response)
-      
+        try {
+          const response = await searchSortQuery( collectionType, data)
+          setCardsData(response)
+        } catch (e) {
+          toast({
+            title: 'Server Error',
+            description: 'There was an issue with your request. Please try again later',
+            status: 'error',
+            isClosable: true,
+          })
+        }
       }
-    }, 500),
-    [])
+    }, 500), [])
 
   useEffect(() => {
-    // eslint-disable-next-line no-console
     if (!firstTime.current) {
-      // Run the effect.
       searchFilter(formData)
     } else {
       firstTime.current = false;
     }
   }, [formData])
-
-  // useEffect(() => {
-  //   const { page, sort } = router?.query
-
-  //   if (page && !isNaN(Number(page))) {
-  //     setCurPage(Number(page))
-  //   }
-
-  //   if (sort && !Array.isArray(sort)) {
-  //     setCurSort(sort);
-  //   }
-  // }, [router])
 
   return (<Stack align="center" spacing={4}>
     <Container maxW="container.lg">

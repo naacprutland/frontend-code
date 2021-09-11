@@ -10,6 +10,8 @@ import {
   Button,
   useToast
 } from "@chakra-ui/react";
+import { fetchApi } from '../lib/util'
+import apiEndPoints from "../lib/strapiApi";
 
 const emailPattern = /^[\w.%+-]+@[\w.-]+\.[\w]{2,6}$/
 
@@ -26,44 +28,36 @@ const ContactFormBlock = () => {
 
   async function onSubmit(values) {
     setIsDisabled(true)
+    const isClosable = true
     try {
-      const res = await fetch("http://localhost:1337/contact-messages/send", {
+      await fetchApi(apiEndPoints.postContactMessage, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(values)
-      });
-      const json =  await res.json();
-      if (res.status < 400) { // if successful
-        toast({
-          title: 'Submitted Successfully!',
-          status: 'success',
-          isClosable: true,
-        })
-        reset({name: '', email: '', subject: '', message: ''})
-      } else { // if error
-        const errors = json.data.errors
-        const errorKeys = Object.keys(errors)
-        errorKeys.forEach(name => {
-          setError(name, { type: 'manual', message: errors[name][0] })
-        })
-        toast({
-          title: 'Submission Error',
-          status: 'error',
-          isClosable: true,
-        })
-      }     
-      setIsDisabled(false);
-    } catch (e) {
-      toast({
-        title: 'Sorry, There was an error with the submission.',
-        status: 'error',
-        isClosable: true,
       })
-      setIsDisabled(false);
-    }
-  }
+      toast({
+        title: 'Submitted Successfully!',
+        status: 'success',
+        isClosable
+      })
+      reset({ name: '', email: '', subject: '', message: '' })
+    } catch(e) { 
+      const errors = e.data?.errors
+      const errorKeys = Object.keys(errors)
+      errorKeys.forEach(name => {
+        setError(name, { type: 'manual', message: errors[name][0] })
+      })
+      toast({
+        title: 'Submission Error',
+        status: 'error',
+        isClosable
+      })
+    }     
+    setIsDisabled(false);
+  } 
+  
   return (
     <Container as="section"  maxW="container.md">
       <form className="grid" onSubmit={handleSubmit(onSubmit)}>

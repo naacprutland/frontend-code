@@ -40,8 +40,8 @@ export const throttle = (func: () => void, duration: number) => {
  * @param api - API Url
  * @returns 
  */
-export const fetchApi = async (api: string) => {
-  const response = await fetch(api)
+export const fetchApi = async (api: string, init: RequestInit = {} ) => {
+  const response = await fetch(api, init)
   const json = await response.json();
   if (response.status >= 200 && response.status <= 299) {
     return json;

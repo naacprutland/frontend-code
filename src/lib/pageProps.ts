@@ -1,8 +1,10 @@
 import { PageTemplateProps } from '../interface/page'
-import { PageResponseProps } from '../interface/pageResponse';
-import { buildPageStructure } from './pageStructureBuilder';
+import { PageResponseProps } from '../interface/pageResponse'
+import { buildPageStructure } from './pageStructureBuilder'
+import apiEndPoints from './strapiApi'
+import { fetchApi } from './util'
 
-const baseApiUrl = process.env.STRAPI_API_URL
+const { getStaticPaths, getPages, getConfig } = apiEndPoints
 const siteBaseUrl = process.env.SITE_BASE_URL
 
 /**
@@ -11,14 +13,8 @@ const siteBaseUrl = process.env.SITE_BASE_URL
  */
 export async function getPageData(page: string): Promise<PageResponseProps| null> {
   try {
-    let response = await fetch(`${baseApiUrl}/pages/${page}`);
-    if (response.ok) {
-      return response.json();
-    } else if (response.status === 404) {
-      response = await fetch(`${baseApiUrl}/pages?slug=404`);
-      if (!response.ok) return null
-      return response.json();
-    }  
+    const url = `${getPages}/${page}`
+    return await fetchApi(url)
   } catch (e) {
     return null
   }
@@ -29,8 +25,7 @@ export async function getPageData(page: string): Promise<PageResponseProps| null
  */
 export async function getConfigData() { 
   try {
-    const response = await fetch(`${baseApiUrl}/config`);
-    return response.json();
+    return await fetchApi(getConfig)
   } catch(e) {
     return { 
       status: 'error',
@@ -79,10 +74,10 @@ export async function getPathsList(): Promise<{
   params: { slug: string[];}
 }[]> {
   try {
-    const result  = await fetch(`${baseApiUrl}/staticPaths`);
+    const result  = await fetchApi(getStaticPaths);
     const data: {
-      params: { slug: string[];}
-    }[] = await result.json()
+      params: { slug: string[]; }
+    }[] = result
     return data.filter(v => v.params.slug[0] !== '404');
   } catch (e) {
     return []
