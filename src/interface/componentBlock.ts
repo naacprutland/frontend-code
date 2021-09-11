@@ -34,8 +34,12 @@ export interface SearchSortRespBlock extends ComponentBlock {
   collection_type: string;
 }
 
-export type ResponseBlocks = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortRespBlock
+export interface ContactFormBlock extends ComponentBlock {
+  "template": 'contact-form-block'
+}
 
-export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortBlock
+export type ResponseBlocks = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortRespBlock | ContactFormBlock
+
+export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortBlock | ContactFormBlock
 
 export type PageBlocks = Block[]

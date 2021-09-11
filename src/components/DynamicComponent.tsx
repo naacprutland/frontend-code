@@ -1,6 +1,6 @@
 import { ComponentType } from 'react'
 import dynamic from 'next/dynamic'
-import type { Block, HeroBlock, TextBlock, DeckBlock, MediaBlock, SearchSortBlock } from '../interface/componentBlock'
+import type { Block, HeroBlock, TextBlock, DeckBlock, MediaBlock, SearchSortBlock, ContactFormBlock } from '../interface/componentBlock'
 import { HeroProps } from './HeroBlock'
 import { TextBlockProps } from './TextBlock'
 import { DeckBlockProps } from './DeckBlock'
@@ -12,6 +12,7 @@ const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./
 const DynamicDeckBlock: ComponentType<DeckBlockProps> = dynamic(() => import('./DeckBlock'))
 const DynamicMediaBlock: ComponentType<MediaBlockProps> = dynamic(() => import('./MediaBlock'))
 const DynamicSearchSortBlock: ComponentType<SearchSortProps> = dynamic(() => import('./SearchSortBlock'))
+const DynamicContactFormBlock: ComponentType<ContactFormBlock> = dynamic(() => import('./ContactFormBlock'))
 
 function DynamicComponent({ template, ...props}: Block) {
   switch (template) {
@@ -25,6 +26,8 @@ function DynamicComponent({ template, ...props}: Block) {
       return <DynamicMediaBlock {...props as MediaBlock} />
     case 'search-sort-block':
       return <DynamicSearchSortBlock {...props as SearchSortBlock} />
+    case 'contact-form-block': 
+      return <DynamicContactFormBlock {...props as ContactFormBlock} />
     default :
       return null
   }
