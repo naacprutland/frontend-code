@@ -12,7 +12,7 @@ export default async (req, res) => {
 
   const url = `${strapiApi.getPagesPreview}${req.query.slug}`
   const previewData  =  await fetchApi(url)
-  const pageData = previewData[0]
+  const pageData: { path: string} = previewData[0]
   
   if (!pageData) {
     return res.status(401).json({ message: 'Invalid slug' });
@@ -21,7 +21,7 @@ export default async (req, res) => {
   res.setPreviewData({});
 
   res.writeHead(307, {
-    Location: `${process.env.STRAPI_API_URL}${pageData.path}`,
+    Location: `${pageData.path}`,
   });
 
   res.end();
