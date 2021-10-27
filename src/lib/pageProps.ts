@@ -48,15 +48,22 @@ export async function getConfigData() {
  */
 export async function getPageProps(formTitle: string, preview: boolean) {
   const config =  await getConfigData()
-  const pageData:PageResponseProps = await getPageData(formTitle, preview)
+
+  let pageData:PageResponseProps = await getPageData(formTitle, preview)
   let data: PageTemplateProps = {} as PageTemplateProps
 
+  // 404 doesn't appear in preview mode with out this
+  if (formTitle === '404' && !pageData) {
+    pageData = await getPageData(formTitle, true)
+  }
+ 
   if (pageData) {
     data = await buildPageStructure(pageData)
     if (data.pageSEO) {
       data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
     }
   }
+
 
   return {
     props: {
