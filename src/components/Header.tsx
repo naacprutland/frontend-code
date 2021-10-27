@@ -37,6 +37,7 @@ const Header = ({ logo,
   transparent
 }: HeaderProps) => {
   const { colorMode } = useColorMode()
+
   return (
     <Box as="header" d="flex" alignItems="center" 
       top="0" position={fixed ? 'fixed' : 'static'}
@@ -67,7 +68,7 @@ const Header = ({ logo,
             <HStack as="ul" spacing={3} sx={{"listStyleType": "none"}}>
               {mega_menu.map((item, i) => (
                 <Box as="li" key={item.title + i} margin="0">
-                  <Link href={item?.page?.path} passHref>
+                  <Link href={item?.page?.path || ''} passHref>
                     <Text as="a" cursor="pointer" textTransform="capitalize">
                       {item.title}
                     </Text>
