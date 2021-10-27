@@ -44,17 +44,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Set up environment file
 
 ```
-# OAuth App Credentials from GitHub
-GITHUB_CLIENT_ID=
-GITHUB_CLIENT_SECRET=
-
-# The path to your repository in GitHub
-REPO_FULL_NAME=Hartecode/harte-code-starter
-
-# The base branch that new changes and forks are created from. Defaults to 'main'.
-BASE_BRANCH=main
-
-# The signing key used for token encryption
-# This can be run in your terminal to generate a key: openssl rand -base64 32
-SIGNING_KEY=
+STRAPI_API_URL=http://localhost:1337
+SITE_BASE_URL=http://localhost:3000
+PREVIEW_SECRET=wwerecrhtyhtcrturthrt
 ```

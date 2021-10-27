@@ -11,10 +11,10 @@ export async function getStaticPaths() {
   return { paths, fallback: false };
 }
 
-export const getStaticProps = async ({ params }) => {
+export const getStaticProps = async ({ params, preview}) => {
   const location = params?.slug ? params.slug.pop()  : 'home'
 
-  return getPageProps(location);
+  return getPageProps(location, preview);
 
 }
 

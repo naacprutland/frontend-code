@@ -4,15 +4,20 @@ import { buildPageStructure } from './pageStructureBuilder'
 import apiEndPoints from './strapiApi'
 import { fetchApi } from './util'
 
-const { getStaticPaths, getPages, getConfig } = apiEndPoints
+const { getStaticPaths, getPages, getConfig, getPagesPreview } = apiEndPoints
 const siteBaseUrl = process.env.SITE_BASE_URL
 
 /**
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
-export async function getPageData(page: string): Promise<PageResponseProps| null> {
+export async function getPageData(page: string, preview: boolean): Promise<PageResponseProps| null> {
   try {
+    if (preview) {
+      const url = `${getPagesPreview}${page}`
+      const res = await fetchApi(url)
+      return res[0]
+    }
     const url = `${getPages}/${page}`
     return await fetchApi(url)
   } catch (e) {
@@ -37,11 +42,13 @@ export async function getConfigData() {
 /**
  * Generates props for static props
  * @param {string} page The name of the page
+ * @param {boolean} preview If in preview mode
+ * @param {object} previewData the page data
  * @returns Page Props
  */
-export async function getPageProps(formTitle: string) {
-  const config =  await getConfigData();
-  const pageData:PageResponseProps = await getPageData(formTitle);
+export async function getPageProps(formTitle: string, preview: boolean) {
+  const config =  await getConfigData()
+  const pageData:PageResponseProps = await getPageData(formTitle, preview)
   let data: PageTemplateProps = {} as PageTemplateProps
 
   if (pageData) {
