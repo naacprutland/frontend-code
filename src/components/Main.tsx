@@ -5,6 +5,7 @@ const Main = (props: StackProps) => (
     as="main"
     alignItems="center"
     spacing="16"
+    marginBottom="16"
     width="100%"
     minH="90vh"
     {...props}
