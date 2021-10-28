@@ -29,7 +29,7 @@ const imgSizes: { size: string, bp: number}[] = [
 
 const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
   return (
-    <LinkBox as="figure" display="flex" flexDirection={layout} borderWidth="1px" backgroundColor="gray.50">
+    image && (<LinkBox as="figure" display="flex" flexDirection={layout} borderWidth="1px" backgroundColor="gray.50">
       {
         image && (
           <AspectRatio ratio={4 / 3} flex={`1 1 ${rowArr.includes(layout) ? '30%' : '100%'}`}>
@@ -70,7 +70,7 @@ const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
           )
         }
       </Box>
-    </LinkBox>
+    </LinkBox>)
   )
 }
 
