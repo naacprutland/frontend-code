@@ -32,6 +32,7 @@ export interface SearchSortBlock extends ComponentBlock, SearchSortProps {
 export interface SearchSortRespBlock extends ComponentBlock {
   "template": 'search-sort-block',
   collection_type: string;
+  parent_page: string;
 }
 
 export interface ContactFormBlock extends ComponentBlock {

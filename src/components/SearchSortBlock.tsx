@@ -33,6 +33,19 @@ export interface ResultItem {
     slug: string;
     homePage: boolean;
     path: string;
+  },
+  tile: {
+    title: string;
+    copy?: string;
+    image: {
+      src: MediaImage;
+      alt: string;
+    },
+    link: {
+      isExternal: boolean,
+      label: string,
+      path: string
+    }
   }
 }
 
@@ -52,7 +65,7 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
   const searchFilter = useCallback(
     debounce(async (data) => {
       if (Object.keys(data)?.length > 0 ) {
-        try {
+        try { 
           const response = await searchSortQuery( collectionType, data)
           setCardsData(response)
         } catch (e) {
@@ -74,7 +87,7 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
     }
   }, [formData])
 
-  return (<Stack align="center" spacing={4}>
+  return (<Stack align="center" spacing={4} w="100%">
     <Container maxW="container.lg">
       <Box as="form" className="grid" w="100%">
         <FormControl className="gcol-6 gcol-md-8">
@@ -99,8 +112,8 @@ const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
           </FormControl>
       </Box>
     </Container>
-    <DeckBlock position={2} cards={cardsData || results} />
-
+    {cardsData || results ? <DeckBlock position={2} cards={cardsData || results} />
+      : <p>No Results</p>}
   </Stack>)
 }
 

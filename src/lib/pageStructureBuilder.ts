@@ -10,9 +10,9 @@ interface BlockBuilder {
 }
 
 const blockBuilder: BlockBuilder = {
-  'search-sort-block': async ({ collection_type, template }: SearchSortRespBlock): Promise<SearchSortBlock> => {
+  'search-sort-block': async ({ collection_type, template, parent_page: parentPage }: SearchSortRespBlock): Promise<SearchSortBlock> => {
     const collectionType = collection_type
-    const queryResults: ResultItem[] = await searchSortQuery(collectionType)
+    const queryResults: ResultItem[] = await searchSortQuery(collectionType, { parentPage })
     const results = mapToCards(queryResults, 'View Article')
     return {
       template,
