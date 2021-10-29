@@ -6,6 +6,6 @@ const PageNotFound = (Props: PageProps) => (
   <ContentPage {...Props} />
 )
 
-export const getStaticProps = async () => getPageProps('404');
+export const getStaticProps = async ({ preview }) => getPageProps('404', preview);
 
 export default PageNotFound
