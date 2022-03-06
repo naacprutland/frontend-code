@@ -70,6 +70,10 @@ grid[`@media screen and (min-width: ${baseTheme.breakpoints['lg']})`] = {
 }
 
 const theme = extendTheme({
+  fonts: {
+    heading: 'Gothic CG No3, sans-serif',
+    body: 'Verlag, sans-serif',
+  },
   styles: {
     global: {
       ".grid": grid,
