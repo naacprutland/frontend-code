@@ -1,16 +1,17 @@
-import { IconButton } from "@chakra-ui/react"
+import { useState } from 'react'
 import { 
   Box,
   Text,
   HStack,
   useColorMode,
+  IconButton
 } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
-import { MdMenu, MdSearch } from "react-icons/md";
+import { MdClose, MdMenu, MdSearch } from "react-icons/md";
 import Container from './Container'
 
-interface MenuItem {
+export interface MenuItem {
   label: string;
   path: string;
   external?: boolean;
@@ -40,7 +41,9 @@ const Header = ({ logo,
   fixed,
   transparent
 }: HeaderProps) => {
+  const [showMenu, setShowMenu] = useState(false)
   const { colorMode } = useColorMode()
+  const onTriggerMenu = () => setShowMenu((cur) => !cur);
 
   return (
     <Box as="header" d="flex" alignItems="center" 
@@ -79,6 +82,7 @@ const Header = ({ logo,
               icon={<MdSearch />}
             />
             <IconButton
+              onClick={onTriggerMenu}
               variant='outline'
               h={'100%'}
               minW='2'
@@ -87,7 +91,7 @@ const Header = ({ logo,
               fontSize={'16px'}
               colorScheme='white'
               aria-label='menu'
-              icon={<MdMenu />}
+              icon={showMenu ? <MdMenu /> : <MdClose />}
             />
           </Box>
           <HStack as="nav"
