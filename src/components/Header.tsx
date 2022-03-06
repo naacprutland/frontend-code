@@ -2,26 +2,23 @@ import { Container } from "@chakra-ui/react"
 import { Box, Text, HStack, useColorMode, } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
-import { MediaImage } from '../interface/media'
 
 interface MenuItem {
-  title: string;
-  page : {
-    path: string;
-  }
-  subitems: SubItem;
+  label: string;
+  path: string;
+  external?: boolean;
+  subitems: SubItem[];
 }
 
 interface SubItem {
-  title: string;
-  page : {
-    path: string;
-  }
+  label: string;
+  path: string;
+  external?: boolean;
 }
 
 export interface HeaderProps {
   logo?: {
-    src: MediaImage;
+    src: string;
     alt: string;
   },
   mega_menu?: MenuItem[],
@@ -42,8 +39,9 @@ const Header = ({ logo,
     <Box as="header" d="flex" alignItems="center" 
       top="0" position={fixed ? 'fixed' : 'static'}
       w="100%"
-      bg={transparent ? 'none' : "blue.900"}
-       h="3.5rem" >
+      bg={transparent ? 'none' : 
+        fixed ? '#000000BF' : "black"}
+      h="3.5rem" >
       <Container 
         flexDir="row"
         justifyContent="space-between" 
@@ -58,19 +56,19 @@ const Header = ({ logo,
                 height: '100%',
                 width: '100%'
               } }}>
-                {logo && <img src={logo.src.formats?.iconMedium?.url} 
-                  alt={logo.alt} />
-                }
+                {logo && <img src={logo.src} alt={logo.alt} />}
               </Box>
             </Link>
           </Box>
           <HStack as="nav" spacing={4} h="100%" justifyContent="flex-end">
             <HStack as="ul" spacing={3} sx={{"listStyleType": "none"}}>
               {mega_menu.map((item, i) => (
-                <Box as="li" key={item.title + i} margin="0">
-                  <Link href={item?.page?.path || ''} passHref>
-                    <Text as="a" cursor="pointer" textTransform="capitalize">
-                      {item.title}
+                <Box as="li" key={item.label + i} margin="0">
+                  <Link href={item?.path || ''} passHref>
+                    <Text as="a" cursor="pointer"
+                      fontWeight={600} 
+                      textTransform="capitalize">
+                      {item.label}
                     </Text>
                   </Link>
                 </Box>
