@@ -1,4 +1,5 @@
 import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
+import { breakpoints } from './breakpoints'
 
 const columns = 12
 const centerStartCol = {
@@ -11,7 +12,7 @@ const centerStartCol = {
 }
 const bp = [ 'sm', 'md', 'lg', 'xl', '2xl'];
 const gap = {
-  base: baseTheme.space['4'],
+  base: baseTheme.space['6'],
   md: baseTheme.space['6'],
   lg: baseTheme.space['8']
 }
@@ -47,7 +48,6 @@ let grid = {
   gap: gap.base
 }
 
-
 grid = {
   ...grid,
   ...gColBP(baseTheme.breakpoints)
@@ -70,6 +70,7 @@ grid[`@media screen and (min-width: ${baseTheme.breakpoints['lg']})`] = {
 }
 
 const theme = extendTheme({
+  breakpoints,
   fonts: {
     heading: 'Gothic CG No3, sans-serif',
     body: 'Verlag, sans-serif',
@@ -79,6 +80,15 @@ const theme = extendTheme({
       ".grid": grid,
     }
   },
+  sizes: {
+    ...baseTheme.sizes,
+    container: {
+      sm: '100%',
+      md: '100%',
+      lg: '100%',
+      xl: '1452px',
+    },
+  },
   components: {
     Link: {
       baseStyle: {
@@ -86,7 +96,7 @@ const theme = extendTheme({
           textDecoration: "none",
         }
       }
-    }
+    },
   },
 })
 

@@ -1,7 +1,14 @@
-import { Container } from "@chakra-ui/react"
-import { Box, Text, HStack, useColorMode, } from "@chakra-ui/react"
+import { IconButton } from "@chakra-ui/react"
+import { 
+  Box,
+  Text,
+  HStack,
+  useColorMode,
+} from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
+import { MdMenu, MdSearch } from "react-icons/md";
+import Container from './Container'
 
 interface MenuItem {
   label: string;
@@ -41,15 +48,14 @@ const Header = ({ logo,
       w="100%"
       bg={transparent ? 'none' : 
         fixed ? '#000000BF' : "black"}
-      h="3.5rem" >
-      <Container 
+      h="3.25rem" >
+      <Container
+        d="flex"
         flexDir="row"
         justifyContent="space-between" 
-        paddingTop="2"
-        paddingBottom="2"
-        centerContent
+        py="3"
         color={transparent && colorMode === 'light' ? "black" : "white"}
-        maxW="container.xl" h="100%">  
+        h="100%">  
           <Box d="flex" alignItems="center" w="100px" h="100%">
             <Link href="/" passHref>
               <Box as="a" h="100%" cursor="pointer" sx={{ img: {
@@ -60,7 +66,33 @@ const Header = ({ logo,
               </Box>
             </Link>
           </Box>
-          <HStack as="nav" spacing={4} h="100%" justifyContent="flex-end">
+          <Box display={{ base: 'flex', md: 'none' }} gap={4} h="100%">
+            <IconButton
+              variant='outline'
+              h={'100%'}
+              minW='2'
+              w='7'
+              borderRadius='50%'
+              fontSize={'16px'}
+              colorScheme='white'
+              aria-label='search'
+              icon={<MdSearch />}
+            />
+            <IconButton
+              variant='outline'
+              h={'100%'}
+              minW='2'
+              w='7'
+              borderRadius='50%'
+              fontSize={'16px'}
+              colorScheme='white'
+              aria-label='menu'
+              icon={<MdMenu />}
+            />
+          </Box>
+          <HStack as="nav"
+            display={{ base: 'none', md: 'flex' }}
+            spacing={4} h="100%" justifyContent="flex-end">
             <HStack as="ul" spacing={3} sx={{"listStyleType": "none"}}>
               {mega_menu.map((item, i) => (
                 <Box as="li" key={item.label + i} margin="0">
