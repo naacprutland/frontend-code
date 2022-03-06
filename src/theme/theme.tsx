@@ -80,6 +80,36 @@ const theme = extendTheme({
       ".grid": grid,
     }
   },
+  colors: {
+    ...baseTheme.colors,
+    prime1: {
+      500: '#002F6C'
+    },
+    prime2: {
+      500: '#F5CB08'
+    },
+    secondary1: {
+      500: '#ED8B00'
+    },
+    secondary2: {
+      500: '#F3BA16'
+    },
+    secondary3: {
+      500: '#90A2BF'
+    },
+    secondary4: {
+      500: '#0081C8'
+    },
+    secondary5: {
+      500: '#51BAE8'
+    },
+    secondary6: {
+      500: '#845FA1'
+    },
+    secondary7: {
+      500: '#282828'
+    }
+  },
   sizes: {
     ...baseTheme.sizes,
     container: {
