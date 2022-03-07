@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect, useState, MouseEvent } from "react";
 import { 
     Box,
     Button,
@@ -10,11 +10,14 @@ import {
     DrawerCloseButton,
     Text,
     Stack,
-    Icon
+    Icon,
+    Link as ChakraLink,
+    useBreakpointValue
 } from '@chakra-ui/react'
 import NextLink from "next/link"
-import { MenuItem } from './Header'
-import { FaChevronRight } from "react-icons/fa";
+import { MenuItem, SubItem } from './Header'
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { Slide } from '@chakra-ui/react'
 
 interface CTA {
     label: string;
@@ -37,18 +40,37 @@ const MobileMenu = ({
     megaMenu=[],
     onClose,
     isOpen }: MobileMenuProps) => {
+    const viewSize = useBreakpointValue({ base: 'full', sm: 'md' })
     const firstField = useRef(null);
+    const [navLinks, setNavLinks] = useState<MenuItem[] | SubItem[]>([])
+    const [prvLinks, setPrvLinks] = useState(null)
+    const onNavLink = (
+        e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
+        subItems: MenuItem[] | SubItem[],
+        label?: string): void => {
+        if (!subItems?.length) return;
+        e.preventDefault();
+        setNavLinks(subItems);
+        setPrvLinks(label ? {
+            label,
+            prevItems: megaMenu
+        } : null);
+    }
+
+    useEffect(() => {
+        setNavLinks(megaMenu);
+    }, []);
 
     return (
         <Drawer
             isOpen={isOpen}
             placement='right'
-            size={'full'}
+            size={viewSize}
             initialFocusRef={firstField}
             onClose={onClose}
         >
             <DrawerOverlay />
-            <DrawerContent top="34px">
+            <DrawerContent >
                 <DrawerCloseButton />
                 <DrawerHeader display={'flex'}
                     px={[5,8]}
@@ -71,20 +93,53 @@ const MobileMenu = ({
                 </DrawerHeader>
 
                 <DrawerBody as="nav" px={[5,8]} paddingTop='0'>
+                    { prvLinks && (
+                        <Button
+                            color="secondary6.500"
+                            variant={'ghost'}
+                            leftIcon={<Icon 
+                                color={'secondary6.500'} 
+                                as={FaChevronLeft} />}
+                            isFullWidth={true}
+                            justifyContent="flex-start"
+                            px="4"
+                            py="2"
+                            fontSize="xl"
+                            textTransform={'capitalize'}
+                            fontWeight="600"
+                            cursor="pointer"
+                            onClick={(e) => onNavLink(e, prvLinks.prevItems)}
+                           >
+                            { prvLinks.label }
+                        </Button>)
+                    }
                     <Stack as="ul"
+                        spacing={0}
                         borderTopWidth='1px'
+                        position={'relative'}
                         listStyleType='none'>
-                        {megaMenu.map((item, i) => (
+                        {navLinks.map((item, i) => (
                             <Box key={item.label + i} as="li"
+                                m="0"
                                 borderBottomWidth='1px'>
-                                <Box px="4"
-                                    py="2"
-                                    alignItems='center'
-                                    display={'flex'} 
-                                    justifyContent="space-between">
-                                    {item.label}
-                                    <Icon color={'secondary6.500'} as={FaChevronRight} />
-                                </Box>
+                                <NextLink href={item.path || '#'} passHref>
+                                    <ChakraLink
+                                        isExternal={item.external}
+                                        px="4"
+                                        py="2"
+                                        fontSize="xl"
+                                        textTransform={'capitalize'}
+                                        fontWeight="600"
+                                        alignItems='center'
+                                        display={'flex'}
+                                        cursor="pointer"
+                                        onClick={(e) => onNavLink(e, item.subitems, item.label)}
+                                        justifyContent="space-between">
+                                        { item.label }
+                                        { item.subitems && (
+                                            <Icon color={'secondary6.500'} as={FaChevronRight} />) }
+                                    </ChakraLink>
+                                </NextLink>
                             </Box>
                         ))}
                     </Stack>

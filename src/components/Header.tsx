@@ -18,7 +18,7 @@ export interface MenuItem {
   subitems: SubItem[];
 }
 
-interface SubItem {
+export interface SubItem {
   label: string;
   path: string;
   external?: boolean;

@@ -33,12 +33,29 @@ Primary.args = {
       {
         label: 'about',
         path: '/about',
+        external: false,
+        subitems: [
+            {
+                label: 'view about us',
+                path: '/about',
+                external: false,
+            },
+            {
+                label: 'Leadership',
+                path: '/leadership',
+                external: false,
+            }
+        ]
+      },
+      {
+        label: 'become a member',
+        path: '/member',
         external: false
       },
       {
         label: 'blog',
         path: '/blog',
-        external: false
+        external: false 
       }
     ],
     isOpen: true,
