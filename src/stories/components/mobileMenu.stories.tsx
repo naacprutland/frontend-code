@@ -50,12 +50,34 @@ Primary.args = {
       {
         label: 'become a member',
         path: '/member',
-        external: false
+        external: false,
+        subitems: [
+            {
+                label: 'view about us',
+                path: '/about',
+                external: false,
+            },
+            {
+                label: 'Leadership',
+                path: '/leadership',
+                external: false,
+            }
+        ]
       },
       {
         label: 'blog',
         path: '/blog',
         external: false 
+      },
+      {
+        label: 'Resources',
+        path: '/resources',
+        external: false 
+      },
+      {
+        label: 'contact us',
+        path: 'https://www.google.com',
+        external: true
       }
     ],
     isOpen: true,

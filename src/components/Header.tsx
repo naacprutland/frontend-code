@@ -15,7 +15,7 @@ export interface MenuItem {
   label: string;
   path: string;
   external?: boolean;
-  subitems: SubItem[];
+  subitems?: SubItem[];
 }
 
 export interface SubItem {

@@ -1,5 +1,10 @@
-import { useRef, useEffect, useState, MouseEvent } from "react";
+import { useRef, useEffect, useState } from "react";
 import { 
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionPanel,
+    AccordionIcon,
     Box,
     Button,
     Drawer,
@@ -8,16 +13,11 @@ import {
     DrawerOverlay,
     DrawerContent,
     DrawerCloseButton,
-    Text,
-    Stack,
-    Icon,
     Link as ChakraLink,
     useBreakpointValue
 } from '@chakra-ui/react'
 import NextLink from "next/link"
 import { MenuItem, SubItem } from './Header'
-import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
-import { Slide } from '@chakra-ui/react'
 
 interface CTA {
     label: string;
@@ -35,28 +35,37 @@ export interface MobileMenuProps {
     onClose: () => null;
 }
 
+interface NavLinkProps {
+    item: MenuItem | SubItem;
+}
+
+const NavLink = ({ item }: NavLinkProps) => (
+    <NextLink href={item.path || '#'} passHref>
+        <ChakraLink
+            isExternal={item.external}
+            px="4"
+            py="2"
+            fontSize="xl"
+            textTransform={'capitalize'}
+            fontWeight="600"
+            alignItems='center'
+            display={'flex'}
+            cursor="pointer"
+            justifyContent="space-between">
+            { item.label }
+        </ChakraLink>
+    </NextLink>
+)
+
 const MobileMenu = ({
     ctas=[],
     megaMenu=[],
     onClose,
     isOpen }: MobileMenuProps) => {
-    const viewSize = useBreakpointValue({ base: 'full', sm: 'md' })
+    const viewSize = useBreakpointValue({ base: 'xl', sm: 'md' })
     const firstField = useRef(null);
     const [navLinks, setNavLinks] = useState<MenuItem[] | SubItem[]>([])
-    const [prvLinks, setPrvLinks] = useState(null)
-    const onNavLink = (
-        e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>,
-        subItems: MenuItem[] | SubItem[],
-        label?: string): void => {
-        if (!subItems?.length) return;
-        e.preventDefault();
-        setNavLinks(subItems);
-        setPrvLinks(label ? {
-            label,
-            prevItems: megaMenu
-        } : null);
-    }
-
+ 
     useEffect(() => {
         setNavLinks(megaMenu);
     }, []);
@@ -93,56 +102,38 @@ const MobileMenu = ({
                 </DrawerHeader>
 
                 <DrawerBody as="nav" px={[5,8]} paddingTop='0'>
-                    { prvLinks && (
-                        <Button
-                            color="secondary6.500"
-                            variant={'ghost'}
-                            leftIcon={<Icon 
-                                color={'secondary6.500'} 
-                                as={FaChevronLeft} />}
-                            isFullWidth={true}
-                            justifyContent="flex-start"
-                            px="4"
-                            py="2"
-                            fontSize="xl"
-                            textTransform={'capitalize'}
-                            fontWeight="600"
-                            cursor="pointer"
-                            onClick={(e) => onNavLink(e, prvLinks.prevItems)}
-                           >
-                            { prvLinks.label }
-                        </Button>)
-                    }
-                    <Stack as="ul"
-                        spacing={0}
+                    <Accordion as="ul"
+                        allowMultiple
                         borderTopWidth='1px'
-                        position={'relative'}
                         listStyleType='none'>
-                        {navLinks.map((item, i) => (
+                        {navLinks.map((item: MenuItem | SubItem, i: number) => (
                             <Box key={item.label + i} as="li"
                                 m="0"
                                 borderBottomWidth='1px'>
-                                <NextLink href={item.path || '#'} passHref>
-                                    <ChakraLink
-                                        isExternal={item.external}
-                                        px="4"
-                                        py="2"
-                                        fontSize="xl"
-                                        textTransform={'capitalize'}
-                                        fontWeight="600"
-                                        alignItems='center'
-                                        display={'flex'}
-                                        cursor="pointer"
-                                        onClick={(e) => onNavLink(e, item.subitems, item.label)}
-                                        justifyContent="space-between">
-                                        { item.label }
-                                        { item.subitems && (
-                                            <Icon color={'secondary6.500'} as={FaChevronRight} />) }
-                                    </ChakraLink>
-                                </NextLink>
+                                {!(item?.subitems && item?.subitems?.length) ? (
+                                    <NavLink item={item}/>
+                                ): (<AccordionItem border="none">
+                                        <AccordionButton fontSize="xl"
+                                            _expanded={{ color: 'secondary6.500' }}
+                                            textTransform={'capitalize'}
+                                            fontWeight="600">
+                                            <Box flex='1' textAlign='left'>
+                                                { item.label }
+                                            </Box>
+                                            <AccordionIcon color={'secondary6.500'} />
+                                        </AccordionButton>
+                                        
+                                        <AccordionPanel as='ul' py={0}>
+                                            {(item as MenuItem).subitems.map(
+                                                (subItem: SubItem, i: number) => (
+                                                    <NavLink key={subItem.label + i} item={subItem}/>))}
+                                        </AccordionPanel>
+                                    </AccordionItem>)
+                                }
+                                
                             </Box>
                         ))}
-                    </Stack>
+                    </Accordion>
                 </DrawerBody>
             </DrawerContent>
       </Drawer>
