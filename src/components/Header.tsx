@@ -7,7 +7,8 @@ import {
   HStack,
   useColorMode,
   IconButton,
-  useBreakpointValue
+  useBreakpointValue,
+  Link as ChakraLink
 } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
@@ -16,6 +17,7 @@ import Container from './Container'
 import MobileMenu from './MobileMenu'
 import { CTA } from '../interface/general'
 import NextLink from "next/link"
+import MenuLink from './MenuLink'
 
 
 export interface MenuItem {
@@ -137,19 +139,21 @@ const Header = ({
             </HStack>
             <HStack as="ul"
               display={{ base: "none", md: "flex" }}
-              spacing={3}
+              spacing={6}
               sx={{ "listStyleType": "none" }}>
-              {mega_menu.map((item, i) => (
-                <Box as="li" key={item.label + i} margin="0">
-                  <Link href={item?.path || ''} passHref>
-                    <Text as="a" cursor="pointer"
-                      fontWeight="semibold" 
-                      textTransform="capitalize">
-                      {item.label}
-                    </Text>
-                  </Link>
-                </Box>
-              ))}
+              {mega_menu.map((item, i) => {
+                return !item?.subitems?.length ? (
+                  <Box as="li" key={item.label + i} margin="0">
+                    <Link href={item?.path || ''} passHref>
+                      <ChakraLink cursor="pointer"
+                        isExternal={item.external}
+                        fontWeight="semibold" 
+                        textTransform="capitalize">
+                        {item.label}
+                      </ChakraLink>
+                    </Link>
+                  </Box>) : <MenuLink {...item}/> }
+              )}
               {includeDarkMode && <DarkModeSwitch />}
             </HStack>
           </VStack>

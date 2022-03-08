@@ -32,8 +32,8 @@ export const primary: Partial<MobileMenuProps> = {
             },
             {
                 label: 'Leadership',
-                path: '/leadership',
-                external: false,
+                path: 'https://www.google.com',
+                external: true,
             }
         ]
       },
@@ -43,25 +43,42 @@ export const primary: Partial<MobileMenuProps> = {
         external: false,
         subitems: [
             {
-                label: 'view about us',
+                label: 'view become a member',
                 path: '/about',
                 external: false,
             },
             {
-                label: 'Leadership',
+                label: 'Renew Membership',
                 path: '/leadership',
                 external: false,
             }
         ]
       },
       {
-        label: 'blog',
-        path: '/blog',
-        external: false 
+        label: 'Get Help',
+        path: '/gethelp',
+        external: false ,
+        subitems: [
+            {
+                label: 'file a complaint',
+                path: '/about',
+                external: false,
+            },
+        ]
       },
       {
         label: 'Resources',
         path: '/resources',
+        external: false 
+      },
+      {
+        label: 'Calender',
+        path: '/calender',
+        external: false 
+      },
+      {
+        label: 'Bulletin',
+        path: '/bulletin',
         external: false 
       },
       {
