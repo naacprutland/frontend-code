@@ -16,7 +16,7 @@ export const primary: Partial<MobileMenuProps> = {
             external: false,
             style: 'solid',
             color: 'prime2',
-            textColor: 'prime1'
+            textColor: 'prime1.500'
         }
     ],
     megaMenu: [
