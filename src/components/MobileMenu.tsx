@@ -12,7 +12,6 @@ import {
     DrawerHeader,
     DrawerOverlay,
     DrawerContent,
-    DrawerCloseButton,
     Flex,
     IconButton,
     Link as ChakraLink,
@@ -41,10 +40,10 @@ const NavLink = ({ item }: NavLinkProps) => (
             px="4"
             py="2"
             fontSize="xl"
-            textTransform={'capitalize'}
-            fontWeight="600"
-            alignItems='center'
-            display={'flex'}
+            textTransform="capitalize"
+            fontWeight="semibold"
+            alignItems="center"
+            display="flex"
             cursor="pointer"
             justifyContent="space-between">
             { item.label }
@@ -62,38 +61,38 @@ const MobileMenu = ({
     return (
         <Drawer
             isOpen={isOpen}
-            placement='right'
-            size={'sm'}
+            placement="right"
+            size="sm"
             initialFocusRef={firstField}
             onClose={onClose}
         >
             <DrawerOverlay />
             <DrawerContent bg="none">
                 <IconButton
-                    position='absolute'
+                    position="absolute"
                     background="black"
-                    height={'28px'}
-                    color='white'
-                    top='12px'
-                    right={['20px', '32px']}
+                    height="7"
+                    color="white"
+                    top={["3", "6"]}
+                    right={["5", "8"]}
                     onClick={onClose}
                     variant='outline'
-                    h={'100%'}
-                    minW='2'
-                    w='7'
-                    borderRadius='50%'
-                    fontSize={'16px'}
-                    colorScheme='white'
-                    aria-label='menu'
+                    h="100%"
+                    minW="2"
+                    w="7"
+                    borderRadius="50%"
+                    fontSize="md"
+                    colorScheme="white"
+                    aria-label="menu"
                     icon={<MdClose />} />
                 <DrawerHeader 
                     onClick={onClose}
                     paddingBottom={0}
-                    paddingTop="3.25rem">
+                    paddingTop={["3.25rem", "76px"]}>
                 </DrawerHeader>
 
-                <DrawerBody as="nav" bg="white" px={[5,8]} paddingTop='0'>
-                    <Flex py={"4"}>
+                <DrawerBody as="nav" bg="white" px={[5,8]} paddingTop="4">
+                    <Flex display={{ base: "flex", sm: "none" }} paddingBottom="4">
                         {ctas.map((cta, i) => (
                             <NextLink key={cta.label + i}
                                 href={cta.path} 
@@ -101,10 +100,10 @@ const MobileMenu = ({
                                 <Button as="a" 
                                     mr={i !== (ctas.length - 1) ? '6': '0'}
                                     variant={cta.style}
-                                    color={cta.style !== 'outline' ? cta.textColor : null}
+                                    color={cta.style !== "outline" ? cta.textColor : null}
                                     colorScheme={cta.color}
                                     isFullWidth={true}
-                                    size='lg'>
+                                    size="lg">
                                     {cta.label}
                                 </Button>
                             </NextLink>
@@ -112,26 +111,26 @@ const MobileMenu = ({
                     </Flex>
                     <Accordion as="ul"
                         allowMultiple
-                        borderTopWidth='1px'
-                        listStyleType='none'>
+                        borderTopWidth="1px"
+                        listStyleType="none">
                         {megaMenu.map((item: MenuItem | SubItem, i: number) => (
                             <Box key={item.label + i} as="li"
                                 m="0"
-                                borderBottomWidth='1px'>
+                                borderBottomWidth="1px">
                                 {!((item as MenuItem)?.subitems && (item as MenuItem)?.subitems?.length) ? (
                                     <NavLink item={item}/>
                                 ): (<AccordionItem border="none">
                                         <AccordionButton fontSize="xl"
-                                            _expanded={{ color: 'secondary6.500' }}
-                                            textTransform={'capitalize'}
+                                            _expanded={{ color: "secondary6.500" }}
+                                            textTransform="capitalize"
                                             fontWeight="600">
-                                            <Box flex='1' textAlign='left'>
+                                            <Box flex="1" textAlign="left">
                                                 { item.label }
                                             </Box>
-                                            <AccordionIcon color={'secondary6.500'} />
+                                            <AccordionIcon color="secondary6.500" />
                                         </AccordionButton>
                                         
-                                        <AccordionPanel as='ul' py={0}>
+                                        <AccordionPanel as="ul" py={0}>
                                             {(item as MenuItem).subitems.map(
                                                 (subItem: SubItem, i: number) => (
                                                     <NavLink key={subItem.label + i} item={subItem}/>))}
