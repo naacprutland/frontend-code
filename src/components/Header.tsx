@@ -8,8 +8,10 @@ import {
 } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
-import { MdClose, MdMenu, MdSearch } from "react-icons/md";
+import { MdMenu, MdSearch } from "react-icons/md";
 import Container from './Container'
+import MobileMenu from './MobileMenu';
+import { CTA } from '../interface/general'
 
 export interface MenuItem {
   label: string;
@@ -29,21 +31,24 @@ export interface HeaderProps {
     src: string;
     alt: string;
   },
+  ctas: CTA[];
   mega_menu?: MenuItem[],
   includeDarkMode?: boolean;
   fixed?: boolean;
   transparent?:boolean;
 }
 
-const Header = ({ logo, 
+const Header = ({ 
+  logo,
+  ctas=[],
   mega_menu = [],
   includeDarkMode,
   fixed,
   transparent
 }: HeaderProps) => {
-  const [showMenu, setShowMenu] = useState(false)
+  const [ showMenu, setShowMenu ] = useState(false)
   const { colorMode } = useColorMode()
-  const onTriggerMenu = () => setShowMenu((cur) => !cur);
+  const onTriggerMenu = () => { setShowMenu((cur) => !cur) };
 
   return (
     <Box as="header" d="flex" alignItems="center" 
@@ -91,7 +96,7 @@ const Header = ({ logo,
               fontSize={'16px'}
               colorScheme='white'
               aria-label='menu'
-              icon={showMenu ? <MdMenu /> : <MdClose />}
+              icon={<MdMenu />}
             />
           </Box>
           <HStack as="nav"
@@ -112,6 +117,11 @@ const Header = ({ logo,
             </HStack>
             {includeDarkMode && <DarkModeSwitch />}
           </HStack>
+          <MobileMenu
+            ctas={ctas}
+            megaMenu={mega_menu}
+            isOpen={showMenu}
+            onClose={onTriggerMenu} />
       </Container>
     </Box>
    )

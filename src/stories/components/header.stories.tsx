@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import Header, { HeaderProps } from "../../components/Header";
+import { primary } from '../data/mobileMenuData'
 
 export default {
   title: "Components/Header",
@@ -12,22 +13,12 @@ const Template: Story<HeaderProps> = (arg) => <Header {...arg} />
 export const Primary = Template.bind({});
 Primary.args = {
     logo: {
-        src: './Firefox_logo.svg',
+        src: './logo.png',
         alt: 'logo'
     },
-    mega_menu: [
-      {
-        label: 'about',
-        path: '/about'
-      },
-      {
-        label: 'blog',
-        path: '/blog'
-      }
-    ],
+    ctas: primary.ctas,
+    mega_menu: primary.megaMenu,
     includeDarkMode: false,
     fixed: true,
     transparent: false
 };
-
-// './Firefox_logo.svg'
