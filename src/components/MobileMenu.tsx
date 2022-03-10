@@ -83,7 +83,7 @@ const MobileMenu = ({
                     borderRadius="50%"
                     fontSize="md"
                     colorScheme="white"
-                    aria-label="menu"
+                    aria-label="close"
                     icon={<MdClose />} />
                 <DrawerHeader 
                     onClick={onClose}

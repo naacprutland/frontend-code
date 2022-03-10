@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { 
   Box,
   Button,
-  Text,
   VStack,
   HStack,
   useColorMode,
@@ -15,9 +14,11 @@ import Link from 'next/link'
 import { MdMenu, MdSearch } from "react-icons/md"
 import Container from './Container'
 import MobileMenu from './MobileMenu'
+import SearchDrawer from "./SearchDrawer"
 import { CTA } from '../interface/general'
 import NextLink from "next/link"
 import MenuLink from './MenuLink'
+import { v4 as uuidv4 } from 'uuid';
 
 
 export interface MenuItem {
@@ -54,9 +55,12 @@ const Header = ({
   transparent
 }: HeaderProps) => {
   const [ isOpen, setShowMenu ] = useState(false)
+  const [ isSearchOpen, setIsSearchOpen ] = useState(false)
   const { colorMode } = useColorMode()
   const onOpen = () => { setShowMenu(true) }
   const onClose = () => { setShowMenu(false) }
+  const onSearchOpen = () => { setIsSearchOpen(true) }
+  const onSearchClose = () => { setIsSearchOpen(false) }
   const variant = useBreakpointValue({ md: "md" })
 
   useEffect(() => {
@@ -96,8 +100,8 @@ const Header = ({
             alignItems="flex-end"
             justifyContent="center">
             <HStack spacing={{ base: "4", md: "6" }} display="flex" >
-              {ctas.map((cta, i) => (
-                <NextLink key={cta.label + i}
+              {ctas.map((cta) => (
+                <NextLink key={uuidv4()}
                     href={cta.path} 
                     passHref>
                     <Button as="a"
@@ -113,6 +117,7 @@ const Header = ({
                 </NextLink>
               ))}
               <IconButton
+                onClick={onSearchOpen}
                 variant="outline"
                 h="7"
                 minW="2"
@@ -141,9 +146,9 @@ const Header = ({
               display={{ base: "none", md: "flex" }}
               spacing={6}
               sx={{ "listStyleType": "none" }}>
-              {mega_menu.map((item, i) => {
+              {mega_menu.map((item) => {
                 return !item?.subitems?.length ? (
-                  <Box as="li" key={item.label + i} margin="0">
+                  <Box as="li" key={uuidv4()} margin="0">
                     <Link href={item?.path || ''} passHref>
                       <ChakraLink cursor="pointer"
                         isExternal={item.external}
@@ -152,7 +157,7 @@ const Header = ({
                         {item.label}
                       </ChakraLink>
                     </Link>
-                  </Box>) : <MenuLink {...item}/> }
+                  </Box>) : <MenuLink key={uuidv4()} {...item}/> }
               )}
               {includeDarkMode && <DarkModeSwitch />}
             </HStack>
@@ -162,6 +167,7 @@ const Header = ({
             megaMenu={mega_menu}
             isOpen={isOpen}
             onClose={onClose} />
+          <SearchDrawer isOpen={isSearchOpen} onClose={onSearchClose} />
       </Container>
     </Box>
    )
