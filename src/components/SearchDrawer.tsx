@@ -28,9 +28,6 @@ const SearchDrawer = ({ onClose, isOpen }) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
         setKey(formData.get('search') as string)
-        console.log(formData.get('search'));
-
-
     }
 
     return (
