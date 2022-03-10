@@ -128,6 +128,14 @@ const theme = extendTheme({
       500: '#282828'
     }
   },
+  space: {
+    ...baseTheme.space,
+    offset: {
+      sm: '2rem',
+      md: '3rem',
+      lg: '5rem'
+    },
+  },
   sizes: {
     ...baseTheme.sizes,
     container: {
