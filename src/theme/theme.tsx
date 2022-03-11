@@ -78,6 +78,11 @@ const theme = extendTheme({
   styles: {
     global: {
       ".grid": grid,
+      ".content": {
+        a: {
+          "textDecoration": "underline"
+        }
+      }
     }
   },
   colors: {
