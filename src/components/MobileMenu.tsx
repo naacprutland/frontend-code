@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState, MutableRefObject } from "react";
 import { 
     Accordion,
     AccordionItem,
@@ -14,7 +14,7 @@ import {
     DrawerContent,
     Flex,
     IconButton,
-    Link as ChakraLink,
+    Link as ChakraLink
 } from '@chakra-ui/react'
 import NextLink from "next/link"
 import { MenuItem, SubItem } from './Header'
@@ -23,6 +23,7 @@ import { MdClose } from "react-icons/md"
 
 
 export interface MobileMenuProps {
+    headerRef: MutableRefObject<HTMLDivElement>;
     ctas?: CTA[];
     megaMenu: MenuItem[];
     isOpen: boolean;
@@ -51,12 +52,32 @@ const NavLink = ({ item }: NavLinkProps) => (
     </NextLink>
 )
 
+const headerHeights = {
+    sm: 52,
+    md: 76
+}
+
 const MobileMenu = ({
+    headerRef,
     ctas=[],
     megaMenu=[],
     onClose,
     isOpen }: MobileMenuProps) => {
     const firstField = useRef(null);
+    const [topPad, setTopPad] = useState(12)
+
+    const btnH = (size: 'sm' | 'md', fullHeight: number) => {
+        const headerHeight = headerHeights[size]
+        const bannerHeight = fullHeight - headerHeight
+        const positionSize = { sm: 12, md: 24 }
+        return (bannerHeight + positionSize[size]) + 'px'
+    }
+
+    useEffect(() => {
+        const elm = headerRef.current
+        const height = elm.getBoundingClientRect().height
+        setTopPad(height)
+    }, [isOpen])
 
     return (
         <Drawer
@@ -73,7 +94,7 @@ const MobileMenu = ({
                     background="black"
                     height="7"
                     color="white"
-                    top={["3", "6"]}
+                    top={[ btnH('sm', topPad), btnH('md', topPad) ]}
                     right={["5", "8"]}
                     onClick={onClose}
                     variant='outline'
@@ -88,7 +109,7 @@ const MobileMenu = ({
                 <DrawerHeader 
                     onClick={onClose}
                     paddingBottom={0}
-                    paddingTop={["3.25rem", "76px"]}>
+                    paddingTop={topPad + 'px'}>
                 </DrawerHeader>
 
                 <DrawerBody as="nav" bg="white" px={[5,8]} paddingTop="4">
