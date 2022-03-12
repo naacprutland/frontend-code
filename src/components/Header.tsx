@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { 
   Box,
   Button,
+  Flex,
   VStack,
   HStack,
   useColorMode,
@@ -19,6 +20,8 @@ import { CTA } from '../interface/general'
 import NextLink from "next/link"
 import MenuLink from './MenuLink'
 import { v4 as uuidv4 } from 'uuid';
+import Banner, { BannerProps } from './Banner'
+import SkipToMainContent from './SkipToMainContent'
 
 
 export interface MenuItem {
@@ -44,6 +47,7 @@ export interface HeaderProps {
   includeDarkMode?: boolean;
   fixed?: boolean;
   transparent?:boolean;
+  banners?: BannerProps[]; 
 }
 
 const Header = ({ 
@@ -52,7 +56,8 @@ const Header = ({
   mega_menu = [],
   includeDarkMode,
   fixed,
-  transparent
+  transparent,
+  banners
 }: HeaderProps) => {
   const [ isOpen, setShowMenu ] = useState(false)
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
@@ -62,21 +67,32 @@ const Header = ({
   const onSearchOpen = () => { setIsSearchOpen(true) }
   const onSearchClose = () => { setIsSearchOpen(false) }
   const variant = useBreakpointValue({ md: "md" })
+  const headerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (variant === "md") onClose();
   }, [variant])
 
   return (
-    <Box as="header" 
-      d="flex"
+    <Flex as="header"
+      ref={headerRef}
+      direction="column"
       alignItems="center" 
       top="0"
       position={fixed ? "fixed" : "static"}
       w="100%"
+      sx={{
+        "&>*": {
+          width: "100%"
+        }
+      }}
       bg={transparent ? "none" : 
         fixed ? '#000000BF' : "black"}
-      h={["3.25rem", "4.75rem"]} >
+       >
+      <SkipToMainContent href="#mainContent"/>
+      {banners?.map(data => (
+        <Banner key={uuidv4()} {...data}/>
+      ))}
       <Container
         d="flex"
         alignItems="center"
@@ -84,7 +100,7 @@ const Header = ({
         justifyContent="space-between" 
         py={["3", "0"]}
         color={transparent && colorMode === 'light' ? "black" : "white"}
-        h="100%">  
+        h={["3.25rem", "4.75rem"]}>  
           <Link href="/" passHref>
             <Box as="a" h="100%" maxH="2.875rem" cursor="pointer" sx={{ 
               img: {
@@ -100,7 +116,7 @@ const Header = ({
             alignItems="flex-end"
             justifyContent="center">
             <HStack spacing={{ base: "4", md: "6" }} display="flex" >
-              {ctas.map((cta) => (
+              {ctas?.map((cta) => (
                 <NextLink key={uuidv4()}
                     href={cta.path} 
                     passHref>
@@ -146,7 +162,7 @@ const Header = ({
               display={{ base: "none", md: "flex" }}
               spacing={6}
               sx={{ "listStyleType": "none" }}>
-              {mega_menu.map((item) => {
+              {mega_menu?.map((item) => {
                 return !item?.subitems?.length ? (
                   <Box as="li" key={uuidv4()} margin="0">
                     <Link href={item?.path || ''} passHref>
@@ -163,13 +179,14 @@ const Header = ({
             </HStack>
           </VStack>
           <MobileMenu
+            headerRef={headerRef}
             ctas={ctas}
             megaMenu={mega_menu}
             isOpen={isOpen}
             onClose={onClose} />
           <SearchDrawer isOpen={isSearchOpen} onClose={onSearchClose} />
       </Container>
-    </Box>
+    </Flex>
    )
  }
 
