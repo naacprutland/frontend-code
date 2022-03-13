@@ -3,6 +3,7 @@ import { Stack, StackProps } from '@chakra-ui/react'
 const Main = (props: StackProps) => (
   <Stack
     as="main"
+    id="mainContent"
     alignItems="center"
     spacing="16"
     marginBottom="16"
