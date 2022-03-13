@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, MutableRefObject } from "react";
+import { useEffect, useRef, useState } from "react";
 import { 
     Accordion,
     AccordionItem,
@@ -14,7 +14,8 @@ import {
     DrawerContent,
     Flex,
     IconButton,
-    Link as ChakraLink
+    Link as ChakraLink,
+    Collapse
 } from '@chakra-ui/react'
 import NextLink from "next/link"
 import { MenuItem, SubItem } from './Header'
@@ -23,7 +24,7 @@ import { MdClose } from "react-icons/md"
 
 
 export interface MobileMenuProps {
-    headerRef: MutableRefObject<HTMLDivElement>;
+    headerRef: HTMLDivElement;
     ctas?: CTA[];
     megaMenu: MenuItem[];
     isOpen: boolean;
@@ -74,10 +75,11 @@ const MobileMenu = ({
     }
 
     useEffect(() => {
-        const elm = headerRef.current
-        const height = elm.getBoundingClientRect().height
-        setTopPad(height)
-    }, [isOpen])
+        if (headerRef) {
+            const height = headerRef.getBoundingClientRect().height
+            setTopPad(height)
+        }
+    }, [isOpen,  headerRef])
 
     return (
         <Drawer

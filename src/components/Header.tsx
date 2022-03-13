@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react"
+import { useEffect, useState, useRef, useCallback } from "react"
 import { 
   Box,
   Button,
@@ -8,7 +8,8 @@ import {
   useColorMode,
   IconButton,
   useBreakpointValue,
-  Link as ChakraLink
+  Link as ChakraLink,
+  Collapse
 } from "@chakra-ui/react"
 import DarkModeSwitch from '../components/DarkModeSwitch'
 import Link from 'next/link'
@@ -60,18 +61,39 @@ const Header = ({
   banners
 }: HeaderProps) => {
   const [ isOpen, setShowMenu ] = useState(false)
+  const [ bannerList, setBannerList ] = useState([])
   const [ isSearchOpen, setIsSearchOpen ] = useState(false)
   const { colorMode } = useColorMode()
-  const onOpen = () => { setShowMenu(true) }
-  const onClose = () => { setShowMenu(false) }
-  const onSearchOpen = () => { setIsSearchOpen(true) }
-  const onSearchClose = () => { setIsSearchOpen(false) }
+  const onOpen = useCallback(() => { setShowMenu(true) }, [])
+  const onClose = useCallback(() => { setShowMenu(false) }, [])
+  const onSearchOpen = useCallback(() => { setIsSearchOpen(true) }, [])
+  const onSearchClose = useCallback(() => { setIsSearchOpen(false) }, [])
   const variant = useBreakpointValue({ md: "md" })
   const headerRef = useRef<HTMLDivElement>(null)
+  const onBannerClose = (index) => {
+    setBannerList(prev => prev.map((val, i) => {
+      const show = i === index ? false : val.show
+      return {
+        ...val,
+        show 
+      }
+    }))
+  }
 
   useEffect(() => {
     if (variant === "md") onClose();
   }, [variant])
+
+  useEffect(() => {
+    if (!bannerList.length) {
+      setBannerList(banners?.map(data => {
+        return {
+          show: true,
+          ...data
+        }
+      }))
+    } 
+  }, [banners])
 
   return (
     <Flex as="header"
@@ -90,8 +112,10 @@ const Header = ({
         fixed ? '#000000BF' : "black"}
        >
       <SkipToMainContent href="#mainContent"/>
-      {banners?.map(data => (
-        <Banner key={uuidv4()} {...data}/>
+      {bannerList?.map(( data, i ) => (
+        <Collapse key={uuidv4()} in={data.show} animateOpacity >
+          <Banner  {...data} onClose={() => onBannerClose(i)}/>
+        </Collapse>
       ))}
       <Container
         d="flex"
@@ -179,7 +203,7 @@ const Header = ({
             </HStack>
           </VStack>
           <MobileMenu
-            headerRef={headerRef}
+            headerRef={headerRef.current}
             ctas={ctas}
             megaMenu={mega_menu}
             isOpen={isOpen}
