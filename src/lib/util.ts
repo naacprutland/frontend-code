@@ -49,3 +49,12 @@ export const fetchApi = async (api: string, init: RequestInit = {} ) => {
     throw Error(json);
   }
 }
+
+/**
+ * Creates mark up object
+ * @param richText - rich html text
+ * @returns Markup Object
+ */
+export function createMarkup(richText: string) {
+  return { __html: richText };
+}
