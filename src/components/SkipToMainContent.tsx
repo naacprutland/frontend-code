@@ -26,7 +26,8 @@ const SkipToMainContent = ({ href }) => (
                 transform: "translateY(0)",
                 outline: "2px solid"
             }}
-            w="auto">Skip To main Content</Link>
+            w="auto"
+            zIndex="9999">Skip To main Content</Link>
     </NextLink>
 
 )
