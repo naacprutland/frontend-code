@@ -1,13 +1,20 @@
-import { Heading, Box, AspectRatio, Grid, GridItem,
-  Container, Button, Wrap, WrapItem  } from '@chakra-ui/react'
+import { 
+  Heading,
+  Box,
+  Grid,
+  GridItem,
+  Button,
+  Wrap,
+  WrapItem 
+} from '@chakra-ui/react'
 import Link from 'next/link'
-import Picture from './Picture'
+import Image from 'next/image'
 import { MediaImage } from '../interface/media' 
+import Container from './Container'
 
 
 export interface HeroProps {
   title: string;
-  detail?: string;
   theme: 'light' | 'dark';
   imgOverlayPer?: number;
   backgroundImage: {
@@ -37,11 +44,6 @@ enum VerPos {
   top = 1,
   middle = 2,
   bottom = 3
-}
-
-enum Theme {
-  dark = -1,
-  light = 1
 }
 
 const posPropMd = { 
@@ -79,78 +81,82 @@ const posProMobile = {
   span: 12
 }
 
-const imgSizes: { size: string, bp: number}[] = [
-  { size: 'xlarge', bp: 1440 },
-  { size: 'large', bp: 1023 },
-  { size: 'medium', bp: 768 },
-  { size: 'small', bp: 480 },
-  { size: 'xsmall3x4', bp: 0 }
-]
-
 const HeroBlock = ({
-  title, detail, theme, imgOverlayPer = 0,
-  textPos = "start", cta,
-  backgroundImage, horPos = 'center', verPos = 'middle', position = 0 }: HeroProps) => {
-  const decOverlay = imgOverlayPer / 100;
+  title,
+  theme,
+  textPos = "start",
+  cta,
+  backgroundImage,
+  horPos = 'center',
+  verPos = 'middle',
+  position = 0 
+}: HeroProps) => {
 
   return (
-    <AspectRatio w="100%" maxW="container.xl" mr="auto" ml="auto" ratio={[3 / 4, 7 / 4, 7 / 4, 7 / 3]} >
-      <Box>
-        <Box position="absolute" bg="black" w="100%" h="100%" top="0"
-            zIndex="-1"
-            filter={`brightness(${theme && imgOverlayPer ? 1 + (Theme[theme] * decOverlay) : 1})`}
-            >
-            {<Picture src={backgroundImage?.src?.url} alt={backgroundImage?.alt}
-                noLazyLoad={position === 0}
-                sources={imgSizes.map(v => {
-                  const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
-                  return {
-                    media,
-                    srcset: backgroundImage?.src.formats[v.size]?.url
-                  }
-                })} />}
-        </Box>
-        <Container h="100%" paddingBottom="4" paddingTop="4" maxW="100%">
-          <Grid
-            h="100%"
-            templateRows="repeat(3, 1fr)"
-            templateColumns="repeat(12, 1fr)">
-            {(title || detail) && <GridItem rowStart={VerPos[verPos]}
-                alignSelf="center"
-                textAlign={textPos}
-                d="flex"
-                flexDirection="column"
-                alignItems={AlignItems[textPos]}
-                color={theme === 'dark' ? 'white' : 'black'}
-                colStart={[posProMobile?.col, posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
-                colSpan={[posProMobile?.span, posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}>
-                {title && (
-                  <Heading as={position > 0 ? 'h2' : 'h1'}>
-                    {title}
-                  </Heading>)
-                }
-                {detail && <Box maxW="lg">{detail}</Box>}
-                {(cta?.length > 0) && (
-                    <Wrap justify={AlignItems[textPos]} spacing={2} py={2}>
-                      {cta && cta.map(({label, link, external}, i) => (
-                        <WrapItem key={label + i}>
-                            <Link href={link} passHref>
-                              <Button as="a"
-                                  href=""
-                                  target={external ? "_blank" : undefined}
-                                  rel={external ? "noopener noreferrer" : undefined}
-                                  cursor="pointer"
-                                  colorScheme="purple" size="md">
-                                {label}
-                              </Button>     
-                            </Link>
-                        </WrapItem>)).slice(0, 4)}
-                    </Wrap>)}
-              </GridItem>}
-          </Grid>
-        </Container>
+    <Box position="relative">
+      <Box position="absolute" 
+          bg="black" 
+          w="100%"
+          h="100%" 
+          top="0"
+                
+          sx={{
+            img: {
+              objectFit: 'cover'
+            }
+          }}
+          >
+          {backgroundImage?.src?.url && <Image
+            src={backgroundImage?.src?.url}
+            alt={backgroundImage?.alt}
+            layout='fill' 
+            />}
       </Box>
-    </AspectRatio>
+      <Container h="100vh" py={['32px', '48px', '56px']} maxW="100%">
+        <Grid
+          h="100%"
+          templateRows="repeat(3, 1fr)"
+          templateColumns="repeat(12, 1fr)">
+          {title && <GridItem rowStart={VerPos[verPos]}
+              alignSelf="center"
+              textAlign={textPos}
+              d="flex"
+              flexDirection="column"
+              alignItems={AlignItems[textPos]}
+              borderRadius="6px"
+              bgColor="rgba(0, 0, 0, 0.75)"
+              py={{ base: '4', lg: '8' }}
+              px={{ base: '4', lg: '10' }}
+              color={theme === 'dark' ? 'white' : 'black'}
+              colStart={[posProMobile?.col, posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
+              colSpan={[posProMobile?.span, posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
+              zIndex="1" >
+              {title && (
+                <Heading as={position > 0 ? 'h2' : 'h1'}
+                  fontSize={['36px', '48px', '64px']}>
+                  {title}
+                </Heading>)
+              }
+              {(cta?.length > 0) && (
+                  <Wrap justify={AlignItems[textPos]} spacing={2} paddingTop={2}>
+                    {cta && cta.map(({label, link, external}, i) => (
+                      <WrapItem key={label + i}>
+                          <Link href={link} passHref>
+                            <Button as="a"
+                                size="md"
+                                target={external ? "_blank" : undefined}
+                                rel={external ? "noopener noreferrer" : undefined}
+                                cursor="pointer"
+                                colorScheme="purple">
+                              {label}
+                            </Button>     
+                          </Link>
+                      </WrapItem>)).slice(0, 2)}
+                  </Wrap>)}
+            </GridItem>}
+        </Grid>
+      </Container>
+    </Box>
   )
 }
 
