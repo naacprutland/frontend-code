@@ -2,12 +2,18 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Hero, { HeroProps } from '../../components/HeroBlock'
-import { heroData } from '../data/heroBlockData'
+import { heroData, heroDataSize } from '../data/heroBlockData'
 
 export default {
   title: "Components/Hero Block",
   component: Hero,
   argTypes: {
+    size: {
+      options: ['full', 'contained'],
+      control: {
+        type:'radio',
+      }
+    },
     horPos: {
       options: ['left', 'right', 'center'],
       control: {
@@ -33,3 +39,6 @@ const Template: Story<HeroProps> = (args) => <Hero {...args} />
 
 export const Primary = Template.bind({})
 Primary.args = heroData
+
+export const Contained = Template.bind({})
+Contained.args = heroDataSize

@@ -15,8 +15,7 @@ import Container from './Container'
 
 export interface HeroProps {
   title: string;
-  theme: 'light' | 'dark';
-  imgOverlayPer?: number;
+  size: 'full' | 'contained';
   backgroundImage: {
     src: MediaImage;
     alt: string;
@@ -81,21 +80,26 @@ const posProMobile = {
   span: 12
 }
 
+const containedSize = {
+  base: 'calc(100vw * 3/2)',
+  sm: '562px',
+  lg: 'calc(100vw * 3/7)'
+}
+
 const HeroBlock = ({
   title,
-  theme,
   textPos = "start",
   cta,
   backgroundImage,
   horPos = 'center',
   verPos = 'middle',
-  position = 0 
-}: HeroProps) => {
-
-  return (
+  position = 0,
+  size = "full"
+}: HeroProps) => (
     <Box position="relative"
       maxW="100%"
-      h="100vh">
+      h={size === "full" ? "100vh" : containedSize}>
+
       <Box position="absolute" 
           bg="black" 
           w="100%"
@@ -129,7 +133,7 @@ const HeroBlock = ({
               bgColor="rgba(0, 0, 0, 0.75)"
               py={{ base: '4', lg: '8' }}
               px={{ base: '4', lg: '10' }}
-              color={theme === 'dark' ? 'white' : 'black'}
+              color='white'
               colStart={[posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
               colSpan={[posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
               zIndex="1" >
@@ -160,6 +164,5 @@ const HeroBlock = ({
       </Container>
     </Box>
   )
-}
 
 export default HeroBlock

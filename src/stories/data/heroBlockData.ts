@@ -14,8 +14,6 @@ const backgroundImage = {
 export const heroData = {
   title: "Harte Hero",
   backgroundImage,
-  theme: "dark",
-  imgOverlayPer: 30,
   horPos: "center",
   verPos: "bottom",
   textPos: "start",
@@ -46,11 +44,26 @@ export const heroData = {
 
 export const heroSubTextData = {
   title: "Harte Hero",
-  detail:"Panda Ipsum the genus Ailurus and eat bamboo in the forest as three days. That is one of pandas, the cool tiny panda red panda bear giant panda is cute panda. Panda Ipsum the only ovulate once each year. During that ovulation period, they are only living species of the reasons.",
   backgroundImage,
-  theme: "dark",
   horPos: "center",
   verPos: "bottom",
   textPos: "start",
   pagePos: 0,
+};
+
+export const heroDataSize = {
+  title: "Harte Hero",
+  backgroundImage,
+  horPos: "center",
+  verPos: "bottom",
+  textPos: "start",
+  pagePos: 0,
+  cta: [
+    {
+      label: "Become A Member",
+      link: "/about",
+      external: false
+    }, 
+  ],
+  size: 'contained'
 };
