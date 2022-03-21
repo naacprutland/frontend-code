@@ -1,5 +1,6 @@
 import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
 import { breakpoints } from './breakpoints'
+import fontSizes from './fontSizes'
 
 const columns = 12
 const centerStartCol = {
@@ -71,6 +72,7 @@ grid[`@media screen and (min-width: ${baseTheme.breakpoints['lg']})`] = {
 
 const theme = extendTheme({
   breakpoints,
+  fontSizes,
   fonts: {
     heading: 'Gothic CG No3, sans-serif',
     body: 'Verlag, sans-serif',

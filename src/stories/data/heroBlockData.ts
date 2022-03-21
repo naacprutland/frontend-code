@@ -49,7 +49,6 @@ export const heroSubTextData = {
   detail:"Panda Ipsum the genus Ailurus and eat bamboo in the forest as three days. That is one of pandas, the cool tiny panda red panda bear giant panda is cute panda. Panda Ipsum the only ovulate once each year. During that ovulation period, they are only living species of the reasons.",
   backgroundImage,
   theme: "dark",
-  imgOverlayPer: 30,
   horPos: "center",
   verPos: "bottom",
   textPos: "start",

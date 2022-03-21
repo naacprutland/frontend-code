@@ -8,11 +8,22 @@ export default {
   title: "Components/Hero Block",
   component: Hero,
   argTypes: {
-    imgOverlayPer: {
+    horPos: {
+      options: ['left', 'right', 'center'],
       control: {
-        type:'range',
-        min: 0,
-        max: 100
+        type:'radio',
+      }
+    },
+    verPos: {
+      options: ['top', 'middle', 'bottom'],
+      control: {
+        type:'radio',
+      }
+    },
+    textPos: {
+      options: ['start', 'center', 'end'],
+      control: {
+        type:'radio',
       }
     }
   }

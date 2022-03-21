@@ -49,30 +49,30 @@ enum VerPos {
 const posPropMd = { 
   left: {
     col: 1,
-    span: 8,
+    span: 10,
   },
   right: {
-    col: 4,
-    span: 8
+    col: 3,
+    span: 10
   },
   center: {
-    col: 3,
-    span: 8
+    col: 2,
+    span: 10
   }
 }
 
 const posPropLG = { 
   left: {
     col: 1,
-    span: 6,
+    span: 8,
   },
   right: {
-    col: 6,
-    span: 6
+    col: 5,
+    span: 8
   },
   center: {
-    col: 4,
-    span: 6
+    col: 3,
+    span: 8
   }
 }
 
@@ -93,13 +93,14 @@ const HeroBlock = ({
 }: HeroProps) => {
 
   return (
-    <Box position="relative">
+    <Box position="relative"
+      maxW="100%"
+      h="100vh">
       <Box position="absolute" 
           bg="black" 
           w="100%"
           h="100%" 
-          top="0"
-                
+          top="0"              
           sx={{
             img: {
               objectFit: 'cover'
@@ -112,10 +113,11 @@ const HeroBlock = ({
             layout='fill' 
             />}
       </Box>
-      <Container h="100vh" py={['32px', '48px', '56px']} maxW="100%">
+      <Container py={['32px', '48px', '56px']} h="100%">
         <Grid
           h="100%"
           templateRows="repeat(3, 1fr)"
+          gap={[6,6,8]}
           templateColumns="repeat(12, 1fr)">
           {title && <GridItem rowStart={VerPos[verPos]}
               alignSelf="center"
@@ -128,12 +130,12 @@ const HeroBlock = ({
               py={{ base: '4', lg: '8' }}
               px={{ base: '4', lg: '10' }}
               color={theme === 'dark' ? 'white' : 'black'}
-              colStart={[posProMobile?.col, posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
-              colSpan={[posProMobile?.span, posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
+              colStart={[posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
+              colSpan={[posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
               zIndex="1" >
               {title && (
                 <Heading as={position > 0 ? 'h2' : 'h1'}
-                  fontSize={['36px', '48px', '64px']}>
+                  fontSize={['4xl', '5xl', '6xl']}>
                   {title}
                 </Heading>)
               }
@@ -151,7 +153,7 @@ const HeroBlock = ({
                               {label}
                             </Button>     
                           </Link>
-                      </WrapItem>)).slice(0, 2)}
+                      </WrapItem>)).slice(0, 4)}
                   </Wrap>)}
             </GridItem>}
         </Grid>
