@@ -117,7 +117,7 @@ const HeroBlock = ({
             layout='fill' 
             />}
       </Box>
-      <Container py={['32px', '48px', '56px']} h="100%">
+      <Container py={[8, 12, 14]} h="100%">
         <Grid
           h="100%"
           templateRows="repeat(3, 1fr)"

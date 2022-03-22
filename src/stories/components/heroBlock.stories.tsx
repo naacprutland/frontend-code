@@ -2,7 +2,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Hero, { HeroProps } from '../../components/HeroBlock'
-import { heroData, heroDataSize } from '../data/heroBlockData'
+import { heroData, heroDataSize, heroDataSizeCTA } from '../data/heroBlockData'
 
 export default {
   title: "Components/Hero Block",
@@ -42,3 +42,6 @@ Primary.args = heroData
 
 export const Contained = Template.bind({})
 Contained.args = heroDataSize
+
+export const ContainedCTA = Template.bind({})
+ContainedCTA.args = heroDataSizeCTA

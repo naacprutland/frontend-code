@@ -56,6 +56,16 @@ export const heroDataSize = {
   backgroundImage,
   horPos: "center",
   verPos: "bottom",
+  textPos: "center",
+  pagePos: 0,
+  size: 'contained'
+};
+
+export const heroDataSizeCTA = {
+  title: "Harte Hero",
+  backgroundImage,
+  horPos: "center",
+  verPos: "bottom",
   textPos: "start",
   pagePos: 0,
   cta: [
