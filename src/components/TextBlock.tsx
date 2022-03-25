@@ -1,9 +1,11 @@
-import { Container, Box, useTheme } from "@chakra-ui/react"
+import { Box, Heading, useTheme } from "@chakra-ui/react"
+import Container from "./Container"
 import CtaList, { CTABtn, BtnColor, BtnVariant } from './CtaList'
 import { AlignItemsOptions } from '../interface/enums'
 import styled from 'styled-components'
 
 export interface TextBlockProps {
+  title?: string,
   richText: string;
   cta: CTABtn[];
   textPos: AlignItemsOptions;
@@ -64,22 +66,52 @@ export const ContentContainer = styled(Box)`
       }
     }
   }
+
+  .table {
+    display: block;
+    overflow-x:auto;
+  }
+
+  table {   
+    border-collapse: collapse;
+  }
+
+  th, td {
+    border: 1px solid black;
+    box-sizing: border-box;
+    padding: 8px;
+    overflow: hidden;
+  }
+
 `
 
 function createMarkup(richText: string) {
   return {__html: richText};
 }
 
-const TextBlock = ({ richText, textPos, ...ctaListProps }: TextBlockProps)=> {
+const TextBlock = ({
+  title, 
+  richText,
+  textPos,
+  position=0,
+  ...ctaListProps }: TextBlockProps)=> {
   const theme = useTheme()
   return (
-    <Container maxW="container.md" textAlign={textPos} centerContent>
-        <ContentContainer dangerouslySetInnerHTML={createMarkup(richText)}
+    <Container className="grid" textAlign={textPos}>
+      <Box className="gcol-12 gcol-md-8 gcol-lg-6 center" 
+        overflow="hidden"
+        w="100%">
+        {title && <Heading as={position > 0 ? 'h2' : 'h1'}
+                  fontSize={['4xl', '5xl', '6xl']}>
+                  {title}
+                </Heading>}
+        <ContentContainer  dangerouslySetInnerHTML={createMarkup(richText)}
           colors={theme.colors}
           fontweights={theme.fontWeights}
           space={theme.space}
           fontsizes={theme.fontSizes} />
-        <CtaList size="md" {...ctaListProps} />
+        <CtaList size="md" {...ctaListProps} paddingTop="3" />
+      </Box>
     </Container>
   )
 }

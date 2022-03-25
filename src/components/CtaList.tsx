@@ -1,4 +1,4 @@
-import { Button, Wrap, WrapItem  } from '@chakra-ui/react'
+import { Button, Wrap, WrapItem, WrapProps } from '@chakra-ui/react'
 import Link from 'next/link'
 import { AlignItems, AlignItemsOptions } from '../interface/enums'
 import { v4 as uuidv4 } from 'uuid';
@@ -10,7 +10,7 @@ export interface CTABtn {
   link: string;
   external: boolean;
 }
-export interface CTAListProps {
+export interface CTAListProps extends Partial<WrapProps>{
   cta: CTABtn[];
   groupPosition: AlignItemsOptions;
   size: "xs" | "sm" | "md" | "lg";
@@ -18,10 +18,21 @@ export interface CTAListProps {
   variant: BtnVariant;
 }
 
-const CtaList = ({ cta=[], groupPosition, ...btnProps }: CTAListProps) => (
+const CtaList = ({ 
+  cta=[],
+  groupPosition,
+  size,
+  colorScheme,
+  variant,
+  ...wrapProps
+ }: CTAListProps) => (
     <>
       {(cta?.length > 0) && (
-        <Wrap justify={AlignItems[groupPosition]} width="100%" spacing={2} py={2}>
+        <Wrap 
+          justify={AlignItems[groupPosition]}
+          {...wrapProps}
+          width="100%"
+          spacing={2}>
           {cta.map(({ label="", link="", external=false }) => ( 
               <WrapItem key={uuidv4()}>
                   <Link href={link} passHref>
@@ -30,7 +41,9 @@ const CtaList = ({ cta=[], groupPosition, ...btnProps }: CTAListProps) => (
                         target={external ? "_blank" : undefined}
                         rel={external ? "noopener noreferrer" : undefined}
                         cursor="pointer"
-                        {...btnProps}>
+                        size={size}
+                        colorScheme={colorScheme}
+                        variant={variant}>
                       {label}
                     </Button>     
                   </Link>
