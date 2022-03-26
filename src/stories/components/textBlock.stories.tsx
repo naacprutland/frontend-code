@@ -5,9 +5,6 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import TextBlock, { TextBlockProps } from '../../components/TextBlock'
 
 const sampleText = `
-  <h1>Hello World!</h1>
-  <h2>Hello World!</h2>
-  <h3>Hello World!</h3>
   <p><b>Panda Ipsum</b> panda ipsum <a href="www.google.com">eating bamboo</a> in the cool ipsum eating bamboo in the red panda cute panda. Board panda is believed that pandas roamed the genus Ailurus and the forest. Panda Ipsum the reasons why the reasons why the ipsum eating bamboo leaves. Red panda is one of the forest. Cute panda likes great panda is the forest. Cute panda likes great panda eat bamboo leaves. Red panda cute tiny panda loves being cool tiny panda loves leaves to dance and eat bamboo leaves. Red panda ipsum with giant panda loves being cool tiny dancing bear. It is cute panda.</p>
   <p></p>
   <p>Panda Ipsum panda ipsum eating bamboo in the cool ipsum eating bamboo in the red panda cute panda. Board panda is believed that pandas roamed the genus Ailurus and the forest. Panda Ipsum the reasons why the reasons why the ipsum eating bamboo leaves. Red panda is one of the forest. Cute panda likes great panda is the forest. Cute panda likes great panda eat bamboo leaves. Red panda cute tiny panda loves being cool tiny panda loves leaves to dance and eat bamboo leaves. Red panda ipsum with giant panda loves being cool tiny dancing bear. It is cute panda.</p>
@@ -74,6 +71,7 @@ const Template: Story<TextBlockProps> = (args) => <TextBlock {...args} />;
 
 export const TextWithCta = Template.bind({});
 TextWithCta.args = {
+  title: 'Hello World',
   richText: sampleText,
   variant: 'solid',
   groupPosition: 'start',
@@ -100,4 +98,40 @@ TextWithCta.args = {
       external: false
     },
   ],
+};
+
+export const StyleWhite = Template.bind({});
+StyleWhite.args = {
+  title: 'Hello World',
+  richText: sampleText,
+  variant: 'solid',
+  groupPosition: 'start',
+  style: 'white'
+};
+
+export const StyleDark = Template.bind({});
+StyleDark.args = {
+  title: 'Hello World',
+  richText: sampleText,
+  variant: 'solid',
+  groupPosition: 'start',
+  style: 'dark'
+};
+
+export const StyleBlue = Template.bind({});
+StyleBlue.args = {
+  title: 'Hello World',
+  richText: sampleText,
+  variant: 'solid',
+  groupPosition: 'start',
+  style: 'blue'
+};
+
+export const StyleYellow = Template.bind({});
+StyleYellow.args = {
+  title: 'Hello World',
+  richText: sampleText,
+  variant: 'solid',
+  groupPosition: 'start',
+  style: 'yellow'
 };

@@ -11,11 +11,11 @@ export interface CTABtn {
   external: boolean;
 }
 export interface CTAListProps extends Partial<WrapProps>{
-  cta: CTABtn[];
-  groupPosition: AlignItemsOptions;
-  size: "xs" | "sm" | "md" | "lg";
-  colorScheme: BtnColor;
-  variant: BtnVariant;
+  cta?: CTABtn[];
+  groupPosition?: AlignItemsOptions;
+  size?: "xs" | "sm" | "md" | "lg";
+  colorScheme?: BtnColor;
+  variant?: BtnVariant;
 }
 
 const CtaList = ({ 
