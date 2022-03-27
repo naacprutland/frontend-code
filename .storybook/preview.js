@@ -1,9 +1,6 @@
 import * as NextImage from "next/image";
-// import { ThemeProvider } from 'styled-components';
-// import { ChakraProvider, ColorModeScript } from '@chakra-ui/react'
 import theme from '../src/theme/theme'
 import Fonts from '../src/theme/fonts'
-// import { RouterContext } from "next/dist/next-server/lib/router-context";
 
 const OriginalNextImage = NextImage.default;
 
@@ -58,7 +55,20 @@ export const parameters = {
         },
     },
     layout: 'fullscreen',
-    viewport: { viewports: customViewports }
+    viewport: { viewports: customViewports },
+    backgrounds: {
+      default: 'default',
+      values: [
+        {
+          name: 'default',
+          value: '#EFEFEF',
+        },
+        {
+          name: 'dark',
+          value: '#282828',
+        },
+      ],
+    },
     // nextRouter: {
     //   Provider: RouterContext.Provider,
     // },
