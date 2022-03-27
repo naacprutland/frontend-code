@@ -1,25 +1,40 @@
-import { LinkBox, LinkOverlay, Box, Heading, AspectRatio, Text, Icon, Spacer } from "@chakra-ui/react"
+import { 
+  VStack,
+  HStack,
+  LinkBox,
+  LinkOverlay,
+  Heading,
+  AspectRatio,
+  Text, 
+  Button,
+  Badge,
+  Divider
+} from "@chakra-ui/react"
+import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
-import { BiCaretRightCircle } from "react-icons/bi";
 import Picture from "./Picture";
 import { MediaImage } from '../interface/media'
+import Moment from 'react-moment'
 
 export interface CardProps {
   image: {
     src: MediaImage;
     alt: string;
   },
-  title: string;
+  title?: string;
   copy?: string;
-  link: {
+  link?: {
     label?: string;
     path: string;
     isExternal: boolean;
   },
-  layout?: 'column' | 'row' | 'row-reverse'
+  badge?: {
+    label: string;
+    colorScheme: 'prime1'| 'prime2' | 'secondary1' | 'secondary2' | 'secondary3' | 'secondary4' | 'secondary5' | 'secondary6'
+  },
+  date?: Date | string;
+  backShadow: 'boxShadowLight' | 'boxShadowDark'
 }
-
-const rowArr = ['row', 'row-reverse']
 
 const imgSizes: { size: string, bp: number}[] = [
   { size: 'medium', bp: 768 },
@@ -27,12 +42,23 @@ const imgSizes: { size: string, bp: number}[] = [
   { size: 'xsmall', bp: 0 }
 ]
 
-const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
+const Card = ({ 
+  image,
+  title,
+  copy,
+  link,
+  backShadow="boxShadowLight",
+  badge,
+  date
+}: CardProps) => {
   return (
-    image && (<LinkBox as="figure" display="flex" flexDirection={layout} borderWidth="1px" backgroundColor="gray.50">
+    image && (<LinkBox as="figure" >
       {
         image && (
-          <AspectRatio ratio={4 / 3} flex={`1 1 ${rowArr.includes(layout) ? '30%' : '100%'}`}>
+          <AspectRatio ratio={7 / 4}
+            borderRadius="6px"
+            layerStyle={backShadow}
+            overflow="hidden" >
             <Picture src={image?.src?.url} alt={image?.alt}
                 sources={imgSizes.map(v => {
                   const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
@@ -43,33 +69,67 @@ const Card = ({ image, title, copy, link, layout = 'column' }: CardProps) => {
                 })} />
           </AspectRatio>)
       }
-      <Box as="figcaption" p="2" 
-        pl={layout === 'row' && 6 } 
-        pr={layout === 'row-reverse' && 6 } 
-        display="flex"  
-        flex={`1 1 ${rowArr.includes(layout) ? '70%' : '100%'}`}
-        flexDirection="column">
-        <Heading size="md" >        
-          {title}
-        </Heading>
-        {
-          copy ? <Text flex="1 1" mt="3">
-            {copy}
-          </Text> : <Spacer flex="1 1" />
-        }
-        {
-          (link?.label && link?.path) && (
-          <NextLink href={link?.path} passHref>
-            <LinkOverlay isExternal={link?.isExternal} 
-              display="flex"
-              alignItems="center"
-              mt="3" color="teal.700" fontWeight="bold">
-              {link?.label}<Icon ml="1" as={BiCaretRightCircle} />
-            </LinkOverlay>
-          </NextLink>
-          )
-        }
-      </Box>
+      {
+        (title || copy || link) && (
+          <VStack as="figcaption"
+            alignItems="flex-start"
+            spacing="3"
+            borderRadius="6px"
+            backgroundColor="white"
+            layerStyle={backShadow}
+            marginTop="4"
+            py="6"
+            px="4">
+            <VStack spacing="2"
+              alignItems="flex-start">
+              {title && <Heading as="h3" 
+                      lineHeight="1"
+                      size="lg" >        
+                {title}
+                </Heading>
+              }
+              {
+                (badge || date) && (
+                  <HStack spacing="2">
+                    {
+                      badge && (
+                        <Badge variant="solid" colorScheme={badge.colorScheme}>
+                          {badge.label}
+                        </Badge>
+                      )
+                    }
+                    {(badge && date) && <Divider
+                        borderColor="black"
+                        orientation='vertical'
+                        height="16px" />}
+                    {date && <Text fontWeight="semibold">
+                        <Moment format="MMMM DD, YYYY" date={date} />
+                      </Text>}
+                  </HStack>
+                )
+              }
+              {
+                copy && <Text mt="3">
+                  {copy.slice(0, 100)}{copy.length > 100 && '...'}
+                </Text>
+              }
+            </VStack>
+            {
+              (link?.label && link?.path) && (
+              <NextLink href={link?.path} passHref>
+                <LinkOverlay isExternal={link?.isExternal} >
+                  <Button as="span" size="md" 
+                    rightIcon={<ChevronRightIcon />}
+                    colorScheme="secondary4">
+                    {link?.label}
+                  </Button>
+                </LinkOverlay>
+              </NextLink>
+              )
+            }
+          </VStack>
+        )
+      }
     </LinkBox>)
   )
 }
