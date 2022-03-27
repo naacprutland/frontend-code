@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react"
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
-import Picture from "./Picture";
+import Image from 'next/image'
 import { MediaImage } from '../interface/media'
 import Moment from 'react-moment'
 
@@ -36,12 +36,6 @@ export interface CardProps {
   backShadow: 'boxShadowLight' | 'boxShadowDark'
 }
 
-const imgSizes: { size: string, bp: number}[] = [
-  { size: 'medium', bp: 768 },
-  { size: 'small', bp: 480 },
-  { size: 'xsmall', bp: 0 }
-]
-
 const Card = ({ 
   image,
   title,
@@ -58,15 +52,17 @@ const Card = ({
           <AspectRatio ratio={7 / 4}
             borderRadius="6px"
             layerStyle={backShadow}
-            overflow="hidden" >
-            <Picture src={image?.src?.url} alt={image?.alt}
-                sources={imgSizes.map(v => {
-                  const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
-                  return {
-                    media,
-                    srcset: image?.src.formats[v.size]?.url
-                  }
-                })} />
+            overflow="hidden"
+             >
+            <div>
+              <Image
+                src={image?.src?.url}
+                alt={image?.alt}
+                objectFit="cover"
+                objectPosition="center"
+                layout="fill"
+              />
+            </div>
           </AspectRatio>)
       }
       {

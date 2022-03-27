@@ -105,15 +105,12 @@ const HeroBlock = ({
           w="100%"
           h="100%" 
           top="0"              
-          sx={{
-            img: {
-              objectFit: 'cover'
-            }
-          }}
           >
           {backgroundImage?.src?.url && <Image
             src={backgroundImage?.src?.url}
             alt={backgroundImage?.alt}
+            objectFit="cover"
+            objectPosition="center"
             layout='fill' 
             />}
       </Box>
