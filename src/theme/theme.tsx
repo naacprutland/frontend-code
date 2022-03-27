@@ -1,6 +1,7 @@
 import { extendTheme, theme as baseTheme } from '@chakra-ui/react'
 import { breakpoints } from './breakpoints'
 import fontSizes from './fontSizes'
+import { Link, Heading } from './components'
 
 const columns = 12
 const centerStartCol = {
@@ -76,6 +77,14 @@ const theme = extendTheme({
   fonts: {
     heading: 'Gothic CG No3, sans-serif',
     body: 'Verlag, sans-serif',
+  },
+  layerStyles: {
+    boxShadowLight: {
+      boxShadow: "0px 4px 4px 0px rgb(0 0 0 / 25%)"
+    },
+    boxShadowDark: {
+      boxShadow: "0px 4px 4px 0px rgb(255 255 255 / 25%)"
+    }
   },
   styles: {
     global: {
@@ -153,13 +162,8 @@ const theme = extendTheme({
     },
   },
   components: {
-    Link: {
-      baseStyle: {
-        _hover: {
-          textDecoration: "none",
-        }
-      }
-    },
+    Link,
+    Heading
   },
 })
 
