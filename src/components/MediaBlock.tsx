@@ -81,7 +81,7 @@ const MediaBlock = ({
           {heading && (
             <Heading as={position > 0 ? 'h2' : 'h1'}
               color={setBackgroundImage ? "white" : "black"}
-              marginBottom={["3", "8"]}
+              marginBottom={["6", "8", "12"]}
               lineHeight="1"
               fontSize={['4xl', '5xl', '6xl']}>
               {heading}
@@ -131,7 +131,7 @@ const MediaBlock = ({
               borderRadius="6px"
               overflow="hidden"
               color="white"
-              marginTop={["3", "8"]}
+              marginTop={["6", "8"]}
               backgroundColor="#000000BF">
               <Text>{text}</Text>
             </Box>)}
