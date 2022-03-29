@@ -1,33 +1,38 @@
-import { Box, AspectRatio, IconButton, Icon,
-  Container, useDisclosure,
+import {
+  Box,
+  AspectRatio,
+  Heading,
+  IconButton,
+  Icon,
+  useDisclosure,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalBody,
-  ModalCloseButton } from '@chakra-ui/react'
-import { BiPlay } from "react-icons/bi";
+  ModalCloseButton,
+  Text
+} from '@chakra-ui/react'
+import { FaRegPlayCircle } from "react-icons/fa";
 import YouTube, { Options } from "react-youtube";
-import Picture from "./Picture";
-import { MediaImage } from '../interface/media'
+import Image from 'next/image'
+import Container from './Container';
 
 export interface VideoType {
   src: string;
   type: string;
 }
 
+interface MediaImage {
+  src: string | 'StaticImageData';
+  alt: string;
+}
 export interface MediaBlockProps {
   position?: number;
-  bgType: 'video' | 'image';
-  blockSize?: 'md' | 'lg' | 'xl' | 'full';
-  bgImg?: {
-    src: MediaImage;
-    alt: string;
-  },
-  bgVid?: {
-    video: VideoType[];
-    poster: string;
-  },
-  overlayOpacity: number;
+  heading?: string;
+  text?: string;
+  setBackgroundImage?: boolean;
+  mediaImage: MediaImage;
+  textPosition?: 'start' | 'center' | 'end';
   youTubeVideo?: {
     key: string;
     label: string;
@@ -43,105 +48,119 @@ const opts: Options = {
   }
 };
 
-const imgSizes: { size: string, bp: number}[] = [
-  { size: 'xlarge', bp: 1440 },
-  { size: 'large', bp: 1023 },
-  { size: 'medium', bp: 768 },
-  { size: 'small', bp: 480 },
-  { size: 'xsmall3x4', bp: 0 }
-]
-
+const setBGImg = (mediaImage: MediaImage) => ({
+  ariaLabel: mediaImage.alt,
+  role: 'img',
+  background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${mediaImage?.src}')`,
+  backgroundPosition: "center",
+  backgroundSize: "cover"
+})
 
 const MediaBlock = ({
-    bgType,
-    bgImg,
-    bgVid,
-    overlayOpacity = 0,
-    youTubeVideo,
-    blockSize = 'lg'
-  }: MediaBlockProps) => {
+  setBackgroundImage = false,
+  heading,
+  textPosition = "start",
+  text,
+  position = 1,
+  mediaImage,
+  youTubeVideo
+}: MediaBlockProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   return (
     <>
-      <Container 
-        p={blockSize === 'full' && '0'}
-        maxW={`container.${blockSize === 'full' ? 'xl' : blockSize}`}>
-        <AspectRatio bgColor="black" ratio={16/9}>
-          <Box >
-            {(bgType === 'image' && bgImg?.src) && (
-                <Picture src={bgImg?.src?.url} alt={bgImg?.alt}
-                sources={imgSizes.map(v => {
-                  const media = v.bp !== 0 ? `(min-width: ${v.bp}px)` : null;
-                  return {
-                    media,
-                    srcset: bgImg?.src.formats[v.size]?.url
-                  }
-                })} />
-            )}
-            {(bgType === 'video' && bgVid) && (
-              <Box as="video" 
-                objectFit="cover"
-                objectPosition="center"
-                height="100%"
-                width="100%"
-                autoPlay
-                playsInline
-                loop muted poster={bgVid?.poster}>
-                {(bgVid?.video || []).map((val, i) => <source 
-                    key={val.type + i} src={val.src}
-                      type={`video/${val.type}`} />)
-                }
-                {"Sorry, your browser doesn't support embedded videos."}
+      <Container className="grid"
+        py={[8, 12, 14]}
+        {
+        ...(setBackgroundImage ? setBGImg(mediaImage) : {})
+        }
+      >
+        <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
+          textAlign={textPosition}
+          w="100%">
+          {heading && (
+            <Heading as={position > 0 ? 'h2' : 'h1'}
+              color={setBackgroundImage ? "white" : "black"}
+              marginBottom={["3", "8"]}
+              lineHeight="1"
+              fontSize={['4xl', '5xl', '6xl']}>
+              {heading}
+            </Heading>)
+          }
+          <AspectRatio
+            layerStyle="boxShadowLight"
+            borderRadius="6px"
+            overflow="hidden"
+            ratio={16 / 9}>
+            {(mediaImage?.src) && (
+              <Box >
+                <Image
+                  src={mediaImage?.src || ''}
+                  alt={mediaImage?.alt}
+                  objectFit="cover"
+                  objectPosition="center"
+                  layout="fill"
+                />
+                {youTubeVideo && <Box position="absolute"
+                  d="flex"
+                  justifyContent="center"
+                  alignItems="center"
+                  bgColor={`rgba(0, 0, 0, ${20 / 100})`}
+                  h="100%" w="100%" zIndex="1">
+                  <IconButton
+                    onClick={onOpen}
+                    isRound
+                    variant="ghost"
+                    fontSize="9xl"
+                    h="64px"
+                    w="64px"
+                    padding="5px"
+                    overflow="hidden"
+                    color="white"
+                    colorScheme="whiteAlpha"
+                    aria-label="Play Video"
+                    icon={<Icon h="100%" w="100%" as={FaRegPlayCircle} />} />
+                </Box>}
               </Box>
             )}
-            <Box position="absolute" 
-                d="flex"
-                justifyContent="center"
-                alignItems="center"
-                  bgColor={`rgba(0, 0, 0, ${overlayOpacity / 100})`} 
-                  h="100%" w="100%" zIndex="1">
-              {youTubeVideo && <IconButton
-                onClick={onOpen}
-                isRound
-                variant="outline"
-                fontSize="9xl"
-                h="32"
-                w="32" 
-                overflow="hidden"
-                color="white"
-                colorScheme="whiteAlpha"
-                aria-label="Play Video" 
-                icon={<Icon paddingLeft="4" as={BiPlay} />} />
-              
-              }
-            </Box>
-          </Box>
-        </AspectRatio>
+
+          </AspectRatio>
+          {text && (
+            <Box p="8px"
+              layerStyle="boxShadowLight"
+              borderRadius="6px"
+              overflow="hidden"
+              color="white"
+              marginTop={["3", "8"]}
+              backgroundColor="#000000BF">
+              <Text>{text}</Text>
+            </Box>)}
+        </Box>
       </Container>
-      {youTubeVideo?.key && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
-        <ModalOverlay />
-        <ModalContent 
-          sx={{
-            "@media only screen and (orientation : landscape) and (min-width: calc(100vh * 1.8)) ": {
-              maxWidth: "calc(100vh * 1.8)",
-            }
-          }}
-          color="white"
-          backgroundColor="blackAlpha.300">
-          <ModalCloseButton />
-          <ModalBody pl="12" pr="12"> 
-            <AspectRatio bgColor="black" ratio={16/9}>
-              <YouTube
-                videoId={youTubeVideo?.key || ''}
-                opts={opts}
-              />
-            </AspectRatio>  
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+      {
+        youTubeVideo?.key && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
+          <ModalOverlay />
+          <ModalContent
+            sx={{
+              "@media only screen and (orientation : landscape) and (min-width: calc(100vh * 1.8)) ": {
+                maxWidth: "calc(100vh * 1.8)",
+              }
+            }}
+            color="white"
+            backgroundColor="blackAlpha.300">
+            <ModalCloseButton />
+            <ModalBody pl="12" pr="12">
+              <AspectRatio bgColor="black" ratio={16 / 9}>
+                <YouTube
+                  videoId={youTubeVideo?.key || ''}
+                  opts={opts}
+                />
+              </AspectRatio>
+            </ModalBody>
+          </ModalContent>
+        </Modal>
       }
-      
+
     </>
   )
 }
