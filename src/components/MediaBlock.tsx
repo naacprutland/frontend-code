@@ -112,9 +112,9 @@ const MediaBlock = ({
                     isRound
                     variant="ghost"
                     fontSize="9xl"
-                    h="64px"
-                    w="64px"
-                    padding="5px"
+                    h="16"
+                    w="16"
+                    padding="1"
                     overflow="hidden"
                     color="white"
                     colorScheme="whiteAlpha"
@@ -126,7 +126,7 @@ const MediaBlock = ({
 
           </AspectRatio>
           {text && (
-            <Box p="8px"
+            <Box p="2"
               layerStyle="boxShadowLight"
               borderRadius="6px"
               overflow="hidden"
