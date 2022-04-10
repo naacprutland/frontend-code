@@ -5,7 +5,28 @@ export interface GlobalApi {
     publishedAt: Date;
     logo?:        Logo;
     seo?:         SEO;
+    footer?: Footer;
     navigation?:  Navigation;
+}
+
+export interface Footer {
+    id:          number;
+    subText:     string;
+    links:       Link[];
+    socialLinks: SocialLink[];
+}
+
+export interface Link {
+    id:         number;
+    label:      string;
+    path:       string;
+    external: boolean;
+}
+
+export interface SocialLink {
+    id:   number;
+    icon: string;
+    path: string;
 }
 
 export interface Logo {
@@ -102,16 +123,13 @@ export interface Parent {
 }
 
 export interface Related {
-    id:           number;
-    related_id:   string;
-    related_type: string;
-    field:        string;
-    order:        number;
-    master:       string;
+    id: number;
+    label: string;
+    slug: string;
+    path: string;
     createdAt:    Date;
     updatedAt:    Date;
 }
-
 export interface SEO {
     id:              number;
     metaTitle:       string;

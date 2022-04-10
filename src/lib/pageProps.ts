@@ -50,7 +50,6 @@ export async function getDynamicPageData(page: string, preview: boolean): Promis
 export async function getConfigData(): Promise<ApiError | SiteConfig> { 
   try {
     const globalData: GlobalApi = await fetchApi(getGlobal)
-    console.log(globalData)
     return convertToConfig(globalData)
   } catch(e) {
     return { 
