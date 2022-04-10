@@ -43,8 +43,8 @@ export interface HeaderProps {
     src: string;
     alt: string;
   },
-  ctas: CTA[];
-  mega_menu?: MenuItem[],
+  ctas?: CTA[];
+  mega_menu?: MenuItem[];
   includeDarkMode?: boolean;
   fixed?: boolean;
   transparent?:boolean;

@@ -9,7 +9,7 @@ const App = ({ Component, pageProps }: AppProps) => (
   <ChakraProvider resetCSS theme={theme}>
     <Fonts />
     <DefaultSeo {...pageProps?.config?.defaultSeo} />
-    <Layout headerData={pageProps?.config}>
+    <Layout headerProps={pageProps?.config?.headerProps}>
       <Component {...pageProps} />
     </Layout>
   </ChakraProvider>

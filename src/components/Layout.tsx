@@ -1,20 +1,21 @@
 import * as React from 'react'
-import Footer from './Footer'
+// import Footer from './Footer'
 import Header, { HeaderProps } from './Header'
 import Main from './Main'
 
 export interface LayoutProps {
-  headerData: HeaderProps;
+  headerProps: HeaderProps;
   children: React.ReactNode;
 }
 
-const Layout = ({ headerData, children }: LayoutProps) => {
+const Layout = ({ headerProps, children }: LayoutProps) => {
+  console.log({headerProps})
   return (<>
-    <Header {...headerData} />
+    <Header {...headerProps} />
     <Main>
       {children}
     </Main>
-    <Footer />
+    {/* <Footer /> */}
   </>)
 }
 
