@@ -101,7 +101,7 @@ const Header = ({
       direction="column"
       alignItems="center" 
       top="0"
-      position={fixed ? "fixed" : "static"}
+      position={fixed ? "absolute" : "static"}
       w="100%"
       sx={{
         "&>*": {
