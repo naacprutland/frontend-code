@@ -23,7 +23,7 @@ import MenuLink from './MenuLink'
 import { v4 as uuidv4 } from 'uuid';
 import Banner, { BannerProps } from './Banner'
 import SkipToMainContent from './SkipToMainContent'
-
+import Image from 'next/image'
 
 export interface MenuItem {
   label: string;
@@ -126,11 +126,24 @@ const Header = ({
         color={transparent && colorMode === 'light' ? "black" : "white"}
         h={["3.25rem", "4.75rem"]}>  
           <Link href="/" passHref>
-            <Box as="a" h="100%" maxH="2.875rem" cursor="pointer" sx={{ 
-              img: {
+            <Box as="a" h="100%" maxH="2.875rem" cursor="pointer" sx={{
+              '.logo': {
                 height: "100%"
+              },
+              span: {
+                height: "100%"
+              },
+              img: {
+                // height: "100%"
               }}}>
-              {logo && <img src={logo.src} alt={logo.alt} />}
+              {logo && <Image
+                  className="logo"
+                  src={logo.src}
+                  alt={logo.alt}
+                  layout="raw"
+                  width="132px"
+                  height="46px"
+                />}
             </Box>
           </Link>
         

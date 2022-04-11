@@ -9,5 +9,6 @@ module.exports = {
   },
   images: {
     domains: ['hartecode.nyc3.digitaloceanspaces.com'],
+    layoutRaw: true,
   },
 }
