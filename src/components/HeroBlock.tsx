@@ -9,22 +9,22 @@ import {
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { MediaImage } from '../interface/media'
 import Container from './Container'
 import { AlignItems } from '../interface/enums'
+import { Image as ImageApi } from '../interface/generalApi'
 
 
 export interface HeroProps {
   title: string;
-  size: 'full' | 'contained';
+  size: 'full' | 'contained' | string;
   backgroundImage: {
-    src: MediaImage;
+    src: ImageApi;
     alt: string;
   };
-  horPos: 'left' | 'right' | 'center';
-  verPos: 'top' | 'middle' | 'bottom';
+  horPos: 'left' | 'right' | 'center' | string;
+  verPos: 'top' | 'middle' | 'bottom' | string;
   position?: number;
-  textPos?: 'start' | 'center' | 'end';
+  textPos?: 'start' | 'center' | 'end' | string;
   cta?: CTABtn[]
 }
 

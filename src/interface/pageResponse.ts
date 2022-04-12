@@ -24,5 +24,5 @@ export interface PageResponseProps {
   slug: string;
   label: string;
   pageSEO: SEO;
-  pageStructure?: ResponseBlocks[] | null;
+  blocks?: ResponseBlocks[] | null;
 }

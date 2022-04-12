@@ -1,12 +1,9 @@
-import ContentPage from '../components/ContentPage'
 import { getPageProps } from '../lib/pageProps'
 import {  PageProps } from '../interface/page'
+import PageTemplate from '../components/PageTemplate'
 
 const HomePage = (Props: PageProps) => (
-  <>
-    <div>Hello world</div>
-    <ContentPage {...Props} />
-  </>
+  <PageTemplate {...Props.data}/>
 )
 
 export const getStaticProps = async ({ preview }) => getPageProps('homePageKey', preview);

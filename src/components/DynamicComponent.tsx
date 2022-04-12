@@ -15,8 +15,9 @@ const DynamicSearchSortBlock: ComponentType<SearchSortProps> = dynamic(() => imp
 const DynamicContactFormBlock: ComponentType<ContactFormBlock> = dynamic(() => import('./ContactFormBlock'))
 
 function DynamicComponent({ template, ...props}: Block) {
+
   switch (template) {
-    case 'hero-block':
+    case 'blocks.hero-block':
       return <DynamicHero {...props as HeroBlock}/>
     case 'text-block':
       return <DynamicTextBlock {...props as TextBlock}/>

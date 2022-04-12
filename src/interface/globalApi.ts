@@ -1,3 +1,4 @@
+import { Image } from "./generalApi";
 export interface GlobalApi {
     id:          number;
     createdAt:   Date;
@@ -32,46 +33,7 @@ export interface SocialLink {
 export interface Logo {
     id:  number;
     alt: string;
-    src: Src;
-}
-
-export interface Src {
-    id:                number;
-    name:              string;
-    alternativeText:   string;
-    caption:           string;
-    width:             number | null;
-    height:            number | null;
-    formats:           Formats | null;
-    hash:              string;
-    ext:               string;
-    mime:              string;
-    size:              number;
-    url:               string;
-    previewUrl:        null;
-    provider:          string;
-    provider_metadata: null;
-    createdAt:         Date;
-    updatedAt:         Date;
-}
-
-export interface Formats {
-    large:     ImgMeta;
-    small:     ImgMeta;
-    medium:    ImgMeta;
-    thumbnail: ImgMeta;
-}
-
-export interface ImgMeta {
-    ext:    string;
-    url:    string;
-    hash:   string;
-    mime:   string;
-    name:   string;
-    path:   null;
-    size:   number;
-    width:  number;
-    height: number;
+    src: Image;
 }
 
 export interface Navigation {
@@ -139,7 +101,7 @@ export interface SEO {
     structuredData:  object;
     metaViewport:    string;
     canonicalURL:    string;
-    metaImage:       Src;
+    metaImage:       Image;
     metaSocial:      MetaSocial[];
 }
 

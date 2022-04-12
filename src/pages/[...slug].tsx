@@ -1,9 +1,9 @@
-import ContentPage from '../components/ContentPage'
+import PageTemplate from '../components/PageTemplate'
 import { getPageProps, getPathsList } from '../lib/pageProps'
 import {  PageProps } from '../interface/page'
 
 const DynamicPage = (Props: PageProps) => (
-  <ContentPage {...Props} />
+  <PageTemplate {...Props.data}/>
 )
 
 export async function getStaticPaths() {
@@ -12,9 +12,8 @@ export async function getStaticPaths() {
 }
 
 export const getStaticProps = async ({ params, preview}) => {
-  const location = params?.slug ? params.slug.pop()  : 'home'
-  if (location === 'home') return
-
+  const location = params.slug.pop()
+  
   return getPageProps(location, preview);
 
 }

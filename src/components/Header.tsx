@@ -102,6 +102,7 @@ const Header = ({
       alignItems="center" 
       top="0"
       position={fixed ? "absolute" : "static"}
+      zIndex="1"
       w="100%"
       sx={{
         "&>*": {

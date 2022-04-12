@@ -93,11 +93,11 @@ export async function getPageProps(formTitle: string, preview: boolean) {
  
   if (pageData) {
     data = await buildPageStructure(pageData)
+
     if (data.pageSEO) {
       data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
     }
   }
-
 
   return {
     props: {
@@ -105,9 +105,7 @@ export async function getPageProps(formTitle: string, preview: boolean) {
       preview: false,
       notFound: false,
       config,
-      file: {
-        data
-      }
+      data
     },
   }
 }

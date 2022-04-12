@@ -3,6 +3,7 @@ import { TextBlockProps } from '../components/TextBlock'
 import { DeckBlockProps } from '../components/DeckBlock'
 import { MediaBlockProps } from '../components/MediaBlock'
 import { SearchSortProps } from '../components/SearchSortBlock'
+import { HeroBlockApi } from './apiBlocks'
 
 interface ComponentBlock {
   "template": string;
@@ -10,7 +11,7 @@ interface ComponentBlock {
 }
 
 export interface HeroBlock extends ComponentBlock, HeroProps {
-  "template": 'hero-block'
+  "template": 'blocks.hero-block'
 }
 
 export interface TextBlock extends ComponentBlock, TextBlockProps {
@@ -39,7 +40,7 @@ export interface ContactFormBlock extends ComponentBlock {
   "template": 'contact-form-block'
 }
 
-export type ResponseBlocks = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortRespBlock | ContactFormBlock
+export type ResponseBlocks = HeroBlockApi
 
 export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortBlock | ContactFormBlock
 

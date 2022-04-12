@@ -8,11 +8,7 @@ export interface PageTemplateProps extends Omit<PageResponseProps, 'pageStructur
 export interface PageProps {
   preview?: boolean;
   formTitle?: string;
-  file: {
-    fileRelativePath: string;
-    sha: string;
-    data: PageTemplateProps;
-  }
+  data: PageTemplateProps;
 }
 
 export interface PageEditorProps extends PageProps{
