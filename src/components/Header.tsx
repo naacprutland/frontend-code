@@ -126,23 +126,16 @@ const Header = ({
         color={transparent && colorMode === 'light' ? "black" : "white"}
         h={["3.25rem", "4.75rem"]}>  
           <Link href="/" passHref>
-            <Box as="a" h="100%" maxH="2.875rem" cursor="pointer" sx={{
-              '.logo': {
-                height: "100%"
-              },
-              span: {
-                height: "100%"
-              },
-              img: {
-                // height: "100%"
-              }}}>
+            <Box as="a" h="100%" maxH="2.875rem" w={["78px", "132px"]} cursor="pointer" >
               {logo && <Image
-                  className="logo"
+                  className="largeLogo"
                   src={logo.src}
                   alt={logo.alt}
-                  layout="raw"
+                  layout="intrinsic"
+                  sizes="100%"
                   width="132px"
                   height="46px"
+                  priority
                 />}
             </Box>
           </Link>
