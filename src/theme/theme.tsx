@@ -24,6 +24,9 @@ const theme = extendTheme({
   },
   styles: {
     global: {
+      body: {
+        backgroundColor: "#EFEFEF"
+      },
       ".grid": grid,
       ".content": {
         a: {
