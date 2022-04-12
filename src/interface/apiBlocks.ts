@@ -20,3 +20,16 @@ export interface Cta {
     link:     string;
     external: boolean;
 }
+
+export interface TextBlockApi {
+    __component:         string;
+    id:                  number;
+    richText:            string;
+    title:               string;
+    textPosition:        string;
+    buttonGroupPosition: string;
+    buttonColorScheme:   string;
+    buttonVariant:       string;
+    style:               string;
+    cta:                 Cta[];
+}

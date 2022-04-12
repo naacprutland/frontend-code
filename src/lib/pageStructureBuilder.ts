@@ -1,28 +1,9 @@
-// import { ResultItem } from "../components/SearchSortBlock";
-import { HeroProps } from "../components/HeroBlock";
-import { HeroBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, ResponseBlocks, SearchSortBlock, SearchSortRespBlock } from "../interface/componentBlock";
+import { BtnColor, BtnVariant } from "../components/CtaList";
+import { HeroBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks } from "../interface/componentBlock";
+import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
-// import { searchSortQuery } from "./strapiClient";
-// import { mapToCards } from "../lib/helper";
-
-// interface BlockBuilder {
-//   'search-sort-block': (data: SearchSortRespBlock) => Promise<SearchSortBlock>
-// }
-
-// const blockBuilder: BlockBuilder = {
-//   'search-sort-block': async ({ collection_type, template }: SearchSortRespBlock): Promise<SearchSortBlock> => {
-//     const collectionType = collection_type
-//     // const queryResults: ResultItem[] = await searchSortQuery(collectionType, { parentPage })
-//     const results = []
-//     return {
-//       template,
-//       collectionType,
-//       results
-//     }
-//   }
-// }
 
 const heroBlockBuilder = ({
   __component,
@@ -42,10 +23,26 @@ const heroBlockBuilder = ({
   cta
 })
 
-const builders = {
-  "blocks.hero-block": heroBlockBuilder
-}
+const textBlockBuilder = ({
+  __component,
+  richText, title, textPosition, style, cta,
+  buttonGroupPosition, buttonColorScheme, buttonVariant
+}: TextBlockApi): TextBlock => ({
+  template: __component as "blocks.text-block",
+  title,
+  richText,
+  style: style as "blue" | "yellow" | "none" | "white" | "dark",
+  textPos: textPosition as  AlignItemsOptions,
+  groupPosition: buttonGroupPosition as  AlignItemsOptions,
+  colorScheme: buttonColorScheme as BtnColor,
+  variant: buttonVariant as BtnVariant,
+  cta
+})
 
+const builders = {
+  "blocks.hero-block": heroBlockBuilder,
+  "blocks.text-block": textBlockBuilder
+}
 
 export async function buildPageStructure(data: PageResponseProps): Promise<PageTemplateProps> {
   const clone: PageResponseProps = JSON.parse(JSON.stringify(data))

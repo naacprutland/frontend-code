@@ -15,23 +15,23 @@ export interface HeroBlock extends ComponentBlock, HeroProps {
 }
 
 export interface TextBlock extends ComponentBlock, TextBlockProps {
-  "template": 'text-block'
+  "template": 'blocks.text-block'
 }
 
 export interface DeckBlock extends ComponentBlock, DeckBlockProps {
-  "template": 'deck-block'
+  "template": 'blocks.deck-block'
 }
 
 export interface MediaBlock extends ComponentBlock, MediaBlockProps {
-  "template": 'media-block'
+  "template": 'blocks.media-block'
 }
 
 export interface SearchSortBlock extends ComponentBlock, SearchSortProps {
-  "template": 'search-sort-block'
+  "template": 'blocks.search-sort-block'
 }
 
 export interface SearchSortRespBlock extends ComponentBlock {
-  "template": 'search-sort-block',
+  "template": 'blocks.search-sort-block',
   collection_type: string;
   parent_page: string;
 }
