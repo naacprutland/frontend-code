@@ -14,8 +14,7 @@ import {
     DrawerContent,
     Flex,
     IconButton,
-    Link as ChakraLink,
-    Collapse
+    Link as ChakraLink
 } from '@chakra-ui/react'
 import NextLink from "next/link"
 import { MenuItem, SubItem } from './Header'

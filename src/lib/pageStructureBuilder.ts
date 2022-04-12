@@ -1,19 +1,19 @@
-import { ResultItem } from "../components/SearchSortBlock";
+// import { ResultItem } from "../components/SearchSortBlock";
 import { Block, ResponseBlocks, SearchSortBlock, SearchSortRespBlock } from "../interface/componentBlock";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
-import { searchSortQuery } from "./strapiClient";
-import { mapToCards } from "../lib/helper";
+// import { searchSortQuery } from "./strapiClient";
+// import { mapToCards } from "../lib/helper";
 
 interface BlockBuilder {
   'search-sort-block': (data: SearchSortRespBlock) => Promise<SearchSortBlock>
 }
 
 const blockBuilder: BlockBuilder = {
-  'search-sort-block': async ({ collection_type, template, parent_page: parentPage }: SearchSortRespBlock): Promise<SearchSortBlock> => {
+  'search-sort-block': async ({ collection_type, template }: SearchSortRespBlock): Promise<SearchSortBlock> => {
     const collectionType = collection_type
-    const queryResults: ResultItem[] = await searchSortQuery(collectionType, { parentPage })
-    const results = mapToCards(queryResults, 'View Article')
+    // const queryResults: ResultItem[] = await searchSortQuery(collectionType, { parentPage })
+    const results = []
     return {
       template,
       collectionType,

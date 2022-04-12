@@ -7,7 +7,7 @@ export const meidaImageData: MediaBlockProps = {
     textPosition: 'start',
     text: 'Panda Ipsum panda relaxing in the forest. Cute panda eat bamboo leaves. Red Panda. Female pandas only ovulate once each year. During that ovulation period, they are two or three million years ago. There are only fertile for two main types of the only ovulate once each year. During that ovulation.',
     mediaImage: {
-        src: testImg1,
+        src: testImg1 as unknown as string,
         alt: "in the rain"
     },
     setBackgroundImage: false
@@ -18,7 +18,7 @@ export const meidaBGImage: MediaBlockProps = {
     textPosition: 'start',
     text: 'Panda Ipsum panda relaxing in the forest. Cute panda eat bamboo leaves. Red Panda. Female pandas only ovulate once each year. During that ovulation period, they are two or three million years ago. There are only fertile for two main types of the only ovulate once each year. During that ovulation.',
     mediaImage: {
-        src: testImg1,
+        src: testImg1 as unknown as string,
         alt: "in the rain"
     },
     setBackgroundImage: true

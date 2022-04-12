@@ -3,7 +3,6 @@ import {
     MenuButton,
     MenuList,
     MenuItem,
-    Link as ChakraLink,
     useTheme
   } from '@chakra-ui/react'
 import { MenuItem as MenuItemProps } from './Header'
