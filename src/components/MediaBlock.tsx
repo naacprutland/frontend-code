@@ -71,10 +71,29 @@ const MediaBlock = ({
     <>
       <Container className="grid"
         py={[8, 12, 14]}
-        {
-        ...(setBackgroundImage ? setBGImg(mediaImage) : {})
-        }
+        position="relative"
       >
+        {setBackgroundImage && (
+          <Box position="absolute"
+            backgroundColor="rgba(0, 0, 0,0.4);"
+            top="0"
+            bottom="0"
+            left="0"
+            right="0"
+            sx={{
+              img: {
+                mixBlendMode: "multiply"
+              }
+            }}
+            zIndex="-1">
+            <Image
+                    src={mediaImage?.src || ''}
+                    alt={mediaImage?.alt}
+                    objectFit="cover"
+                    objectPosition="center"
+                    layout="fill"
+                  />
+          </Box>)}
         <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
           textAlign={textPosition}
           w="100%">
@@ -94,13 +113,19 @@ const MediaBlock = ({
             ratio={16 / 9}>
             {(mediaImage?.src) && (
               <Box >
-                <Image
-                  src={mediaImage?.src || ''}
-                  alt={mediaImage?.alt}
-                  objectFit="cover"
-                  objectPosition="center"
-                  layout="fill"
-                />
+                <Box width="100%">
+                  <Image
+                    src={mediaImage?.src || ''}
+                    alt={mediaImage?.alt}
+                    objectFit="cover"
+                    objectPosition="center"
+                    height={376.88}
+                    width={670}
+                    layout="responsive"   
+                    sizes="(min-width: 992px) 35vw, (min-width: 760px) 50vw, 80vw"            
+                  />
+                </Box>
+
                 {youTubeVideo && <Box position="absolute"
                   d="flex"
                   justifyContent="center"

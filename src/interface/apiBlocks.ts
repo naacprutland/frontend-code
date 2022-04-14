@@ -33,3 +33,20 @@ export interface TextBlockApi {
     style:               string;
     cta:                 Cta[];
 }
+
+export interface MediaBlockApi {
+    __component:        string;
+    id:                 number;
+    heading:            string;
+    text:               string;
+    setBackgroundImage: boolean;
+    imageAlt:           string;
+    textPosition:       string;
+    youTubeVideo:       YouTubeVideo;
+    image:              Image;
+}
+export interface YouTubeVideo {
+    id:    number;
+    key:   string;
+    label: string;
+}
