@@ -19,7 +19,7 @@ const heroBlockBuilder = ({
   },
   horPos,
   verPos,
-  textPos,
+  textPos: textPos as  AlignItemsOptions,
   cta
 })
 

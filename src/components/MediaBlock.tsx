@@ -48,14 +48,6 @@ const opts: Options = {
   }
 };
 
-const setBGImg = (mediaImage: MediaImage) => ({
-  ariaLabel: mediaImage.alt,
-  role: 'img',
-  background: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('${mediaImage?.src}')`,
-  backgroundPosition: "center",
-  backgroundSize: "cover"
-})
-
 const MediaBlock = ({
   setBackgroundImage = false,
   heading,

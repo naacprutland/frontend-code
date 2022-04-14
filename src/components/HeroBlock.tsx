@@ -24,7 +24,7 @@ export interface HeroProps {
   horPos: 'left' | 'right' | 'center' | string;
   verPos: 'top' | 'middle' | 'bottom' | string;
   position?: number;
-  textPos?: 'start' | 'center' | 'end' | string;
+  textPos?: 'start' | 'center' | 'end';
   cta?: CTABtn[]
 }
 
