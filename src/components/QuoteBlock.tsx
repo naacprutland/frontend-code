@@ -23,27 +23,28 @@ const QuoteBlock = ({
 }: QuoteBlockProps) => (
     <Box w="100%">
         <Container className="grid" py={[8, 12, 14]} >
-            <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"  position="relative" py="32px">
+            <Box className="gcol-12 gcol-md-8 gcol-lg-6 center" position="relative" py="8">
                 <Icon as={FaQuoteLeft} 
                     color="prime2.500"
                     position="absolute"
-                    fontSize="72px"
+                    fontSize="4.5"
                     top="0"
                     left="0"
                     zIndex="-1" />
                 <Icon as={FaQuoteRight} 
                     color="prime2.500" 
                     position="absolute"
-                    fontSize="72px"
+                    fontSize="4.5"
                     bottom="0"
                     right="0"
                     zIndex="-1" />
                 <Box as="figure" 
                     backgroundColor="#FFFFFFE5"
                     borderRadius="6px"
-                    py="16px" px="36px">
+                    py="4"
+                    px="8">
                     <Box as="blockquote"
-                        fontWeight="600" cite={citeUrl}>
+                        fontWeight="semibold" cite={citeUrl}>
                         {quote}
                     </Box>
                     {
