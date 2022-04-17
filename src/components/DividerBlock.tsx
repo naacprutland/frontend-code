@@ -35,8 +35,8 @@ const styles = {
 
 const DividerBlock = ({ style="none" }: DividerBlockProps) => {
     return (
-        <Box width="100%">
-            <Container {...styles[style]} py={['32px', '48px', '56px']}>
+        <Box {...styles[style]} width="100%">
+            <Container py={['32px', '48px', '56px']}>
                 <hr />
             </Container>
         </Box>
