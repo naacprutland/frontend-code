@@ -18,7 +18,7 @@ export interface QuoteBlockProps {
 const QuoteBlock = ({
     quote,
     statedBy,
-    citeUrl,
+    citeUrl=null,
     imageSrc,
     imageAlt
 }: QuoteBlockProps) => (
@@ -67,7 +67,7 @@ const QuoteBlock = ({
                     px="8"
                     zIndex="1">
                     <Box as="blockquote"
-                        fontWeight="semibold" cite={citeUrl}>
+                        fontWeight="semibold" cite={citeUrl || null}>
                         {quote}
                     </Box>
                     {
