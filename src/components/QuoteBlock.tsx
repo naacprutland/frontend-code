@@ -3,6 +3,7 @@ import {
     Box,
     Icon
 } from "@chakra-ui/react"
+import Image from 'next/image'
 import Container from "./Container"
 import { FaQuoteLeft, FaQuoteRight } from "react-icons/fa";
 
@@ -10,19 +11,39 @@ export interface QuoteBlockProps {
     quote: string;
     statedBy?: string;
     citeUrl?: string;
-    image?: {
-        src: string;
-        alt: string;
-    }
+    imageSrc?: string;
+    imageAlt?: string;
 }
 
 const QuoteBlock = ({
     quote,
     statedBy,
     citeUrl,
+    imageSrc,
+    imageAlt
 }: QuoteBlockProps) => (
     <Box w="100%">
-        <Container className="grid" py={[8, 12, 14]} >
+        <Container className="grid"
+            position="relative"
+            py={[8, 12, 6]} overflow="hidden" >
+           {
+               (imageSrc && imageAlt) && (
+                    <Box position="absolute"
+                        overflow="hidden"
+                        bottom="0"
+                        top="0"
+                        left="0"
+                        right="0"
+                        zIndex="-1">
+                        <Image 
+                            src={imageSrc} 
+                            alt={imageAlt}
+                            objectFit="cover"
+                            objectPosition="center"
+                            layout="fill" />
+                    </Box>
+                )
+           } 
             <Box className="gcol-12 gcol-md-8 gcol-lg-6 center" position="relative" py="8">
                 <Icon as={FaQuoteLeft} 
                     color="prime2.500"
@@ -43,7 +64,8 @@ const QuoteBlock = ({
                     borderRadius="6px"
                     layerStyle="boxShadowLight"
                     py="4"
-                    px="8">
+                    px="8"
+                    zIndex="1">
                     <Box as="blockquote"
                         fontWeight="semibold" cite={citeUrl}>
                         {quote}
