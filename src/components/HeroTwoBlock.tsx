@@ -66,7 +66,7 @@ const HeroTwoBlock = ({
                 </Box>
             </Box>
             
-            <Container 
+            <Container
                 py={["8", "12", "14"]} 
                 marginTop={["auto"]}
                 marginBottom={["auto", "0"]}

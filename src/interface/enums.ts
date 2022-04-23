@@ -17,3 +17,11 @@ export enum SocialIcons {
 }
 
 export type AlignItemsOptions = 'start' | 'center' | 'end'
+
+export enum Styling {
+  none = "styleNone",
+  white = "styleWhite",
+  dark = "styleDark",
+  blue = "styleBlue",
+  yellow = "styleYellow"
+}

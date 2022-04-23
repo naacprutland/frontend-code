@@ -18,3 +18,5 @@ export interface SocialLink {
     icon: 'facebook' | 'instagram' | 'linkedIn' | 'github' | 'tiktok' | 'twitter' | 'reddit' | 'snapchat' | 'twitch';
     path: string;
 }
+
+export type StyleType = 'none' | 'white' | 'dark' | 'blue' | 'yellow'

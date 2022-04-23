@@ -34,3 +34,40 @@ export const SixteenCards = Template.bind({});
 SixteenCards.args = {
     cards: new Array(16).fill(cardData)
 };
+
+
+export const StyleDark = Template.bind({});
+StyleDark.args = {
+    heading: 'News & Announcements',
+    cards: new Array(4).fill(cardData),
+    link: {
+        label: "View More Articles",
+        path: 'http://www.google.com',
+        external: true
+    },
+    style: "dark"
+};
+
+export const StyleYellow = Template.bind({});
+StyleYellow.args = {
+    heading: 'News & Announcements',
+    cards: new Array(4).fill(cardData),
+    link: {
+        label: "View More Articles",
+        path: 'http://www.google.com',
+        external: true
+    },
+    style: "yellow"
+};
+
+export const StyleBlue = Template.bind({});
+StyleBlue.args = {
+    heading: 'News & Announcements',
+    cards: new Array(4).fill(cardData),
+    link: {
+        label: "View More Articles",
+        path: 'http://www.google.com',
+        external: true
+    },
+    style: "blue"
+};

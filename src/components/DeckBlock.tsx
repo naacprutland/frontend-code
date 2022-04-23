@@ -2,8 +2,9 @@ import { Heading, Flex, Button, SimpleGrid, useBreakpointValue } from "@chakra-u
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
 import Card, { CardProps } from './Card'
-import Container from "./Container";
-import { Link } from "../interface/general";
+import Container from "./Container"
+import { Link, StyleType } from "../interface/general"
+import { Styling } from "../interface/enums"
 
 export interface DeckBlockProps {
   position?: number;
@@ -15,6 +16,7 @@ export interface DeckBlockProps {
     label: string;
   },
   hideButton?: boolean;
+  style?: StyleType
 }
 
 const DeckBlock = ({
@@ -23,11 +25,13 @@ const DeckBlock = ({
   position = 1,
   link,
   onAction,
-  hideButton
+  hideButton,
+  style="none"
 }: DeckBlockProps) => {
   const setFull = useBreakpointValue({ base: true, sm: false })
   return (
-    <Container as="section" py={[8, 12, 14]} >
+    <Container as="section" py={[8, 12, 14]}
+      layerStyle={Styling[style]} >
       {heading && (
         <Heading as={position > 0 ? 'h2' : 'h1'}
           lineHeight="1"

@@ -70,6 +70,7 @@ const Card = ({
           <VStack as="figcaption"
             alignItems="flex-start"
             spacing="3"
+            color="black"
             borderRadius="6px"
             backgroundColor="white"
             layerStyle={backShadow}

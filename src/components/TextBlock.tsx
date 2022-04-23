@@ -4,6 +4,8 @@ import CtaList, { CTABtn, BtnColor, BtnVariant } from './CtaList'
 import { createMarkup } from '../lib/util'
 import { AlignItemsOptions } from '../interface/enums'
 import styled from 'styled-components'
+import { StyleType } from "../interface/general"
+import { Styling } from "../interface/enums"
 
 export interface TextBlockProps {
   title?: string,
@@ -14,7 +16,7 @@ export interface TextBlockProps {
   colorScheme: BtnColor;
   variant?: BtnVariant;
   position?: number;
-  style?: 'none' | 'white' | 'dark' | 'blue' | 'yellow'
+  style?: StyleType
 }
 
 export const ContentContainer = styled(Box)`
@@ -89,29 +91,6 @@ export const ContentContainer = styled(Box)`
 
 `
 
-const styles = {
-  'none' : {
-    bg: 'none',
-    color: 'black'
-  },
-  'white' : {
-    bg: 'white',
-    color: 'black'
-  },
-  'dark' : {
-    bg: 'secondary7.500',
-    color: 'white'
-  },
-  'blue' : {
-    bg: 'prime1.500',
-    color: 'white'
-  },
-  'yellow' : {
-    bg: 'prime2.500',
-    color: 'prime1.500'
-  }
-}
-
 const TextBlock = ({
   title, 
   richText='',
@@ -123,7 +102,7 @@ const TextBlock = ({
   return (
     <Container className="grid"
       py={[8, 12, 14]} 
-      {...styles[style]}
+      layerStyle={Styling[style]}
       textAlign={textPos}>
       <Box className="gcol-12 gcol-md-8 gcol-lg-6 center" 
         overflow="hidden"
