@@ -67,4 +67,5 @@ export interface Layer {
     textAlign: null;
     reverse:   null;
     imageAlt:  string;
+    Image: Image;
 }

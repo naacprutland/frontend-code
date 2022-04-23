@@ -70,14 +70,14 @@ const stackBlockBuilder = ({
   layers = []
 }: StackBlockApi): StackBlock => {
   const stacks: StackProps[] = layers.map(({
-    title, text, textAlign, reverse, imageAlt }) => ({
+    title, text, textAlign, reverse, imageAlt, Image }) => ({
     title,
     text,
     textAlign,
     reverse,
     img: {
-      src: '',
-      alt: imageAlt
+      src: Image.url,
+      alt: imageAlt || Image.alternativeText
     }
   }));
   return ({
