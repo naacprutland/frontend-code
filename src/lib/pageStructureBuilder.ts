@@ -1,6 +1,7 @@
 import { BtnColor, BtnVariant } from "../components/CtaList";
-import { HeroBlockApi, MediaBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock } from "../interface/componentBlock";
+import { StackProps } from "../components/Stack";
+import { HeroBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -61,10 +62,37 @@ const mediaBlockBuilder = ({
   }
 })
 
+const stackBlockBuilder = ({
+  __component,
+  heading,
+  headingAligned,
+  reverse,
+  layers = []
+}: StackBlockApi): StackBlock => {
+  const stacks: StackProps[] = layers.map(({
+    title, text, textAlign, reverse, imageAlt }) => ({
+    title,
+    text,
+    textAlign,
+    reverse,
+    img: {
+      src: '',
+      alt: imageAlt
+    }
+  }));
+  return ({
+  template: __component as "blocks.stack-block",
+  heading,
+  headingAligned: headingAligned as AlignItemsOptions,
+  reverse,
+  stacks
+})}
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
-  "blocks.media-block": mediaBlockBuilder
+  "blocks.media-block": mediaBlockBuilder,
+  "blocks.stack-block": stackBlockBuilder
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<PageTemplateProps> {

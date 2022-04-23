@@ -50,3 +50,21 @@ export interface YouTubeVideo {
     key:   string;
     label: string;
 }
+
+export interface StackBlockApi {
+    __component:    string;
+    id:             number;
+    heading:        string;
+    headingAligned: null;
+    reverse:        null;
+    layers:         Layer[];
+}
+
+export interface Layer {
+    id:        number;
+    title:     string;
+    text:      string;
+    textAlign: null;
+    reverse:   null;
+    imageAlt:  string;
+}
