@@ -20,6 +20,26 @@ const theme = extendTheme({
     },
     boxShadowDark: {
       boxShadow: "0px 4px 4px 0px rgb(255 255 255 / 25%)"
+    },
+    styleNone : {
+      bg: 'none',
+      color: 'black'
+    },
+    styleWhite : {
+      bg: 'white',
+      color: 'black'
+    },
+    styleDark : {
+      bg: 'secondary7.500',
+      color: 'white'
+    },
+    styleBlue : {
+      bg: 'prime1.500',
+      color: 'white'
+    },
+    styleYellow : {
+      bg: 'prime2.500',
+      color: 'prime1.500'
     }
   },
   styles: {
