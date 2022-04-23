@@ -7,6 +7,7 @@ import { DeckBlockProps } from './DeckBlock'
 import { MediaBlockProps } from './MediaBlock'
 import { SearchSortProps } from './SearchSortBlock'
 import { StackBlockProps } from './StackBlock'
+import { HeroTwoBlockProps } from './HeroTwoBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -14,6 +15,7 @@ const DynamicDeckBlock: ComponentType<DeckBlockProps> = dynamic(() => import('./
 const DynamicMediaBlock: ComponentType<MediaBlockProps> = dynamic(() => import('./MediaBlock'))
 const DynamicSearchSortBlock: ComponentType<SearchSortProps> = dynamic(() => import('./SearchSortBlock'))
 const DynamicStackBlock: ComponentType<StackBlockProps> = dynamic(() => import('./StackBlock'))
+const DynamicHeroTwoBlock: ComponentType<HeroTwoBlockProps> = dynamic(() => import('./HeroTwoBlock'))
 // const DynamicContactFormBlock: ComponentType<ContactFormBlock> = dynamic(() => import('./ContactFormBlock'))
 
 function DynamicComponent({ template, ...props}: Block) {
@@ -31,6 +33,8 @@ function DynamicComponent({ template, ...props}: Block) {
       return <DynamicSearchSortBlock {...props as SearchSortBlock} />
     case 'blocks.stack-block':
       return <DynamicStackBlock {...props as StackBlockProps} />
+    case "blocks.hero-two-block":
+      return <DynamicHeroTwoBlock {...props as HeroTwoBlockProps} />
     // case 'blocks.contact-form-block': 
     //   return <DynamicContactFormBlock {...props as ContactFormBlock} />
     default :

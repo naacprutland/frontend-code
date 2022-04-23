@@ -1,7 +1,7 @@
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
-import { HeroBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock } from "../interface/componentBlock";
+import { HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -88,11 +88,33 @@ const stackBlockBuilder = ({
   stacks
 })}
 
+const heroTwoBlockBuilder = ({
+  __component,
+  title,
+  subText,
+  image,
+  imageAlt,
+  cta,
+  ctaColorScheme
+}: HeroTwoBlockApi): HeroTwoBlock => ({
+  template: __component as "blocks.hero-two-block",
+  title,
+  subText1: subText,
+  imgSrc: image?.url,
+  imgAlt: imageAlt,
+  cta: {
+    ...cta,
+    link: cta?.path
+  },
+  colorScheme: ctaColorScheme
+})
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
   "blocks.media-block": mediaBlockBuilder,
-  "blocks.stack-block": stackBlockBuilder
+  "blocks.stack-block": stackBlockBuilder,
+  "blocks.hero-two-block": heroTwoBlockBuilder
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<PageTemplateProps> {

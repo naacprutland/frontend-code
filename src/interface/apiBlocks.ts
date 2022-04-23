@@ -69,3 +69,21 @@ export interface Layer {
     imageAlt:  string;
     Image: Image;
 }
+
+export interface HeroTwoBlockApi {
+    __component:    string;
+    id:             number;
+    title:          string;
+    subText:        string;
+    imageAlt:       string;
+    ctaColorScheme: string;
+    cta:            Cta2;
+    image:          Image;
+}
+
+export interface Cta2 {
+    id:       number;
+    label:    string;
+    path:     string;
+    external: boolean;
+}

@@ -86,7 +86,7 @@ const HeroTwoBlock = ({
                 </Box>
 
                 {
-                    cta && <Link href={cta.link} passHref>
+                    (cta && cta?.label && cta?.link) && <Link href={cta.link} passHref>
                         <Button as="a"
                         size="md"
                         target={cta.external ? "_blank" : undefined}

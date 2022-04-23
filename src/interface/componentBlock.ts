@@ -5,6 +5,7 @@ import { MediaBlockProps } from '../components/MediaBlock'
 import { SearchSortProps } from '../components/SearchSortBlock'
 import { HeroBlockApi } from './apiBlocks'
 import { StackBlockProps } from '../components/StackBlock'
+import { HeroTwoBlockProps } from '../components/HeroTwoBlock'
 
 interface ComponentBlock {
   "template": string;
@@ -45,8 +46,13 @@ export interface StackBlock extends ComponentBlock, StackBlockProps {
   "template": "blocks.stack-block"
 }
 
+export interface HeroTwoBlock extends ComponentBlock, HeroTwoBlockProps {
+  "template": "blocks.hero-two-block"
+}
+
 export type ResponseBlocks = HeroBlockApi
 
-export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock | SearchSortBlock | ContactFormBlock | StackBlock
+export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock |
+   SearchSortBlock | ContactFormBlock | StackBlock | HeroTwoBlock
 
 export type PageBlocks = Block[]
