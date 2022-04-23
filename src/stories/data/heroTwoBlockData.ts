@@ -20,6 +20,7 @@ export const detailTextData: HeroTwoBlockProps = {
 
 export const eventData: HeroTwoBlockProps = {
     ...heroData,
+    title: "SENSE OF PLACE: YOGA SERIES WITH SASHA FINNELL",
     subText1: "Wednesday  |  November 22, 2022",
     subText2: "2:00pm - 5:00pm",
     cta: {

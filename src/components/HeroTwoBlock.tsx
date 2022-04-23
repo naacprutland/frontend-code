@@ -17,6 +17,7 @@ export interface HeroTwoBlockProps {
     cta?: CTABtn;
     imgSrc: string;
     imgAlt: string;
+    colorScheme?: string;
 }
 
 const HeroTwoBlock = ({
@@ -27,7 +28,8 @@ const HeroTwoBlock = ({
     subText3,
     cta,
     imgSrc,
-    imgAlt
+    imgAlt,
+    colorScheme="prime1"
 }: HeroTwoBlockProps) => (
     <Box as="section" 
         backgroundColor="secondary7.500" 
@@ -65,21 +67,22 @@ const HeroTwoBlock = ({
             </Box>
             
             <Container 
-                py={["32px", "48px", "56px"]} 
+                py={["8", "12", "14"]} 
                 marginTop={["auto"]}
                 marginBottom={["auto", "0"]}
                 flex={[null, '1 1 50%']}>
                 {title && (
                     <Heading as={position > 0 ? 'h2' : 'h1'}
-                    marginBottom={(subText1 || subText2 || subText3 || cta) && "16px"}
+                    lineHeight="1.2"
+                    marginBottom={(subText1 || subText2 || subText3 || cta) && "4"}
                     fontSize={["4xl", "4xl", "5xl"]}>
                     {title}
                     </Heading>)
                 }
-                <Box marginBottom={cta ? '16px' : null}>
-                    {subText1 && <Box as="p">{subText1}</Box>}
-                    {subText2 && <Box as="p">{subText2}</Box>}
-                    {subText3 && <Box as="p">{subText3}</Box>}
+                <Box marginBottom={cta ? "4" : null}>
+                    {subText1 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText1}</Box>}
+                    {subText2 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText2}</Box>}
+                    {subText3 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText3}</Box>}
                 </Box>
 
                 {
@@ -89,7 +92,7 @@ const HeroTwoBlock = ({
                         target={cta.external ? "_blank" : undefined}
                         rel={cta.external ? "noopener noreferrer" : undefined}
                         cursor="pointer"
-                        colorScheme="purple">
+                        colorScheme={colorScheme}>
                         {cta.label}
                         </Button>
                     </Link>
