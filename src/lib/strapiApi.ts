@@ -2,7 +2,7 @@ const baseApiUrl = process.env.STRAPI_API_URL
 
 const apiEndPoints = {
   postContactMessage: `${baseApiUrl}/contact-messages/send`,
-  getStaticPaths: `${baseApiUrl}/staticPaths`,
+  getStaticPaths: `${baseApiUrl}/pages/utils/static`,
   getPages: `${baseApiUrl}/pages`,
   getPagesPreview: `${baseApiUrl}/pages?_publicationState=preview&slug=`,
   get404Page: `${baseApiUrl}/pages?slug=404`,

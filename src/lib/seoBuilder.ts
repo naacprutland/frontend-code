@@ -14,8 +14,8 @@ export const seoBuilder = ({
         title: metaTitle,
         description: metaDescription,
         canonical: canonicalURL,
-        noindex: metaRobots?.includes('noindex'),
-        nofollow: metaRobots?.includes('nofollow'),
+        noindex: metaRobots?.includes('noindex') || false,
+        nofollow: metaRobots?.includes('nofollow') || false,
         openGraph: {
             type: 'website',
             url: canonicalURL,
