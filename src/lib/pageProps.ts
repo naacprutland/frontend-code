@@ -6,6 +6,8 @@ import { fetchApi } from './util'
 import { GlobalApi } from '../interface/globalApi'
 import { SiteConfig } from '../interface/siteConfig'
 import convertToConfig from './getConfig'
+import { seoBuilder } from './seoBuilder'
+import { SEOApi } from '../interface/apiSeo'
 
 const { getStaticPaths, getPages, getGlobal, getPagesPreview, getHomePage } = apiEndPoints
 const siteBaseUrl = process.env.SITE_BASE_URL
@@ -94,8 +96,9 @@ export async function getPageProps(formTitle: string, preview: boolean) {
   if (pageData) {
     data = await buildPageStructure(pageData)
 
-    if (data.pageSEO) {
-      data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
+    if (pageData.seo) {
+      data.pageSEO = seoBuilder(pageData.seo as SEOApi)
+      // data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
     }
   }
 

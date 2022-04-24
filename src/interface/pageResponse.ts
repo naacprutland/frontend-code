@@ -1,3 +1,4 @@
+import { SEOApi } from './apiSeo';
 import { ResponseBlocks } from './componentBlock';
 import { SEO } from './seo'
 
@@ -23,6 +24,6 @@ export interface PageResponseProps {
   }[];
   slug: string;
   label: string;
-  pageSEO: SEO;
+  seo: SEOApi;
   blocks?: ResponseBlocks[] | null;
 }
