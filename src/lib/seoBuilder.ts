@@ -10,6 +10,15 @@ export const seoBuilder = ({
     metaImage
 }: SEOApi):NextSeoProps => {
 
+    const images = metaImage?.formats ? Object.keys(metaImage?.formats).map(v => {
+        return {
+            url: metaImage?.formats[v].url || '',
+            width: metaImage?.formats[v].width,
+            height: metaImage?.formats[v].height,
+            alt: metaImage?.alternativeText,
+        }
+    }) : []
+
     return {
         title: metaTitle,
         description: metaDescription,
@@ -21,26 +30,7 @@ export const seoBuilder = ({
             url: canonicalURL,
             title: metaTitle,
             description: metaDescription,
-            images: [
-                {
-                    url: metaImage?.formats?.medium?.url || '',
-                    width: metaImage?.formats?.medium?.width,
-                    height: metaImage?.formats?.medium?.height,
-                    alt: metaImage?.alternativeText,
-                },
-                {
-                    url: metaImage?.formats?.small?.url || '',
-                    width: metaImage?.formats?.small?.width,
-                    height: metaImage?.formats?.small?.height,
-                    alt: metaImage?.alternativeText,
-                },
-                {
-                    url: metaImage?.formats?.thumbnail?.url || '',
-                    width: metaImage?.formats?.thumbnail?.width,
-                    height: metaImage?.formats?.thumbnail.height,
-                    alt: metaImage?.alternativeText,
-                },
-            ],
+            images
         }
     }
 }
