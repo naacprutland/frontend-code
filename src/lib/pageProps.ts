@@ -8,9 +8,10 @@ import { SiteConfig } from '../interface/siteConfig'
 import convertToConfig from './getConfig'
 import { seoBuilder } from './seoBuilder'
 import { SEOApi } from '../interface/apiSeo'
+import { NextSeoProps } from 'next-seo'
 
 const { getStaticPaths, getPages, getGlobal, getPagesPreview, getHomePage } = apiEndPoints
-const siteBaseUrl = process.env.SITE_BASE_URL
+// const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
   status: string;
   message: string;
@@ -94,12 +95,11 @@ export async function getPageProps(formTitle: string, preview: boolean) {
   }
  
   if (pageData) {
-    data = await buildPageStructure(pageData)
-
-    if (pageData.seo) {
-      data.pageSEO = seoBuilder(pageData.seo as SEOApi)
-      // data.pageSEO.canonical = siteBaseUrl + data.pageSEO.canonical
-    }
+    const pageSEO: NextSeoProps = pageData.seo ? seoBuilder(pageData.seo as SEOApi) : null
+    data = {
+      pageSEO,
+      ...await buildPageStructure(pageData)
+    } as PageTemplateProps
   }
 
   return {
