@@ -11,8 +11,6 @@ import {
   Link as ChakraLink,
   Collapse
 } from "@chakra-ui/react"
-import DarkModeSwitch from '../components/DarkModeSwitch'
-import Link from 'next/link'
 import { MdMenu, MdSearch } from "react-icons/md"
 import Container from './Container'
 import MobileMenu from './MobileMenu'
@@ -20,7 +18,6 @@ import SearchDrawer from "./SearchDrawer"
 import { CTA } from '../interface/general'
 import NextLink from "next/link"
 import MenuLink from './MenuLink'
-import { v4 as uuidv4 } from 'uuid';
 import Banner, { BannerProps } from './Banner'
 import SkipToMainContent from './SkipToMainContent'
 import Image from 'next/image'
@@ -55,7 +52,6 @@ const Header = ({
   logo,
   ctas=[],
   mega_menu = [],
-  includeDarkMode,
   fixed,
   transparent,
   banners
@@ -114,7 +110,7 @@ const Header = ({
        >
       <SkipToMainContent href="#mainContent"/>
       {bannerList?.map(( data, i ) => (
-        <Collapse key={uuidv4()} in={data.show} animateOpacity >
+        <Collapse key={data.richText.trim() + i} in={data.show} animateOpacity >
           <Banner  {...data} onClose={() => onBannerClose(i)}/>
         </Collapse>
       ))}
@@ -126,7 +122,7 @@ const Header = ({
         py={["3", "0"]}
         color={transparent && colorMode === 'light' ? "black" : "white"}
         h={["3.25rem", "4.75rem"]}>  
-          <Link href="/" passHref>
+          <NextLink href="/" passHref>
             <Box as="a" h="100%" maxH="2.875rem" w={["78px", "132px"]} cursor="pointer" >
               {logo && <Image
                   className="largeLogo"
@@ -139,7 +135,7 @@ const Header = ({
                   priority
                 />}
             </Box>
-          </Link>
+          </NextLink>
         
           <VStack as="nav"
             spacing={2.5}
@@ -147,8 +143,8 @@ const Header = ({
             alignItems="flex-end"
             justifyContent="center">
             <HStack spacing={{ base: "4", md: "6" }} display="flex" >
-              {ctas?.map((cta) => (
-                <NextLink key={uuidv4()}
+              {ctas?.map(((cta, i) => (
+                <NextLink key={cta.label + i}
                     href={cta.path} 
                     passHref>
                     <Button as="a"
@@ -162,7 +158,7 @@ const Header = ({
                       {cta.label}
                     </Button>
                 </NextLink>
-              ))}
+              )))}
               <IconButton
                 onClick={onSearchOpen}
                 variant="outline"
@@ -193,20 +189,19 @@ const Header = ({
               display={{ base: "none", md: "flex" }}
               spacing={6}
               sx={{ "listStyleType": "none" }}>
-              {mega_menu?.map((item) => {
+              {mega_menu?.map((item, i) => {
                 return !item?.subitems?.length ? (
-                  <Box as="li" key={uuidv4()} margin="0">
-                    <Link href={item?.path || ''} passHref>
+                  <Box as="li" key={item.label + i} margin="0">
+                    <NextLink href={item?.path || ''} passHref>
                       <ChakraLink cursor="pointer"
                         isExternal={item.external}
                         fontWeight="semibold" 
                         textTransform="capitalize">
                         {item.label}
                       </ChakraLink>
-                    </Link>
-                  </Box>) : <MenuLink key={uuidv4()} {...item}/> }
+                    </NextLink>
+                  </Box>) : <MenuLink key={i} {...item}/> }
               )}
-              {includeDarkMode && <DarkModeSwitch />}
             </HStack>
           </VStack>
           <MobileMenu
