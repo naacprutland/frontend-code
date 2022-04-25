@@ -117,7 +117,7 @@ const builders = {
   "blocks.hero-two-block": heroTwoBlockBuilder
 }
 
-export async function buildPageStructure(data: PageResponseProps): Promise<PageTemplateProps> {
+export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {
   const clone: PageResponseProps = JSON.parse(JSON.stringify(data))
   const clonePageStructure: ResponseBlocks[] = clone.blocks || []
   const pageStructure: Block[] = clonePageStructure.map(block => {
