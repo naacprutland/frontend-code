@@ -1,55 +1,49 @@
 import { 
-    NumberInput as ChakraNumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
+    Textarea as ChakraTextArea,
     FormControl,
     FormLabel,
     FormErrorMessage 
 } from '@chakra-ui/react'
-import { FormNumber } from '../interface/form'
+import { FormTextArea } from '../interface/form'
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
-export interface NumberInputProps extends FormNumber {
+export interface TextAreaProps extends FormTextArea {
     errors: DeepMap<FieldValues, FieldError>;
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 
-const NumberInput = ({
+const TextArea = ({
     id,
     name,
     label,
     value,
-    defaultValue,
-    maxLength,
-    minLength,
+    placeholder,
     isRequired,
     requiredMessage,
     errors={},
+    maxLength,
+    minLength,
     register
-}: NumberInputProps) => {
+}: TextAreaProps) => {
     
     return (
     <FormControl isInvalid={errors[name]}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
-        <ChakraNumberInput size='md' bg="white" 
-            value={value as number} 
+        <ChakraTextArea 
+            id={id}
+            size='md'
+            bg="white"
             name={name}
-            max={maxLength?.value} 
-            min={minLength?.value}
-            defaultValue={defaultValue}
+            value={value}
+            placeholder={placeholder}
             {
                 ...(register ? register(name, {
-                        required: isRequired ? requiredMessage : null
+                        required: isRequired ? requiredMessage : null,
+                        maxLength,
+                        minLength,
                     }): {})
-            } >
-            <NumberInputField />
-            <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-            </NumberInputStepper>
-        </ChakraNumberInput>
+              }
+            />
         {
             (errors[name] && errors[name].types) && Object.entries(
                 errors[name].types).map(([type, message]) => (
@@ -59,4 +53,4 @@ const NumberInput = ({
     </FormControl>
 )}
 
-export default NumberInput
+export default TextArea

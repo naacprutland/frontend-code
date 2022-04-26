@@ -1,53 +1,45 @@
 import { 
-    Select as ChakraSelect,
+    Checkbox,
     FormControl,
-    FormLabel,
+    Text,
     FormErrorMessage 
 } from '@chakra-ui/react'
-import { FormSelect } from '../interface/form'
+import { FormCheckBox } from '../interface/form'
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
-export interface SelectProps extends FormSelect {
+export interface CheckBoxProps extends FormCheckBox {
     id: string;
     errors: DeepMap<FieldValues, FieldError>;
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 
-const Select = ({
-    id,
+const CheckBox = ({
     name,
     label,
-    placeholder,
+    heading,
+    defaultChecked,
     isRequired,
+    isChecked,
     requiredMessage,
     errors={},
-    options=[],
     register
-}: SelectProps) => {
+}: CheckBoxProps) => {
     
     return (
     <FormControl isInvalid={errors[name]}>
-        <FormLabel htmlFor={id}>{label}</FormLabel>
-        <ChakraSelect size='md'
-            id={id}
-            bg="white"
+        { heading && <Text fontWeight="semibold" marginBottom="8px">{heading}</Text> }
+        <Checkbox 
+            size='md'
             name={name}
+            isChecked={isChecked}
             {
                 ...(register ? register(name, {
-                        required: isRequired ? requiredMessage : null
+                        required: isRequired ? requiredMessage : null,
                     }): {})
               }
-            placeholder={placeholder}>
-            {
-                options.map(v => (
-                    <option key={v.value} value={v.value}
-                        selected={v.selected}
-                        >
-                        {v.label}
-                    </option>
-                ))
-            }
-        </ChakraSelect>
+            defaultChecked={defaultChecked}>
+            {label}
+        </Checkbox>
         {
             (errors[name] && errors[name].types) && Object.entries(
                 errors[name].types).map(([type, message]) => (
@@ -57,4 +49,4 @@ const Select = ({
     </FormControl>
 )}
 
-export default Select
+export default CheckBox

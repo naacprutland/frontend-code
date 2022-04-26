@@ -66,8 +66,6 @@ export interface FormSelect extends FormField {
 export interface FormTextArea extends FormField {
     type: 'textarea';
     value?: string;
-    rows?: number;
-    cols?: number;
     maxLength?: {
         value: number;
         message: string;
@@ -77,6 +75,13 @@ export interface FormTextArea extends FormField {
         message: string;
     };
     placeholder?: string;
+}
+
+export interface FormCheckBox extends FormField {
+    type: 'checkbox';
+    heading?: string;
+    defaultChecked?: boolean;
+    isChecked?: boolean;
 }
 
 export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea'
