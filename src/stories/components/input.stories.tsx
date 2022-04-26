@@ -18,6 +18,15 @@ Default.args = {
     placeholder: "First Name",
 };
 
+export const Phone = Template.bind({});
+Phone.args = {
+    id:"test",
+    name: "phone",
+    type: "tel",
+    label: "Phone Number",
+    placeholder: "Phone Number",
+};
+
 export const Error = Template.bind({});
 Error.args = {
     id:"test",

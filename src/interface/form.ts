@@ -44,8 +44,22 @@ export interface FormInput extends FormField {
     };
 }
 
+export interface FormNumber extends FormField {
+    value?: number;
+    defaultValue?: number;
+    maxLength?: {
+        value: number;
+        message?: string;
+    };
+    minLength?: {
+        value: number;
+        message?: string;
+    };
+}
+
 export interface FormSelect extends FormField {
     type: 'select';
+    placeholder?: string;
     options: Option[];
 }
 
@@ -68,7 +82,8 @@ export interface FormTextArea extends FormField {
 export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea'
 
 export interface Option {
+    label: string;
     value: string;
-    selected: boolean;
+    selected?: boolean;
 }
 

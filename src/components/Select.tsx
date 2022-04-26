@@ -1,54 +1,51 @@
 import { 
-    NumberInput as ChakraNumberInput,
-    NumberInputField,
-    NumberInputStepper,
-    NumberIncrementStepper,
-    NumberDecrementStepper,
+    Select as ChakraSelect,
     FormControl,
     FormLabel,
     FormErrorMessage 
 } from '@chakra-ui/react'
-import { FormNumber } from '../interface/form'
+import { FormSelect } from '../interface/form'
 import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
-export interface NumberInputProps extends FormNumber {
+export interface SelectProps extends FormSelect {
+    id: string;
     errors: DeepMap<FieldValues, FieldError>;
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 
-const NumberInput = ({
+const Select = ({
     id,
     name,
     label,
-    value,
-    defaultValue,
-    maxLength,
-    minLength,
+    placeholder,
     isRequired,
     requiredMessage,
     errors={},
+    options=[],
     register
-}: NumberInputProps) => {
+}: SelectProps) => {
     
     return (
     <FormControl isInvalid={errors[name]}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
-        <ChakraNumberInput size='md' bg="white" 
-            value={value as number} 
-            max={maxLength?.value} 
-            min={minLength?.value}
-            defaultValue={defaultValue}
+        <ChakraSelect size='md'
+            bg="white"
             {
                 ...(register ? register(name, {
                         required: isRequired ? requiredMessage : null
                     }): {})
-            } >
-            <NumberInputField />
-            <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-            </NumberInputStepper>
-        </ChakraNumberInput>
+              }
+            placeholder={placeholder}>
+            {
+                options.map(v => (
+                    <option key={v.value} value={v.value}
+                        selected={v.selected}
+                        >
+                        {v.label}
+                    </option>
+                ))
+            }
+        </ChakraSelect>
         {
             (errors[name] && errors[name].types) && Object.entries(
                 errors[name].types).map(([type, message]) => (
@@ -58,4 +55,4 @@ const NumberInput = ({
     </FormControl>
 )}
 
-export default NumberInput
+export default Select
