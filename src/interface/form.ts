@@ -13,7 +13,7 @@ export interface FormRow {
 
 export interface FormCol {
     span: '25%' | '50%' | '100%';
-    fields: (Input | Select | TextArea)[];
+    fields: (FormInput | FormSelect | FormTextArea)[];
 }
 
 export interface FormField {
@@ -22,30 +22,46 @@ export interface FormField {
     name: string;
     label: string;
     isRequired?: boolean;
+    requiredMessage?: string;
     autocomplete?: boolean;
     disabled?: boolean;
 }
 
-export interface Input extends FormField {
+export interface FormInput extends FormField {
     value?: string | number | boolean;
     placeholder?: string;
-    pattern?: RegExp;
-    maxLength?: number;
-    minLength?: number;
+    pattern?: {
+        value: RegExp;
+        message?: string;
+    };
+    maxLength?: {
+        value: number;
+        message?: string;
+    };
+    minLength?: {
+        value: number;
+        message?: string;
+    };
 }
 
-export interface Select extends FormField {
+export interface FormSelect extends FormField {
     type: 'select';
     options: Option[];
 }
 
-export interface TextArea extends FormField {
+export interface FormTextArea extends FormField {
     type: 'textarea';
     value?: string;
     rows?: number;
     cols?: number;
-    maxLength?: number;
-    minLength?: number;
+    maxLength?: {
+        value: number;
+        message: string;
+    };
+    minLength?: {
+        value: number;
+        message: string;
+    };
     placeholder?: string;
 }
 
