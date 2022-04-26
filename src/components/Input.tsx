@@ -21,6 +21,8 @@ const Input = ({
     placeholder,
     value,
     pattern,
+    min,
+    max,
     maxLength,
     minLength,
     isRequired,
@@ -36,6 +38,8 @@ const Input = ({
             size='md'
             bg="white"
             type={type}
+            min={min}
+            max={max}
             value={value as string | number}
             placeholder={placeholder}
             {

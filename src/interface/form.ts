@@ -8,28 +8,28 @@ export interface Fieldset {
 }
 
 export interface FormRow {
-    column: FormCol[];
+    fields: (FormInput | FormSelect | FormTextArea | FormCheckBox)[];
 }
 
-export interface FormCol {
-    span: '25%' | '50%' | '100%';
-    fields: (FormInput | FormSelect | FormTextArea)[];
-}
 
 export interface FormField {
     id: string;
+    span: 'full' | 'half' | 'quarter';
     type: InputTypes;
     name: string;
     label: string;
     isRequired?: boolean;
     requiredMessage?: string;
     autocomplete?: boolean;
-    disabled?: boolean;
+    isDisabled?: boolean;
 }
 
 export interface FormInput extends FormField {
-    value?: string | number | boolean;
+    type: 'text' | 'date' | 'tel' | 'email';
+    value?: string;
     placeholder?: string;
+    min?: string;
+    max?: string;
     pattern?: {
         value: RegExp;
         message?: string;
@@ -82,6 +82,16 @@ export interface FormCheckBox extends FormField {
     heading?: string;
     defaultChecked?: boolean;
     isChecked?: boolean;
+}
+
+export interface FormRadios extends FormField {
+    type: 'radio';
+    defaultValue: string;
+    radios: {
+        label: string;
+        value: string;
+        isDisabled: boolean;
+    }
 }
 
 export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea'

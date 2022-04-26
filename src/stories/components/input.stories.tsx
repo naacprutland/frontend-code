@@ -27,6 +27,16 @@ Phone.args = {
     placeholder: "Phone Number",
 };
 
+export const Date = Template.bind({});
+Date.args = {
+    id:"test",
+    name: "date",
+    type: "date",
+    label: "Date",
+    min: '2022-04-26'
+};
+
+
 export const Error = Template.bind({});
 Error.args = {
     id:"test",
