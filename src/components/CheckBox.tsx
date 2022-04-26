@@ -27,7 +27,7 @@ const CheckBox = ({
     
     return (
     <FormControl isInvalid={errors[name]}>
-        { heading && <Text fontWeight="semibold" marginBottom="8px">{heading}</Text> }
+        { heading && <Text fontWeight="semibold" marginBottom="2">{heading}</Text> }
         <Checkbox 
             size='md'
             name={name}

@@ -87,11 +87,12 @@ export interface FormCheckBox extends FormField {
 export interface FormRadios extends FormField {
     type: 'radio';
     defaultValue: string;
+    value: string;
     radios: {
         label: string;
         value: string;
         isDisabled: boolean;
-    }
+    }[];
 }
 
 export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea'
