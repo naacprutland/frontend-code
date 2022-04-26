@@ -29,6 +29,7 @@ const Select = ({
     <FormControl isInvalid={errors[name]}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
         <ChakraSelect size='md'
+            id={id}
             bg="white"
             {
                 ...(register ? register(name, {
