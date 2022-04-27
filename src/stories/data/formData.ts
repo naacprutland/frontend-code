@@ -107,10 +107,10 @@ export const formDataContactUS = {
                                 value: 2,
                                 message: 'Must have at least 2'
                             },
-                            pattern: {
-                                value: new RegExp('/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/'),
-                                message: 'Phone number'
-                            }
+                            // pattern: {
+                            //     value: new RegExp('/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/'),
+                            //     message: 'Phone number'
+                            // }
                         }
                     ]
                 }

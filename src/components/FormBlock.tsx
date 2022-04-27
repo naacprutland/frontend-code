@@ -23,8 +23,8 @@ const FormBlock = ({
     sections=[]
   }:FormBlockProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => console.log(data);
-    console.log('run')
+    const onSubmit = data => console.log('Submit', data);
+
     return (
     <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         {sections.map((fieldset, i) => (

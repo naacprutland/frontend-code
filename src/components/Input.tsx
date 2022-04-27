@@ -29,7 +29,7 @@ const Input = ({
     errors={},
     register
 }: InputProps) => {
-    console.log(errors)
+    
     return (
     <FormControl isInvalid={errors[name]}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
