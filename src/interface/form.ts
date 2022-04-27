@@ -4,7 +4,7 @@ export interface Form {
 
 export interface Fieldset {
     label: string;
-    row: FormRow[];
+    rows: FormRow[];
 }
 
 export interface FormRow {
