@@ -51,6 +51,41 @@ export const formDataContactUS = {
                     fields: [
                         {
                             id:"1",
+                            type: 'select',
+                            span: 'half',
+                            name: 'pronoun',
+                            label: "Pronoun",
+                            placeholder: "Select",
+                            isRequired: false,
+                            options: [
+                                {
+                                    label: 'I',
+                                    value: 'i'
+                                },
+                                {
+                                    label: 'She',
+                                    value: 'she'
+                                },
+                                {
+                                    label: 'He',
+                                    value: 'he'
+                                },
+                                {
+                                    label: 'We',
+                                    value: 'we'
+                                },
+                                {
+                                    label: 'It',
+                                    value: 'it'
+                                }
+                            ]
+                        },
+                    ]
+                },
+                {
+                    fields: [
+                        {
+                            id:"2",
                             type: 'text',
                             span: 'half',
                             name: 'first-name',
@@ -60,7 +95,7 @@ export const formDataContactUS = {
                             requiredMessage: 'Please enter First Name',
                         },
                         {
-                            id:"1",
+                            id:"3",
                             type: 'text',
                             span: 'half',
                             name: 'last-name',

@@ -24,7 +24,7 @@ const FormBlock = ({
   }:FormBlockProps) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = data => console.log(data);
-
+    console.log('run')
     return (
     <Box as="form" onSubmit={handleSubmit(onSubmit)}>
         {sections.map((fieldset, i) => (
@@ -47,7 +47,7 @@ const FormBlock = ({
                                 return (
                                     <GridItem 
                                         key={rowIndex + field.name}
-                                        rowStart={rowIndex}
+                                        rowStart={[null, rowIndex + 1]}
                                         colSpan={[4, FieldColumn[field.span]]} >
                                         <DynamicFormField 
                                             {...fieldProps} 
@@ -59,14 +59,17 @@ const FormBlock = ({
                         )
                     })}
                     {(i === sections.length -1) && (
-                        <GridItem colSpan={4}>
-                            <Button type="submit" 
+                        <GridItem  justifySelf={[null, "center"]} colSpan={4}>
+                            <Button type="submit"
+                                w="100%"
                                 colorScheme='teal' 
-                                variant='solid' size="lg">
+                                variant='solid' 
+                                size="lg">
                                 Submit</Button>
                         </GridItem>
                     )}
                 </Grid>
+                
             </Box>
         ) )}
     </Box>

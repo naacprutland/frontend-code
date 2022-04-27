@@ -8,7 +8,7 @@ import type { RadiosProps } from './Radios'
 export type DynamicFormFieldProps  = InputProps | SelectProps | NumberInputProps | RadiosProps
 
 const DynamicInput: ComponentType<InputProps> = dynamic(() => import('./Input'))
-
+const DynamicSelect: ComponentType<SelectProps> = dynamic(() => import('./Select'))
 
 function DynamicFormField(props: DynamicFormFieldProps) {
 
@@ -18,7 +18,8 @@ function DynamicFormField(props: DynamicFormFieldProps) {
     case 'date':
     case 'email':
       return <DynamicInput {...props as InputProps} />
-    
+    case 'select':
+      return <DynamicSelect {...props as SelectProps} />
     default :
       return null
   }
