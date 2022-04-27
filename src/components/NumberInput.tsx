@@ -9,10 +9,11 @@ import {
     FormErrorMessage 
 } from '@chakra-ui/react'
 import { FormNumber } from '../interface/form'
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 export interface NumberInputProps extends FormNumber {
-    errors: DeepMap<FieldValues, FieldError>;
+    errors: {
+        [x: string]: any;
+    };
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 

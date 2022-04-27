@@ -51,13 +51,31 @@ export const formDataContactUS = {
                     fields: [
                         {
                             id:"1",
+                            type: 'text',
                             span: 'half',
-                            name: 'first-name'
+                            name: 'first-name',
+                            label: "First Name",
+                            placeholder: "First Name",
+                            isRequired: true,
+                            requiredMessage: 'Please enter First Name',
                         },
                         {
                             id:"1",
+                            type: 'text',
                             span: 'half',
-                            name: 'last-name'
+                            name: 'last-name',
+                            label: "Last Name",
+                            placeholder: "Last Name",
+                            isRequired: true,
+                            requiredMessage: 'Please enter First Name',
+                            minLength: {
+                                value: 2,
+                                message: 'Must have at least 2'
+                            },
+                            pattern: {
+                                value: new RegExp('/^\\(?([0-9]{3})\\)?[-.\\s]?([0-9]{3})[-.\\s]?([0-9]{4})$/'),
+                                message: 'Phone number'
+                            }
                         }
                     ]
                 }

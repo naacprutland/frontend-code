@@ -103,3 +103,4 @@ export interface Option {
     selected?: boolean;
 }
 
+export type Fields = FormInput | FormRadios | FormCheckBox | FormTextArea | FormNumber | FormSelect

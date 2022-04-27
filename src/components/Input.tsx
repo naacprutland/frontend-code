@@ -5,11 +5,10 @@ import {
     FormErrorMessage 
 } from '@chakra-ui/react'
 import { FormInput } from '../interface/form'
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
-
 export interface InputProps extends FormInput {
-    id: string;
-    errors: DeepMap<FieldValues, FieldError>;
+    errors: {
+        [x: string]: any;
+    };
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 
@@ -30,7 +29,7 @@ const Input = ({
     errors={},
     register
 }: InputProps) => {
-    
+    console.log(errors)
     return (
     <FormControl isInvalid={errors[name]}>
         <FormLabel htmlFor={id}>{label}</FormLabel>
@@ -51,10 +50,9 @@ const Input = ({
                     }): {})
               } />
         {
-            (errors[name] && errors[name].types) && Object.entries(
-                errors[name].types).map(([type, message]) => (
-                    <FormErrorMessage key={type}>{message}</FormErrorMessage>
-                ))
+            (errors[name]) && (
+                    <FormErrorMessage>{errors[name].message}</FormErrorMessage>
+                )
         }
     </FormControl>
 )}

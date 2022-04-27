@@ -7,11 +7,11 @@ import {
     Stack
 } from '@chakra-ui/react'
 import { FormRadios } from '../interface/form'
-import { DeepMap, FieldError, FieldValues } from 'react-hook-form';
 
 export interface RadiosProps extends FormRadios {
-    id: string;
-    errors: DeepMap<FieldValues, FieldError>;
+    errors: {
+        [x: string]: any;
+    };
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })
 }
 

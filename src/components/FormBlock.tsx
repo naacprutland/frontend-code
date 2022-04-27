@@ -6,6 +6,7 @@ import {
   } from "@chakra-ui/react"
 import { useForm } from "react-hook-form";
 import { Fieldset } from "../interface/form";
+import DynamicFormField, { DynamicFormFieldProps } from "./DynamicFormField";
 
 
 export interface FormBlockProps {
@@ -38,17 +39,30 @@ const FormBlock = ({
                     {fieldset?.rows.map((row, rowIndex) => {
                         return row?.fields
                             .slice(0, 4)
-                            .map((field) => (
-                                <GridItem key={rowIndex + field.name}
-                                rowStart={rowIndex}
-                                colSpan={[4, FieldColumn[field.span]]} >
-                                    hey
-                                </GridItem>
-                        ))
+                            .map((field) => {
+                                const fieldProps: DynamicFormFieldProps = {
+                                    ...field,
+                                } as DynamicFormFieldProps
+                                
+                                return (
+                                    <GridItem 
+                                        key={rowIndex + field.name}
+                                        rowStart={rowIndex}
+                                        colSpan={[4, FieldColumn[field.span]]} >
+                                        <DynamicFormField 
+                                            {...fieldProps} 
+                                            register={register} 
+                                            errors={errors} />
+                                    </GridItem>
+                                )
+                            }
+                        )
                     })}
                     {(i === sections.length -1) && (
                         <GridItem colSpan={4}>
-                            <Button colorScheme='teal' variant='solid' size="lg">
+                            <Button type="submit" 
+                                colorScheme='teal' 
+                                variant='solid' size="lg">
                                 Submit</Button>
                         </GridItem>
                     )}
