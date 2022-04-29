@@ -36,6 +36,7 @@ const TextArea = ({
             bg="white"
             name={name}
             value={value}
+            minHeight="120px"
             placeholder={placeholder}
             {
                 ...(register ? register(name, {
@@ -46,10 +47,9 @@ const TextArea = ({
               }
             />
         {
-            (errors[name] && errors[name].types) && Object.entries(
-                errors[name].types).map(([type, message]) => (
-                    <FormErrorMessage key={type}>{message}</FormErrorMessage>
-                ))
+            (errors[name]) && (
+                    <FormErrorMessage>{errors[name].message}</FormErrorMessage>
+                )
         }
     </FormControl>
 )}

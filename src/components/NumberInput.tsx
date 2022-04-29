@@ -52,10 +52,9 @@ const NumberInput = ({
             </NumberInputStepper>
         </ChakraNumberInput>
         {
-            (errors[name] && errors[name].types) && Object.entries(
-                errors[name].types).map(([type, message]) => (
-                    <FormErrorMessage key={type}>{message}</FormErrorMessage>
-                ))
+            (errors[name]) && (
+                    <FormErrorMessage>{errors[name].message}</FormErrorMessage>
+                )
         }
     </FormControl>
 )}

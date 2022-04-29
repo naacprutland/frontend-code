@@ -2,7 +2,8 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import FormBlock, { FormBlockProps } from '../../components/FormBlock'
 import { 
-    formDataContactUS
+    formDataContactUS,
+    fileAComplaint
 } from '../data/formData'
 
 export default {
@@ -12,5 +13,8 @@ export default {
 
 const Template: Story<FormBlockProps> = (args) => <FormBlock {...args} />;
 
-export const Primary = Template.bind({});
-Primary.args = formDataContactUS;
+export const ContactUs = Template.bind({});
+ContactUs.args = formDataContactUS;
+
+export const FileAComplaint = Template.bind({});
+FileAComplaint.args = fileAComplaint;
