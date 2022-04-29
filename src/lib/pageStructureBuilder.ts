@@ -1,7 +1,7 @@
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
 import { HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock } from "../interface/componentBlock";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -109,12 +109,47 @@ const heroTwoBlockBuilder = ({
   colorScheme: ctaColorScheme
 })
 
+const formBlockBuilder = ({
+  __component,
+  label,
+  action,
+  sections=[]
+}): FormBlock => ({
+  template: __component as "blocks.form-block",
+  label,
+  action,
+  sections: sections.map(sec => ({
+    ...sec,
+    rows: sec.rows?.map(row => ({
+      fields: row.fields
+        .map(field => ({
+          ...field,
+          ...field[SelectedField[field.type]]
+        }))
+      }))
+  }))
+})
+
+enum SelectedField {
+  select='select',
+  number='number',
+  radio='radio',
+  checkbox='checkbox',
+  textarea='textarea',
+  text='input',
+  tel='input',
+  date='input',
+  email='input'
+}
+
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
   "blocks.media-block": mediaBlockBuilder,
   "blocks.stack-block": stackBlockBuilder,
-  "blocks.hero-two-block": heroTwoBlockBuilder
+  "blocks.hero-two-block": heroTwoBlockBuilder,
+  "blocks.form-block": formBlockBuilder
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {

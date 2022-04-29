@@ -6,6 +6,7 @@ import { SearchSortProps } from '../components/SearchSortBlock'
 import { HeroBlockApi } from './apiBlocks'
 import { StackBlockProps } from '../components/StackBlock'
 import { HeroTwoBlockProps } from '../components/HeroTwoBlock'
+import { FormBlockProps } from '../components/FormBlock'
 
 interface ComponentBlock {
   "template": string;
@@ -50,9 +51,13 @@ export interface HeroTwoBlock extends ComponentBlock, HeroTwoBlockProps {
   "template": "blocks.hero-two-block"
 }
 
+export interface FormBlock extends ComponentBlock, FormBlockProps {
+  "template": "blocks.form-block"
+}
+
 export type ResponseBlocks = HeroBlockApi
 
 export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock |
-   SearchSortBlock | ContactFormBlock | StackBlock | HeroTwoBlock
+   SearchSortBlock | ContactFormBlock | StackBlock | HeroTwoBlock | FormBlock
 
 export type PageBlocks = Block[]
