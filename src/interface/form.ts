@@ -11,10 +11,9 @@ export interface FormRow {
     fields: (FormInput | FormSelect | FormTextArea | FormCheckBox)[];
 }
 
-
 export interface FormField {
     id: string;
-    span: 'full' | 'half' | 'quarter';
+    span: Span;
     type: InputTypes;
     name: string;
     label: string;
@@ -24,6 +23,7 @@ export interface FormField {
     isDisabled?: boolean;
 }
 
+export type Span = 'full' | 'half' | 'quarter';
 export interface FormInput extends FormField {
     type: 'text' | 'date' | 'tel' | 'email';
     value?: string;
@@ -68,11 +68,11 @@ export interface FormTextArea extends FormField {
     value?: string;
     maxLength?: {
         value: number;
-        message: string;
+        message?: string;
     };
     minLength?: {
         value: number;
-        message: string;
+        message?: string;
     };
     placeholder?: string;
 }

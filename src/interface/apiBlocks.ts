@@ -87,3 +87,66 @@ export interface Cta2 {
     path:     string;
     external: boolean;
 }
+
+export interface FormBlockApi {
+    __component: string;
+    id:          number;
+    page_form:   PageForm;
+}
+
+export interface PageForm {
+    id:        number;
+    label:     string;
+    action:    string;
+    createdAt: Date;
+    updatedAt: Date;
+    sections:  Section[];
+}
+
+export interface Section {
+    id:      number;
+    subText: null;
+    label:   string;
+    fields:  Field[];
+}
+
+export interface Field {
+    id:              number;
+    type:            string;
+    name:            string;
+    span:            string;
+    isRequired:      null | boolean;
+    requiredMessage: null | string;
+    autocomplete:    null | boolean;
+    isDisabled:      null | boolean;
+    row:             number;
+    label:           string;
+    defaultValue:    null | string;
+    min:             null | Date;
+    max:             null | Date;
+    checkbox:        null | object;
+    radio:           null | object;
+    pattern:         null | Pattern;
+    minLength:       null | MaxMinLength;
+    maxLength:       null | MaxMinLength;
+    selectOptions:   SelectOption[];
+    radios:          any[];
+    placeholder: string;
+}
+
+export interface Pattern {
+    value: string;
+    message?: string
+}
+
+export interface MaxMinLength {
+    value: number;
+    message?: string;
+}
+
+export interface SelectOption {
+    id:       number;
+    label:    string;
+    value:    string;
+    selected: null;
+}

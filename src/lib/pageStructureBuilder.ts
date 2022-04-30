@@ -1,10 +1,11 @@
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
-import { HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
 import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
+import { rowBuilder } from "./formBuilder";
 
 const heroBlockBuilder = ({
   __component,
@@ -111,37 +112,33 @@ const heroTwoBlockBuilder = ({
 
 const formBlockBuilder = ({
   __component,
-  label,
-  action,
-  sections=[]
-}): FormBlock => ({
-  template: __component as "blocks.form-block",
-  label,
-  action,
-  sections: sections.map(sec => ({
-    ...sec,
-    rows: sec.rows?.map(row => ({
-      fields: row.fields
-        .map(field => ({
-          ...field,
-          ...field[SelectedField[field.type]]
-        }))
-      }))
-  }))
-})
-
-enum SelectedField {
-  select='select',
-  number='number',
-  radio='radio',
-  checkbox='checkbox',
-  textarea='textarea',
-  text='input',
-  tel='input',
-  date='input',
-  email='input'
+  page_form
+}: FormBlockApi): FormBlock => {
+  const { label='', action='', sections=[] } = page_form;
+  return {
+    template: __component as "blocks.form-block",
+    label,
+    action,
+    sections: sections.map(section => {
+      return {
+        label: section.label,
+        rows: rowBuilder(section.fields || [])
+      }
+    })
+  }
 }
 
+// enum SelectedField {
+//   select='select',
+//   number='number',
+//   radio='radio',
+//   checkbox='checkbox',
+//   textarea='textarea',
+//   text='input',
+//   tel='input',
+//   date='input',
+//   email='input'
+// }
 
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
