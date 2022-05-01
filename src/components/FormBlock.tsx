@@ -2,12 +2,16 @@ import {
     Box,
     Button,
     Grid,
-    GridItem
+    GridItem,
+    useToast
   } from "@chakra-ui/react"
+import { useState } from "react";
 import Container from "./Container"
 import { useForm } from "react-hook-form";
 import { Fieldset } from "../interface/form";
 import DynamicFormField, { DynamicFormFieldProps } from "./DynamicFormField";
+import { fetchApi } from '../lib/util';
+import apiEndPoints from "../lib/strapiApi";
 
 
 export interface FormBlockProps {
@@ -23,16 +27,63 @@ enum FieldColumn {
 }
 
 const FormBlock = ({
-    label,
     action,
     sections=[]
   }:FormBlockProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-        console.log('label', label)
-        console.log('action', action)
-        console.log('Submit', data)
-    };
+    const [isDisabled, setIsDisabled] = useState(false)
+    const { 
+        register, 
+        reset, 
+        handleSubmit, 
+        setError, 
+        formState: { errors, isSubmitting } } = useForm();
+    const toast = useToast()
+
+    async function onSubmit(values: {
+        [key:string]: string
+    }) {
+        setIsDisabled(true)
+        const isClosable = true
+        try {
+          await fetchApi(`${apiEndPoints.baseApiUrl}/${action}`, {
+            method: "POST",
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "data": values
+            })
+          })
+          toast({
+            title: 'Submitted Successfully!',
+            status: 'success',
+            isClosable
+          })
+          const restFields = Object.keys(values)
+            .reduce((acc, cur) => {
+                acc[cur] = '';
+                return acc
+            }, {})
+          reset(restFields)
+        } catch(e) {
+          const errors = e?.details?.errors
+          if (errors) {
+            errors.forEach(error => {
+                setError(error.path[0], { 
+                    type: 'manual', 
+                    message: error.message })
+            })
+          }
+          
+          toast({
+            title: 'Submission Error',
+            description: e.error.name === "unknown" ? "Try again another time" : e.error.message,
+            status: 'error',
+            isClosable
+          })
+        }     
+        setIsDisabled(false);
+      } 
 
     return (
         <Container as="section" className="grid">
@@ -78,6 +129,8 @@ const FormBlock = ({
                             {(i === sections.length -1) && (
                                 <GridItem  justifySelf={[null, "center"]} colSpan={4}>
                                     <Button type="submit"
+                                        isLoading={isSubmitting}
+                                        isDisabled={isDisabled}
                                         w="100%"
                                         colorScheme='teal' 
                                         variant='solid' 

@@ -42,11 +42,24 @@ export const throttle = (func: () => void, duration: number) => {
  */
 export const fetchApi = async (api: string, init: RequestInit = {} ) => {
   const response = await fetch(api, init)
-  const json = await response.json();
-  if (response.status >= 200 && response.status <= 299) {
+
+  if (response.ok) {
+    const json = await response.json();
     return json;
   } else {
-    throw Error(json);
+    const isJSON = response.headers.get('content-type').includes('application/json');
+    // If JSON, use text(). Otherwise, use json().
+    const getMsg: string | object = isJSON ? await response.json() : await response.text();
+    let errorRes = getMsg
+    if ( typeof getMsg === 'string') {
+      errorRes = JSON.parse(JSON.stringify({
+        error: {
+          name: "unknown",
+          message: getMsg
+        } 
+      }))
+    }
+    throw errorRes;
   }
 }
 
