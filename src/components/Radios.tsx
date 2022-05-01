@@ -28,16 +28,10 @@ const Radios = ({
     errors={},
     register
 }: RadiosProps) => {
-    
     return (
     <FormControl isInvalid={errors[name]}>
         { label && <Text fontWeight="semibold" marginBottom="2">{label}</Text> }
         <RadioGroup id={id} name={name} value={value} defaultValue={defaultValue}
-            {
-                ...(register ? register(name, {
-                        required: isRequired ? requiredMessage : null,
-                    }): {})
-              }
             >
             <Stack spacing='6'>
                 {radios.map(v => (
@@ -45,6 +39,11 @@ const Radios = ({
                         background="white"
                         value={v.value}
                         size='md'
+                        {
+                            ...(register ? register(name, {
+                                    required: isRequired ? requiredMessage : null,
+                                }): {})
+                          }
                         isDisabled={isDisabled || v.isDisabled}>
                         {v.label}
                     </Radio>
