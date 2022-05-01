@@ -9,6 +9,7 @@ import { SearchSortProps } from './SearchSortBlock'
 import { StackBlockProps } from './StackBlock'
 import { HeroTwoBlockProps } from './HeroTwoBlock'
 import { FormBlockProps } from './FormBlock'
+import { DividerBlockProps } from './DividerBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -18,6 +19,7 @@ const DynamicSearchSortBlock: ComponentType<SearchSortProps> = dynamic(() => imp
 const DynamicStackBlock: ComponentType<StackBlockProps> = dynamic(() => import('./StackBlock'))
 const DynamicHeroTwoBlock: ComponentType<HeroTwoBlockProps> = dynamic(() => import('./HeroTwoBlock'))
 const DynamicFormBlock: ComponentType<FormBlockProps> = dynamic(() => import('./FormBlock'))
+const DynamicDividerBlock: ComponentType<DividerBlockProps> = dynamic(() => import('./DividerBlock'))
 
 function DynamicComponent({ template, ...props}: Block) {
 
@@ -38,6 +40,8 @@ function DynamicComponent({ template, ...props}: Block) {
       return <DynamicHeroTwoBlock {...props as HeroTwoBlockProps} />
     case 'blocks.form-block': 
       return <DynamicFormBlock {...props as FormBlockProps} />
+    case 'blocks.divider-block':
+      return <DynamicDividerBlock {...props as DividerBlockProps} />
     default :
       return null
   }
