@@ -1,6 +1,7 @@
 import { 
     Box,
     Button,
+    Text,
     Grid,
     GridItem,
     useToast
@@ -99,6 +100,10 @@ const FormBlock = ({
                                 {fieldset.label}
                             </Box>
                         </div>
+
+                        {fieldset.subText && <Text 
+                            marginBottom="6"
+                            fontWeight="semibold">{fieldset.subText}</Text>}
 
                         <Grid
                             templateColumns='repeat(4, 1fr)'

@@ -122,23 +122,12 @@ const formBlockBuilder = ({
     sections: sections.map(section => {
       return {
         label: section.label,
+        subText: section.subText,
         rows: rowBuilder(section.fields || [])
       }
     })
   }
 }
-
-// enum SelectedField {
-//   select='select',
-//   number='number',
-//   radio='radio',
-//   checkbox='checkbox',
-//   textarea='textarea',
-//   text='input',
-//   tel='input',
-//   date='input',
-//   email='input'
-// }
 
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
