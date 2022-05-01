@@ -1,5 +1,5 @@
 import { Field } from "../interface/apiBlocks";
-import { FormInput, FormSelect, FormTextArea, Span } from "../interface/form";
+import { FormCheckBox, FormInput, FormNumber, FormRadios, FormSelect, FormTextArea, Span } from "../interface/form";
 
 const fieldBuilders = (type: string) => {
     switch (type) {
@@ -11,11 +11,11 @@ const fieldBuilders = (type: string) => {
         case 'select':
           return selectBuilder
         case 'number':
-          return null
+          return numberBuilder
         case 'radio':
-            return null
+            return radioBuilder
         case 'checkbox':
-            return null
+            return checkboxBuilder
         case 'textarea':
             return textAreaBuilder
         default :
@@ -130,6 +130,88 @@ export function textAreaBuilder({
         autocomplete,
         isDisabled,
         placeholder,
+        maxLength,
+        minLength
+    }
+}
+
+export function radioBuilder({
+    id,
+    span,
+    name,
+    defaultValue,
+    label,
+    isRequired,
+    requiredMessage,
+    autocomplete,
+    isDisabled,
+    radios
+}: Field):FormRadios {
+    return {
+        id: `${id}`,
+        type: 'radio',
+        span: span as Span,
+        name,
+        defaultValue,
+        label,
+        isRequired,
+        requiredMessage,
+        autocomplete,
+        isDisabled,
+        radios
+    }
+}
+
+export function checkboxBuilder({
+    id,
+    span,
+    name,
+    label,
+    isRequired,
+    requiredMessage,
+    autocomplete,
+    isDisabled,
+    checkbox
+}: Field): FormCheckBox {
+    return {
+        id: `${id}`,
+        type: 'checkbox',
+        span: span as Span,
+        name,
+        label,
+        isRequired,
+        requiredMessage,
+        autocomplete,
+        isDisabled,
+        ...checkbox
+    }
+}
+
+export function numberBuilder({
+    id,
+    span,
+    name,
+    label,
+    defaultValue='',
+    isRequired,
+    requiredMessage,
+    autocomplete,
+    isDisabled,
+    maxLength,
+    minLength
+}: Field): FormNumber {
+    const value = Number(defaultValue)
+    return {
+        id: `${id}`,
+        type: 'number',
+        span: span as Span,
+        name,
+        label,
+        isRequired,
+        defaultValue: isNaN(value) ? value : null,
+        requiredMessage,
+        autocomplete,
+        isDisabled,
         maxLength,
         minLength
     }

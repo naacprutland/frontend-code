@@ -45,6 +45,7 @@ export interface FormInput extends FormField {
 }
 
 export interface FormNumber extends FormField {
+    type: "number",
     value?: number;
     defaultValue?: number;
     maxLength?: {
@@ -87,7 +88,7 @@ export interface FormCheckBox extends FormField {
 export interface FormRadios extends FormField {
     type: 'radio';
     defaultValue: string;
-    value: string;
+    value?: string;
     radios: {
         label: string;
         value: string;
