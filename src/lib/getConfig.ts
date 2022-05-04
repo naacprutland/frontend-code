@@ -5,34 +5,20 @@ import { CTA } from "../interface/general";
 import { GlobalApi, NavItem } from "../interface/globalApi";
 import { SiteConfig } from "../interface/siteConfig";
 
-function mainMenu(navItems: NavItem[]) {
-    const menu: MenuItem[] = []
 
-    for (const item of navItems) {
-        if (!item.parent) {
-            const path = item.related ? item.related.path : 
-                item.type === "EXTERNAL" ? item.externalPath : item.path
-            menu.push({
-                label: item.title,
-                path,
-                external: item.type === "EXTERNAL",
-                subitems: []
-            } as MenuItem)
+
+function mainMenu(navItems: NavItem[] = []): MenuItem[] {
+    return navItems.map(item => {
+        return  {
+            label: item.title,
+            path: item.url || '/',
+            external: item.target === "_blank",
+            subitems: mainMenu(item.children)
         }
-    }
-
-    return menu
+    })
 }
 
-function convertToConfig({ 
-    logo,
-    seo,
-    footer,
-    navigation = {
-        'main-navigation': [],
-        'call-to-actions': []
-    } 
-} : GlobalApi): SiteConfig {
+function ctaBuilder(navItems: NavItem[]):CTA[] {
     const btn = [ {
         color: 'prime1',
         textColor: 'white'
@@ -41,18 +27,43 @@ function convertToConfig({
         color: 'prime2',
         textColor: 'prime1.500'
     }]
-    const ctas: CTA[] =  navigation['call-to-actions'].map((cta, i) => {
+    return navItems.map((item, i) => {
         return {
-            label: cta.title,
-            path: cta.path,
-            external: cta.type === "EXTERNAL" ,
+            label: item.title,
+            path: item.url,
+            external: item.target === "_blank" ,
             style: "solid",
             color: btn[i].color,
             textColor: btn[i].textColor
         }
     })
+}
 
-    const mega_menu: MenuItem[] =  mainMenu(navigation['main-navigation'])
+function convertToConfig({ 
+    logo,
+    seo,
+    footer,
+    navigation
+} : GlobalApi): SiteConfig {
+
+    const { 
+        ctas,
+        mega_menu
+    }: { 
+        ctas: CTA[], 
+        mega_menu: MenuItem[]} = navigation.reduce(
+            (acc, cur) => {
+          
+                if (cur.slug === 'call-to-actions') {
+                    acc.ctas = ctaBuilder(cur.items);
+                }
+ 
+                if (cur.slug === 'main-navigation') {
+                    acc.mega_menu = mainMenu(cur.items);
+                }
+
+                return acc;
+        }, { ctas: [], mega_menu: []})
 
     return {
         defaultSeo: {

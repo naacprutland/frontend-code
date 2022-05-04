@@ -7,7 +7,7 @@ export interface GlobalApi {
     logo?:        Logo;
     seo?:         SEO;
     footer?: Footer;
-    navigation?:  Navigation;
+    navigation?:  Navigation[];
 }
 
 export interface Footer {
@@ -37,61 +37,30 @@ export interface Logo {
 }
 
 export interface Navigation {
-    "main-navigation": NavItem[];
-    "call-to-actions": NavItem[];
+    id:        number;
+    title:     string;
+    slug:      string;
+    createdAt: Date;
+    updatedAt: Date;
+    items:     NavItem[];
 }
 
 export interface NavItem {
-    id:           number;
-    title:        string;
-    type:         string;
-    path:         string;
-    externalPath: null;
-    uiRouterKey:  string;
-    menuAttached: boolean;
-    order:        number;
-    collapsed:    boolean;
-    createdAt:    Date;
-    updatedAt:    Date;
-    related:      Related;
-    parent:       Parent | null;
-    master:       Master;
-    audience:     any[];
-    createdBy:    null;
-    updatedBy:    null;
-}
-
-export interface Master {
     id:        number;
-    name:      string;
-    slug:      string;
-    visible:   boolean;
+    order:     number;
+    title:     string;
+    url:       string;
+    target:    null | '_blank';
     createdAt: Date;
     updatedAt: Date;
+    parent:    ParentId | null;
+    children?: NavItem[];
 }
 
-export interface Parent {
-    id:           number;
-    title:        string;
-    type:         string;
-    path:         string;
-    externalPath: null;
-    uiRouterKey:  string;
-    menuAttached: boolean;
-    order:        number;
-    collapsed:    boolean;
-    createdAt:    Date;
-    updatedAt:    Date;
-}
-
-export interface Related {
+export interface ParentId {
     id: number;
-    label: string;
-    slug: string;
-    path: string;
-    createdAt:    Date;
-    updatedAt:    Date;
 }
+
 export interface SEO {
     id:              number;
     metaTitle:       string;

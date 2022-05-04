@@ -64,13 +64,13 @@ export async function getConfigData(): Promise<ApiError | SiteConfig> {
 
 /**
  * Generates props for static props
- * @param {string} page The name of the page
+ * @param {string} formTitle The name of the page
  * @param {boolean} preview If in preview mode
- * @param {object} previewData the page data
  * @returns Page Props
  */
 export async function getPageProps(formTitle: string, preview: boolean) {
   const config =  await getConfigData()
+
   let pageData:PageResponseProps;
 
 
@@ -89,9 +89,11 @@ export async function getPageProps(formTitle: string, preview: boolean) {
   // let pageData:PageResponseProps = await getPageDynamicPageData(formTitle, preview)
   let data: PageTemplateProps = {} as PageTemplateProps
 
+
+
   // 404 doesn't appear in preview mode with out this
-  if (formTitle === '404' && !pageData) {
-    pageData = await getDynamicPageData(formTitle, true)
+  if (formTitle === '404' && !pageData && preview) {
+    pageData = await getDynamicPageData('404', preview)
   }
  
   if (pageData) {
