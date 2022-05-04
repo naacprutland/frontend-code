@@ -1,5 +1,9 @@
 import { NextSeoProps } from 'next-seo';
 import { SEOApi } from '../interface/apiSeo'
+import { Breadcrumbs } from '../interface/componentBlock';
+import { BreadCrumbJsonLdProps } from 'next-seo';
+
+const siteBaseUrl = process.env.SITE_BASE_URL
 
 export const seoBuilder = ({
     metaTitle,
@@ -34,3 +38,12 @@ export const seoBuilder = ({
         }
     }
 }
+
+
+export const seoBreadcrumbsBuilder  = (breadcrumbProps: Breadcrumbs): BreadCrumbJsonLdProps => ({
+    itemListElements: breadcrumbProps?.breadcrumbs?.map((crumb, i) => ({
+        position: i + 1,
+        name: crumb.label,
+        item: siteBaseUrl + crumb.path
+    })) || []
+})

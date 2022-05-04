@@ -1,3 +1,4 @@
+import { BreadCrumbJsonLdProps } from "next-seo";
 import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
@@ -7,6 +8,7 @@ import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
 import { rowBuilder } from "./formBuilder";
+import { seoBreadcrumbsBuilder } from "./seoBuilder";
 
 const heroBlockBuilder = ({
   __component,
@@ -172,9 +174,16 @@ export async function buildPageStructure(data: PageResponseProps): Promise<Parti
       }
       return block
   });
+  let breadCrumbsSEO: BreadCrumbJsonLdProps | null = null;
+  const breadcrumbData = pageStructure?.find(v => v.template === "blocks.breadcrumbs")
+  if (breadcrumbData){
+    breadCrumbsSEO = seoBreadcrumbsBuilder(breadcrumbData as Breadcrumbs)
+  }
+   
   
   return {
     ...clone,
+    breadCrumbsSEO,
     pageStructure
   }
 }
