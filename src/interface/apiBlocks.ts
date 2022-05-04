@@ -21,6 +21,12 @@ export interface Cta {
     external: boolean;
 }
 
+export interface BreadcrumbsApi {
+    __component:   "blocks.breadcrumbs";
+    id:            number;
+    style:         "none" | "white" | "dark";
+}
+
 export interface TextBlockApi {
     __component:         string;
     id:                  number;

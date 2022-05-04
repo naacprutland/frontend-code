@@ -1,7 +1,8 @@
+import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
-import { FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock } from "../interface/componentBlock";
+import { BreadcrumbsApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -129,13 +130,37 @@ const formBlockBuilder = ({
   }
 }
 
+const breadcrumbBuilder = ({
+  __component,
+  style
+}: BreadcrumbsApi, pageData: PageResponseProps): Breadcrumbs => {
+  const slugs: string[] = pageData?.static_path?.slug || []
+  const breadcrumbs: Breadcrumb[] = slugs.slice(0, -1)
+    .reduce((acc: Breadcrumb[], cur: string) => {
+      const label = cur.split('-').join(' ')
+      return [
+        ...acc,
+        {
+          label,
+          path: `/${cur}`
+        }
+      ] as Breadcrumb[]
+    }, [{ label: 'Home', path: '/' }] as unknown as Breadcrumb[])
+  return {
+    template: __component,
+    style,
+    breadcrumbs
+  }
+}
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
   "blocks.media-block": mediaBlockBuilder,
   "blocks.stack-block": stackBlockBuilder,
   "blocks.hero-two-block": heroTwoBlockBuilder,
-  "blocks.form-block": formBlockBuilder
+  "blocks.form-block": formBlockBuilder,
+  "blocks.breadcrumbs": breadcrumbBuilder
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {
@@ -143,7 +168,7 @@ export async function buildPageStructure(data: PageResponseProps): Promise<Parti
   const clonePageStructure: ResponseBlocks[] = clone.blocks || []
   const pageStructure: Block[] = clonePageStructure.map(block => {
       if (block.__component in builders) {
-        return builders[block.__component](block)
+        return builders[block.__component](block, data)
       }
       return block
   });

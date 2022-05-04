@@ -45,7 +45,7 @@ const Breadcrumbs = ({
                     breadcrumbs.map(crumb => (
                         <BreadcrumbItem key={uuidv4()} >
                             <NextLink href={crumb.path} passHref>
-                                <BreadcrumbLink fontSize="sm" textTransform="uppercase">
+                                <BreadcrumbLink fontSize="sm" textTransform="uppercase" lineHeight="1">
                                     {crumb.label}
                                 </BreadcrumbLink>
                             </NextLink>
