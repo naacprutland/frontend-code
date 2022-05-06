@@ -1,4 +1,5 @@
-import { useEffect, useState, useRef, useCallback } from "react"
+import { useEffect, useState, useRef, useCallback, ComponentType  } from "react"
+import dynamic from 'next/dynamic'
 import { 
   Box,
   Button,
@@ -13,14 +14,17 @@ import {
 } from "@chakra-ui/react"
 import { MdMenu, MdSearch } from "react-icons/md"
 import Container from './Container'
-import MobileMenu from './MobileMenu'
-import SearchDrawer from "./SearchDrawer"
+import { MobileMenuProps } from './MobileMenu'
+import { SearchDrawerProps } from "./SearchDrawer"
 import { CTA } from '../interface/general'
 import NextLink from "next/link"
 import MenuLink from './MenuLink'
 import Banner, { BannerProps } from './Banner'
 import SkipToMainContent from './SkipToMainContent'
 import Image from 'next/image'
+
+const DynamicMobileMenu: ComponentType<MobileMenuProps> = dynamic(() => import('./MobileMenu'))
+const DynamicSearch: ComponentType<SearchDrawerProps> = dynamic(() => import('./SearchDrawer'))
 
 export interface MenuItem {
   label: string;
@@ -66,6 +70,8 @@ const Header = ({
   const onSearchClose = useCallback(() => { setIsSearchOpen(false) }, [])
   const variant = useBreakpointValue({ md: "md" })
   const headerRef = useRef<HTMLDivElement>(null)
+  const [ keepMenu, setKeepMenu ] = useState<boolean>(false)
+  const [ keepSearch, setKeepSearch ] = useState<boolean>(false)
   const onBannerClose = (index) => {
     setBannerList(prev => prev.map((val, i) => {
       const show = i === index ? false : val.show
@@ -75,6 +81,18 @@ const Header = ({
       }
     }))
   }
+
+  useEffect(() => {
+    if (!keepMenu && isOpen) {
+      setKeepMenu(true);
+    }
+  }, [isOpen])
+
+  useEffect(() => {
+    if (!keepSearch && isSearchOpen) {
+      setKeepSearch(true);
+    }
+  }, [isSearchOpen])
 
   useEffect(() => {
     if (variant === "md") onClose();
@@ -204,13 +222,14 @@ const Header = ({
               )}
             </HStack>
           </VStack>
-          <MobileMenu
+          {(keepMenu || isOpen) && <DynamicMobileMenu
             headerRef={headerRef.current}
             ctas={ctas}
             megaMenu={mega_menu}
             isOpen={isOpen}
-            onClose={onClose} />
-          <SearchDrawer isOpen={isSearchOpen} onClose={onSearchClose} />
+            onClose={onClose} />}
+          {(keepSearch || isSearchOpen) && <DynamicSearch 
+            isOpen={isSearchOpen} onClose={onSearchClose} />}
       </Container>
     </Flex>
    )
