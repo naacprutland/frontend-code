@@ -45,6 +45,7 @@
     "react-hook-form": "^7.30.0",
     "react-icons": "^4.3.1",
     "react-moment": "^1.1.1",
+    "react-query": "^3.38.1",
     "react-youtube": "^7.14.0",
     "storybook-addon-grid": "^0.0.14",
     "styled-components": "^5.3.3",
