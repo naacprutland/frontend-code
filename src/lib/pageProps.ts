@@ -10,7 +10,14 @@ import { seoBuilder } from './seoBuilder'
 import { SEOApi } from '../interface/apiSeo'
 import { NextSeoProps } from 'next-seo'
 
-const { getStaticPaths, getPages, getGlobal, getPagesPreview, getHomePage } = apiEndPoints
+const { 
+  getStaticPaths,
+  getPages,
+  getGlobal,
+  getPagesPreview,
+  getHomePage,
+  get404Page
+} = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
   status: string;
@@ -39,7 +46,7 @@ export async function getDynamicPageData(page: string, preview: boolean): Promis
  * Get data associated with page from markdown file
  * @param {string} url - api url
  */
- export async function getStaticPageData(url: string): Promise<PageResponseProps| null> {
+ export async function getStaticPageData<T>(url: string): Promise<T| null> {
   try {
     return await fetchApi(url)
   } catch (e) {
@@ -92,8 +99,8 @@ export async function getPageProps(formTitle: string, preview: boolean) {
 
 
   // 404 doesn't appear in preview mode with out this
-  if (formTitle === '404' && !pageData && preview) {
-    pageData = await getDynamicPageData('404', preview)
+  if (formTitle === '404' && !pageData) {
+    pageData = await getStaticPageData(get404Page)
   }
  
   if (pageData) {

@@ -6,10 +6,11 @@ const apiEndPoints = {
   getStaticPaths: `${baseApiUrl}/pages/utils/static`,
   getPages: `${baseApiUrl}/pages`,
   getPagesPreview: `${baseApiUrl}/pages?_publicationState=preview&slug=`,
-  get404Page: `${baseApiUrl}/pages?slug=404`,
+  get404Page: `${baseApiUrl}/error-page`,
   getGlobal: `${baseApiUrl}/global/info`,
   getPagesSearch: `${baseApiUrl}/pages/search`,
   getHomePage: `${baseApiUrl}/home-page`,
+  getSearchPage: `${baseApiUrl}/search-page`
 }
 
 export default apiEndPoints

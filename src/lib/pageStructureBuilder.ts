@@ -10,7 +10,7 @@ import { PageResponseProps } from "../interface/pageResponse";
 import { rowBuilder } from "./formBuilder";
 import { seoBreadcrumbsBuilder } from "./seoBuilder";
 
-const heroBlockBuilder = ({
+export const heroBlockBuilder = ({
   __component,
   title, size, image, imageAlt,
   horPos, verPos, textPos, cta
@@ -132,10 +132,10 @@ const formBlockBuilder = ({
   }
 }
 
-const breadcrumbBuilder = ({
+export const breadcrumbBuilder = ({
   __component,
   style
-}: BreadcrumbsApi, pageData: PageResponseProps): Breadcrumbs => {
+}: BreadcrumbsApi, pageData?: PageResponseProps): Breadcrumbs => {
   const slugs: string[] = pageData?.static_path?.slug || []
   const breadcrumbs: Breadcrumb[] = slugs.slice(0, -1)
     .reduce((acc: Breadcrumb[], cur: string) => {

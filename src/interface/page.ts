@@ -1,11 +1,19 @@
 import { BreadCrumbJsonLdProps, NextSeoProps } from 'next-seo';
-import { PageBlocks } from './componentBlock'
+import { HeroBlock, PageBlocks, Breadcrumbs } from './componentBlock'
 import { PageResponseProps } from './pageResponse'
 
 export interface PageTemplateProps extends Omit<PageResponseProps, 'pageStructure'> {
   pageSEO: NextSeoProps;
   breadCrumbsSEO?: BreadCrumbJsonLdProps;
   pageStructure: PageBlocks;
+}
+
+export interface SearchPageTemplateProps extends Omit<PageResponseProps, 'pageStructure'> {
+  pageSEO: NextSeoProps;
+  breadCrumbsSEO?: BreadCrumbJsonLdProps;
+  heroBlock: HeroBlock;
+  breadcrumbs?: Breadcrumbs;
+  pageStructure?: PageBlocks;
 }
 
 export interface PageProps {
