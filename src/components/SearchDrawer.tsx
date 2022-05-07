@@ -13,6 +13,7 @@ import {
   } from '@chakra-ui/react'
 import Container from './Container'
 import { MdClose, MdSearch } from "react-icons/md"
+import { useRouter } from 'next/router'
 
 export interface SearchDrawerProps {
     onClose: () => void;
@@ -23,11 +24,14 @@ export interface SearchDrawerProps {
 const SearchDrawer = ({ onClose, isOpen }) => {
     const [key, setKey] = useState<string>('')
     const theme = useTheme()
+    const router = useRouter()
 
     const onSubmit= (e: FormEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
         setKey(formData.get('search') as string)
+        router.push(`/Search?q=${formData.get('search')}`)
+            .then(v => v && setTimeout(() => onClose(), 600))
     }
 
     return (

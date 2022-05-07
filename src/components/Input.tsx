@@ -6,7 +6,7 @@ import {
 } from '@chakra-ui/react'
 import { FormInput } from '../interface/form'
 export interface InputProps extends FormInput {
-    errors: {
+    errors?: {
         [x: string]: any;
     };
     register: (name: string, RegisterOptions?) => ({ onChange, onBlur, name, ref })

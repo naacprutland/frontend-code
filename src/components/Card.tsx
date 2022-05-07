@@ -13,7 +13,7 @@ import {
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
 import Image from 'next/image'
-import { MediaImage } from '../interface/media'
+import { Image as MediaImage } from '../interface/generalApi'
 import Moment from 'react-moment'
 
 export interface CardProps {
@@ -33,7 +33,7 @@ export interface CardProps {
     colorScheme: 'prime1'| 'prime2' | 'secondary1' | 'secondary2' | 'secondary3' | 'secondary4' | 'secondary5' | 'secondary6'
   },
   date?: Date | string;
-  backShadow: 'boxShadowLight' | 'boxShadowDark'
+  backShadow?: 'boxShadowLight' | 'boxShadowDark'
 }
 
 const Card = ({ 

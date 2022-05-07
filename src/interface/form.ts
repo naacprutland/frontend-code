@@ -14,7 +14,7 @@ export interface FormRow {
 
 export interface FormField {
     id: string;
-    span: Span;
+    span?: Span;
     type: InputTypes;
     name: string;
     label: string;
