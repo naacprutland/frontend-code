@@ -46,7 +46,7 @@ const Card = ({
   date
 }: CardProps) => {
   return (
-    image && (<LinkBox as="figure" >
+    image && (<LinkBox as="figure" display="flex" flexDirection="column">
       {
         image && (
           <AspectRatio ratio={7 / 4}
@@ -70,6 +70,8 @@ const Card = ({
           <VStack as="figcaption"
             alignItems="flex-start"
             spacing="3"
+            justify="space-between"
+            flex="1 1"
             color="black"
             borderRadius="6px"
             backgroundColor="white"
