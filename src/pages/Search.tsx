@@ -71,7 +71,10 @@ const SearchPage = ({ data }: Props) => {
                 query: {
                     ...router.query,
                     q: searchKey
-                }
+                },
+            },
+            { 
+                shallow: true
             })
         }
     }

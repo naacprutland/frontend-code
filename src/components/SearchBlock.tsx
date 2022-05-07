@@ -62,7 +62,7 @@ const SearchBlock = ({ onLoadMore, searchValue, results=[], onSubmit }: SearchSo
     <>
         <Container as="form" py={[8, 12, 14]} onSubmit={handleSubmit(onSubmit)} >
             <Box className="grid">
-                <Box className="gcol-6 gcol-md-8 center" 
+                <Box className="gcol-12 gcol-md-12 gcol-lg-10 gcol-xl-8 center" 
                      w="100%">
                     <Box display="flex"
                         alignItems="end">

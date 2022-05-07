@@ -66,7 +66,6 @@ export const  getPageSearch = async (key: string, pageParam = 1) => {
       }, {
         encodeValuesOnly: true,
       });
-    console.log(`${apiEndPoints.getPages}?$${query}`)
     const json: SearchApi = await fetchApi(`${apiEndPoints.getPages}?$${query}`)
     return json.data.map(page => cardBuilder(page.attributes))
 }
