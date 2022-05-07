@@ -16,7 +16,8 @@ export interface DeckBlockProps {
     label: string;
   },
   hideButton?: boolean;
-  style?: StyleType
+  style?: StyleType;
+  disableButton?: boolean;
 }
 
 const DeckBlock = ({
@@ -26,7 +27,8 @@ const DeckBlock = ({
   link,
   onAction,
   hideButton,
-  style="none"
+  style="none",
+  disableButton
 }: DeckBlockProps) => {
   const setFull = useBreakpointValue({ base: true, sm: false })
   return (
@@ -46,7 +48,7 @@ const DeckBlock = ({
         ))}
       </SimpleGrid>
       {
-        (link || !onAction) && (
+        (link || onAction) && (
           <Flex width="100%"
             paddingTop={["6", "8", "12"]}
             justify={link && !onAction ? "start" : "center"}>
@@ -66,6 +68,7 @@ const DeckBlock = ({
             {
               (!hideButton && onAction) && <Button
                 type="button"
+                disabled={disableButton}
                 isFullWidth={setFull}
                 onClick={onAction.action}
                 size="lg"

@@ -8,10 +8,10 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import SearchBlock from '../components/SearchBlock'
 import {
+    QueryFunctionContext,
     useInfiniteQuery
   } from 'react-query'
-import { getPageSearch } from '../lib/pagesSearch'
-// import { CardProps } from '../components/Card'
+import { getPageSearch, InfinityPage } from '../lib/pagesSearch'
 
 interface Props {
     data: SearchPageTemplateProps
@@ -22,42 +22,51 @@ const SearchPage = ({ data }: Props) => {
     const router = useRouter()
     const [key, setKey] = useState(null)
     const [results, setResults] = useState([])
+    const [total, setTotal] = useState(null)
+    const getQuery = () => {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("q") || null;
+    }
     const {
             data:res,
             refetch,
             fetchNextPage,
             // error,
-            // hasNextPage,
+            hasNextPage,
             // isFetching,
-            // isFetchingNextPage,
+            isFetchingNextPage,
             // status,
-        } = useInfiniteQuery('search', ({ pageParam = 0 }) => {
-            return getPageSearch(key, pageParam)
-        }, {
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            // getNextPageParam: (lastPage, pages) => lastPage?.nextCursor,
-        })
+        } = useInfiniteQuery<InfinityPage, Error>('search', 
+            async ({ pageParam = 0 }: QueryFunctionContext) => {
+                const res = await getPageSearch(key || getQuery(), pageParam)
+                setTotal(res.resultTotal)
+                return res;
+            }, {
+                getNextPageParam: (lastPage) => lastPage?.nextCursor,
+            })
 
     useEffect(() => {
         if (res?.pages) {
             const pages = res.pages.reduce((acc, cur) => {
                 return [
                     ...acc,
-                    ...cur
+                    ...cur.page.cards
                 ]
             },[])
             setResults(pages)
         }
     }, [res])
+    
  
     useEffect(() => {
-        const { q } = router.query
-        if (q) {
-            setKey(q)
+        const query = getQuery()
+        if (query !== key) {
+            setKey(query)
         }
     }, [router])
 
     useEffect(() => {
+        // if key changes then clear results and refetch
         if (key) {
             refetch()
         }
@@ -74,7 +83,7 @@ const SearchPage = ({ data }: Props) => {
                 },
             },
             { 
-                shallow: true
+                shallow: true,
             })
         }
     }
@@ -89,7 +98,14 @@ const SearchPage = ({ data }: Props) => {
         {breadCrumbsSEO && <BreadcrumbJsonLd {...breadCrumbsSEO} />}
         {heroBlock && <HeroBlock {...heroBlock} />}
         {breadcrumbs && <Breadcrumbs {...breadcrumbs} />}
-        <SearchBlock results={results} onLoadMore={onLoadMore} searchValue={key} onSubmit={onSubmit} />
+        <SearchBlock 
+            totalResults={total}
+            hideButton={!hasNextPage}
+            disableButton={isFetchingNextPage}
+            results={results}
+            onLoadMore={onLoadMore} 
+            searchValue={key} 
+            onSubmit={onSubmit} />
         {pageStructure?.map((cProps, i) => (
             <DynamicComponent 
                 key={`pageComp${i}`}

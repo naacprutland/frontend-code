@@ -1,5 +1,7 @@
 import { CardProps } from '../../components/Card'
 import originalUrl from '../../../public/librarygirl.jpg'
+import { Image as MediaImage } from '../../interface/generalApi'
+
 const xSmallImg = originalUrl
 const smallImg = originalUrl
 const mediumImg = originalUrl

@@ -8,7 +8,16 @@ import Layout from './Layout'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const [queryClient] = useState(() => new QueryClient())
+  const [queryClient] = useState(() => new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnWindowFocus: false,
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        retry: false,
+      },
+    },
+  }))
   return (
     <ChakraProvider resetCSS theme={theme}>
       <Fonts />

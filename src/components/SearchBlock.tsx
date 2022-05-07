@@ -45,11 +45,22 @@ export interface SearchSortProps {
   collectionType?: string;
   searchValue: string;
   results?: CardProps[];
+  hideButton?: boolean;
   onLoadMore?: () => void;
   onSubmit?: (val: object) => void;
+  disableButton?: boolean;
+  totalResults?: number;
 }
 
-const SearchBlock = ({ onLoadMore, searchValue, results=[], onSubmit }: SearchSortProps) => {
+const SearchBlock = ({ 
+    onLoadMore,
+    searchValue,
+    results=[],
+    onSubmit,
+    hideButton=true,
+    disableButton,
+    totalResults
+}: SearchSortProps) => {
   const { register, handleSubmit, setValue } = useForm();
 
   useEffect(() => {
@@ -83,13 +94,20 @@ const SearchBlock = ({ onLoadMore, searchValue, results=[], onSubmit }: SearchSo
                     </Box>
                 </Box>
             </Box>
+            {typeof totalResults === 'number'&& (
+                <Box fontSize="24px"
+                    fontWeight="bold"
+                    textAlign="center"
+                    paddingTop="24px"
+                    w="100%">{totalResults} Results</Box>)}
         </Container>
         {results ? <DeckBlock position={2}
             onAction= {{
                 action: onLoadMore,
                 label: 'Load More'
               }}
-            hideButton={false}
+            disableButton={disableButton}
+            hideButton={hideButton}
             cards={results} />
         : (<Container paddingBottom={[8, 12, 14]} textAlign="center">
             <p>No Results</p>
