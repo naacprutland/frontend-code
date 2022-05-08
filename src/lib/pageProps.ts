@@ -96,10 +96,8 @@ export async function getPageProps(formTitle: string, preview: boolean) {
   // let pageData:PageResponseProps = await getPageDynamicPageData(formTitle, preview)
   let data: PageTemplateProps = {} as PageTemplateProps
 
-
-
   // 404 doesn't appear in preview mode with out this
-  if (formTitle === '404' && !pageData) {
+  if (!pageData) {
     pageData = await getStaticPageData(get404Page)
   }
  
