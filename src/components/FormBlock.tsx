@@ -13,6 +13,7 @@ import { Fieldset } from "../interface/form";
 import DynamicFormField, { DynamicFormFieldProps } from "./DynamicFormField";
 import { fetchApi } from '../lib/util';
 import apiEndPoints from "../lib/strapiApi";
+import moment from "moment";
 
 
 export interface FormBlockProps {
@@ -45,6 +46,19 @@ const FormBlock = ({
     }) {
         setIsDisabled(true)
         const isClosable = true
+        // publishedAt prevents the post from being published
+        const modVal = { publishedAt: null }
+        Object.keys(values).forEach(key => {
+            const value = values[key]
+            const isTime = moment(value, "HH:mm", true).isValid()
+            // if time then convert value to have seconds
+            if (isTime) {
+                modVal[key] = moment(value, "hh:mm").format("HH:mm:SS")
+            } else {
+                modVal[key] = values[key]
+            }
+        })
+
         try {
           await fetchApi(`${apiEndPoints.baseApiUrl}/${action}`, {
             method: "POST",
@@ -52,7 +66,7 @@ const FormBlock = ({
               'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "data": values
+                "data": modVal
             })
           })
           toast({
@@ -113,6 +127,7 @@ const FormBlock = ({
                                 return row?.fields
                                     .slice(0, 4)
                                     .map((field) => {
+                                        if (!field) return null;
                                         const fieldProps: DynamicFormFieldProps = {
                                             ...field,
                                         } as DynamicFormFieldProps

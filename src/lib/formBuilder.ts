@@ -7,6 +7,7 @@ const fieldBuilders = (type: string) => {
         case 'tel':
         case 'date':
         case 'email':
+        case 'time':
           return inputBuilder
         case 'select':
           return selectBuilder

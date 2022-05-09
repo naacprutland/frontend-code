@@ -26,7 +26,7 @@ export interface FormField {
 
 export type Span = 'full' | 'half' | 'quarter';
 export interface FormInput extends FormField {
-    type: 'text' | 'date' | 'tel' | 'email';
+    type: 'text' | 'date' | 'tel' | 'email' | 'time';
     value?: string;
     placeholder?: string;
     min?: string;
@@ -97,7 +97,7 @@ export interface FormRadios extends FormField {
     }[];
 }
 
-export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea'
+export type InputTypes = 'text' | 'radio'  | 'tel' | 'number' | 'email' | 'date' | 'checkbox' | 'select' | 'textarea' | 'time'
 
 export interface Option {
     label: string;

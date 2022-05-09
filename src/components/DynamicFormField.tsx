@@ -23,6 +23,7 @@ function DynamicFormField(props: DynamicFormFieldProps) {
     case 'tel':
     case 'date':
     case 'email':
+    case 'time':
       return <DynamicInput {...props as InputProps} />
     case 'select':
       return <DynamicSelect {...props as SelectProps} />
