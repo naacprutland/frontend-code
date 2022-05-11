@@ -40,7 +40,13 @@ const Breadcrumbs = ({
 }: BreadcrumbsProps) => (
     <Box py="8px" w="100%" {...styling[style]}>
         <Container>
-            <Breadcrumb spacing='4px' separator={<ChevronRightIcon color='secondary6.500' />}>
+            <Breadcrumb spacing='4px'
+                sx={{
+                    span: {
+                        display: 'flex'
+                    }
+                }} 
+                separator={<ChevronRightIcon color='secondary6.500' />}>
                 {
                     breadcrumbs.map(crumb => (
                         <BreadcrumbItem key={uuidv4()} >
