@@ -16,7 +16,8 @@ const {
   getGlobal,
   getPagesPreview,
   getHomePage,
-  get404Page
+  get404Page,
+  getCalenderPage
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -80,12 +81,13 @@ export async function getPageProps(formTitle: string, preview: boolean) {
 
   let pageData:PageResponseProps;
 
-
   switch (formTitle) {
     case 'homePageKey':
       pageData = await getStaticPageData(getHomePage)
-    break;
- 
+      break;
+    case 'calenderPageKey': 
+      pageData = await getStaticPageData(getCalenderPage)
+      break;
     // case 'B': document.write("Pretty good<br />");
     // break;
  
