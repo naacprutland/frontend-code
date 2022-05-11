@@ -92,29 +92,29 @@ export const ContentContainer = styled(Box)`
 `
 
 const TextBlock = ({
-  title, 
-  richText='',
+  title,
+  richText = '',
   textPos,
-  position=0,
-  style='none',
-  ...ctaListProps }: TextBlockProps)=> {
+  position = 0,
+  style = 'none',
+  ...ctaListProps }: TextBlockProps) => {
   const theme = useTheme()
   return (
     <Box as="section"
       w="100%"
       layerStyle={Styling[style]}>
       <Container className="grid"
-        py={[8, 12, 14]} 
+        py={[8, 12, 14]}
         textAlign={textPos}>
-        <Box className="gcol-12 gcol-md-8 gcol-lg-6 center" 
+        <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
           overflow="hidden"
           w="100%">
           {title && <Heading as={position > 0 ? 'h2' : 'h1'}
-                    paddingBottom={richText ? "3" : "0"}
-                    fontSize={['2xl', '3xl', '4xl']}>
-                    {title}
-                  </Heading>}
-          <ContentContainer  dangerouslySetInnerHTML={createMarkup(richText)}
+            paddingBottom={richText ? "3" : "0"}
+            fontSize={['2xl', '3xl', '4xl']}>
+            {title}
+          </Heading>}
+          <ContentContainer dangerouslySetInnerHTML={createMarkup(richText)}
             colors={theme.colors}
             fontweights={theme.fontWeights}
             space={theme.space}
