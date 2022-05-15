@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import Radios, { RadiosProps } from '../../components/Radios'
 
 export default {
-    title: "Components/Radios",
+    title: "Components/Form/Radios",
     component: Radios
 } as Meta;
 
@@ -11,7 +11,7 @@ const Template: Story<RadiosProps> = (args) => <Radios {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    id:"test",
+    id: "test",
     label: "Indicate type of Complaint:",
     name: "options",
     defaultValue: '2',
@@ -38,7 +38,7 @@ Default.args = {
 
 export const Error = Template.bind({});
 Error.args = {
-    id:"test",
+    id: "test",
     label: "Indicate type of Complaint:",
     name: "options",
     radios: [
@@ -64,6 +64,6 @@ Error.args = {
             types: {
                 required: 'Please fill in the form'
             }
-        } 
+        }
     }
 };

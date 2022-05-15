@@ -1,13 +1,13 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import FormBlock, { FormBlockProps } from '../../components/FormBlock'
-import { 
+import {
     formDataContactUS,
     fileAComplaint
 } from '../data/formData'
 
 export default {
-    title: "Components/FormBlock",
+    title: "Components/Form/FormBlock",
     component: FormBlock
 } as Meta;
 

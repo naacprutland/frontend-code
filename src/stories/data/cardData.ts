@@ -1,13 +1,12 @@
 import { CardProps } from '../../components/Card'
+import { ItemCardProps } from '../../components/ItemCard'
 import originalUrl from '../../../public/librarygirl.jpg'
-import { Image as MediaImage } from '../../interface/generalApi'
 
 const xSmallImg = originalUrl
 const smallImg = originalUrl
 const mediumImg = originalUrl
 const largeImg = originalUrl
 const xLargeImg = originalUrl
-
 
 export const cardData: CardProps = {
   image: {
@@ -60,4 +59,20 @@ export const cardData: CardProps = {
     colorScheme: 'secondary6'
   },
   date: "2022-03-24T17:14:27.816Z"
+}
+
+export const itemCardData: ItemCardProps = {
+  title: 'Regular Adult Annual',
+  subText1: '(Ages 21 & Older)',
+  subText2: '$30 a year',
+  link: {
+      label: 'Join Us',
+      path: '/',
+      external: false
+  }
+}
+
+export const itemCardDetailData: ItemCardProps = {
+  ...itemCardData,
+  subText3: '$750 one time payment or annual payments of $75.'
 }

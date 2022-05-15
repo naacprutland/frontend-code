@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import Input, { InputProps } from '../../components/Input'
-import { 
+import {
     inputDefault,
     inputPhone,
     inputDate,
@@ -9,7 +9,7 @@ import {
 } from '../data/formData'
 
 export default {
-    title: "Components/Input",
+    title: "Components/Form/Input",
     component: Input
 } as Meta;
 

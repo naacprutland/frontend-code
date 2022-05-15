@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import NumberInput, { NumberInputProps } from '../../components/NumberInput'
 
 export default {
-    title: "Components/Number Input",
+    title: "Components/Form/Number Input",
     component: NumberInput
 } as Meta;
 
@@ -11,7 +11,7 @@ const Template: Story<NumberInputProps> = (args) => <NumberInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    id:"test",
+    id: "test",
     name: "age",
     label: "Your Age",
     defaultValue: 30,
@@ -25,7 +25,7 @@ Default.args = {
 
 export const Error = Template.bind({});
 Error.args = {
-    id:"test",
+    id: "test",
     name: "age",
     label: "Your Age",
     isRequired: true,
@@ -35,6 +35,6 @@ Error.args = {
             types: {
                 required: 'Please fill in the form'
             }
-        } 
+        }
     }
 };

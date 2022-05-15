@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import TextArea, { TextAreaProps } from '../../components/TextArea'
 
 export default {
-    title: "Components/TextArea",
+    title: "Components/Form/TextArea",
     component: TextArea
 } as Meta;
 
@@ -11,7 +11,7 @@ const Template: Story<TextAreaProps> = (args) => <TextArea {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    id:"test",
+    id: "test",
     name: "description",
     label: "Description",
     placeholder: "Please enter in some details",
@@ -19,7 +19,7 @@ Default.args = {
 
 export const Error = Template.bind({});
 Error.args = {
-    id:"test",
+    id: "test",
     name: "description",
     label: "Description",
     placeholder: "Please enter in some details",
@@ -30,6 +30,6 @@ Error.args = {
             types: {
                 required: 'Please fill in the form'
             }
-        } 
+        }
     }
 };
