@@ -17,16 +17,8 @@ import Image from 'next/image'
 import { Image as MediaImage } from '../interface/generalApi'
 import Moment from 'react-moment'
 import Container from './Container'
+import { ColorScheme } from '../interface/general'
 
-export type ColorScheme =
-    'prime1'
-    | 'prime2'
-    | 'secondary1'
-    | 'secondary2'
-    | 'secondary3'
-    | 'secondary4'
-    | 'secondary5'
-    | 'secondary6'
 
 export interface FeatureBlockProps {
     heading?: string;

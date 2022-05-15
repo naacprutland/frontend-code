@@ -1,11 +1,13 @@
 import { HeroBlockApi } from './apiBlocks';
 import { SEOApi } from './apiSeo';
 import { ResponseBlocks } from './componentBlock';
+import { ColorScheme } from './general';
 
 export interface Category {
   id: number;
   label: string;
   slug: string;
+  colorScheme: ColorScheme;
   createdAt: Date;
   updatedAt: Date;
 }

@@ -171,8 +171,8 @@ export const featureBlockBuilder = ({
   event
 }: FeatureBlockApi): FeatureBlock => {
   const cardTitle = title || page?.seo?.metaTitle || event?.seo?.metaTitle || ''
-  const pageCategory = page?.categories && page?.categories[0]?.label
-  const cardLabel = badge?.label || pageCategory || (event && 'Event')
+  const pageCategory = page?.categories && page?.categories[0]
+  const cardLabel = badge?.label || pageCategory?.label || (event && 'Event')
   const src = image || page?.seo?.metaImage || event?.seo?.metaImage
   return {
     template: __component as unknown as "blocks.feature-block",
@@ -182,9 +182,9 @@ export const featureBlockBuilder = ({
       src,
       alt: imageAlt || cardTitle
     } : null,
-    title: cardTitle,
+    title: cardTitle || '',
     copy: copy || page?.seo?.metaDescription || event?.seo?.metaDescription,
-    date: date || page?.publishedAt || event?.publishedAt, 
+    date: date || page?.publishedAt || event?.publishedAt || null, 
     link: {
       label: link?.label || 'Read On',
       path: link?.link || page?.path || 'calender/' + event?.slug,
@@ -192,7 +192,7 @@ export const featureBlockBuilder = ({
     },
     badge: cardLabel ? {
       label: cardLabel,
-      colorScheme: (badge?.colorScheme || 'prime1') as ColorScheme
+      colorScheme: (badge?.colorScheme || pageCategory?.colorScheme || 'secondary1') as ColorScheme
     } : null,
   }
 }

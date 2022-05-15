@@ -46,7 +46,16 @@ const colors = {
     },
     secondary7: {
         500: '#282828'
-    }
+    },
+    tertiary1: {
+        500: '#98C13D'
+    },
+    tertiary2: {
+        500: '#000000'
+    },
+    tertiary3: {
+        500: '#AC2B37'
+    },
 }
 
 export default colors
