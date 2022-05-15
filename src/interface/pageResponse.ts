@@ -2,14 +2,23 @@ import { HeroBlockApi } from './apiBlocks';
 import { SEOApi } from './apiSeo';
 import { ResponseBlocks } from './componentBlock';
 
+export interface Category {
+  id: number;
+  label: string;
+  slug: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export interface PageResponseProps {
   _id: string;
   id: string;
   published_at: Date;
+  publishedAt: Date;
   createdAt: Date;
   updatedAt: Date
   path: string;
-  category: null | unknown;
+  categories?: Category[] | null;
   static_path: { slug: string[] };
   keywords:{
     pages: [];

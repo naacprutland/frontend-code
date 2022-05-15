@@ -1,9 +1,10 @@
 import { BreadCrumbJsonLdProps } from "next-seo";
 import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
+import { ColorScheme } from "../components/FeatureBlock";
 import { StackProps } from "../components/Stack";
-import { BreadcrumbsApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs } from "../interface/componentBlock";
+import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs, FeatureBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -155,6 +156,47 @@ export const breadcrumbBuilder = ({
   }
 }
 
+export const featureBlockBuilder = ({
+  __component,
+  heading,
+  headingAlign,
+  image,
+  imageAlt,
+  title,
+  copy,
+  date, 
+  link,
+  badge,
+  page,
+  event
+}: FeatureBlockApi): FeatureBlock => {
+  const cardTitle = title || page?.seo?.metaTitle || event?.seo?.metaTitle || ''
+  const pageCategory = page?.categories && page?.categories[0]?.label
+  const cardLabel = badge?.label || pageCategory || (event && 'Event')
+  const src = image || page?.seo?.metaImage || event?.seo?.metaImage
+  return {
+    template: __component as unknown as "blocks.feature-block",
+    heading,
+    headingAlign,
+    image: src ? {
+      src,
+      alt: imageAlt || cardTitle
+    } : null,
+    title: cardTitle,
+    copy: copy || page?.seo?.metaDescription || event?.seo?.metaDescription,
+    date: date || page?.publishedAt || event?.publishedAt, 
+    link: {
+      label: link?.label || 'Read On',
+      path: link?.link || page?.path || 'calender/' + event?.slug,
+      isExternal: link?.external || false
+    },
+    badge: cardLabel ? {
+      label: cardLabel,
+      colorScheme: (badge?.colorScheme || 'prime1') as ColorScheme
+    } : null,
+  }
+}
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
@@ -162,7 +204,8 @@ const builders = {
   "blocks.stack-block": stackBlockBuilder,
   "blocks.hero-two-block": heroTwoBlockBuilder,
   "blocks.form-block": formBlockBuilder,
-  "blocks.breadcrumbs": breadcrumbBuilder
+  "blocks.breadcrumbs": breadcrumbBuilder,
+  "blocks.feature-block": featureBlockBuilder
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {

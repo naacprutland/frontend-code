@@ -11,6 +11,7 @@ import { HeroTwoBlockProps } from './HeroTwoBlock'
 import { FormBlockProps } from './FormBlock'
 import { DividerBlockProps } from './DividerBlock'
 import { BreadcrumbsProps } from './Breadcrumbs'
+import { FeatureBlockProps } from './FeatureBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -22,18 +23,19 @@ const DynamicHeroTwoBlock: ComponentType<HeroTwoBlockProps> = dynamic(() => impo
 const DynamicFormBlock: ComponentType<FormBlockProps> = dynamic(() => import('./FormBlock'))
 const DynamicDividerBlock: ComponentType<DividerBlockProps> = dynamic(() => import('./DividerBlock'))
 const DynamicBreadcrumbs: ComponentType<BreadcrumbsProps> = dynamic(() => import('./Breadcrumbs'))
+const DynamicFeatureBlock: ComponentType<FeatureBlockProps> = dynamic(() => import('./FeatureBlock'))
 
 
-function DynamicComponent({ template, ...props}: Block) {
+function DynamicComponent({ template, ...props }: Block) {
 
   switch (template) {
     case 'blocks.hero-block':
-      return <DynamicHero {...props as HeroBlock}/>
+      return <DynamicHero {...props as HeroBlock} />
     case 'blocks.text-block':
-      return <DynamicTextBlock {...props as TextBlock}/>
+      return <DynamicTextBlock {...props as TextBlock} />
     case 'blocks.deck-block':
       return <DynamicDeckBlock {...props as DeckBlock} />
-    case 'blocks.media-block': 
+    case 'blocks.media-block':
       return <DynamicMediaBlock {...props as MediaBlock} />
     case 'blocks.search-sort-block':
       return <DynamicSearchSortBlock {...props as SearchSortBlock} />
@@ -41,13 +43,15 @@ function DynamicComponent({ template, ...props}: Block) {
       return <DynamicStackBlock {...props as StackBlockProps} />
     case "blocks.hero-two-block":
       return <DynamicHeroTwoBlock {...props as HeroTwoBlockProps} />
-    case 'blocks.form-block': 
+    case 'blocks.form-block':
       return <DynamicFormBlock {...props as FormBlockProps} />
     case 'blocks.divider-block':
       return <DynamicDividerBlock {...props as DividerBlockProps} />
     case 'blocks.breadcrumbs':
       return <DynamicBreadcrumbs {...props as BreadcrumbsProps} />
-    default :
+    case 'blocks.feature-block':
+      return <DynamicFeatureBlock {...props as FeatureBlockProps} />
+    default:
       return null
   }
 

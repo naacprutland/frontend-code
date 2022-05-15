@@ -3,12 +3,13 @@ import { TextBlockProps } from '../components/TextBlock'
 import { DeckBlockProps } from '../components/DeckBlock'
 import { MediaBlockProps } from '../components/MediaBlock'
 import { SearchSortProps } from '../components/SearchSortBlock'
-import { BreadcrumbsApi, HeroBlockApi } from './apiBlocks'
+import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from './apiBlocks'
 import { StackBlockProps } from '../components/StackBlock'
 import { HeroTwoBlockProps } from '../components/HeroTwoBlock'
 import { FormBlockProps } from '../components/FormBlock'
 import { DividerBlockProps } from '../components/DividerBlock'
 import { BreadcrumbsProps } from '../components/Breadcrumbs'
+import { FeatureBlockProps } from '../components/FeatureBlock'
 
 interface ComponentBlock {
   "template": string;
@@ -65,10 +66,15 @@ export interface Breadcrumbs extends ComponentBlock, BreadcrumbsProps {
   "template": "blocks.breadcrumbs"
 }
 
-export type ResponseBlocks = HeroBlockApi | BreadcrumbsApi
+export interface FeatureBlock extends ComponentBlock, FeatureBlockProps {
+  "template": "blocks.feature-block"
+}
+
+export type ResponseBlocks = HeroBlockApi | BreadcrumbsApi | TextBlockApi | 
+  MediaBlockApi | StackBlockApi | HeroTwoBlockApi | FormBlockApi | FeatureBlockApi
 
 export type Block = HeroBlock | TextBlock | DeckBlock | MediaBlock |
    SearchSortBlock | ContactFormBlock | StackBlock | HeroTwoBlock | 
-   FormBlock | DividerBlock | Breadcrumbs
+   FormBlock | DividerBlock | Breadcrumbs | FeatureBlock
 
 export type PageBlocks = Block[]

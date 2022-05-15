@@ -1,5 +1,28 @@
+import { EventApi } from './eventApi';
 import { Image } from './generalApi'
+import { PageResponseProps } from './pageResponse';
 
+
+export interface FeatureBlockApi {
+    __component:  "blocks.feature-block";
+    id:           number;
+    heading:      null |  string;
+    headingAlign: null |  "start" | "center" | "end";
+    imageAlt:     null |  string;
+    title:        null | string;
+    copy:         null | string;
+    date:         null | Date;
+    image:        null | Image;
+    page:         PageResponseProps;
+    event:        EventApi;
+    link:         null | Cta;
+    badge:        null | Badge;
+}
+
+export interface Badge {
+    label: string;
+    colorScheme: string;
+}
 export interface HeroBlockApi {
     __component: string;
     id:          number;
