@@ -18,11 +18,12 @@ import { Image as MediaImage } from '../interface/generalApi'
 import Moment from 'react-moment'
 import Container from './Container'
 import { ColorScheme } from '../interface/general'
+import { AlignItemsOptions } from '../interface/enums'
 
 
 export interface FeatureBlockProps {
     heading?: string;
-    headingAlign?: 'start' | 'center' | 'end';
+    headingAlign?: AlignItemsOptions;
     image: {
         src: MediaImage
         alt: string

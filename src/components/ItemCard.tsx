@@ -4,18 +4,19 @@ import {
     LinkOverlay,
     Heading,
     Text,
-    Button
+    Button,
+    LinkBoxProps
 } from "@chakra-ui/react"
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
 import { Link } from "../interface/general";
 
-export interface ItemCardProps {
+export interface ItemCardProps extends LinkBoxProps {
     title?: string;
     subText1?: string;
     subText2?: string;
     subText3?: string;
-    link?: Link,
+    link?: Link;
 }
 
 const ItemCard = ({
@@ -23,14 +24,17 @@ const ItemCard = ({
     subText1,
     subText2,
     subText3,
-    link
+    link,
+    ...props
 }: ItemCardProps) => {
     return (
         <LinkBox backgroundColor="white"
             display="flex"
             flexDirection="column"
+            justifyContent="space-between"
             textAlign="center"
             borderRadius="6px"
+            {...props}
             layerStyle="boxShadowLight"
             p="4">
             <VStack spacing="8px">
