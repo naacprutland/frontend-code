@@ -12,6 +12,7 @@ import { FormBlockProps } from './FormBlock'
 import { DividerBlockProps } from './DividerBlock'
 import { BreadcrumbsProps } from './Breadcrumbs'
 import { FeatureBlockProps } from './FeatureBlock'
+import { ItemDeckBlockProps } from './ItemDeckBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -24,6 +25,7 @@ const DynamicFormBlock: ComponentType<FormBlockProps> = dynamic(() => import('./
 const DynamicDividerBlock: ComponentType<DividerBlockProps> = dynamic(() => import('./DividerBlock'))
 const DynamicBreadcrumbs: ComponentType<BreadcrumbsProps> = dynamic(() => import('./Breadcrumbs'))
 const DynamicFeatureBlock: ComponentType<FeatureBlockProps> = dynamic(() => import('./FeatureBlock'))
+const DynamicItemDeckBlock: ComponentType<ItemDeckBlockProps> = dynamic(() => import('./ItemDeckBlock'))
 
 
 function DynamicComponent({ template, ...props }: Block) {
@@ -51,6 +53,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicBreadcrumbs {...props as BreadcrumbsProps} />
     case 'blocks.feature-block':
       return <DynamicFeatureBlock {...props as FeatureBlockProps} />
+    case 'blocks.item-deck-block':
+      return <DynamicItemDeckBlock {...props as ItemDeckBlockProps} />
     default:
       return null
   }

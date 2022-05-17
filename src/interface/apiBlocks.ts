@@ -1,3 +1,4 @@
+import { AlignItemsOptions } from './enums';
 import { EventApi } from './eventApi';
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse';
@@ -17,6 +18,23 @@ export interface FeatureBlockApi {
     event:        EventApi;
     link:         null | Cta;
     badge:        null | Badge;
+}
+
+export interface ItemCardBlockApi {
+    __component:  string;
+    id:           number;
+    heading:      string;
+    headingAlign:  AlignItemsOptions;
+    cards:        ItemCard[];
+}
+
+export interface ItemCard {
+    id?:       number;
+    title:    string;
+    subText1?: string;
+    subText2?: string;
+    subText3?: null | string;
+    link?:     Cta2;
 }
 
 export interface Badge {

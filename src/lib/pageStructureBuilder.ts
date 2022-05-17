@@ -3,8 +3,8 @@ import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { ColorScheme } from "../components/FeatureBlock";
 import { StackProps } from "../components/Stack";
-import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
-import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs, FeatureBlock } from "../interface/componentBlock";
+import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, ItemCardBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs, FeatureBlock, ItemDeckBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
@@ -197,6 +197,21 @@ export const featureBlockBuilder = ({
   }
 }
 
+const itemDeckBuilder = ({ 
+  __component,
+  headingAlign,
+  cards=[],
+  ...rest
+}: ItemCardBlockApi): ItemDeckBlock => {
+  return {
+    template: __component as unknown as "blocks.item-deck-block",
+    headingAlign: headingAlign,
+    cards: cards.map(({ title, subText1, subText2, subText3, link}) => (
+        { title, subText1, subText2, subText3, link })),
+    ...rest
+  }
+}
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
@@ -205,7 +220,8 @@ const builders = {
   "blocks.hero-two-block": heroTwoBlockBuilder,
   "blocks.form-block": formBlockBuilder,
   "blocks.breadcrumbs": breadcrumbBuilder,
-  "blocks.feature-block": featureBlockBuilder
+  "blocks.feature-block": featureBlockBuilder,
+  "blocks.item-deck-block": itemDeckBuilder,
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {
