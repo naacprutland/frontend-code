@@ -1,11 +1,11 @@
 import { BreadCrumbJsonLdProps } from "next-seo";
 import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
-import { ColorScheme } from "../components/FeatureBlock";
 import { StackProps } from "../components/Stack";
 import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, ItemCardBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
 import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs, FeatureBlock, ItemDeckBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
+import { ColorScheme } from "../interface/general";
 import { PageTemplateProps } from "../interface/page";
 import { PageResponseProps } from "../interface/pageResponse";
 import { rowBuilder } from "./formBuilder";
