@@ -53,7 +53,7 @@ const PageSearchBlock = ({ slug = "search" }: PageSearchBlockProps) => {
 
     useEffect(() => {
         const query = getQuery()
-        console.log(query)
+
         if (query !== key) {
             setKey(query)
         }
@@ -70,10 +70,12 @@ const PageSearchBlock = ({ slug = "search" }: PageSearchBlockProps) => {
         const searchKey = val?.keySearch
         if (searchKey) {
             setKey(searchKey)
+            const oldQuery = router.query
+            delete oldQuery.slug
             router.push({
                 pathname: `/${slug}`,
                 query: {
-                    ...router.query,
+                    ...oldQuery,
                     q: searchKey
                 },
             },
