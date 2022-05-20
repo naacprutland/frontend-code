@@ -1,4 +1,3 @@
-import { SEOApi } from "./apiSeo";
 import { Image } from "./generalApi";
 
 export interface SearchApi {
