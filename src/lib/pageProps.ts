@@ -18,7 +18,8 @@ const {
   getHomePage,
   get404Page,
   getCalenderPage,
-  getCheckoutPage
+  getCheckoutPage,
+  getSearchPage
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -82,20 +83,22 @@ export async function getPageProps(location: string, preview: boolean) {
 
   let pageData:PageResponseProps;
 
-  switch (location) {
+  switch (location.toLowerCase()) {
     case '':
       pageData = await getStaticPageData(getHomePage)
       break;
-    case 'calenderPageKey': 
+    case 'calender': 
       pageData = await getStaticPageData(getCalenderPage)
       break;
     case 'checkout':
       pageData = await getStaticPageData(getCheckoutPage)
       break;
+    case 'search':
+      pageData = await getStaticPageData(getSearchPage)
+      break;
     case '404':
       pageData = await getStaticPageData(get404Page)
       break;
-
     default:  
      pageData = await getDynamicPageData(location, preview)
   }

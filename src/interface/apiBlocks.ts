@@ -28,6 +28,12 @@ export interface ItemCardBlockApi {
     cards:        ItemCard[];
 }
 
+export interface PageSearchBlockApi {
+    __component: 'blocks.page-search-block';
+    id: number;
+    slug: 'string'
+}
+
 export interface ItemCard {
     id?:       number;
     title:    string;

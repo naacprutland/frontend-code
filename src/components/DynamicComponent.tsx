@@ -13,6 +13,7 @@ import { DividerBlockProps } from './DividerBlock'
 import { BreadcrumbsProps } from './Breadcrumbs'
 import { FeatureBlockProps } from './FeatureBlock'
 import { ItemDeckBlockProps } from './ItemDeckBlock'
+import { PageSearchBlockProps } from './PageSearchBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -26,6 +27,7 @@ const DynamicDividerBlock: ComponentType<DividerBlockProps> = dynamic(() => impo
 const DynamicBreadcrumbs: ComponentType<BreadcrumbsProps> = dynamic(() => import('./Breadcrumbs'))
 const DynamicFeatureBlock: ComponentType<FeatureBlockProps> = dynamic(() => import('./FeatureBlock'))
 const DynamicItemDeckBlock: ComponentType<ItemDeckBlockProps> = dynamic(() => import('./ItemDeckBlock'))
+const DynamicPageSearchBlock: ComponentType<PageSearchBlockProps> = dynamic(() => import('./PageSearchBlock'))
 
 
 function DynamicComponent({ template, ...props }: Block) {
@@ -55,6 +57,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicFeatureBlock {...props as FeatureBlockProps} />
     case 'blocks.item-deck-block':
       return <DynamicItemDeckBlock {...props as ItemDeckBlockProps} />
+    case 'blocks.page-search-block':
+      return <DynamicPageSearchBlock {...props as PageSearchBlockProps} />
     default:
       return null
   }

@@ -2,7 +2,7 @@ import { BreadCrumbJsonLdProps } from "next-seo";
 import { Breadcrumb } from "../components/Breadcrumbs";
 import { BtnColor, BtnVariant } from "../components/CtaList";
 import { StackProps } from "../components/Stack";
-import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, ItemCardBlockApi, MediaBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
+import { BreadcrumbsApi, FeatureBlockApi, FormBlockApi, HeroBlockApi, HeroTwoBlockApi, ItemCardBlockApi, MediaBlockApi, PageSearchBlockApi, StackBlockApi, TextBlockApi } from "../interface/apiBlocks";
 import { Block, HeroBlock, TextBlock,  ResponseBlocks, MediaBlock, StackBlock, HeroTwoBlock, FormBlock, Breadcrumbs, FeatureBlock, ItemDeckBlock } from "../interface/componentBlock";
 import { AlignItemsOptions } from "../interface/enums";
 import { ColorScheme } from "../interface/general";
@@ -212,6 +212,11 @@ const itemDeckBuilder = ({
   }
 }
 
+const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
+  template: __component,
+  slug
+})
+
 const builders = {
   "blocks.hero-block": heroBlockBuilder,
   "blocks.text-block": textBlockBuilder,
@@ -222,6 +227,7 @@ const builders = {
   "blocks.breadcrumbs": breadcrumbBuilder,
   "blocks.feature-block": featureBlockBuilder,
   "blocks.item-deck-block": itemDeckBuilder,
+  "blocks.page-search-block": pageSearchBlockBuilder,
 }
 
 export async function buildPageStructure(data: PageResponseProps): Promise<Partial<PageTemplateProps>> {
