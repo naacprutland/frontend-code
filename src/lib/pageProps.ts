@@ -83,7 +83,7 @@ export async function getPageProps(location: string, preview: boolean) {
   let pageData:PageResponseProps;
 
   switch (location) {
-    case 'homePageKey':
+    case '':
       pageData = await getStaticPageData(getHomePage)
       break;
     case 'calenderPageKey': 
@@ -92,9 +92,10 @@ export async function getPageProps(location: string, preview: boolean) {
     case 'checkout':
       pageData = await getStaticPageData(getCheckoutPage)
       break;
-    // case 'B': document.write("Pretty good<br />");
-    // break;
- 
+    case '404':
+      pageData = await getStaticPageData(get404Page)
+      break;
+
     default:  
      pageData = await getDynamicPageData(location, preview)
   }
@@ -105,6 +106,7 @@ export async function getPageProps(location: string, preview: boolean) {
   if (!pageData) {
     pageData = await getStaticPageData(get404Page)
   }
+
  
   if (pageData) {
     const pageSEO: NextSeoProps = pageData.seo ? seoBuilder(pageData.seo as SEOApi) : null
