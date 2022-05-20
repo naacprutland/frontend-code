@@ -17,7 +17,8 @@ const {
   getPagesPreview,
   getHomePage,
   get404Page,
-  getCalenderPage
+  getCalenderPage,
+  getCheckoutPage
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -72,30 +73,32 @@ export async function getConfigData(): Promise<ApiError | SiteConfig> {
 
 /**
  * Generates props for static props
- * @param {string} formTitle The name of the page
+ * @param {string} location The name of the page
  * @param {boolean} preview If in preview mode
  * @returns Page Props
  */
-export async function getPageProps(formTitle: string, preview: boolean) {
+export async function getPageProps(location: string, preview: boolean) {
   const config =  await getConfigData()
 
   let pageData:PageResponseProps;
 
-  switch (formTitle) {
+  switch (location) {
     case 'homePageKey':
       pageData = await getStaticPageData(getHomePage)
       break;
     case 'calenderPageKey': 
       pageData = await getStaticPageData(getCalenderPage)
       break;
+    case 'checkout':
+      pageData = await getStaticPageData(getCheckoutPage)
+      break;
     // case 'B': document.write("Pretty good<br />");
     // break;
  
     default:  
-     pageData = await getDynamicPageData(formTitle, preview)
+     pageData = await getDynamicPageData(location, preview)
   }
 
-  // let pageData:PageResponseProps = await getPageDynamicPageData(formTitle, preview)
   let data: PageTemplateProps = {} as PageTemplateProps
 
   // 404 doesn't appear in preview mode with out this
@@ -113,7 +116,7 @@ export async function getPageProps(formTitle: string, preview: boolean) {
 
   return {
     props: {
-      formTitle,
+      formTitle: location,
       preview: false,
       notFound: false,
       config,

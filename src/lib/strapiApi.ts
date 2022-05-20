@@ -11,7 +11,8 @@ const apiEndPoints = {
   getPagesSearch: `${baseApiUrl}/pages/search`,
   getHomePage: `${baseApiUrl}/home-page`,
   getSearchPage: `${baseApiUrl}/search-page`,
-  getCalenderPage: `${baseApiUrl}/calendar-page`
+  getCalenderPage: `${baseApiUrl}/calendar-page`,
+  getCheckoutPage: `${baseApiUrl}/checkout-page`
 }
 
 export default apiEndPoints
