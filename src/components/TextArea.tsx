@@ -1,8 +1,8 @@
-import { 
+import {
     Textarea as ChakraTextArea,
     FormControl,
     FormLabel,
-    FormErrorMessage 
+    FormErrorMessage
 } from '@chakra-ui/react'
 import { FormTextArea } from '../interface/form'
 
@@ -21,37 +21,38 @@ const TextArea = ({
     placeholder,
     isRequired,
     requiredMessage,
-    errors={},
+    errors = {},
     maxLength,
     minLength,
     register
 }: TextAreaProps) => {
-    
+
     return (
-    <FormControl isInvalid={errors[name]}>
-        <FormLabel htmlFor={id}>{label}</FormLabel>
-        <ChakraTextArea 
-            id={id}
-            size='md'
-            bg="white"
-            name={name}
-            value={value}
-            minHeight="120px"
-            placeholder={placeholder}
-            {
+        <FormControl isInvalid={errors[name]}>
+            <FormLabel htmlFor={id}>{label}</FormLabel>
+            <ChakraTextArea
+                id={id}
+                size='md'
+                bg="white"
+                name={name}
+                value={value}
+                minHeight="120px"
+                placeholder={placeholder}
+                {
                 ...(register ? register(name, {
-                        required: isRequired ? requiredMessage : null,
-                        maxLength,
-                        minLength,
-                    }): {})
-              }
+                    required: isRequired ? requiredMessage : null,
+                    maxLength,
+                    minLength,
+                }) : {})
+                }
             />
-        {
-            (errors[name]) && (
+            {
+                (errors[name]) && (
                     <FormErrorMessage>{errors[name].message}</FormErrorMessage>
                 )
-        }
-    </FormControl>
-)}
+            }
+        </FormControl>
+    )
+}
 
 export default TextArea

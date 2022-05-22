@@ -11,9 +11,9 @@ export interface TextBlockProps {
   title?: string,
   richText: string;
   cta?: CTABtn[];
-  textPos: AlignItemsOptions;
-  groupPosition: AlignItemsOptions;
-  colorScheme: BtnColor;
+  textPos?: AlignItemsOptions;
+  groupPosition?: AlignItemsOptions;
+  colorScheme?: BtnColor;
   variant?: BtnVariant;
   position?: number;
   style?: StyleType
@@ -94,7 +94,7 @@ export const ContentContainer = styled(Box)`
 const TextBlock = ({
   title,
   richText = '',
-  textPos,
+  textPos = 'start',
   position = 0,
   style = 'none',
   ...ctaListProps }: TextBlockProps) => {
@@ -119,7 +119,7 @@ const TextBlock = ({
             fontweights={theme.fontWeights}
             space={theme.space}
             fontsizes={theme.fontSizes} />
-          <CtaList size="md" {...ctaListProps} paddingTop="3" />
+          {ctaListProps && <CtaList size="md" {...ctaListProps} paddingTop="3" />}
         </Box>
       </Container>
     </Box>
