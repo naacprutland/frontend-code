@@ -2,13 +2,11 @@ import {
     Heading,
     Box,
     Stack as ChakraStack,
-    VStack,
-    useTheme
-  } from '@chakra-ui/react'
+    VStack
+} from '@chakra-ui/react'
 import Image from 'next/image'
 import { AlignItemsOptions } from '../interface/enums'
-import { ContentContainer } from './TextBlock';
-import { createMarkup } from '../lib/util'
+import ContentText from './ContentText';
 
 
 export interface StackProps {
@@ -23,35 +21,31 @@ export interface StackProps {
 }
 
 const Stack = ({ img, title, text, reverse }: StackProps) => {
-    const theme = useTheme()
     return (
-    <ChakraStack align="center" spacing="6" 
-        direction={reverse ? "row-reverse" : "row"}>
-        <Box borderRadius="50%"
-            h="156px"
-            layerStyle="boxShadowLight"
-            overflow="hidden"
-            minWidth="156px"
-            width="156px">
-            <Image src={img.src} alt={img.alt}
-                objectFit="cover"
-                objectPosition="center"
-                height="156px"
-                width={"156px"} />
-        </Box>
-        <VStack spacing="2" w="100%">
-            <Heading as="h3" fontSize={"2xl"} 
-                lineHeight="1" 
-                width="100%">
-                {title}
-            </Heading>
-            <ContentContainer width="100%" dangerouslySetInnerHTML={createMarkup(text)}
-                colors={theme.colors}
-                fontweights={theme.fontWeights}
-                space={theme.space}
-                fontsizes={theme.fontSizes} />
-        </VStack>
-    </ChakraStack>
-)}
+        <ChakraStack align="center" spacing="6"
+            direction={reverse ? "row-reverse" : "row"}>
+            <Box borderRadius="50%"
+                h="156px"
+                layerStyle="boxShadowLight"
+                overflow="hidden"
+                minWidth="156px"
+                width="156px">
+                <Image src={img.src} alt={img.alt}
+                    objectFit="cover"
+                    objectPosition="center"
+                    height="156px"
+                    width={"156px"} />
+            </Box>
+            <VStack spacing="2" w="100%">
+                <Heading as="h3" fontSize={"2xl"}
+                    lineHeight="1"
+                    width="100%">
+                    {title}
+                </Heading>
+                <ContentText richText={text} width="100%" />
+            </VStack>
+        </ChakraStack>
+    )
+}
 
 export default Stack 

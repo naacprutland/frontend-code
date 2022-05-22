@@ -1,11 +1,11 @@
 import { Fieldset } from "../interface/form"
 import FormBlock from "./FormBlock"
-import TextBlock from "./TextBlock"
 import DividerBlock from "./DividerBlock"
+import ContentText from "./ContentText"
 
 export interface CheckoutBlockProps {
     formData: Fieldset[]
-    details: string;
+    details?: string;
 }
 
 const CheckoutBlock = ({
@@ -14,7 +14,7 @@ const CheckoutBlock = ({
 }: CheckoutBlockProps) => {
     return (
         <>
-            {details && <TextBlock richText={details} />}
+            {details && <ContentText richText={details} />}
             <DividerBlock />
             <FormBlock action="callback" sections={formData} />
         </>

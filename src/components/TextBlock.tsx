@@ -1,11 +1,11 @@
-import { Box, Heading, useTheme } from "@chakra-ui/react"
+import { Box, Heading } from "@chakra-ui/react"
 import Container from "./Container"
 import CtaList, { CTABtn, BtnColor, BtnVariant } from './CtaList'
-import { createMarkup } from '../lib/util'
 import { AlignItemsOptions } from '../interface/enums'
 import styled from 'styled-components'
 import { StyleType } from "../interface/general"
 import { Styling } from "../interface/enums"
+import ContentText from "./ContentText"
 
 export interface TextBlockProps {
   title?: string,
@@ -98,7 +98,6 @@ const TextBlock = ({
   position = 0,
   style = 'none',
   ...ctaListProps }: TextBlockProps) => {
-  const theme = useTheme()
   return (
     <Box as="section"
       w="100%"
@@ -114,11 +113,7 @@ const TextBlock = ({
             fontSize={['2xl', '3xl', '4xl']}>
             {title}
           </Heading>}
-          <ContentContainer dangerouslySetInnerHTML={createMarkup(richText)}
-            colors={theme.colors}
-            fontweights={theme.fontWeights}
-            space={theme.space}
-            fontsizes={theme.fontSizes} />
+          {richText && <ContentText richText={richText} />}
           {ctaListProps && <CtaList size="md" {...ctaListProps} paddingTop="3" />}
         </Box>
       </Container>
