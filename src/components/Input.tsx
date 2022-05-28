@@ -1,11 +1,13 @@
-import { 
+import {
     Input as ChakraInput,
     FormControl,
     FormLabel,
-    FormErrorMessage 
+    FormErrorMessage,
+    Text
 } from '@chakra-ui/react'
 import { FormInput } from '../interface/form'
 export interface InputProps extends FormInput {
+    subText?: string;
     errors?: {
         [x: string]: any;
     };
@@ -26,35 +28,43 @@ const Input = ({
     minLength,
     isRequired,
     requiredMessage,
-    errors={},
+    subText,
+    errors = {},
     register
 }: InputProps) => {
-    
+
     return (
-    <FormControl isInvalid={errors[name]}>
-        <FormLabel htmlFor={id}>{label}</FormLabel>
-        <ChakraInput id={id} name={name}
-            size='md'
-            bg="white"
-            type={type}
-            min={min}
-            max={max}
-            value={value as string | number}
-            placeholder={placeholder}
-            {
+        <FormControl isInvalid={errors[name]}>
+            <FormLabel htmlFor={id}>{label}</FormLabel>
+            <ChakraInput id={id} name={name}
+                size='md'
+                bg="white"
+                type={type}
+                min={min}
+                max={max}
+                value={value as string | number}
+                placeholder={placeholder}
+                {
                 ...(register ? register(name, {
-                        required: isRequired ? requiredMessage : null,
-                        pattern,
-                        minLength,
-                        maxLength
-                    }): {})
-              } />
-        {
-            (errors[name]) && (
+                    required: isRequired ? requiredMessage : null,
+                    pattern,
+                    minLength,
+                    maxLength
+                }) : {})
+                } />
+            {
+                subText && <Text
+                    marginTop="8px"
+                    color="#718096"
+                    fontSize={'14px'}>{subText}</Text>
+            }
+            {
+                (errors[name]) && (
                     <FormErrorMessage>{errors[name].message}</FormErrorMessage>
                 )
-        }
-    </FormControl>
-)}
+            }
+        </FormControl>
+    )
+}
 
 export default Input
