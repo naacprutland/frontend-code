@@ -3,15 +3,16 @@ const toPath = (_path) => path.join(process.cwd(), _path);
 
 module.exports = {
     stories: [
-        "../src/stories/**/*.stories.mdx",
-        "../src/stories/**/*.stories.@(js|jsx|ts|tsx)",
+        "../src/stories/**/*.stories.@(js|jsx|ts|tsx|mdx)",
       ],
     staticDirs: ['../public', '../static'],
     addons: [
+      '@storybook/addon-queryparams',
         '@chakra-ui/storybook-addon',
         '@storybook/addon-links',
         '@storybook/addon-actions',
         '@storybook/addon-viewport',
+        // '@storybook/addon-docs',
         {
           name: '@storybook/addon-docs',
           options: {
