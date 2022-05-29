@@ -1,4 +1,5 @@
 import { FullOption } from "../../interface/checkout";
+import { OptionsData } from "../../interface/general";
 
 export const checkoutOptions: FullOption[] = [
     {
@@ -70,3 +71,26 @@ export const checkoutOptions: FullOption[] = [
         ]
     }
 ]
+
+export const optionData: OptionsData = {
+    checkoutType: {
+        label: 'Checkout Type',
+        placeholder: 'Select an option type',
+        requiredMessage: 'Please select a checkout type'
+    },
+    paymentType: {
+        label: 'Payment Type',
+        requiredMessage: 'Please select a payment type'
+    },
+    membershipType: {
+        label: 'Membership type',
+        placeholder: 'Select a Membership Type',
+        requiredMessage: 'Please select a membership type'
+    },
+    membershipId: {
+        label: 'Current Member Number',
+        placeholder: 'Current Member Number',
+        requireMessage: 'Please enter member number',
+        subText: 'Add member number if known'
+    }
+}

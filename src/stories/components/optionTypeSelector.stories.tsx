@@ -1,7 +1,7 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import { withQuery } from '@storybook/addon-queryparams';
 import OptionTypeSelector, { OptionsTypeSelectorProps } from '../../components/OptionTypeSelector'
-import { checkoutOptions } from '../data/checkout'
+import { checkoutOptions, optionData } from '../data/checkout'
 
 export default {
     title: "Components/Option Type Selector",
@@ -14,12 +14,14 @@ const Template: Story<OptionsTypeSelectorProps> = (args) => <OptionTypeSelector 
 
 export const Default = Template.bind({});
 Default.args = {
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }
 
 export const WithQueryRenew = Template.bind({});
 WithQueryRenew.args = {
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }
 WithQueryRenew.parameters = {
     query: {
@@ -36,7 +38,8 @@ WithQueryRenew.parameters = {
 
 export const WithQueryRegularAdult = Template.bind({});
 WithQueryRegularAdult.args = {
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }
 WithQueryRegularAdult.parameters = {
     query: {
@@ -53,7 +56,8 @@ WithQueryRegularAdult.parameters = {
 
 export const WithQueryLifeTimeAdult = Template.bind({});
 WithQueryLifeTimeAdult.args = {
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }
 WithQueryLifeTimeAdult.parameters = {
     query: {

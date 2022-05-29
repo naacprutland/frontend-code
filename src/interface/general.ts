@@ -34,3 +34,33 @@ export type ColorScheme =
     | 'tertiary1'
     | 'tertiary2'
     | 'tertiary3'
+
+export interface UpdateResult {
+    isValid: boolean;
+    values: {
+        [x: string]: any;
+    }
+}
+
+export interface OptionsData {
+    checkoutType: {
+        label: string;
+        placeholder: string;
+        requiredMessage: string;
+    },
+    paymentType: {
+        label: string;
+        requiredMessage: string;
+    },
+    membershipType: {
+        label: string;
+        placeholder: string;
+        requiredMessage: string;
+    },
+    membershipId: {
+        label: string;
+        placeholder: string;
+        requireMessage: string;
+        subText: string;
+    }
+}

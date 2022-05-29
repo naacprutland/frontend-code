@@ -1,4 +1,4 @@
-import { 
+import {
     Radio,
     RadioGroup,
     FormControl,
@@ -9,6 +9,7 @@ import {
 import { FormRadios } from '../interface/form'
 
 export interface RadiosProps extends FormRadios {
+    direction?: 'column' | 'row';
     errors: {
         [x: string]: any;
     };
@@ -24,38 +25,42 @@ const Radios = ({
     isRequired,
     requiredMessage,
     isDisabled,
-    radios=[],
-    errors={},
-    register
+    radios = [],
+    errors = {},
+    register,
+    direction
 }: RadiosProps) => {
     return (
-    <FormControl isInvalid={errors[name]}>
-        { label && <Text fontWeight="semibold" marginBottom="2">{label}</Text> }
-        <RadioGroup id={id} name={name} value={value} defaultValue={defaultValue}
+        <FormControl isInvalid={errors[name]}>
+            {label && <Text fontWeight="semibold" marginBottom="2">{label}</Text>}
+            <RadioGroup id={id} name={name} value={value} defaultValue={defaultValue}
             >
-            <Stack spacing='6'>
-                {radios.map(v => (
-                    <Radio key={v.value}
-                        background="white"
-                        value={v.value}
-                        size='md'
-                        {
+                <Stack spacing='6' direction={direction}
+                    justify="space-between"
+                    wrap="wrap">
+                    {radios.map(v => (
+                        <Radio key={v.value}
+                            background="white"
+                            value={v.value}
+                            size='md'
+                            {
                             ...(register ? register(name, {
-                                    required: isRequired ? requiredMessage : null,
-                                }): {})
-                          }
-                        isDisabled={isDisabled || v.isDisabled}>
-                        {v.label}
-                    </Radio>
-                ))}
-            </Stack>
-        </RadioGroup>
-        {
-            (errors[name]) && (
+                                required: isRequired ? requiredMessage : null,
+                            }) : {})
+                            }
+                            isDisabled={isDisabled || v.isDisabled}>
+                            {v.label}
+                        </Radio>
+                    ))}
+                </Stack>
+            </RadioGroup>
+            {
+                (errors[name]) && (
                     <FormErrorMessage>{errors[name].message}</FormErrorMessage>
                 )
-        }
-    </FormControl>
-)}
+            }
+        </FormControl>
+    )
+}
 
 export default Radios
