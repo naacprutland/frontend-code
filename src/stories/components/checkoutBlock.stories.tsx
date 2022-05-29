@@ -4,6 +4,7 @@ import CheckoutBlock, { CheckoutBlockProps } from '../../components/CheckoutBloc
 import {
     formDataContactUS,
 } from '../data/formData'
+import { checkoutOptions } from '../data/checkout'
 
 export default {
     title: "Components/Checkout",
@@ -20,6 +21,7 @@ Default.args = {
     <p>Rutland Area NAACP</p>
     <p>PO Box 311</p>
     <p> Wallingford, VT 05773</p >`,
-    formData: formDataContactUS.sections
+    formData: formDataContactUS.sections,
+    checkoutOptions
 }
 
