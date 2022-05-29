@@ -4,7 +4,7 @@ import CheckoutBlock, { CheckoutBlockProps } from '../../components/CheckoutBloc
 import {
     formDataContactUS,
 } from '../data/formData'
-import { checkoutOptions } from '../data/checkout'
+import { checkoutOptions, optionData, details } from '../data/checkout'
 
 export default {
     title: "Components/Checkout",
@@ -15,13 +15,61 @@ const Template: Story<CheckoutBlockProps> = (args) => <CheckoutBlock {...args} /
 
 export const Default = Template.bind({});
 Default.args = {
-    details: `<p>Payment through Paypal includes a $1.20 processing fee to cover what Paypal charges us.<p>
-    <p>You can avoid the fee by mailing in the application with a check as payment.The application can be printed out from the below PDF and mailed to:</p>
-    <p></p>
-    <p>Rutland Area NAACP</p>
-    <p>PO Box 311</p>
-    <p> Wallingford, VT 05773</p >`,
+    details,
     formData: formDataContactUS.sections,
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }
+
+export const WithQueryRenew = Template.bind({});
+WithQueryRenew.args = {
+    details,
+    formData: formDataContactUS.sections,
+    checkoutOptions,
+    optionData
+}
+WithQueryRenew.parameters = {
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "renew",
+        },
+    },
+};
+
+export const WithQueryRegularAdult = Template.bind({});
+WithQueryRegularAdult.args = {
+    details,
+    formData: formDataContactUS.sections,
+    checkoutOptions,
+    optionData
+}
+WithQueryRegularAdult.parameters = {
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "regular-adult-annual",
+        },
+    },
+};
+
+export const WithQueryLifeTimeAdult = Template.bind({});
+WithQueryLifeTimeAdult.args = {
+    details,
+    formData: formDataContactUS.sections,
+    checkoutOptions,
+    optionData
+}
+WithQueryLifeTimeAdult.parameters = {
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "life-time-adult",
+        },
+    },
+};
+
 

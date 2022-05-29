@@ -6,18 +6,20 @@ import ContentText from "./ContentText"
 import Container from "./Container"
 import OptionsTypeSelector from "./OptionTypeSelector"
 import { FullOption } from "../interface/checkout"
+import { OptionsData } from "../interface/general"
 
 export interface CheckoutBlockProps {
     formData: Fieldset[]
     details?: string;
     checkoutOptions: FullOption[];
+    optionData: OptionsData;
 }
-
 
 const CheckoutBlock = ({
     formData,
     details,
-    checkoutOptions
+    checkoutOptions,
+    optionData
 }: CheckoutBlockProps) => {
     const onTypeUpdate = (opt) => {
         // eslint-disable-next-line no-console
@@ -28,12 +30,13 @@ const CheckoutBlock = ({
         <>
             <OptionsTypeSelector
                 onUpdate={onTypeUpdate}
+                optionData={optionData}
                 checkoutOptions={checkoutOptions} />
-            <Container>
-                <DividerBlock />
-                {details && <ContentText richText={details} />}
-                <DividerBlock />
+            <DividerBlock contained />
+            <Container className="grid">
+                {details && <ContentText className="gcol-12 gcol-md-10 gcol-lg-8 center" richText={details} />}
             </Container>
+            <DividerBlock contained />
             <FormBlock action="callback" sections={formData} />
         </>
     )

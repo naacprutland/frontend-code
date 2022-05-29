@@ -1,9 +1,10 @@
-import { 
+import {
     Box
-  } from "@chakra-ui/react"
+} from "@chakra-ui/react"
 import Container from './Container'
 
 export interface DividerBlockProps {
+    contained?: boolean;
     style?: "none" | "dark" | "white";
 }
 
@@ -33,11 +34,16 @@ const styles = {
     }
 }
 
-const DividerBlock = ({ style="none" }: DividerBlockProps) => {
+const DividerBlock = ({ style = "none", contained }: DividerBlockProps) => {
     return (
         <Box {...styles[style]} width="100%">
-            <Container py={['32px', '48px', '56px']}>
-                <hr />
+            <Container className={contained && "grid"} py={['32px', '48px', '56px']}>
+                {
+                    contained && <div className="gcol-12 gcol-md-10 gcol-lg-8 center"><hr /></div>
+                }
+                {
+                    !contained && <hr />
+                }
             </Container>
         </Box>
     )

@@ -1,6 +1,13 @@
 import { FullOption } from "../../interface/checkout";
 import { OptionsData } from "../../interface/general";
 
+export const details = `<p>Payment through Paypal includes a $1.20 processing fee to cover what Paypal charges us.<p>
+    <p>You can avoid the fee by mailing in the application with a check as payment.The application can be printed out from the below PDF and mailed to:</p>
+    <p></p>
+    <p>Rutland Area NAACP</p>
+    <p>PO Box 311</p>
+    <p> Wallingford, VT 05773</p >`;
+    
 export const checkoutOptions: FullOption[] = [
     {
         type: 'regular',

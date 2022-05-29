@@ -76,21 +76,22 @@ export const ContentContainer = styled(Box)`
 
 // eslint-disable-next-line @typescript-eslint/ban-types
 export interface ContentTextProps extends ChakraProps {
-    richText: string;
+  className: string;
+  richText: string;
 }
 
 const ContentText = ({ richText, ...boxProps }: ContentTextProps) => {
-    const theme = useTheme()
-    return (
-        <ContentContainer
-            dangerouslySetInnerHTML={createMarkup(richText)}
-            colors={theme.colors}
-            fontweights={theme.fontWeights}
-            space={theme.space}
-            fontsizes={theme.fontSizes}
-            width="100%"
-            {...boxProps} />
-    )
+  const theme = useTheme()
+  return (
+    <ContentContainer
+      dangerouslySetInnerHTML={createMarkup(richText)}
+      colors={theme.colors}
+      fontweights={theme.fontWeights}
+      space={theme.space}
+      fontsizes={theme.fontSizes}
+      width="100%"
+      {...boxProps} />
+  )
 }
 
 export default ContentText
