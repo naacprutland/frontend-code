@@ -7,7 +7,8 @@ module.exports = {
       ],
     staticDirs: ['../public', '../static'],
     addons: [
-      '@storybook/addon-queryparams',
+        "storybook-addon-next-router",
+        '@storybook/addon-queryparams',
         '@chakra-ui/storybook-addon',
         '@storybook/addon-links',
         '@storybook/addon-actions',

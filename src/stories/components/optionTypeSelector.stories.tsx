@@ -25,4 +25,45 @@ WithQueryRenew.parameters = {
     query: {
         type: 'renew',
     },
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "renew",
+        },
+    },
+};
+
+export const WithQueryRegularAdult = Template.bind({});
+WithQueryRegularAdult.args = {
+    checkoutOptions
+}
+WithQueryRegularAdult.parameters = {
+    query: {
+        type: 'regular-adult-annual',
+    },
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "regular-adult-annual",
+        },
+    },
+};
+
+export const WithQueryLifeTimeAdult = Template.bind({});
+WithQueryLifeTimeAdult.args = {
+    checkoutOptions
+}
+WithQueryLifeTimeAdult.parameters = {
+    query: {
+        type: 'life-time-adult',
+    },
+    nextRouter: {
+        path: "/checkout",
+        asPath: "/checkout",
+        query: {
+            type: "life-time-adult",
+        },
+    },
 };

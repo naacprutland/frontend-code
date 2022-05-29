@@ -1,4 +1,5 @@
 import * as NextImage from "next/image";
+import { RouterContext } from "next/dist/shared/lib/router-context"; 
 import theme from '../src/theme/theme'
 import Fonts from '../src/theme/fonts'
 
@@ -69,7 +70,7 @@ export const parameters = {
         },
       ],
     },
-    // nextRouter: {
-    //   Provider: RouterContext.Provider,
-    // },
+    nextRouter: {
+      Provider: RouterContext.Provider,
+    },
   }

@@ -4,17 +4,17 @@ export const checkoutOptions: FullOption[] = [
     {
         type: 'regular',
         label: 'Youth Annual',
-        value: '12'
+        value: 'youth-annual'
     },
     {
         type: 'regular',
         label: 'Student Annual',
-        value: '24'
+        value: 'student-annual'
     },
     {
         type: 'regular',
         label: 'Regular Adult Annual',
-        value: '32'
+        value: 'regular-adult-annual'
     },
     {
         type: 'renew',
@@ -38,7 +38,7 @@ export const checkoutOptions: FullOption[] = [
     {
         type: 'life',
         label: 'Life Time Adult',
-        value: '92',
+        value: 'life-time-adult',
         paymentType: [
             {
                 label: '$75 Installment',
@@ -55,7 +55,7 @@ export const checkoutOptions: FullOption[] = [
     {
         type: 'life',
         label: 'Life Time Youth',
-        value: '843',
+        value: 'life-time-youth',
         paymentType: [
             {
                 label: '$50 Installment',

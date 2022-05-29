@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Box } from "@chakra-ui/react"
+import { useRouter } from 'next/router'
 import { useForm } from "react-hook-form";
 import Container from "./Container";
 import Select from "./Select";
@@ -23,6 +24,7 @@ const OptionsTypeSelector = ({
     checkoutOptions,
     onUpdate
 }: OptionsTypeSelectorProps) => {
+    const router = useRouter()
     const {
         register,
         getValues,
@@ -31,9 +33,23 @@ const OptionsTypeSelector = ({
             errors,
             isValid
         }
-    } = useForm({ mode: 'onChange' });
+    } = useForm({
+        mode: 'onChange',
+        defaultValues: useMemo(() => {
+            const query = router?.query;
+            let type = '';
+
+            if (typeof query.type === 'string') {
+                type = query?.type
+            }
+
+            return {
+                type
+            };
+        }, [router])
+    });
     const [currentOpt, setCurrentOpt] = useState<FullOption>(null)
-    const watchShowType = watch("type", false);
+    const watchShowType = watch("type", '');
 
     useEffect(() => {
         if (checkoutOptions) {
