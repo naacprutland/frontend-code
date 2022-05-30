@@ -2,31 +2,37 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 
 import CheckoutBlock, { CheckoutBlockProps } from '../../components/CheckoutBlock'
 import {
-    formDataContactUS,
+    checkout
 } from '../data/formData'
-import { checkoutOptions, optionData, details } from '../data/checkout'
+import { optionData, details, subscriptionOptions as membershipOptions } from '../data/checkout'
+import { transformItemsToOptions } from '../../lib/transformProductItms';
 
 export default {
     title: "Components/Checkout",
     component: CheckoutBlock
 } as Meta;
 
+const checkoutOptions = transformItemsToOptions(membershipOptions)
+console.log(checkoutOptions)
+
 const Template: Story<CheckoutBlockProps> = (args) => <CheckoutBlock {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
     details,
-    formData: formDataContactUS.sections,
+    formData: checkout.sections || [],
     checkoutOptions,
-    optionData
+    optionData,
+    membershipOptions
 }
 
 export const WithQueryRenew = Template.bind({});
 WithQueryRenew.args = {
     details,
-    formData: formDataContactUS.sections,
+    formData: checkout.sections,
     checkoutOptions,
-    optionData
+    optionData,
+    membershipOptions
 }
 WithQueryRenew.parameters = {
     nextRouter: {
@@ -41,16 +47,17 @@ WithQueryRenew.parameters = {
 export const WithQueryRegularAdult = Template.bind({});
 WithQueryRegularAdult.args = {
     details,
-    formData: formDataContactUS.sections,
+    formData: checkout.sections,
     checkoutOptions,
-    optionData
+    optionData,
+    membershipOptions
 }
 WithQueryRegularAdult.parameters = {
     nextRouter: {
         path: "/checkout",
         asPath: "/checkout",
         query: {
-            type: "regular-adult-annual",
+            type: "regular-adult-annual-membership",
         },
     },
 };
@@ -58,9 +65,10 @@ WithQueryRegularAdult.parameters = {
 export const WithQueryLifeTimeAdult = Template.bind({});
 WithQueryLifeTimeAdult.args = {
     details,
-    formData: formDataContactUS.sections,
+    formData: checkout.sections,
     checkoutOptions,
-    optionData
+    optionData,
+    membershipOptions
 }
 WithQueryLifeTimeAdult.parameters = {
     nextRouter: {

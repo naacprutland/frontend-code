@@ -1,37 +1,48 @@
-export type FullOption = LifeOption | RenewOption | RegularOption;
+export type FullOption = LifeOption | RenewOption | RegularOption
 
+export interface PaymentType {
+  label: string
+  value: string
+  isDisabled: boolean
+}
 export interface LifeOption {
-    type: 'life';
-    label: string;
-    value: string;
-    paymentType: {
-        label: string;
-        value: string;
-        isDisabled: boolean;
-    }[];
+  type: 'life'
+  label: string
+  value: string
+  paymentType?: PaymentType[]
 }
 
 export interface RenewOption {
-    type: 'renew';
-    label: string;
-    value: string;
-    membershipType: Options[];
+  type: 'renew'
+  label: string
+  value: string
+  membershipType: Options[]
 }
 
 export interface Options {
-    label: string;
-    value: string;
+  label: string
+  value: string
 }
 
 export interface RegularOption extends Options {
-    type: 'regular'
+  type: 'regular'
 }
 
 export interface MemberOptions {
-    [type: string]: {
-        id: number | string;
-        sku?: string;
-        label: string;
-        price: number;
-    }
+  id: number | string
+  type: 'regular' | 'life' | 'renew'
+  slug: string
+  title: string
+  description?: string
+  price: number
+  isDisabled?: boolean
+  paymentOptions?: PaymentOptions[]
+}
+
+export interface PaymentOptions {
+  label: string
+  slug: string
+  installment: boolean
+  price: number
+  isDisabled?: boolean
 }

@@ -1,29 +1,37 @@
-import { useEffect, useState, useMemo } from "react";
-import { Box } from "@chakra-ui/react"
+import { useEffect, useState, useMemo, forwardRef, useImperativeHandle } from "react";
+import { Box, Text } from "@chakra-ui/react"
 import { useRouter } from 'next/router'
 import { useForm } from "react-hook-form";
 import Container from "./Container";
 import Select from "./Select";
 import Radios from "./Radios"
-import { FullOption } from "../interface/checkout";
+import { FullOption, MemberOptions } from "../interface/checkout";
 import Input from "./Input";
 import { OptionsData, UpdateResult } from "../interface/general";
 export interface OptionsTypeSelectorProps {
     optionData: OptionsData;
     checkoutOptions: FullOption[];
+    membershipOptions: MemberOptions[];
     onUpdate: (arg: UpdateResult) => void;
 }
 
-const OptionsTypeSelector = ({
+export interface FormValues {
+    type?: string;
+    paymentType?: string;
+}
+
+const OptionsTypeSelector = forwardRef(({
     optionData,
     checkoutOptions,
+    membershipOptions,
     onUpdate
-}: OptionsTypeSelectorProps) => {
+}: OptionsTypeSelectorProps, ref) => {
     const router = useRouter()
     const {
         register,
         getValues,
         watch,
+        trigger,
         formState: {
             errors,
             isValid
@@ -35,7 +43,9 @@ const OptionsTypeSelector = ({
             let type = '';
 
             if (typeof query.type === 'string') {
-                type = query?.type
+                const findOption = checkoutOptions.find(v => v.value === query.type)
+                // if option is in available values
+                if (findOption) type = query?.type
             }
 
             return {
@@ -44,27 +54,73 @@ const OptionsTypeSelector = ({
         }, [router])
     });
     const [currentOpt, setCurrentOpt] = useState<FullOption>(null)
+    const [label, setLabel] = useState(null)
+    const [amount, setAmount] = useState(null)
     const watchShowType = watch("type", '');
+
+    const handleUpdate = (values: FormValues) => {
+        setAmount(null)
+
+        const choice: MemberOptions = membershipOptions.find(v => {
+            return v.slug === values.type
+        })
+        console.log('update', values, getValues())
+        if (choice) {
+            setLabel(choice.title)
+            if (choice.paymentOptions && 'paymentType' in values) {
+                const choice1: MemberOptions = membershipOptions.find(v => {
+                    return v.slug === values.type
+                })
+                if (choice1) {
+                    const paySelection = choice1.paymentOptions.find(v => {
+                        return v.slug === values.paymentType
+                    })
+                    console.log({ paySelection })
+
+                    if (!paySelection) return
+                    setAmount(`$${paySelection?.price}`)
+                }
+            } else {
+                setAmount(`$${choice.price}`)
+            }
+        }
+
+
+        // if (values.type === 'renew') {
+
+        // }
+    }
 
     useEffect(() => {
         if (checkoutOptions) {
             const option = checkoutOptions.find(v => v.value == watchShowType) || null
             setCurrentOpt(option)
         }
+
     }, [watchShowType, checkoutOptions])
 
     useEffect(() => {
         if (onUpdate) {
-            onUpdate({ isValid, values: getValues() })
-            const subscription = watch((values) => {
+            const values = getValues()
+            onUpdate({ isValid, values })
+            console.log('out subscribe')
+            handleUpdate(values)
+            const subscription = watch((values: FormValues) => {
                 onUpdate({ isValid, values })
+                console.log('subscribe')
+                handleUpdate(values)
+
             });
             return () => subscription.unsubscribe();
         }
-    }, [watch, isValid, onUpdate])
+    }, [watch, isValid, membershipOptions])
+
+    useImperativeHandle(ref, () => ({
+        trigger
+    }))
 
     return (
-        <Container className="grid">
+        <Container className="grid" py={['32px', '48px', '56px']}>
             <Box as="form"
                 display="flex"
                 flexWrap="wrap"
@@ -118,7 +174,7 @@ const OptionsTypeSelector = ({
                     )
                 }
                 {
-                    currentOpt?.type === 'life' && (
+                    (currentOpt && 'paymentType' in currentOpt) && (
                         <Box flex={['1 1 100%', '1 1 48%']}>
                             <Radios
                                 id="paymentTypes"
@@ -135,9 +191,13 @@ const OptionsTypeSelector = ({
                             />
                         </Box>
                     )}
+                {label && (
+                    <Text flex="1 1 100%">
+                        {label}: {amount}
+                    </Text>)}
             </Box>
         </Container>
     )
-}
+})
 
 export default OptionsTypeSelector

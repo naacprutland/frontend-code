@@ -6,7 +6,7 @@ import {
     GridItem,
     useToast
 } from "@chakra-ui/react"
-import { useState, useEffect } from "react";
+import { useState, useEffect, forwardRef, useImperativeHandle } from "react";
 import Container from "./Container"
 import { useForm } from "react-hook-form";
 import { Fieldset } from "../interface/form";
@@ -15,13 +15,13 @@ import { fetchApi } from '../lib/util';
 import apiEndPoints from "../lib/strapiApi";
 import moment from "moment";
 
-export interface FormData {
+export interface FormDataStructure {
     [key: string]: string;
 }
 
 export interface RespForm {
     isValid: boolean;
-    data: FormData;
+    data: FormDataStructure;
 }
 export interface FormBlockProps {
     action: string;
@@ -36,12 +36,12 @@ enum FieldColumn {
     quarter = 1
 }
 
-const FormBlock = ({
+const FormBlock = forwardRef(({
     action,
     sections = [],
     onCallBack,
     hideSubmitBtn
-}: FormBlockProps) => {
+}: FormBlockProps, ref) => {
     const [isDisabled, setIsDisabled] = useState(false)
     const {
         register,
@@ -50,6 +50,7 @@ const FormBlock = ({
         watch,
         handleSubmit,
         setError,
+        trigger,
         formState: { errors, isSubmitting, isValid } } = useForm(
             { mode: 'onChange' }
         );
@@ -71,7 +72,12 @@ const FormBlock = ({
 
             return () => subscription.unsubscribe();
         }
-    }, [isValid, watch, onCallBack]);
+    }, [isValid, watch]);
+
+    useImperativeHandle(ref, () => ({
+        trigger
+    }));
+
 
     async function onSubmit(values: {
         [key: string]: string
@@ -213,6 +219,6 @@ const FormBlock = ({
             </Box>
         </Container>
     )
-}
+})
 
 export default FormBlock
