@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react'
 import { Fieldset } from "../interface/form"
-import FormBlock, { RespForm, FormDataStructure } from "./FormBlock"
+import FormBlock, { RespForm } from "./FormBlock"
 import DividerBlock from "./DividerBlock"
 import ContentText from "./ContentText"
 import Container from "./Container"
@@ -27,63 +27,37 @@ const CheckoutBlock = ({
 }: CheckoutBlockProps) => {
     const formBlockRef = useRef()
     const optionTypeRef = useRef()
-    const [subscription, setSubscription] = useState<object>()
-    const [userData, setUserData] = useState<FormDataStructure>(null)
-    const [isUserValid, setIsUserValid] = useState<boolean>(false)
-    const [isSubValid, setIsSubValid] = useState<boolean>(false)
-
-    const onTypeUpdate = (opt: UpdateResult) => {
-        if (opt?.values?.type) {
-            // eslint-disable-next-line no-console
-            // console.log(opt.values);
-            setIsSubValid(opt.isValid)
-            if (opt.values.type === 'renew') {
-                // handle renew
-            } else {
-                // handle none new
-                console.log(membershipOptions[opt.values.type])
-                setSubscription(opt.values)
-            }
-            // update the type here
-        }
-    }
-
-    const onFormData = (opt: RespForm) => {
-        if (opt?.data) {
-            // eslint-disable-next-line no-console
-            console.log(opt)
-            setIsUserValid(opt?.isValid)
-            setUserData(opt?.data)
-        }
-        return true;
-    }
+    const [optionTypeState, setOptionTypeState] = useState<UpdateResult>(null)
+    const [userDataState, setUserDataState] = useState<RespForm>(null)
 
     const onSubmit = () => {
-        if (!isSubValid) {
-            // trigger valid
+        // if not valid then run on option type
+        if (!optionTypeState?.isValid) {
             if (optionTypeRef?.current) {
                 (optionTypeRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
             return
         }
-
-        if (!isUserValid) {
-            // trigger valid
+        // if user data is not valid trigger validation
+        if (!userDataState?.isValid) {
             if (formBlockRef?.current) {
                 (formBlockRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
             return;
         }
         // send data on submit with paypal confirmation
-        console.log(subscription)
-        console.log(userData)
+        // eslint-disable-next-line no-console
+        console.log(optionTypeState?.values)
+        // eslint-disable-next-line no-console
+        console.log(userDataState?.data)
     }
+
     return (
         <>
             <OptionsTypeSelector
                 ref={optionTypeRef}
                 checkoutOptions={checkoutOptions}
-                onUpdate={onTypeUpdate}
+                onUpdate={setOptionTypeState}
                 optionData={optionData}
                 membershipOptions={membershipOptions}
             />
@@ -95,7 +69,7 @@ const CheckoutBlock = ({
             <FormBlock
                 ref={formBlockRef}
                 action="callback"
-                onCallBack={onFormData}
+                onCallBack={setUserDataState}
                 hideSubmitBtn
                 sections={formData} />
 

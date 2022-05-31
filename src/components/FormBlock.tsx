@@ -26,7 +26,7 @@ export interface RespForm {
 export interface FormBlockProps {
     action: string;
     sections?: Fieldset[];
-    onCallBack?: (val: RespForm) => boolean;
+    onCallBack?: (val: RespForm) => boolean | void;
     hideSubmitBtn?: boolean;
 }
 
