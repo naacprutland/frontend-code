@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import Container from "./Container";
 import Select from "./Select";
 import Radios from "./Radios"
-import { FullOption, MemberOptions } from "../interface/checkout";
+import { FullOption, LifeOption, MemberOptions } from "../interface/checkout";
 import Input from "./Input";
 import { OptionsData, UpdateResult } from "../interface/general";
 export interface OptionsTypeSelectorProps {
@@ -18,6 +18,8 @@ export interface OptionsTypeSelectorProps {
 export interface FormValues {
     type?: string;
     paymentType?: string;
+    membershipType?: string;
+    membershipId?: string;
 }
 
 const OptionsTypeSelector = forwardRef(({
@@ -30,15 +32,18 @@ const OptionsTypeSelector = forwardRef(({
     const {
         register,
         getValues,
+        setValue,
         watch,
         trigger,
+        resetField,
         formState: {
             errors,
             isValid
         }
     } = useForm({
         mode: 'onChange',
-        defaultValues: useMemo(() => {
+        shouldUnregister: true,
+        defaultValues: useMemo((): FormValues => {
             const query = router?.query;
             let type = '';
 
@@ -61,55 +66,70 @@ const OptionsTypeSelector = forwardRef(({
     const handleUpdate = (values: FormValues) => {
         setAmount(null)
 
-        const choice: MemberOptions = membershipOptions.find(v => {
-            return v.slug === values.type
-        })
-        console.log('update', values, getValues())
-        if (choice) {
-            setLabel(choice.title)
-            if (choice.paymentOptions && 'paymentType' in values) {
-                const choice1: MemberOptions = membershipOptions.find(v => {
-                    return v.slug === values.type
+        if (values?.type === 'renew') {
+            if (values?.membershipType) {
+                const choice: MemberOptions = membershipOptions.find(v => {
+                    return v.slug === values?.membershipType
                 })
-                if (choice1) {
-                    const paySelection = choice1.paymentOptions.find(v => {
-                        return v.slug === values.paymentType
-                    })
-                    console.log({ paySelection })
-
-                    if (!paySelection) return
-                    setAmount(`$${paySelection?.price}`)
+                if (choice) {
+                    setLabel(choice.title)
+                    return setAmount(`$${choice.price}`)
                 }
-            } else {
-                setAmount(`$${choice.price}`)
+            }
+        } else {
+            const choice: MemberOptions = membershipOptions.find(v => {
+                return v.slug === values.type
+            })
+
+            if (choice) {
+                setLabel(choice.title)
+                if (choice.paymentOptions) {
+                    const paySelection = ('paymentType' in values) ? choice.paymentOptions.find(v => {
+                        return v.slug === values.paymentType
+                    }) : choice.paymentOptions[0];
+                    console.log({ paySelection })
+                    if (!paySelection) return setAmount(null)
+                    return setAmount(`$${paySelection?.price}`)
+                } else {
+                    return setAmount(`$${choice.price}`)
+                }
             }
         }
 
-
-        // if (values.type === 'renew') {
-
-        // }
+        setAmount(null)
+        setLabel(null)
     }
 
     useEffect(() => {
         if (checkoutOptions) {
             const option = checkoutOptions.find(v => v.value == watchShowType) || null
+            if ((option as LifeOption)?.paymentType) {
+                setValue('paymentType', (option as LifeOption).paymentType[0].value || '')
+            }
             setCurrentOpt(option)
         }
 
     }, [watchShowType, checkoutOptions])
 
     useEffect(() => {
+        if (currentOpt) {
+            if ((currentOpt as LifeOption)?.paymentType) {
+                setValue('paymentType', (currentOpt as LifeOption).paymentType[0].value || '')
+            }
+        } else {
+            resetField('paymentType');
+        }
+        resetField('paymentType');
+    }, [currentOpt])
+
+    useEffect(() => {
         if (onUpdate) {
-            const values = getValues()
-            onUpdate({ isValid, values })
-            console.log('out subscribe')
-            handleUpdate(values)
+            const outSideValues = getValues()
+            onUpdate({ isValid, values: outSideValues })
+            handleUpdate(outSideValues)
             const subscription = watch((values: FormValues) => {
                 onUpdate({ isValid, values })
-                console.log('subscribe')
                 handleUpdate(values)
-
             });
             return () => subscription.unsubscribe();
         }
@@ -166,7 +186,7 @@ const OptionsTypeSelector = forwardRef(({
                                     name="membershipId"
                                     placeholder={optionData?.membershipId?.placeholder}
                                     register={register}
-                                    isRequired={true}
+                                    isRequired={false}
                                     subText={optionData?.membershipId?.subText}
                                     requiredMessage={optionData?.membershipId?.requireMessage} />
                             </Box>
@@ -181,10 +201,10 @@ const OptionsTypeSelector = forwardRef(({
                                 name="paymentType"
                                 type="radio"
                                 label={optionData?.paymentType?.label}
-                                defaultValue={currentOpt.paymentType[0]?.value}
+                                defaultValue={currentOpt?.paymentType[0]?.value}
                                 errors={errors}
                                 register={register}
-                                radios={currentOpt.paymentType}
+                                radios={currentOpt?.paymentType}
                                 isRequired={true}
                                 requiredMessage={optionData?.paymentType?.requiredMessage}
                                 direction="row"
@@ -192,7 +212,7 @@ const OptionsTypeSelector = forwardRef(({
                         </Box>
                     )}
                 {label && (
-                    <Text flex="1 1 100%">
+                    <Text flex="1 1 100%" fontSize='18px' fontWeight="600">
                         {label}: {amount}
                     </Text>)}
             </Box>

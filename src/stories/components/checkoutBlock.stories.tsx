@@ -13,7 +13,6 @@ export default {
 } as Meta;
 
 const checkoutOptions = transformItemsToOptions(membershipOptions)
-console.log(checkoutOptions)
 
 const Template: Story<CheckoutBlockProps> = (args) => <CheckoutBlock {...args} />;
 

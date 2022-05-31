@@ -119,7 +119,7 @@ export const subscriptionOptions: MemberOptions[] = [
     slug: 'student-annual',
     description:
       'Panda Ipsum panda dances. Population years ago. There are two main types of the cool ipsum with giant panda likes great panda and the only ovulate once each year.',
-    price: 20,
+    price: 18,
   },
   {
     id: 3,
@@ -128,7 +128,7 @@ export const subscriptionOptions: MemberOptions[] = [
     slug: 'regular-adult-annual-membership',
     description:
       'Panda Ipsum panda dances. Population years ago. There are two main types of the cool ipsum with giant panda likes great panda and the only ovulate once each year.',
-    price: 20,
+    price: 25,
   },
   {
     id: 4,
@@ -146,7 +146,7 @@ export const subscriptionOptions: MemberOptions[] = [
     slug: 'renew-student-annual',
     description:
       'Panda Ipsum panda dances. Population years ago. There are two main types of the cool ipsum with giant panda likes great panda and the only ovulate once each year.',
-    price: 20,
+    price: 18,
   },
   {
     id: 6,
@@ -155,7 +155,7 @@ export const subscriptionOptions: MemberOptions[] = [
     slug: 'renew-adult-annual',
     description:
       'Panda Ipsum panda dances. Population years ago. There are two main types of the cool ipsum with giant panda likes great panda and the only ovulate once each year.',
-    price: 20,
+    price: 25,
   },
   {
     id: 7,
