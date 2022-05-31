@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo, forwardRef, useImperativeHandle } from "react";
+import { useEffect, useState, useMemo, forwardRef, useImperativeHandle, useRef, LabelHTMLAttributes } from "react";
 import { Box, Text } from "@chakra-ui/react"
 import { useRouter } from 'next/router'
 import { useForm } from "react-hook-form";
@@ -29,10 +29,10 @@ const OptionsTypeSelector = forwardRef(({
     onUpdate
 }: OptionsTypeSelectorProps, ref) => {
     const router = useRouter()
+    const radioContainerRef = useRef();
     const {
         register,
         getValues,
-        setValue,
         watch,
         trigger,
         resetField,
@@ -87,7 +87,7 @@ const OptionsTypeSelector = forwardRef(({
                     const paySelection = ('paymentType' in values) ? choice.paymentOptions.find(v => {
                         return v.slug === values.paymentType
                     }) : choice.paymentOptions[0];
-                    console.log({ paySelection })
+
                     if (!paySelection) return setAmount(null)
                     return setAmount(`$${paySelection?.price}`)
                 } else {
@@ -101,25 +101,22 @@ const OptionsTypeSelector = forwardRef(({
     }
 
     useEffect(() => {
+        // clearing this filed when ever the type changes
+        resetField('paymentType');
         if (checkoutOptions) {
             const option = checkoutOptions.find(v => v.value == watchShowType) || null
-            if ((option as LifeOption)?.paymentType) {
-                setValue('paymentType', (option as LifeOption).paymentType[0].value || '')
-            }
             setCurrentOpt(option)
         }
-
     }, [watchShowType, checkoutOptions])
 
     useEffect(() => {
         if (currentOpt) {
-            if ((currentOpt as LifeOption)?.paymentType) {
-                setValue('paymentType', (currentOpt as LifeOption).paymentType[0].value || '')
+            if (radioContainerRef && (currentOpt as LifeOption)?.paymentType) {
+                const elm: Element = radioContainerRef.current;
+                const radio: HTMLLabelElement = elm ? elm.querySelector('.chakra-radio') : null
+                if (radio) radio.click();
             }
-        } else {
-            resetField('paymentType');
         }
-        resetField('paymentType');
     }, [currentOpt])
 
     useEffect(() => {
@@ -195,13 +192,13 @@ const OptionsTypeSelector = forwardRef(({
                 }
                 {
                     (currentOpt && 'paymentType' in currentOpt) && (
-                        <Box flex={['1 1 100%', '1 1 48%']}>
+                        <Box ref={radioContainerRef} flex={['1 1 100%', '1 1 48%']}>
                             <Radios
                                 id="paymentTypes"
                                 name="paymentType"
                                 type="radio"
                                 label={optionData?.paymentType?.label}
-                                defaultValue={currentOpt?.paymentType[0]?.value}
+                                defaultValue=''
                                 errors={errors}
                                 register={register}
                                 radios={currentOpt?.paymentType}
