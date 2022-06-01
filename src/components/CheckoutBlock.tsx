@@ -30,26 +30,27 @@ const CheckoutBlock = ({
     const [optionTypeState, setOptionTypeState] = useState<UpdateResult>(null)
     const [userDataState, setUserDataState] = useState<RespForm>(null)
 
-    const onSubmit = () => {
+    const onSubmit = (): boolean => {
         // if not valid then run on option type
         if (!optionTypeState?.isValid) {
             if (optionTypeRef?.current) {
                 (optionTypeRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
-            return
+            return false
         }
         // if user data is not valid trigger validation
         if (!userDataState?.isValid) {
             if (formBlockRef?.current) {
                 (formBlockRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
-            return;
+            return false;
         }
         // send data on submit with paypal confirmation
         // eslint-disable-next-line no-console
         console.log(optionTypeState?.values)
         // eslint-disable-next-line no-console
         console.log(userDataState?.data)
+        return true
     }
 
     return (
