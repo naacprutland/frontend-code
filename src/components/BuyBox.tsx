@@ -43,9 +43,10 @@ const BuyBox = ({
                 const pymtOption = selectedItem.paymentOptions.find(opt => {
                     return opt.slug === optionType.values.paymentType
                 })
+
                 if (pymtOption) {
                     fullItems.unshift({
-                        label: pymtOption.label,
+                        label: selectedItem.title,
                         amount: pymtOption.price
                     })
                 }
@@ -81,11 +82,16 @@ const BuyBox = ({
                 borderRadius="6px"
                 layerStyle="boxShadowLight">
                 <VStack spacing="24px">
-                    <VStack spacing="8px">
+                    <VStack spacing="8px" width="100%">
                         {items.map((v, i) => (
                             <Stat key={v.label + i}
-                                display="flex"
-                                justifyContent="space-between">
+                                width="100%"
+                                sx={{
+                                    dl: {
+                                        display: 'flex',
+                                        justifyContent: 'space-between'
+                                    }
+                                }}>
                                 <StatLabel
                                     lineHeight="1"
                                     fontSize="18px"
@@ -102,8 +108,14 @@ const BuyBox = ({
                         }
                     </VStack>
                     {!isNaN(total) && (
-                        <Stat display="flex"
-                            justifyContent="space-between"
+                        <Stat
+                            width="100%"
+                            sx={{
+                                dl: {
+                                    display: 'flex',
+                                    justifyContent: 'space-between'
+                                }
+                            }}
                         >
                             <StatLabel
                                 lineHeight="1"
