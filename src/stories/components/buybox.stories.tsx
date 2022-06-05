@@ -1,52 +1,20 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 import BuyBox, { BuyBoxProps } from '../../components/BuyBox';
-import { subscriptionOptions } from '../data/checkout'
+import { defaultData, renewItemPriceData, itemsWithSelectedPaymentOptionData } from '../data/buyBoxData'
 
 export default {
     title: 'Components/Buy Box',
     component: BuyBox,
+    argTypes: { onSubmit: { action: 'payment approved' } },
 } as Meta;
 
 const Template: Story<BuyBoxProps> = (args) => <BuyBox {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-    additionalFees: [{
-        label: 'PayPal Fee',
-        amount: 1.20
-    }],
-    selectedItem: subscriptionOptions.find(v => v.slug === 'regular-adult-annual-membership'),
-    optionType: {
-        isValid: true,
-        values: { type: 'regular-adult-annual-membership' }
-    },
-    userData: undefined
-};
+Default.args = defaultData
 
 export const RenewItemPrice = Template.bind({});
-RenewItemPrice.args = {
-    additionalFees: [{
-        label: 'PayPal Fee',
-        amount: 1.20
-    }],
-    selectedItem: subscriptionOptions.find(v => v.slug === 'renew-youth-annual'),
-    optionType: {
-        isValid: true,
-        values: { type: 'renew', membershipType: 'renew-youth-annual' }
-    },
-    userData: undefined
-};
+RenewItemPrice.args = renewItemPriceData
 
 export const ItemsWithSelectedPaymentOption = Template.bind({});
-ItemsWithSelectedPaymentOption.args = {
-    additionalFees: [{
-        label: 'PayPal Fee',
-        amount: 1.20
-    }],
-    selectedItem: subscriptionOptions.find(v => v.slug === 'life-time-adult'),
-    optionType: {
-        isValid: true,
-        values: { type: 'life-time-adult', paymentType: 'life-time-adult-installment' }
-    },
-    userData: undefined
-};
+ItemsWithSelectedPaymentOption.args = itemsWithSelectedPaymentOptionData

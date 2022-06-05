@@ -5,7 +5,7 @@ import { defaultData, customButtonsData } from '../data/paypalData'
 export default {
     title: "Components/Pay Pal",
     component: PayPal,
-    argTypes: { onApprove: { action: 'clicked closed' } },
+    argTypes: { onApprove: { action: 'payment approved' } },
 } as Meta;
 
 const Template: Story<PayPalProps> = (args) => <PayPal {...args} />;

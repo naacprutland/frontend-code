@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 import {
+    Box
+} from "@chakra-ui/react"
+import {
     PayPalButtons,
     usePayPalScriptReducer,
     PayPalButtonsComponentProps,
@@ -49,33 +52,39 @@ const PayPalBtnWrapper = ({
 
     return (<>
         {(showSpinner && isPending) && <div className="spinner" />}
-        <PayPalButtons
-            style={style}
-            disabled={disableBtn}
-            fundingSource={fundingSource}
-            createOrder={(data, actions) => {
-                return actions.order
-                    .create({
-                        purchase_units: purchaseUnit,
-                        application_context: {
-                            brand_name,
-                            shipping_preference: 'NO_SHIPPING'
-                        }
-                    })
-                    .then((orderId) => {
-                        // Your code here after create the order
-                        return orderId;
+        <Box sx={{
+            div: {
+                display: 'flex'
+            }
+        }}>
+            <PayPalButtons
+                style={style}
+                disabled={disableBtn}
+                fundingSource={fundingSource}
+                createOrder={(data, actions) => {
+                    return actions.order
+                        .create({
+                            purchase_units: purchaseUnit,
+                            application_context: {
+                                brand_name,
+                                shipping_preference: 'NO_SHIPPING'
+                            }
+                        })
+                        .then((orderId) => {
+                            // Your code here after create the order
+                            return orderId;
+                        });
+                }}
+                onApprove={function (data: OnApproveData, actions: OnApproveActions) {
+                    return actions.order.capture().then(function () {
+                        // Your code here after capture the order
+                        if (onApprove) onApprove(data)
                     });
-            }}
-            onApprove={function (data: OnApproveData, actions: OnApproveActions) {
-                return actions.order.capture().then(function () {
-                    // Your code here after capture the order
-                    if (onApprove) onApprove(data)
-                });
-            }}
-            onError={onError}
-            onCancel={onCancel}
-        />
+                }}
+                onError={onError}
+                onCancel={onCancel}
+            />
+        </Box>
     </>
     );
 }

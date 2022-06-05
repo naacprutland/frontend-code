@@ -5,12 +5,15 @@ import {
     Stat,
     StatLabel,
     StatNumber,
+    useToast
 } from "@chakra-ui/react"
 import { MemberOptions } from "../interface/checkout";
 import { UpdateResult } from "../interface/general";
 import Container from "./Container"
 import { RespForm } from "./FormBlock";
 import PayPal from "./PayPal"
+import { PurchaseUnit } from "@paypal/paypal-js/types/apis/orders"
+import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
 
 export interface PurchaseItem {
     label: string;
@@ -18,21 +21,32 @@ export interface PurchaseItem {
 }
 
 export interface BuyBoxProps {
+    clientId: string;
     additionalFees: PurchaseItem[];
+    brandName: string;
+    disableBtn?: boolean;
     selectedItem: MemberOptions | undefined;
     optionType: UpdateResult | undefined;
     userData: RespForm | undefined;
-    onSubmit: () => boolean;
+    fundingStyling?: string[];
+    onSubmit?: (data: OnApproveData) => void;
 }
 
 const BuyBox = ({
     additionalFees = [],
+    brandName,
+    clientId,
+    disableBtn,
     selectedItem,
+    fundingStyling = [undefined],
     optionType,
-    userData
+    userData,
+    onSubmit
 }: BuyBoxProps) => {
     const [items, setItems] = useState<PurchaseItem[]>([])
     const [total, setTotal] = useState<number | null>(null)
+    const [units, setUnits] = useState<PurchaseUnit[]>([])
+    const toast = useToast()
 
     useEffect(() => {
         const fullItems = [
@@ -68,12 +82,49 @@ const BuyBox = ({
                 }, 0).toFixed(2))
         }
 
+        const fullUnits = [
+            {
+                amount: {
+                    currency_code: 'USD',
+                    value: parseFloat(`${itemsTotal}`).toFixed(2),
+                    breakdown: {
+                        item_total: {
+                            currency_code: 'USD',
+                            value: parseFloat(`${itemsTotal}`).toFixed(2)
+                        }
+                    }
+                },
+                items: fullItems.map(v => {
+                    return {
+                        name: v.label,
+                        quantity: '1',
+                        unit_amount: {
+                            currency_code: 'USD',
+                            value: parseFloat(`${v.amount}`).toFixed(2),
+                        }
+                    }
+                })
+            }
+        ]
+
+        setUnits(fullUnits)
         setTotal(itemsTotal)
         setItems(fullItems)
     }, [additionalFees,
         selectedItem,
         optionType,
         userData])
+
+    const onError = (err: Record<string, unknown>) => {
+        // eslint-disable-next-line no-console
+        console.log(err)
+        toast({
+            title: 'Payment error',
+            description: 'There was an issue submitting your payment',
+            status: 'error',
+            isClosable: true,
+        })
+    }
 
     return (
         <Container className="grid">
@@ -131,7 +182,19 @@ const BuyBox = ({
                             </StatNumber>
                         </Stat>
                     )}
-                    <PayPal clientId="test" />
+                    <PayPal
+                        clientId={clientId}
+                        brandName={brandName}
+                        spinner={true}
+                        style={fundingStyling.map(() => ({
+                            layout: 'vertical',
+                            label: 'checkout'
+                        }))}
+                        fundingSources={fundingStyling}
+                        purchaseUnit={units}
+                        disableBtn={disableBtn}
+                        onApprove={onSubmit}
+                        onError={onError} />
                 </VStack>
             </Box>
         </Container >

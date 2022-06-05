@@ -7,7 +7,7 @@ import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
 import PayPalBtnWrapper from './PayPalBtnWrapper';
 
 export interface PayPalProps {
-    brand_name?: string;
+    brandName?: string;
     spinner?: boolean;
     currency?: string;
     disableBtn?: boolean;
@@ -21,7 +21,7 @@ export interface PayPalProps {
 }
 
 function PayPal({
-    brand_name,
+    brandName,
     currency = "USD",
     style = [{ layout: "vertical" }],
     spinner = false,
@@ -35,7 +35,11 @@ function PayPal({
 }: PayPalProps) {
 
     return (
-        <div style={{ width: "100%" }}>
+        <div style={{
+            display: 'grid',
+            gap: '16px',
+            width: "100%"
+        }}>
             <PayPalScriptProvider
                 options={{
                     "client-id": clientId,
@@ -49,7 +53,7 @@ function PayPal({
                             <PayPalBtnWrapper
                                 key={source}
                                 style={style[i]}
-                                brand_name={brand_name}
+                                brand_name={brandName}
                                 onApprove={onApprove}
                                 onError={onError}
                                 onCancel={onCancel}
