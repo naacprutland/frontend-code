@@ -62,6 +62,7 @@ const PayPalBtnWrapper = ({
             <PayPalButtons
                 style={style}
                 disabled={disableBtn}
+                forceReRender={[(purchaseUnit[0]?.amount?.value || '0'), currency, style]}
                 fundingSource={fundingSource}
                 onClick={() => {
                     if (disableBtn && onDisableClick) {
