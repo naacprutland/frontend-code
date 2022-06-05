@@ -18,7 +18,6 @@ export const defaultData: BuyBoxProps = {
     isValid: true,
     values: { type: 'regular-adult-annual-membership' },
   },
-  userData: undefined,
   disableBtn: false,
   fundingStyling: ['paypal', 'card'],
 }

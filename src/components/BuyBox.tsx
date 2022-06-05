@@ -8,17 +8,11 @@ import {
     useToast
 } from "@chakra-ui/react"
 import { MemberOptions } from "../interface/checkout";
-import { UpdateResult } from "../interface/general";
+import { PurchaseItem, UpdateResult } from "../interface/general";
 import Container from "./Container"
-import { RespForm } from "./FormBlock";
 import PayPal from "./PayPal"
 import { PurchaseUnit } from "@paypal/paypal-js/types/apis/orders"
 import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
-
-export interface PurchaseItem {
-    label: string;
-    amount: number;
-}
 
 export interface BuyBoxProps {
     clientId: string;
@@ -27,9 +21,9 @@ export interface BuyBoxProps {
     disableBtn?: boolean;
     selectedItem: MemberOptions | undefined;
     optionType: UpdateResult | undefined;
-    userData: RespForm | undefined;
     fundingStyling?: string[];
     onSubmit?: (data: OnApproveData) => void;
+    onDisableClick?: () => void;
 }
 
 const BuyBox = ({
@@ -40,8 +34,8 @@ const BuyBox = ({
     selectedItem,
     fundingStyling = [undefined],
     optionType,
-    userData,
-    onSubmit
+    onSubmit,
+    onDisableClick
 }: BuyBoxProps) => {
     const [items, setItems] = useState<PurchaseItem[]>([])
     const [total, setTotal] = useState<number | null>(null)
@@ -112,8 +106,7 @@ const BuyBox = ({
         setItems(fullItems)
     }, [additionalFees,
         selectedItem,
-        optionType,
-        userData])
+        optionType])
 
     const onError = (err: Record<string, unknown>) => {
         // eslint-disable-next-line no-console
@@ -190,6 +183,7 @@ const BuyBox = ({
                             layout: 'vertical',
                             label: 'checkout'
                         }))}
+                        onDisableClick={onDisableClick}
                         fundingSources={fundingStyling}
                         purchaseUnit={units}
                         disableBtn={disableBtn}

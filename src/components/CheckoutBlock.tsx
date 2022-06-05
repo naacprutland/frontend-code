@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Fieldset } from "../interface/form"
 import FormBlock, { RespForm } from "./FormBlock"
 import DividerBlock from "./DividerBlock"
@@ -6,45 +6,81 @@ import ContentText from "./ContentText"
 import Container from "./Container"
 import OptionsTypeSelector from "./OptionTypeSelector"
 import { FullOption, MemberOptions } from "../interface/checkout"
-import { OptionsData, UpdateResult } from "../interface/general"
+import { OptionsData, PurchaseItem, UpdateResult } from "../interface/general"
+import BuyBox from './BuyBox'
 
 export interface CheckoutBlockProps {
+    additionalFees?: PurchaseItem[];
     formData: Fieldset[]
     details?: string;
     checkoutOptions: FullOption[];
     optionData: OptionsData;
+    fundingStyling?: string[];
     membershipOptions: MemberOptions[];
+    payPalClientID: string;
+    payPalClientBrandName?: string;
 }
 
 type Trigger = (name: string, obj: { shouldFocus: boolean; }) => void
 
 const CheckoutBlock = ({
+    additionalFees = [],
     formData,
     details,
     checkoutOptions,
     optionData,
-    membershipOptions
+    membershipOptions,
+    fundingStyling,
+    payPalClientID,
+    payPalClientBrandName
 }: CheckoutBlockProps) => {
     const formBlockRef = useRef()
     const optionTypeRef = useRef()
     const [optionTypeState, setOptionTypeState] = useState<UpdateResult>(null)
     const [userDataState, setUserDataState] = useState<RespForm>(null)
+    const [selectedItem, setSelectedItem] = useState<MemberOptions>(null)
 
-    const onSubmit = (): boolean => {
+    useEffect(() => {
+        if (optionTypeState) {
+            let item: MemberOptions;
+            if (optionTypeState.values.type === 'renew') {
+                item = membershipOptions.find(
+                    (v) => v.slug === optionTypeState.values.membershipType
+                )
+            } else {
+                item = membershipOptions.find(
+                    (v) => v.slug === optionTypeState.values.type
+                )
+            }
+
+            setSelectedItem(item)
+        }
+    }, [optionTypeState])
+
+    const onDisableClick = (optionState, userState) => {
+        console.log('run')
+        console.log({
+            optionTypeState: optionState?.isValid,
+            userDataState: userState?.isValid
+        })
         // if not valid then run on option type
-        if (!optionTypeState?.isValid) {
+        if (!optionState?.isValid) {
             if (optionTypeRef?.current) {
                 (optionTypeRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
             return false
         }
         // if user data is not valid trigger validation
-        if (!userDataState?.isValid) {
+        if (!userState?.isValid) {
             if (formBlockRef?.current) {
                 (formBlockRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
             return false;
         }
+    }
+
+    const onSubmit = (): boolean => {
+
         // send data on submit with paypal confirmation
         // eslint-disable-next-line no-console
         console.log(optionTypeState?.values)
@@ -73,8 +109,17 @@ const CheckoutBlock = ({
                 onCallBack={setUserDataState}
                 hideSubmitBtn
                 sections={formData} />
-
-            <button onClick={onSubmit}>CLick me</button>
+            <BuyBox
+                additionalFees={additionalFees}
+                brandName={payPalClientBrandName}
+                clientId={payPalClientID}
+                disableBtn={!(optionTypeState?.isValid && userDataState?.isValid)}
+                fundingStyling={fundingStyling}
+                optionType={optionTypeState}
+                onDisableClick={() => onDisableClick(optionTypeState, userDataState)}
+                onSubmit={onSubmit}
+                selectedItem={selectedItem}
+            />
         </>
     )
 }

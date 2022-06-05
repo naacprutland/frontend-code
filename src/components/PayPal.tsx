@@ -18,6 +18,7 @@ export interface PayPalProps {
     onApprove?: (data: OnApproveData) => void;
     onError?: PayPalButtonsComponentProps['onError'];
     onCancel?: PayPalButtonsComponentProps['onCancel'];
+    onDisableClick?: () => void;
 }
 
 function PayPal({
@@ -31,7 +32,8 @@ function PayPal({
     purchaseUnit = [],
     onApprove,
     onError,
-    onCancel
+    onCancel,
+    onDisableClick
 }: PayPalProps) {
 
     return (
@@ -62,6 +64,7 @@ function PayPal({
                                 currency={currency}
                                 showSpinner={spinner}
                                 fundingSource={source}
+                                onDisableClick={onDisableClick}
                             />
                         </>
                     ))

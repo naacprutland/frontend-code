@@ -21,6 +21,7 @@ export interface PayPalBtnWrapperProps {
     onApprove?: (data: OnApproveData) => void;
     onError?: PayPalButtonsComponentProps['onError'];
     onCancel?: PayPalButtonsComponentProps['onCancel'];
+    onDisableClick?: () => void;
 }
 
 const PayPalBtnWrapper = ({
@@ -33,7 +34,8 @@ const PayPalBtnWrapper = ({
     style,
     onError,
     onCancel,
-    onApprove
+    onApprove,
+    onDisableClick
 }: PayPalBtnWrapperProps) => {
     // usePayPalScriptReducer can be use only inside children of PayPalScriptProviders
     // This is the main reason to wrap the PayPalButtons in a new component
@@ -61,6 +63,11 @@ const PayPalBtnWrapper = ({
                 style={style}
                 disabled={disableBtn}
                 fundingSource={fundingSource}
+                onClick={() => {
+                    if (disableBtn && onDisableClick) {
+                        onDisableClick()
+                    }
+                }}
                 createOrder={(data, actions) => {
                     return actions.order
                         .create({
