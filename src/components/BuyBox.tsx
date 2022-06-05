@@ -10,6 +10,7 @@ import { MemberOptions } from "../interface/checkout";
 import { UpdateResult } from "../interface/general";
 import Container from "./Container"
 import { RespForm } from "./FormBlock";
+import PayPal from "./PayPal"
 
 export interface PurchaseItem {
     label: string;
@@ -130,6 +131,7 @@ const BuyBox = ({
                             </StatNumber>
                         </Stat>
                     )}
+                    <PayPal clientId="test" />
                 </VStack>
             </Box>
         </Container >
