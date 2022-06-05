@@ -100,7 +100,6 @@ const BuyBox = ({
                 })
             }
         ]
-
         setUnits(fullUnits)
         setTotal(itemsTotal)
         setItems(fullItems)
@@ -127,32 +126,35 @@ const BuyBox = ({
                 borderRadius="6px"
                 layerStyle="boxShadowLight">
                 <VStack spacing="24px">
-                    <VStack spacing="8px" width="100%">
-                        {items.map((v, i) => (
-                            <Stat key={v.label + i}
-                                width="100%"
-                                sx={{
-                                    dl: {
-                                        display: 'flex',
-                                        justifyContent: 'space-between'
-                                    }
-                                }}>
-                                <StatLabel
-                                    lineHeight="1"
-                                    fontSize="18px"
-                                    fontWeight="600">
-                                    {v.label}:
-                                </StatLabel>
-                                <StatNumber
-                                    lineHeight="1"
-                                    fontSize="18px"
-                                    fontWeight="600">
-                                    ${v.amount}
-                                </StatNumber>
-                            </Stat>))
-                        }
-                    </VStack>
-                    {!isNaN(total) && (
+                    {!disableBtn && (
+                        <VStack spacing="8px" width="100%">
+                            {items.map((v, i) => (
+                                <Stat key={v.label + i}
+                                    width="100%"
+                                    sx={{
+                                        dl: {
+                                            display: 'flex',
+                                            justifyContent: 'space-between'
+                                        }
+                                    }}>
+                                    <StatLabel
+                                        lineHeight="1"
+                                        fontSize="18px"
+                                        fontWeight="600">
+                                        {v.label}:
+                                    </StatLabel>
+                                    <StatNumber
+                                        lineHeight="1"
+                                        fontSize="18px"
+                                        fontWeight="600">
+                                        ${v.amount}
+                                    </StatNumber>
+                                </Stat>))
+                            }
+                        </VStack>)
+                    }
+
+                    {(!isNaN(total) && null !== total && !disableBtn) && (
                         <Stat
                             width="100%"
                             sx={{

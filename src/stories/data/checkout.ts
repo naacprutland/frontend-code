@@ -1,5 +1,9 @@
+import { CheckoutBlockProps } from '../../components/CheckoutBlock'
 import { FullOption, MemberOptions } from '../../interface/checkout'
+import { Fieldset } from '../../interface/form'
 import { OptionsData } from '../../interface/general'
+import { transformItemsToOptions } from '../../lib/transformProductItms'
+import { checkout } from './formData'
 
 export const details = `<p>Payment through Paypal includes a $1.20 processing fee to cover what Paypal charges us.<p>
     <p>You can avoid the fee by mailing in the application with a check as payment.The application can be printed out from the below PDF and mailed to:</p>
@@ -210,3 +214,21 @@ export const subscriptionOptions: MemberOptions[] = [
     ],
   },
 ]
+
+export const defaultData: CheckoutBlockProps = {
+  additionalFees: [
+    {
+      label: 'Paypal Fee',
+      amount: 1.2,
+    },
+  ],
+  details,
+  formData: checkout.sections as Fieldset[],
+  checkoutOptions: transformItemsToOptions(subscriptionOptions),
+  optionData,
+  membershipOptions: subscriptionOptions,
+  fundingStyling: ['paypal', 'card'],
+  payPalClientID:
+    'AVtptSNrZtDYwfbt69rI9biLQ2FBLlOqPGaeWWR9eIdSaFbBrtqAToDsEVxAtQUQEv4nyX0eBsUcSIHP',
+  payPalClientBrandName: 'Rutland Area NAACP',
+}

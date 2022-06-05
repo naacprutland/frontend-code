@@ -1,38 +1,21 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
 
 import CheckoutBlock, { CheckoutBlockProps } from '../../components/CheckoutBlock'
-import {
-    checkout
-} from '../data/formData'
-import { optionData, details, subscriptionOptions as membershipOptions } from '../data/checkout'
-import { transformItemsToOptions } from '../../lib/transformProductItms';
+import { defaultData } from '../data/checkout'
+
 
 export default {
     title: "Components/Checkout",
     component: CheckoutBlock
 } as Meta;
 
-const checkoutOptions = transformItemsToOptions(membershipOptions)
-
 const Template: Story<CheckoutBlockProps> = (args) => <CheckoutBlock {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-    details,
-    formData: checkout.sections || [],
-    checkoutOptions,
-    optionData,
-    membershipOptions
-}
+Default.args = defaultData
 
 export const WithQueryRenew = Template.bind({});
-WithQueryRenew.args = {
-    details,
-    formData: checkout.sections,
-    checkoutOptions,
-    optionData,
-    membershipOptions
-}
+WithQueryRenew.args = defaultData
 WithQueryRenew.parameters = {
     nextRouter: {
         path: "/checkout",
@@ -44,13 +27,7 @@ WithQueryRenew.parameters = {
 };
 
 export const WithQueryRegularAdult = Template.bind({});
-WithQueryRegularAdult.args = {
-    details,
-    formData: checkout.sections,
-    checkoutOptions,
-    optionData,
-    membershipOptions
-}
+WithQueryRegularAdult.args = defaultData
 WithQueryRegularAdult.parameters = {
     nextRouter: {
         path: "/checkout",
@@ -62,13 +39,7 @@ WithQueryRegularAdult.parameters = {
 };
 
 export const WithQueryLifeTimeAdult = Template.bind({});
-WithQueryLifeTimeAdult.args = {
-    details,
-    formData: checkout.sections,
-    checkoutOptions,
-    optionData,
-    membershipOptions
-}
+WithQueryLifeTimeAdult.args = defaultData
 WithQueryLifeTimeAdult.parameters = {
     nextRouter: {
         path: "/checkout",

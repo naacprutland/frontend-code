@@ -8,6 +8,7 @@ import OptionsTypeSelector from "./OptionTypeSelector"
 import { FullOption, MemberOptions } from "../interface/checkout"
 import { OptionsData, PurchaseItem, UpdateResult } from "../interface/general"
 import BuyBox from './BuyBox'
+import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
 
 export interface CheckoutBlockProps {
     additionalFees?: PurchaseItem[];
@@ -21,7 +22,7 @@ export interface CheckoutBlockProps {
     payPalClientBrandName?: string;
 }
 
-type Trigger = (name: string, obj: { shouldFocus: boolean; }) => void
+type Trigger = (name: string, obj: { shouldFocus: boolean; }) => Promise<boolean>
 
 const CheckoutBlock = ({
     additionalFees = [],
@@ -57,36 +58,30 @@ const CheckoutBlock = ({
         }
     }, [optionTypeState])
 
-    const onDisableClick = (optionState, userState) => {
-        console.log('run')
-        console.log({
-            optionTypeState: optionState?.isValid,
-            userDataState: userState?.isValid
-        })
+    const onDisableClick = async (optionState, userState) => {
+        let showSecondFocus = false;
         // if not valid then run on option type
         if (!optionState?.isValid) {
             if (optionTypeRef?.current) {
-                (optionTypeRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
+                showSecondFocus = await (optionTypeRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
             }
-            return false
         }
         // if user data is not valid trigger validation
         if (!userState?.isValid) {
             if (formBlockRef?.current) {
-                (formBlockRef.current as { trigger: Trigger }).trigger('', { shouldFocus: true })
+                await (formBlockRef.current as { trigger: Trigger }).trigger('', { shouldFocus: showSecondFocus })
             }
-            return false;
         }
     }
 
-    const onSubmit = (): boolean => {
-
+    const onSubmit = (data: OnApproveData) => {
+        // eslint-disable-next-line no-console
+        console.log(data)
         // send data on submit with paypal confirmation
         // eslint-disable-next-line no-console
         console.log(optionTypeState?.values)
         // eslint-disable-next-line no-console
         console.log(userDataState?.data)
-        return true
     }
 
     return (
