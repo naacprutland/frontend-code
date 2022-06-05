@@ -40,6 +40,7 @@ const CheckoutBlock = ({
     const [optionTypeState, setOptionTypeState] = useState<UpdateResult>(null)
     const [userDataState, setUserDataState] = useState<RespForm>(null)
     const [selectedItem, setSelectedItem] = useState<MemberOptions>(null)
+    const [disablePayPal, setDisablePayPal] = useState<boolean>(true)
 
     useEffect(() => {
         if (optionTypeState) {
@@ -58,6 +59,10 @@ const CheckoutBlock = ({
         }
     }, [optionTypeState])
 
+    useEffect(() => {
+        setDisablePayPal(!(optionTypeState?.isValid && userDataState?.isValid))
+    }, [optionTypeState, userDataState])
+
     const onDisableClick = async (optionState, userState) => {
         let showSecondFocus = false;
         // if not valid then run on option type
@@ -75,6 +80,10 @@ const CheckoutBlock = ({
     }
 
     const onSubmit = (data: OnApproveData) => {
+        setDisablePayPal(true)
+        // handle success 
+        // send data to backend to be verified and stored
+        // once complete send user to confirmation page
         // eslint-disable-next-line no-console
         console.log(data)
         // send data on submit with paypal confirmation
@@ -108,7 +117,7 @@ const CheckoutBlock = ({
                 additionalFees={additionalFees}
                 brandName={payPalClientBrandName}
                 clientId={payPalClientID}
-                disableBtn={!(optionTypeState?.isValid && userDataState?.isValid)}
+                disableBtn={disablePayPal}
                 fundingStyling={fundingStyling}
                 optionType={optionTypeState}
                 onDisableClick={() => onDisableClick(optionTypeState, userDataState)}
