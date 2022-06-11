@@ -1,3 +1,5 @@
+import { PurchaseItem } from './general'
+
 export type FullOption = LifeOption | RenewOption | RegularOption
 
 export interface PaymentType {
@@ -37,6 +39,7 @@ export interface MemberOptions {
   price: number
   isDisabled?: boolean
   paymentOptions?: PaymentOptions[]
+  additionalFees?: PurchaseItem[]
 }
 
 export interface PaymentOptions {
