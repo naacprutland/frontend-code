@@ -99,7 +99,7 @@ const Header = ({
   }, [variant])
 
   useEffect(() => {
-    if (!bannerList.length) {
+    if (!bannerList.length && banners.length > 0) {
       setBannerList(banners?.map(data => {
         return {
           show: true,

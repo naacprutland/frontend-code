@@ -14,6 +14,7 @@ import { BreadcrumbsProps } from './Breadcrumbs'
 import { FeatureBlockProps } from './FeatureBlock'
 import { ItemDeckBlockProps } from './ItemDeckBlock'
 import { PageSearchBlockProps } from './PageSearchBlock'
+import { CheckoutBlockProps } from './CheckoutBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -28,6 +29,7 @@ const DynamicBreadcrumbs: ComponentType<BreadcrumbsProps> = dynamic(() => import
 const DynamicFeatureBlock: ComponentType<FeatureBlockProps> = dynamic(() => import('./FeatureBlock'))
 const DynamicItemDeckBlock: ComponentType<ItemDeckBlockProps> = dynamic(() => import('./ItemDeckBlock'))
 const DynamicPageSearchBlock: ComponentType<PageSearchBlockProps> = dynamic(() => import('./PageSearchBlock'))
+const DynamicCheckoutBlock: ComponentType<CheckoutBlockProps> = dynamic(() => import('./CheckoutBlock'))
 
 
 function DynamicComponent({ template, ...props }: Block) {
@@ -59,6 +61,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicItemDeckBlock {...props as ItemDeckBlockProps} />
     case 'blocks.page-search-block':
       return <DynamicPageSearchBlock {...props as PageSearchBlockProps} />
+    case 'blocks.checkout-block':
+      return <DynamicCheckoutBlock {...props as CheckoutBlockProps} />
     default:
       return null
   }
