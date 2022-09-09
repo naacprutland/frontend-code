@@ -269,17 +269,27 @@ export const checkoutBlockBuilder = ({
       isDisabled,
       paymentOptions,
       additional_fees: additionalFees,
-    }) => ({
-      id,
-      title,
-      slug,
-      type: type as 'regular' | 'life' | 'renew',
-      description,
-      price,
-      isDisabled,
-      paymentOptions,
-      additionalFees,
-    })
+    }) => {
+      const result: MemberOptions = {
+        id,
+        title,
+        slug,
+        type: type as 'regular' | 'life' | 'renew',
+        description,
+        price,
+        isDisabled,
+      }
+
+      if (paymentOptions?.length > 0) {
+        result.paymentOptions = paymentOptions
+      }
+
+      if (additionalFees?.length > 0) {
+        result.additionalFees = additionalFees
+      }
+
+      return result
+    }
   )
 
   return {
