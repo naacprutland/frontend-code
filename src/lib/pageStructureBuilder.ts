@@ -2,6 +2,7 @@ import { BreadCrumbJsonLdProps } from 'next-seo'
 import { Breadcrumb } from '../components/Breadcrumbs'
 import { BtnColor, BtnVariant } from '../components/CtaList'
 import { StackProps } from '../components/Stack'
+import { transformItemsToOptions } from './transformProductItems'
 import {
   BreadcrumbsApi,
   FeatureBlockApi,
@@ -15,6 +16,7 @@ import {
   TextBlockApi,
   CheckoutBlockApi,
 } from '../interface/apiBlocks'
+import { MemberOptions } from '../interface/checkout'
 import {
   Block,
   HeroBlock,
@@ -248,15 +250,70 @@ export const checkoutBlockBuilder = ({
   __component: template,
   details,
   form_data,
+  payPalClientID,
+  additional_fees: additionalFees,
+  resources,
+  paypal_client_brand_name: payPalClientBrandName,
+  funding_styles,
+  membership_options,
 }: CheckoutBlockApi): CheckoutBlock => {
   const fullFormData = formBlockBuilder(form_data)
+  const membershipOptions: MemberOptions[] = (membership_options || []).map(
+    ({
+      id,
+      title,
+      slug,
+      type,
+      description,
+      price,
+      isDisabled,
+      paymentOptions,
+      additional_fees: additionalFees,
+    }) => ({
+      id,
+      title,
+      slug,
+      type: type as 'regular' | 'life' | 'renew',
+      description,
+      price,
+      isDisabled,
+      paymentOptions,
+      additionalFees,
+    })
+  )
+
   return {
     template,
     details,
+    payPalClientID,
+    additionalFees,
+    payPalClientBrandName,
     formData: fullFormData.sections,
-    checkoutOptions: [],
-    optionData: {},
-    membershipOptions: [],
+    checkoutOptions: transformItemsToOptions(membershipOptions),
+    membershipOptions,
+    fundingStyling: (funding_styles || []).map((val) => val.styles),
+    optionData: {
+      checkoutType: {
+        label: resources?.checkout_type_label || '',
+        placeholder: resources?.checkout_type_placeholder || '',
+        requiredMessage: resources?.checkout_type_required_message || '',
+      },
+      paymentType: {
+        label: resources?.payment_type_label || '',
+        requiredMessage: resources?.payment_type_required_message || '',
+      },
+      membershipType: {
+        label: resources?.membership_type_label || '',
+        placeholder: resources?.membership_type_placeholder || '',
+        requiredMessage: resources?.membership_id_require_message || '',
+      },
+      membershipId: {
+        label: resources?.membership_id_label || '',
+        placeholder: resources?.membership_id_placeholder || '',
+        requireMessage: resources?.membership_id_require_message || '',
+        subText: resources?.membership_id_subtext,
+      },
+    },
   }
 }
 

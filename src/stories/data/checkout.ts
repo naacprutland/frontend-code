@@ -2,7 +2,7 @@ import { CheckoutBlockProps } from '../../components/CheckoutBlock'
 import { FullOption, MemberOptions } from '../../interface/checkout'
 import { Fieldset } from '../../interface/form'
 import { OptionsData } from '../../interface/general'
-import { transformItemsToOptions } from '../../lib/transformProductItms'
+import { transformItemsToOptions } from '../../lib/transformProductItems'
 import { checkout } from './formData'
 
 export const details = `<p>Payment through Paypal includes a $1.20 processing fee to cover what Paypal charges us.<p>

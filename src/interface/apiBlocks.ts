@@ -11,6 +11,10 @@ export interface CheckoutBlockApi {
   form_data: FormBlockApi
   additional_fees: AdditionalFee[]
   payPalClientID: string
+  paypal_client_brand_name: string
+  resources: CheckoutResources
+  funding_styles: fundingStyle[]
+  membership_options: MembershipOption[]
 }
 
 export interface FeatureBlockApi {
@@ -217,4 +221,48 @@ export interface AdditionalFee {
   id: number
   label: string
   amount: number
+}
+
+export interface CheckoutResources {
+  id: number
+  checkout_type_label: string
+  checkout_type_placeholder: string
+  checkout_type_required_message: string
+  payment_type_label: string
+  payment_type_required_message: string
+  membership_type_label: string
+  membership_type_placeholder: string
+  membership_type_required_message: string
+  membership_id_label: string
+  membership_id_placeholder: string
+  membership_id_require_message: string
+  membership_id_subtext: string
+}
+
+export interface fundingStyle {
+  id: number
+  styles: string
+}
+
+export interface MembershipOption {
+  id: number
+  title: string
+  slug: string
+  type: string
+  description: null
+  price: number
+  isDisabled: boolean
+  createdAt: Date
+  updatedAt: Date
+  paymentOptions: PaymentOption[]
+  additional_fees: any[]
+}
+
+export interface PaymentOption {
+  id: number
+  label: string
+  slug: string
+  installment: boolean
+  price: number
+  isDisabled: boolean
 }
