@@ -9,6 +9,7 @@ import { FullOption, MemberOptions } from "../interface/checkout"
 import { OptionsData, PurchaseItem, UpdateResult } from "../interface/general"
 import BuyBox from './BuyBox'
 import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
+import { checkoutSubmit } from '../lib/checkoutPost'
 
 export interface CheckoutBlockProps {
     additionalFees?: PurchaseItem[];
@@ -79,18 +80,14 @@ const CheckoutBlock = ({
         }
     }
 
-    const onSubmit = (data: OnApproveData) => {
+    const onSubmit = async (data: OnApproveData) => {
         setDisablePayPal(true)
         // handle success 
         // send data to backend to be verified and stored
         // once complete send user to confirmation page
         // eslint-disable-next-line no-console
-        console.log(data)
-        // send data on submit with paypal confirmation
-        // eslint-disable-next-line no-console
-        console.log(optionTypeState?.values)
-        // eslint-disable-next-line no-console
-        console.log(userDataState?.data)
+        const res = await checkoutSubmit(data, userDataState, selectedItem, optionTypeState)
+        console.log({ res })
     }
 
     return (

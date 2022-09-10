@@ -10,7 +10,7 @@ import { seoBuilder } from './seoBuilder'
 import { SEOApi } from '../interface/apiSeo'
 import { NextSeoProps } from 'next-seo'
 
-const { 
+const {
   getStaticPaths,
   getPages,
   getGlobal,
@@ -19,19 +19,22 @@ const {
   get404Page,
   getCalenderPage,
   getCheckoutPage,
-  getSearchPage
+  getSearchPage,
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
-  status: string;
-  message: string;
+  status: string
+  message: string
 }
 
 /**
  * Get data associated with page from markdown file
  * @param {string} page name of page
  */
-export async function getDynamicPageData(page: string, preview: boolean): Promise<PageResponseProps| null> {
+export async function getDynamicPageData(
+  page: string,
+  preview: boolean
+): Promise<PageResponseProps | null> {
   try {
     if (preview) {
       const url = `${getPagesPreview}${page}`
@@ -49,7 +52,7 @@ export async function getDynamicPageData(page: string, preview: boolean): Promis
  * Get data associated with page from markdown file
  * @param {string} url - api url
  */
- export async function getStaticPageData<T>(url: string): Promise<T| null> {
+export async function getStaticPageData<T>(url: string): Promise<T | null> {
   try {
     return await fetchApi(url)
   } catch (e) {
@@ -60,15 +63,15 @@ export async function getDynamicPageData(page: string, preview: boolean): Promis
 /**
  * Get Data associated with the app
  */
-export async function getConfigData(): Promise<ApiError | SiteConfig> { 
+export async function getConfigData(): Promise<ApiError | SiteConfig> {
   try {
     const globalData: GlobalApi = await fetchApi(getGlobal)
     return convertToConfig(globalData)
-  } catch(e) {
-    return { 
+  } catch (e) {
+    return {
       status: 'error',
-      message: 'Unable to load config file'
-    };
+      message: 'Unable to load config file',
+    }
   }
 }
 
@@ -79,28 +82,28 @@ export async function getConfigData(): Promise<ApiError | SiteConfig> {
  * @returns Page Props
  */
 export async function getPageProps(location: string, preview: boolean) {
-  const config =  await getConfigData()
+  const config = await getConfigData()
 
-  let pageData:PageResponseProps;
+  let pageData: PageResponseProps
 
   switch (location.toLowerCase()) {
     case '':
       pageData = await getStaticPageData(getHomePage)
-      break;
-    case 'calender': 
+      break
+    case 'calender':
       pageData = await getStaticPageData(getCalenderPage)
-      break;
+      break
     case 'checkout':
       pageData = await getStaticPageData(getCheckoutPage)
-      break;
+      break
     case 'search':
       pageData = await getStaticPageData(getSearchPage)
-      break;
+      break
     case '404':
       pageData = await getStaticPageData(get404Page)
-      break;
-    default:  
-     pageData = await getDynamicPageData(location, preview)
+      break
+    default:
+      pageData = await getDynamicPageData(location, preview)
   }
 
   let data: PageTemplateProps = {} as PageTemplateProps
@@ -110,12 +113,13 @@ export async function getPageProps(location: string, preview: boolean) {
     pageData = await getStaticPageData(get404Page)
   }
 
- 
   if (pageData) {
-    const pageSEO: NextSeoProps = pageData.seo ? seoBuilder(pageData.seo as SEOApi) : null
+    const pageSEO: NextSeoProps = pageData.seo
+      ? seoBuilder(pageData.seo as SEOApi)
+      : null
     data = {
       pageSEO,
-      ...await buildPageStructure(pageData)
+      ...(await buildPageStructure(pageData)),
     } as PageTemplateProps
   }
 
@@ -125,7 +129,7 @@ export async function getPageProps(location: string, preview: boolean) {
       preview: false,
       notFound: false,
       config,
-      data
+      data,
     },
   }
 }
@@ -136,15 +140,17 @@ export async function getPageProps(location: string, preview: boolean) {
       "params": { "slug": string[]}
     }[]
  */
-export async function getPathsList(): Promise<{
-  params: { slug: string[];}
-}[]> {
+export async function getPathsList(): Promise<
+  {
+    params: { slug: string[] }
+  }[]
+> {
   try {
-    const result  = await fetchApi(getStaticPaths);
+    const result = await fetchApi(getStaticPaths)
     const data: {
-      params: { slug: string[]; }
+      params: { slug: string[] }
     }[] = result
-    return data.filter(v => v.params.slug[0] !== '404');
+    return data.filter((v) => v.params.slug[0] !== '404')
   } catch (e) {
     return []
   }

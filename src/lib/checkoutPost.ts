@@ -42,7 +42,7 @@ const formateRequest = (
     ...res,
     ...data,
     committeeAssignments,
-    membership_option,
+    membershipType: membership_option.title,
     type: optionTypeState?.values.paymentType || 'regular',
   }
 }
@@ -54,7 +54,6 @@ export const checkoutSubmit = async (
   optionTypeState: UpdateResult
 ) => {
   const data = formateRequest(res, userData, membershipOption, optionTypeState)
-  console.log(data)
   try {
     const response = await fetchApi(apiEndPoints.postApplication, {
       method: 'POST',
@@ -65,8 +64,14 @@ export const checkoutSubmit = async (
         data,
       }),
     })
-    return response
+    return {
+      status: 'success',
+      data: response,
+    }
   } catch (e) {
-    return e
+    return {
+      status: 'error',
+      data: e,
+    }
   }
 }
