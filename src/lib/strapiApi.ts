@@ -1,7 +1,7 @@
 const baseApiUrl = process.env.STRAPI_API_URL
 
 const apiEndPoints = {
-  baseApiUrl, 
+  baseApiUrl,
   postContactMessage: `${baseApiUrl}/contact-messages/send`,
   getStaticPaths: `${baseApiUrl}/pages/utils/static`,
   getPages: `${baseApiUrl}/pages`,
@@ -12,7 +12,8 @@ const apiEndPoints = {
   getHomePage: `${baseApiUrl}/home-page`,
   getSearchPage: `${baseApiUrl}/search-page`,
   getCalenderPage: `${baseApiUrl}/calendar-page`,
-  getCheckoutPage: `${baseApiUrl}/checkout-page`
+  getCheckoutPage: `${baseApiUrl}/checkout-page`,
+  postApplication: `${baseApiUrl}/application`,
 }
 
 export default apiEndPoints
