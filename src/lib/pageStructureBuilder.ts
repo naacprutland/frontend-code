@@ -248,9 +248,9 @@ export const featureBlockBuilder = ({
 
 export const checkoutBlockBuilder = ({
   __component: template,
-  details,
+  details = '',
   form_data,
-  payPalClientID,
+  payPalClientID = '',
   additional_fees: additionalFees,
   resources,
   paypal_client_brand_name: payPalClientBrandName,
