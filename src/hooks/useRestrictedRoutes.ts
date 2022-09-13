@@ -18,16 +18,20 @@ const useRestrictedRoutes = (props: Props = defaultProp) => {
       typeof router.query?.slug === 'string'
         ? router.query?.slug
         : router.query?.slug?.join('/')
-    switch (path) {
-      case 'checkout-confirmation':
-        if (checkoutState.complete) {
-          checkoutState.reset()
-        } else if (!preview) {
-          router.replace('/')
-        }
-        break
-      default:
-        break
+    if (!preview) {
+      switch (path) {
+        case 'checkout-confirmation':
+          if (checkoutState.complete) {
+            checkoutState.reset()
+          } else {
+            router.replace('/')
+          }
+          break
+        case 'donation-confirmation':
+          break
+        default:
+          break
+      }
     }
   }, [router])
 }
