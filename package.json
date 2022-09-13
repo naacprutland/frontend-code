@@ -50,7 +50,8 @@
     "react-youtube": "^7.14.0",
     "storybook-addon-grid": "^0.1.0",
     "styled-components": "^5.3.3",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "zustand": "^4.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.17.5",
