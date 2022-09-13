@@ -6,7 +6,7 @@ interface Props {
   preview?: boolean
 }
 
-const defaultProp: Props = { preview: true }
+const defaultProp: Props = { preview: false }
 
 const useRestrictedRoutes = (props: Props = defaultProp) => {
   const { preview } = props
@@ -21,7 +21,7 @@ const useRestrictedRoutes = (props: Props = defaultProp) => {
     switch (path) {
       case 'checkout-confirmation':
         if (checkoutState.complete) {
-          checkoutState.reset
+          checkoutState.reset()
         } else if (!preview) {
           router.replace('/')
         }
