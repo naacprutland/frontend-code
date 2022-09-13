@@ -3,7 +3,7 @@ import { getPageProps, getPathsList } from '../lib/pageProps'
 import { PageProps } from '../interface/page'
 
 const DynamicPage = (Props: PageProps) => (
-  <PageTemplate {...Props.data} />
+  <PageTemplate {...Props.data} preview={Props.preview} />
 )
 
 export async function getStaticPaths() {

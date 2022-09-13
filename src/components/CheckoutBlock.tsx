@@ -10,6 +10,9 @@ import { OptionsData, PurchaseItem, UpdateResult } from "../interface/general"
 import BuyBox from './BuyBox'
 import { OnApproveData } from "@paypal/paypal-js/types/components/buttons"
 import { checkoutSubmit } from '../lib/checkoutPost'
+import { useRouter } from "next/router";
+import useCheckoutStore from '../store/useCheckoutStore'
+
 
 export interface CheckoutBlockProps {
     additionalFees?: PurchaseItem[];
@@ -42,6 +45,8 @@ const CheckoutBlock = ({
     const [userDataState, setUserDataState] = useState<RespForm>(null)
     const [selectedItem, setSelectedItem] = useState<MemberOptions>(null)
     const [disablePayPal, setDisablePayPal] = useState<boolean>(true)
+    const router = useRouter()
+    const checkoutState = useCheckoutStore()
 
     useEffect(() => {
         if (optionTypeState) {
@@ -85,9 +90,14 @@ const CheckoutBlock = ({
         // handle success 
         // send data to backend to be verified and stored
         // once complete send user to confirmation page
-        // eslint-disable-next-line no-console
         const res = await checkoutSubmit(data, userDataState, selectedItem, optionTypeState)
-        console.log({ res })
+        if (res.status === 'success') {
+            checkoutState.isComplete()
+            router.push("/checkout-confirmation")
+        } else if (res.status === 'error') {
+            // TODO - handle error
+            // show error
+        }
     }
 
     return (
