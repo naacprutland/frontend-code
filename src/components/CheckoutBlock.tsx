@@ -28,6 +28,8 @@ export interface CheckoutBlockProps {
 
 type Trigger = (name: string, obj: { shouldFocus: boolean; }) => Promise<boolean>
 
+type SetIsDisabled = (val: boolean) => void
+
 const CheckoutBlock = ({
     additionalFees = [],
     formData,
@@ -86,6 +88,7 @@ const CheckoutBlock = ({
     }
 
     const onSubmit = async (data: OnApproveData) => {
+        (formBlockRef.current as { setIsDisabled: SetIsDisabled }).setIsDisabled(true)
         setDisablePayPal(true)
         // handle success 
         // send data to backend to be verified and stored
@@ -97,6 +100,8 @@ const CheckoutBlock = ({
         } else if (res.status === 'error') {
             // TODO - handle error
             // show error
+            (formBlockRef.current as { setIsDisabled: SetIsDisabled }).setIsDisabled(false)
+            setDisablePayPal(false)
         }
     }
 

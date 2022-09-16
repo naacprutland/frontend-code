@@ -75,7 +75,8 @@ const FormBlock = forwardRef(({
     }, [isValid, watch]);
 
     useImperativeHandle(ref, () => ({
-        trigger
+        trigger,
+        setIsDisabled
     }));
 
 
