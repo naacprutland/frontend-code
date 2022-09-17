@@ -22,6 +22,7 @@ const {
   getSearchPage,
   getCheckoutConfirmationPage,
   getDonationConfirmationPage,
+  getDonatePage,
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -97,6 +98,9 @@ export async function getPageProps(location: string, preview: boolean) {
       break
     case 'checkout':
       pageData = await getStaticPageData(getCheckoutPage)
+      break
+    case 'donate':
+      pageData = await getStaticPageData(getDonatePage)
       break
     case 'search':
       pageData = await getStaticPageData(getSearchPage)
