@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react'
+import { useToast } from "@chakra-ui/react"
 import { Fieldset } from "../interface/form"
 import FormBlock, { RespForm } from "./FormBlock"
 import DividerBlock from "./DividerBlock"
@@ -49,6 +50,7 @@ const CheckoutBlock = ({
     const [disablePayPal, setDisablePayPal] = useState<boolean>(true)
     const router = useRouter()
     const checkoutState = useCheckoutStore()
+    const toast = useToast()
 
     useEffect(() => {
         if (optionTypeState) {
@@ -98,10 +100,15 @@ const CheckoutBlock = ({
             checkoutState.isComplete()
             router.push("/checkout-confirmation")
         } else if (res.status === 'error') {
-            // TODO - handle error
             // show error
             (formBlockRef.current as { setIsDisabled: SetIsDisabled }).setIsDisabled(false)
             setDisablePayPal(false)
+            toast({
+                title: 'Submitted Mission Error',
+                description: res.data?.error?.message || "There is an issue submitting application.",
+                status: 'error',
+                isClosable: true
+            })
         }
     }
 
