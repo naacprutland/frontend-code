@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { 
+import {
     Accordion,
     AccordionItem,
     AccordionButton,
@@ -47,7 +47,7 @@ const NavLink = ({ item }: NavLinkProps) => (
             display="flex"
             cursor="pointer"
             justifyContent="space-between">
-            { item.label }
+            {item.label}
         </ChakraLink>
     </NextLink>
 )
@@ -59,8 +59,8 @@ const headerHeights = {
 
 const MobileMenu = ({
     headerRef,
-    ctas=[],
-    megaMenu=[],
+    ctas = [],
+    megaMenu = [],
     onClose,
     isOpen }: MobileMenuProps) => {
     const firstField = useRef(null);
@@ -78,7 +78,7 @@ const MobileMenu = ({
             const height = headerRef.getBoundingClientRect().height
             setTopPad(height)
         }
-    }, [isOpen,  headerRef])
+    }, [isOpen, headerRef])
 
     return (
         <Drawer
@@ -95,7 +95,7 @@ const MobileMenu = ({
                     background="black"
                     height="7"
                     color="white"
-                    top={[ btnH('sm', topPad), btnH('md', topPad) ]}
+                    top={[btnH('sm', topPad), btnH('md', topPad)]}
                     right={["5", "8"]}
                     onClick={onClose}
                     variant='outline'
@@ -107,24 +107,24 @@ const MobileMenu = ({
                     colorScheme="white"
                     aria-label="close"
                     icon={<MdClose />} />
-                <DrawerHeader 
+                <DrawerHeader
                     onClick={onClose}
                     paddingBottom={0}
                     paddingTop={topPad + 'px'}>
                 </DrawerHeader>
 
-                <DrawerBody as="nav" bg="white" px={[5,8]} paddingTop="4">
+                <DrawerBody as="nav" bg="white" px={[5, 8]} paddingTop="4">
                     <Flex display={{ base: "flex", sm: "none" }} paddingBottom="4">
                         {ctas.map((cta, i) => (
                             <NextLink key={cta.label + i}
-                                href={cta.path} 
+                                href={cta.path}
                                 passHref>
-                                <Button as="a" 
-                                    mr={i !== (ctas.length - 1) ? '6': '0'}
+                                <Button as="a"
+                                    mr={i !== (ctas.length - 1) ? '6' : '0'}
                                     variant={cta.style}
                                     color={cta.style !== "outline" ? cta.textColor : null}
                                     colorScheme={cta.color}
-                                    isFullWidth={true}
+                                    width={'100%'}
                                     size="lg">
                                     {cta.label}
                                 </Button>
@@ -140,31 +140,31 @@ const MobileMenu = ({
                                 m="0"
                                 borderBottomWidth="1px">
                                 {!((item as MenuItem)?.subitems && (item as MenuItem)?.subitems?.length) ? (
-                                    <NavLink item={item}/>
-                                ): (<AccordionItem border="none">
-                                        <AccordionButton fontSize="xl"
-                                            _expanded={{ color: "secondary6.500" }}
-                                            textTransform="capitalize"
-                                            fontWeight="600">
-                                            <Box flex="1" textAlign="left">
-                                                { item.label }
-                                            </Box>
-                                            <AccordionIcon color="secondary6.500" />
-                                        </AccordionButton>
-                                        
-                                        <AccordionPanel as="ul" py={0}>
-                                            {(item as MenuItem).subitems.map(
-                                                (subItem: SubItem, i: number) => (
-                                                    <NavLink key={subItem.label + i} item={subItem}/>))}
-                                        </AccordionPanel>
-                                    </AccordionItem>)
-                                }  
+                                    <NavLink item={item} />
+                                ) : (<AccordionItem border="none">
+                                    <AccordionButton fontSize="xl"
+                                        _expanded={{ color: "secondary6.500" }}
+                                        textTransform="capitalize"
+                                        fontWeight="600">
+                                        <Box flex="1" textAlign="left">
+                                            {item.label}
+                                        </Box>
+                                        <AccordionIcon color="secondary6.500" />
+                                    </AccordionButton>
+
+                                    <AccordionPanel as="ul" py={0}>
+                                        {(item as MenuItem).subitems.map(
+                                            (subItem: SubItem, i: number) => (
+                                                <NavLink key={subItem.label + i} item={subItem} />))}
+                                    </AccordionPanel>
+                                </AccordionItem>)
+                                }
                             </Box>
                         ))}
                     </Accordion>
                 </DrawerBody>
             </DrawerContent>
-      </Drawer>
+        </Drawer>
     )
 }
 

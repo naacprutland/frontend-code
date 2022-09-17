@@ -27,7 +27,7 @@ const DeckBlock = ({
   link,
   onAction,
   hideButton,
-  style="none",
+  style = "none",
   disableButton
 }: DeckBlockProps) => {
   const setFull = useBreakpointValue({ base: true, sm: false })
@@ -55,7 +55,7 @@ const DeckBlock = ({
             {
               (!hideButton && link && !onAction) && <NextLink href={link?.path} passHref>
                 <Button as="a"
-                  isFullWidth={setFull}
+                  width={setFull ? '100%' : 'auto'}
                   size="lg"
                   target={link.external ? "_blank" : undefined}
                   rel={link.external ? "noopener noreferrer" : undefined}
@@ -69,7 +69,7 @@ const DeckBlock = ({
               (!hideButton && onAction) && <Button
                 type="button"
                 disabled={disableButton}
-                isFullWidth={setFull}
+                width={setFull ? '100%' : 'auto'}
                 onClick={onAction.action}
                 size="lg"
                 colorScheme="secondary4">

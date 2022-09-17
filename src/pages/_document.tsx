@@ -29,16 +29,16 @@ export default class MyDocument extends Document {
   // }
 
   render() {
-      return (
-        <Html lang="en">
-          <Head />
-          <body>
-            {/* Make Color mode to persists when you refresh the page. */}
-            <ColorModeScript />
-            <Main />
-            <NextScript />
-          </body>
-        </Html>
-      )
-    }
+    return (
+      <Html lang="en">
+        <Head />
+        <body>
+          {/* Make Color mode to persists when you refresh the page. */}
+          <ColorModeScript storageKey='naacp-key' />
+          <Main />
+          <NextScript />
+        </body>
+      </Html>
+    )
+  }
 }

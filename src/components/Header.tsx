@@ -133,7 +133,7 @@ const Header = ({
         </Collapse>
       ))}
       <Container
-        d="flex"
+        display="flex"
         alignItems="center"
         flexDir="row"
         justifyContent="space-between"

@@ -51,22 +51,20 @@ function PayPal({
             >
                 {
                     fundingSources.map((source, i) => (
-                        <>
-                            <PayPalBtnWrapper
-                                key={source}
-                                style={style[i]}
-                                brand_name={brandName}
-                                onApprove={onApprove}
-                                onError={onError}
-                                onCancel={onCancel}
-                                purchaseUnit={purchaseUnit}
-                                disableBtn={disableBtn}
-                                currency={currency}
-                                showSpinner={spinner}
-                                fundingSource={source}
-                                onDisableClick={onDisableClick}
-                            />
-                        </>
+                        <PayPalBtnWrapper
+                            key={source}
+                            style={style[i]}
+                            brand_name={brandName}
+                            onApprove={onApprove}
+                            onError={onError}
+                            onCancel={onCancel}
+                            purchaseUnit={purchaseUnit}
+                            disableBtn={disableBtn}
+                            currency={currency}
+                            showSpinner={spinner}
+                            fundingSource={source}
+                            onDisableClick={onDisableClick}
+                        />
                     ))
                 }
 

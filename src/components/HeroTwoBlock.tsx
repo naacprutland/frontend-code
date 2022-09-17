@@ -2,7 +2,7 @@ import {
     Heading,
     Box,
     Button
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
 import Link from 'next/link'
 import Image from 'next/image'
 import Container from './Container'
@@ -29,20 +29,20 @@ const HeroTwoBlock = ({
     cta,
     imgSrc,
     imgAlt,
-    colorScheme="prime1"
+    colorScheme = "prime1"
 }: HeroTwoBlockProps) => (
-    <Box as="section" 
-        backgroundColor="secondary7.500" 
+    <Box as="section"
+        backgroundColor="secondary7.500"
         color="white"
         overflow="hi"
         height={[null, "500px"]}
         maxHeight={[null, "500px"]}>
-        <Box display={["block", "flex"]} 
+        <Box display={["block", "flex"]}
             height="100%"
-            maxW="1452px" 
+            maxW="1452px"
             marginLeft="auto"
             marginRight="auto">
-            <Box 
+            <Box
                 height={["0", "auto"]}
                 position="relative"
                 paddingTop={["100%", "0"]}
@@ -55,28 +55,26 @@ const HeroTwoBlock = ({
                     top={["0", "-50%"]}
                     transform={[null, "translateY(50%)"]}
                     right="0">
-                    <Image 
+                    <Image
                         src={imgSrc}
                         objectFit="cover"
                         objectPosition="center"
                         alt={imgAlt}
-                        height="726px"
-                        width="726px"
                         layout="fill" />
                 </Box>
             </Box>
-            
+
             <Container
-                py={["8", "12", "14"]} 
+                py={["8", "12", "14"]}
                 marginTop={["auto"]}
                 marginBottom={["auto", "0"]}
                 flex={[null, '1 1 50%']}>
                 {title && (
                     <Heading as={position > 0 ? 'h2' : 'h1'}
-                    lineHeight="1.2"
-                    marginBottom={(subText1 || subText2 || subText3 || cta) && "4"}
-                    fontSize={["4xl", "4xl", "5xl"]}>
-                    {title}
+                        lineHeight="1.2"
+                        marginBottom={(subText1 || subText2 || subText3 || cta) && "4"}
+                        fontSize={["4xl", "4xl", "5xl"]}>
+                        {title}
                     </Heading>)
                 }
                 <Box marginBottom={cta ? "4" : null}>
@@ -88,12 +86,12 @@ const HeroTwoBlock = ({
                 {
                     (cta && cta?.label && cta?.link) && <Link href={cta.link} passHref>
                         <Button as="a"
-                        size="md"
-                        target={cta.external ? "_blank" : undefined}
-                        rel={cta.external ? "noopener noreferrer" : undefined}
-                        cursor="pointer"
-                        colorScheme={colorScheme}>
-                        {cta.label}
+                            size="md"
+                            target={cta.external ? "_blank" : undefined}
+                            rel={cta.external ? "noopener noreferrer" : undefined}
+                            cursor="pointer"
+                            colorScheme={colorScheme}>
+                            {cta.label}
                         </Button>
                     </Link>
                 }
@@ -102,4 +100,4 @@ const HeroTwoBlock = ({
     </Box>
 )
 
-  export default HeroTwoBlock
+export default HeroTwoBlock
