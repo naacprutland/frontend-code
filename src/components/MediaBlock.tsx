@@ -79,12 +79,12 @@ const MediaBlock = ({
             }}
             zIndex="-1">
             <Image
-                    src={mediaImage?.src || ''}
-                    alt={mediaImage?.alt}
-                    objectFit="cover"
-                    objectPosition="center"
-                    layout="fill"
-                  />
+              src={mediaImage?.src || ''}
+              alt={mediaImage?.alt}
+              objectFit="cover"
+              objectPosition="center"
+              layout="fill"
+            />
           </Box>)}
         <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
           textAlign={textPosition}
@@ -113,13 +113,13 @@ const MediaBlock = ({
                     objectPosition="center"
                     height={376.88}
                     width={670}
-                    layout="responsive"   
-                    sizes="(min-width: 992px) 35vw, (min-width: 760px) 50vw, 80vw"            
+                    layout="responsive"
+                    sizes="(min-width: 992px) 35vw, (min-width: 760px) 50vw, 80vw"
                   />
                 </Box>
 
                 {youTubeVideo && <Box position="absolute"
-                  d="flex"
+                  display="flex"
                   justifyContent="center"
                   alignItems="center"
                   bgColor={`rgba(0, 0, 0, ${20 / 100})`}
@@ -153,7 +153,7 @@ const MediaBlock = ({
               <Text>{text}</Text>
             </Box>)}
         </Box>
-      </Container>
+      </Container >
       {
         youTubeVideo?.key && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
           <ModalOverlay />
