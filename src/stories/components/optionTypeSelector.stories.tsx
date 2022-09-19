@@ -2,7 +2,7 @@ import { Story, Meta } from '@storybook/react/types-6-0';
 import { withQuery } from '@storybook/addon-queryparams';
 import OptionTypeSelector, { OptionsTypeSelectorProps } from '../../components/OptionTypeSelector'
 import { subscriptionOptions as membershipOptions, optionData } from '../data/checkout'
-import { transformItemsToOptions } from '../../lib/transformProductItms';
+import { transformItemsToOptions } from '../../lib/transformProductItems';
 
 export default {
     title: "Components/Option Type Selector",
