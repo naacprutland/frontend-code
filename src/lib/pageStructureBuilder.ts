@@ -353,22 +353,24 @@ const itemDeckBuilder = ({
 }
 
 const paypalDonateBlockBuilder = ({
-  __component,
+  __component: template,
   heading,
-  paypal_client_brand_name,
+  paypal_client_brand_name: brandName,
   image,
   funding_styles,
-  payPalClientID,
-  default_donation_amount,
+  payPalClientID: clientId,
+  default_donation_amount: defaultDonationAmount,
+  input_placeholder: placeholder,
 }: PaypalDonateBlockApi): PaypalDonateBlock => {
   return {
-    template: __component,
+    template,
     heading,
-    brandName: paypal_client_brand_name,
+    brandName,
     image,
-    defaultDonationAmount: default_donation_amount,
+    defaultDonationAmount,
     fundingStyling: transformFundStyling(funding_styles),
-    clientId: payPalClientID,
+    clientId,
+    placeholder,
   }
 }
 

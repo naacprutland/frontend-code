@@ -15,6 +15,7 @@ export interface PaypalDonateBlockApi {
   }
   funding_styles: fundingStyle[]
   payPalClientID: string
+  input_placeholder: string
 }
 
 export interface CheckoutBlockApi {

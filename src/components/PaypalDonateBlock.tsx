@@ -20,6 +20,7 @@ export interface PaypalDonateBlockProps {
     brandName: string
     heading: string
     position?: number
+    placeholder?: string
     image: {
         src: ImageApi
         alt: string
@@ -29,17 +30,47 @@ export interface PaypalDonateBlockProps {
     fundingStyling?: string[];
 }
 
+const buildUnit = (amount: string | number): PurchaseUnit[] => {
+    return Number(amount) > 0 ? [
+        {
+            amount: {
+                currency_code: 'USD',
+                value: parseFloat(`${amount}`).toFixed(2),
+                breakdown: {
+                    item_total: {
+                        currency_code: 'USD',
+                        value: parseFloat(`${amount}`).toFixed(2)
+                    }
+                }
+            },
+            items: [
+                {
+                    name: 'donation',
+                    quantity: '1',
+                    unit_amount: {
+                        currency_code: 'USD',
+                        value: parseFloat(`${amount}`).toFixed(2),
+                    },
+                    category: 'DONATION',
+                },
+            ]
+        }
+    ] : []
+}
+
 const PaypalDonate = ({
     brandName,
     heading,
     position,
     image,
+    placeholder,
     defaultDonationAmount = 0,
     fundingStyling = [undefined],
     clientId
 }: PaypalDonateBlockProps) => {
-    const [isDisabled, setIsDisabled] = useState(false)
-    const [units, setUnits] = useState<PurchaseUnit[]>([])
+    const [isInputDisabled, setIsInputDisabled] = useState(false)
+    const [isPayPalDisabled, setIsPayPalDisabled] = useState(!defaultDonationAmount)
+    const [units, setUnits] = useState<PurchaseUnit[]>(buildUnit(defaultDonationAmount))
     const {
         register,
         watch,
@@ -56,7 +87,8 @@ const PaypalDonate = ({
     }, []);
 
     const onSubmit = useCallback(() => {
-        setIsDisabled(true)
+        setIsPayPalDisabled(true)
+        setIsInputDisabled(true)
         donateState.isComplete()
         router.push("/donation-confirmation")
     }, [])
@@ -74,32 +106,8 @@ const PaypalDonate = ({
 
     useEffect(() => {
         const subscription = watch((value) => {
-            const fullUnits: PurchaseUnit[] = [
-                {
-                    amount: {
-                        currency_code: 'USD',
-                        value: parseFloat(`${value.amount}`).toFixed(2),
-                        breakdown: {
-                            item_total: {
-                                currency_code: 'USD',
-                                value: parseFloat(`${value.amount}`).toFixed(2)
-                            }
-                        }
-                    },
-                    items: [
-                        {
-                            name: 'donation',
-                            quantity: '1',
-                            unit_amount: {
-                                currency_code: 'USD',
-                                value: parseFloat(`${value.amount}`).toFixed(2),
-                            },
-                            category: 'DONATION',
-                        },
-                    ]
-                }
-            ]
-            setUnits(fullUnits)
+            setIsPayPalDisabled(!Number(value.amount))
+            setUnits(buildUnit(value.amount))
         });
 
         return () => subscription.unsubscribe();
@@ -154,12 +162,13 @@ const PaypalDonate = ({
                                 id="amount"
                                 name="amount"
                                 label="Donation Amount"
+                                placeholder={placeholder}
                                 minLength={{
                                     value: 1
                                 }}
                                 defaultValue={defaultDonationAmount}
                                 isRequired={false}
-                                isDisabled={isDisabled}
+                                isDisabled={isInputDisabled}
                                 register={register}
                                 errors={errors} />
                             <PayPal
@@ -173,7 +182,7 @@ const PaypalDonate = ({
                                 onDisableClick={onDisableClick}
                                 fundingSources={fundingStyling}
                                 purchaseUnit={units}
-                                disableBtn={isDisabled}
+                                disableBtn={isPayPalDisabled}
                                 onApprove={onSubmit}
                                 onError={onError} />
                         </VStack>

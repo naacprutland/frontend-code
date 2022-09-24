@@ -49,6 +49,7 @@ export const defaultData: PaypalDonateProps = {
     src: image,
     alt: 'sample img',
   },
+  placeholder: 'Enter An Amount',
   defaultValue: 10,
   fundingStyling: ['paypal', 'card'],
   clientId:

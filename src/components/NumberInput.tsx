@@ -11,6 +11,7 @@ import { FormNumber } from '../interface/form'
 export interface NumberInputProps extends FormNumber {
     showMoneyIcon?: boolean;
     isDisabled?: boolean;
+    placeholder?: string;
     errors: {
         [x: string]: any;
     };
@@ -34,6 +35,7 @@ const NumberInput = ({
     maxLength,
     minLength,
     isRequired,
+    placeholder,
     requiredMessage,
     isDisabled,
     errors = {},
@@ -53,6 +55,7 @@ const NumberInput = ({
                     size='md'
                     bg="white"
                     type='number'
+                    placeholder={placeholder}
                     min={minLength?.value}
                     max={maxLength?.value}
                     value={value as string | number}
