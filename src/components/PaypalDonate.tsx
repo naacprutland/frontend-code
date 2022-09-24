@@ -13,6 +13,7 @@ import { Image as ImageApi } from '../interface/generalApi'
 import { PurchaseUnit } from "@paypal/paypal-js/types/apis/orders"
 import { useForm } from "react-hook-form";
 import PayPal from './PayPal';
+import { useRouter } from "next/router";
 
 export interface PaypalDonateProps {
     brandName: string
@@ -45,6 +46,7 @@ const PaypalDonate = ({
             { mode: 'onChange' }
         );
     const toast = useToast()
+    const router = useRouter()
 
     const onDisableClick = useCallback(() => {
         // eslint-disable-next-line no-console
