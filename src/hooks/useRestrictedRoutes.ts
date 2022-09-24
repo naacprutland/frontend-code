@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import useCheckoutStore from '../store/useCheckoutStore'
+import useDonateStore from '../store/useDonateStore'
 
 interface Props {
   preview?: boolean
@@ -12,6 +13,7 @@ const useRestrictedRoutes = (props: Props = defaultProp) => {
   const { preview } = props
   const router = useRouter()
   const checkoutState = useCheckoutStore()
+  const donateState = useDonateStore()
 
   useEffect(() => {
     const path =
@@ -28,6 +30,11 @@ const useRestrictedRoutes = (props: Props = defaultProp) => {
           }
           break
         case 'donation-confirmation':
+          if (donateState.complete) {
+            donateState.reset()
+          } else {
+            router.replace('/')
+          }
           break
         default:
           break

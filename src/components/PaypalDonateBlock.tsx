@@ -11,9 +11,10 @@ import Container from './Container'
 import NumberInput from './NumberInput';
 import { Image as ImageApi } from '../interface/generalApi'
 import { PurchaseUnit } from "@paypal/paypal-js/types/apis/orders"
-import { useForm } from "react-hook-form";
-import PayPal from './PayPal';
-import { useRouter } from "next/router";
+import { useForm } from "react-hook-form"
+import PayPal from './PayPal'
+import { useRouter } from "next/router"
+import useDonateStore from '../store/useDonateStore'
 
 export interface PaypalDonateBlockProps {
     brandName: string
@@ -47,6 +48,7 @@ const PaypalDonate = ({
         );
     const toast = useToast()
     const router = useRouter()
+    const donateState = useDonateStore()
 
     const onDisableClick = useCallback(() => {
         // eslint-disable-next-line no-console
@@ -55,9 +57,8 @@ const PaypalDonate = ({
 
     const onSubmit = useCallback(() => {
         setIsDisabled(true)
-        // checkoutState.isComplete()
+        donateState.isComplete()
         router.push("/donation-confirmation")
-        console.log('submit')
     }, [])
 
     const onError = useCallback((err: Record<string, unknown>) => {
