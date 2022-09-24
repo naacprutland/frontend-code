@@ -15,6 +15,7 @@ import { FeatureBlockProps } from './FeatureBlock'
 import { ItemDeckBlockProps } from './ItemDeckBlock'
 import { PageSearchBlockProps } from './PageSearchBlock'
 import { CheckoutBlockProps } from './CheckoutBlock'
+import { PaypalDonateBlockProps } from './PaypalDonateBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -30,7 +31,7 @@ const DynamicFeatureBlock: ComponentType<FeatureBlockProps> = dynamic(() => impo
 const DynamicItemDeckBlock: ComponentType<ItemDeckBlockProps> = dynamic(() => import('./ItemDeckBlock'))
 const DynamicPageSearchBlock: ComponentType<PageSearchBlockProps> = dynamic(() => import('./PageSearchBlock'))
 const DynamicCheckoutBlock: ComponentType<CheckoutBlockProps> = dynamic(() => import('./CheckoutBlock'))
-
+const DynamicPaypalDonateBlock: ComponentType<PaypalDonateBlockProps> = dynamic(() => import('./PaypalDonateBlock'))
 
 function DynamicComponent({ template, ...props }: Block) {
 
@@ -63,6 +64,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicPageSearchBlock {...props as PageSearchBlockProps} />
     case 'blocks.checkout-block':
       return <DynamicCheckoutBlock {...props as CheckoutBlockProps} />
+    case 'blocks.pay-pal-donation':
+      return <DynamicPaypalDonateBlock {...props as PaypalDonateBlockProps} />
     default:
       return null
   }

@@ -15,7 +15,7 @@ import { useForm } from "react-hook-form";
 import PayPal from './PayPal';
 import { useRouter } from "next/router";
 
-export interface PaypalDonateProps {
+export interface PaypalDonateBlockProps {
     brandName: string
     heading: string
     position?: number
@@ -23,7 +23,7 @@ export interface PaypalDonateProps {
         src: ImageApi
         alt: string
     }
-    defaultValue?: number
+    defaultDonationAmount?: number
     clientId: string
     fundingStyling?: string[];
 }
@@ -33,10 +33,10 @@ const PaypalDonate = ({
     heading,
     position,
     image,
-    defaultValue = 0,
+    defaultDonationAmount = 0,
     fundingStyling = [undefined],
     clientId
-}: PaypalDonateProps) => {
+}: PaypalDonateBlockProps) => {
     const [isDisabled, setIsDisabled] = useState(false)
     const [units, setUnits] = useState<PurchaseUnit[]>([])
     const {
@@ -156,7 +156,7 @@ const PaypalDonate = ({
                                 minLength={{
                                     value: 1
                                 }}
-                                defaultValue={defaultValue}
+                                defaultValue={defaultDonationAmount}
                                 isRequired={false}
                                 isDisabled={isDisabled}
                                 register={register}

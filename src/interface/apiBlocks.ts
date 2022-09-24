@@ -3,6 +3,20 @@ import { EventApi } from './eventApi'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface PaypalDonateBlockApi {
+  __component: 'blocks.pay-pal-donation'
+  id: number
+  paypal_client_brand_name: string
+  heading: string
+  default_donation_amount: number
+  image: {
+    src: Image
+    alt: string
+  }
+  funding_styles: fundingStyle[]
+  payPalClientID: string
+}
+
 export interface CheckoutBlockApi {
   __component: 'blocks.checkout-block'
   id: number

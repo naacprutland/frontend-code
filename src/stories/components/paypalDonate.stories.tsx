@@ -1,5 +1,5 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import PaypalDonate, { PaypalDonateProps } from '../../components/PaypalDonate';
+import PaypalDonate, { PaypalDonateProps } from '../../components/PaypalDonateBlock';
 import { defaultData } from '../data/paypalDonateData'
 
 export default {

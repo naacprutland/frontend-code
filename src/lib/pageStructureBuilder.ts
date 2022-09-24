@@ -15,6 +15,7 @@ import {
   StackBlockApi,
   TextBlockApi,
   CheckoutBlockApi,
+  PaypalDonateBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -30,6 +31,7 @@ import {
   FeatureBlock,
   ItemDeckBlock,
   CheckoutBlock,
+  PaypalDonateBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -246,6 +248,9 @@ export const featureBlockBuilder = ({
   }
 }
 
+const transformFundStyling = (funding_styles) =>
+  (funding_styles || []).map((val) => val.styles)
+
 export const checkoutBlockBuilder = ({
   __component: template,
   details = '',
@@ -301,7 +306,7 @@ export const checkoutBlockBuilder = ({
     formData: fullFormData.sections,
     checkoutOptions: transformItemsToOptions(membershipOptions),
     membershipOptions,
-    fundingStyling: (funding_styles || []).map((val) => val.styles),
+    fundingStyling: transformFundStyling(funding_styles),
     optionData: {
       checkoutType: {
         label: resources?.checkout_type_label || '',
@@ -347,6 +352,26 @@ const itemDeckBuilder = ({
   }
 }
 
+const paypalDonateBlockBuilder = ({
+  __component,
+  heading,
+  paypal_client_brand_name,
+  image,
+  funding_styles,
+  payPalClientID,
+  default_donation_amount,
+}: PaypalDonateBlockApi): PaypalDonateBlock => {
+  return {
+    template: __component,
+    heading,
+    brandName: paypal_client_brand_name,
+    image,
+    defaultDonationAmount: default_donation_amount,
+    fundingStyling: transformFundStyling(funding_styles),
+    clientId: payPalClientID,
+  }
+}
+
 const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
   template: __component,
   slug,
@@ -364,6 +389,7 @@ const builders = {
   'blocks.item-deck-block': itemDeckBuilder,
   'blocks.page-search-block': pageSearchBlockBuilder,
   'blocks.checkout-block': checkoutBlockBuilder,
+  'blocks.pay-pal-donation': paypalDonateBlockBuilder,
 }
 
 export async function buildPageStructure(

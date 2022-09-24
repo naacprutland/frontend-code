@@ -1,4 +1,4 @@
-import { PaypalDonateProps } from '../../components/PaypalDonate'
+import { PaypalDonateProps } from '../../components/PaypalDonateBlock'
 import { Image } from '../../interface/generalApi'
 import originalUrl from '../../../public/librarygirl.jpg'
 

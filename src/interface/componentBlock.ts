@@ -12,6 +12,7 @@ import {
   ItemCardBlockApi,
   MediaBlockApi,
   PageSearchBlockApi,
+  PaypalDonateBlockApi,
   StackBlockApi,
   TextBlockApi,
 } from './apiBlocks'
@@ -24,6 +25,7 @@ import { FeatureBlockProps } from '../components/FeatureBlock'
 import { ItemDeckBlockProps } from '../components/ItemDeckBlock'
 import { PageSearchBlockProps } from '../components/PageSearchBlock'
 import { CheckoutBlockProps } from '../components/CheckoutBlock'
+import { PaypalDonateBlockProps } from '../components/PaypalDonateBlock'
 
 interface ComponentBlock {
   template: string
@@ -96,6 +98,12 @@ export interface CheckoutBlock extends ComponentBlock, CheckoutBlockProps {
   template: 'blocks.checkout-block'
 }
 
+export interface PaypalDonateBlock
+  extends ComponentBlock,
+    PaypalDonateBlockProps {
+  template: 'blocks.pay-pal-donation'
+}
+
 export type ResponseBlocks =
   | HeroBlockApi
   | BreadcrumbsApi
@@ -107,6 +115,7 @@ export type ResponseBlocks =
   | FeatureBlockApi
   | ItemCardBlockApi
   | PageSearchBlockApi
+  | PaypalDonateBlockApi
 
 export type Block =
   | HeroBlock
@@ -124,5 +133,6 @@ export type Block =
   | ItemDeckBlock
   | PageSearchBlock
   | CheckoutBlock
+  | PaypalDonateBlock
 
 export type PageBlocks = Block[]
