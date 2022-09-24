@@ -1,25 +1,155 @@
-import { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useEffect, useState, useCallback } from 'react';
+import {
+    Box,
+    Heading,
+    VStack,
+    Stack,
+    useToast,
+    Image
+} from '@chakra-ui/react'
+import Container from './Container'
+import NumberInput from './NumberInput';
+import { Image as ImageApi } from '../interface/generalApi'
+import { PurchaseUnit } from "@paypal/paypal-js/types/apis/orders"
+import { useForm } from "react-hook-form";
+import PayPal from './PayPal';
 
-const paypalID = `paypal-donate-${uuidv4()}`
+export interface PaypalDonateProps {
+    brandName: string
+    heading: string
+    position?: number
+    image: {
+        src: ImageApi
+        alt: string
+    }
+    defaultValue?: number
+    clientId: string
+    fundingStyling?: string[];
+}
 
-const PaypalDonate = () => {
-    useEffect(() => {
-        // PayPal.Donation.Button({
-        //     env: 'sandbox',
-        //     hosted_button_id: 'YOUR_SANDBOX_HOSTED_BUTTON_ID',
-        //     // business: 'YOUR_EMAIL_OR_PAYERID',
-        //     image: {
-        //         src: 'https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif',
-        //         title: 'PayPal - The safer, easier way to pay online!',
-        //         alt: 'Donate with PayPal button'
-        //     },
-        //     onComplete: function (params) {
-        //         // Your onComplete handler
-        //     },
-        // }).render(paypalID)
+const PaypalDonate = ({
+    brandName,
+    heading,
+    position,
+    image,
+    defaultValue = 0,
+    fundingStyling = [undefined],
+    clientId
+}: PaypalDonateProps) => {
+    const [isDisabled, setIsDisabled] = useState(false)
+    const [units, setUnits] = useState<PurchaseUnit[]>([])
+    const {
+        register,
+        watch,
+        formState: { errors } } = useForm(
+            { mode: 'onChange' }
+        );
+    const toast = useToast()
+
+    const onDisableClick = useCallback(() => {
+        console.log('on disabled click')
+    }, []);
+
+    const onSubmit = useCallback(() => {
+        setIsDisabled(true)
+        console.log('submit')
     }, [])
-    return <div id={paypalID}></div>
+
+    const onError = useCallback((err: Record<string, unknown>) => {
+        // eslint-disable-next-line no-console
+        console.log(err)
+        toast({
+            title: 'Payment error',
+            description: 'There was an issue submitting your payment',
+            status: 'error',
+            isClosable: true,
+        })
+    }, [])
+
+    useEffect(() => {
+        const subscription = watch((value) => {
+            console.log('subscription', { value })
+            setUnits([])
+        });
+
+        return () => subscription.unsubscribe();
+    }, [])
+
+    return (
+        <Box as="section"
+            w="100%">
+            <Container
+                className="grid"
+                textAlign="center"
+                py={[8, 12, 14]}>
+                <Box className="gcol-12 gcol-md-12 gcol-lg-8 center"
+                    w="100%">
+                    {heading && (
+                        <Heading as={position > 0 ? 'h2' : 'h1'}
+                            lineHeight="1"
+                            paddingBottom={["6", "8", "12"]}
+                            fontSize={['4xl', '5xl', '6xl']}>
+                            {heading}
+                        </Heading>)
+                    }
+                    <Stack direction={['column', 'row']}
+                        spacing={[6, 6, 8]}>
+                        {image && (
+                            <Box borderRadius="6px"
+                                flex="1 1 50%"
+                                layerStyle="boxShadowLight"
+                                overflow="hidden">
+                                <Image
+                                    src={image?.src?.url}
+                                    alt={image?.alt || heading}
+                                    objectFit="cover"
+                                    objectPosition="center"
+                                    h="100%"
+                                    w="100%"
+                                />
+                            </Box>
+
+                        )}
+                        <VStack as="form"
+                            flex="1 1 50%"
+                            p="1rem"
+                            spacing="4"
+                            borderRadius="6px"
+                            backgroundColor="white"
+                            layerStyle="boxShadowLight"
+                            overflow="hidden">
+                            <NumberInput
+                                type="number"
+                                showMoneyIcon={true}
+                                id="amount"
+                                name="amount"
+                                label="Donation Amount"
+                                minLength={{
+                                    value: 1
+                                }}
+                                defaultValue={defaultValue}
+                                isRequired={false}
+                                register={register}
+                                errors={errors} />
+                            <PayPal
+                                clientId={clientId}
+                                brandName={brandName}
+                                spinner={true}
+                                style={fundingStyling.map(() => ({
+                                    layout: 'vertical',
+                                    label: 'donate'
+                                }))}
+                                onDisableClick={onDisableClick}
+                                fundingSources={fundingStyling}
+                                purchaseUnit={units}
+                                disableBtn={isDisabled}
+                                onApprove={onSubmit}
+                                onError={onError} />
+                        </VStack>
+                    </Stack>
+                </Box>
+            </Container>
+        </Box>)
 }
 
 export default PaypalDonate
