@@ -47,11 +47,14 @@ const PaypalDonate = ({
     const toast = useToast()
 
     const onDisableClick = useCallback(() => {
+        // eslint-disable-next-line no-console
         console.log('on disabled click')
     }, []);
 
     const onSubmit = useCallback(() => {
         setIsDisabled(true)
+        // checkoutState.isComplete()
+        router.push("/donation-confirmation")
         console.log('submit')
     }, [])
 
@@ -68,8 +71,32 @@ const PaypalDonate = ({
 
     useEffect(() => {
         const subscription = watch((value) => {
-            console.log('subscription', { value })
-            setUnits([])
+            const fullUnits: PurchaseUnit[] = [
+                {
+                    amount: {
+                        currency_code: 'USD',
+                        value: parseFloat(`${value.amount}`).toFixed(2),
+                        breakdown: {
+                            item_total: {
+                                currency_code: 'USD',
+                                value: parseFloat(`${value.amount}`).toFixed(2)
+                            }
+                        }
+                    },
+                    items: [
+                        {
+                            name: 'donation',
+                            quantity: '1',
+                            unit_amount: {
+                                currency_code: 'USD',
+                                value: parseFloat(`${value.amount}`).toFixed(2),
+                            },
+                            category: 'DONATION',
+                        },
+                    ]
+                }
+            ]
+            setUnits(fullUnits)
         });
 
         return () => subscription.unsubscribe();
@@ -129,6 +156,7 @@ const PaypalDonate = ({
                                 }}
                                 defaultValue={defaultValue}
                                 isRequired={false}
+                                isDisabled={isDisabled}
                                 register={register}
                                 errors={errors} />
                             <PayPal
