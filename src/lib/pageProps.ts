@@ -23,6 +23,7 @@ const {
   getCheckoutConfirmationPage,
   getDonationConfirmationPage,
   getDonatePage,
+  getEventPage,
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -80,11 +81,16 @@ export async function getConfigData(): Promise<ApiError | SiteConfig> {
 
 /**
  * Generates props for static props
+ * @param {string} rootSlug The name of the page
  * @param {string} location The name of the page
  * @param {boolean} preview If in preview mode
  * @returns Page Props
  */
-export async function getPageProps(location: string, preview: boolean) {
+export async function getPageProps(
+  rootSlug: string,
+  location: string,
+  preview: boolean
+) {
   const config = await getConfigData()
 
   let pageData: PageResponseProps
@@ -115,7 +121,13 @@ export async function getPageProps(location: string, preview: boolean) {
       pageData = await getStaticPageData(get404Page)
       break
     default:
-      pageData = await getDynamicPageData(location, preview)
+      if (rootSlug === 'calender') {
+        pageData = await getStaticPageData(
+          getEventPage + `/${location.toLowerCase()}`
+        )
+      } else {
+        pageData = await getDynamicPageData(location, preview)
+      }
   }
 
   let data: PageTemplateProps = {} as PageTemplateProps

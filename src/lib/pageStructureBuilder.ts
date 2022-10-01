@@ -16,6 +16,7 @@ import {
   TextBlockApi,
   CheckoutBlockApi,
   PaypalDonateBlockApi,
+  EventTemplateApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -32,6 +33,7 @@ import {
   ItemDeckBlock,
   CheckoutBlock,
   PaypalDonateBlock,
+  EventTemplate,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -39,6 +41,7 @@ import { PageTemplateProps } from '../interface/page'
 import { PageResponseProps } from '../interface/pageResponse'
 import { rowBuilder } from './formBuilder'
 import { seoBreadcrumbsBuilder } from './seoBuilder'
+import moment from 'moment'
 
 export const heroBlockBuilder = ({
   __component,
@@ -176,12 +179,8 @@ const formBlockBuilder = ({
   }
 }
 
-export const breadcrumbBuilder = (
-  { __component, style }: BreadcrumbsApi,
-  pageData?: PageResponseProps
-): Breadcrumbs => {
-  const slugs: string[] = pageData?.static_path?.slug || []
-  const breadcrumbs: Breadcrumb[] = slugs.slice(0, -1).reduce(
+const getBreadcrumbs = (slugs: string[] = []): Breadcrumb[] => {
+  return slugs.slice(0, -1).reduce(
     (acc: Breadcrumb[], cur: string) => {
       const label = cur.split('-').join(' ')
       return [
@@ -194,6 +193,14 @@ export const breadcrumbBuilder = (
     },
     [{ label: 'Home', path: '/' }] as unknown as Breadcrumb[]
   )
+}
+
+export const breadcrumbBuilder = (
+  { __component, style }: BreadcrumbsApi,
+  pageData?: PageResponseProps
+): Breadcrumbs => {
+  const slugs: string[] = pageData?.static_path?.slug || []
+  const breadcrumbs: Breadcrumb[] = getBreadcrumbs(slugs)
   return {
     template: __component,
     style,
@@ -374,6 +381,48 @@ const paypalDonateBlockBuilder = ({
   }
 }
 
+const eventTemplateBuilder = (
+  {
+    __component: template,
+    title,
+    description,
+    location,
+    rsvp,
+    image,
+    imageAlt,
+    date,
+    startTime,
+    endTime,
+  }: EventTemplateApi,
+  data: PageResponseProps
+): EventTemplate => {
+  const slugs: string[] = data?.static_path?.slug || []
+  const breadcrumbs: Breadcrumb[] = getBreadcrumbs(slugs)
+  const cta = rsvp
+    ? {
+        label: 'RSVP',
+        link: `mailto: ${rsvp}`,
+        external: false,
+      }
+    : null
+  const endFormat = endTime
+    ? ` - ${moment(endTime, 'HH:mm:ss').format(`hh:mma`)}`
+    : ''
+
+  return {
+    template,
+    title,
+    description,
+    date: moment([date]).format('dddd | MMMM 	d, 	YYYY'),
+    time: moment(startTime, 'HH:mm:ss').format(`hh:mma`) + endFormat,
+    breadcrumbs,
+    location,
+    image,
+    imageAlt,
+    rsvp: cta,
+  }
+}
+
 const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
   template: __component,
   slug,
@@ -392,6 +441,7 @@ const builders = {
   'blocks.page-search-block': pageSearchBlockBuilder,
   'blocks.checkout-block': checkoutBlockBuilder,
   'blocks.pay-pal-donation': paypalDonateBlockBuilder,
+  'blocks.event-template': eventTemplateBuilder,
 }
 
 export async function buildPageStructure(

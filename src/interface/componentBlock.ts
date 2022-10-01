@@ -15,6 +15,7 @@ import {
   PaypalDonateBlockApi,
   StackBlockApi,
   TextBlockApi,
+  EventTemplateApi,
 } from './apiBlocks'
 import { StackBlockProps } from '../components/StackBlock'
 import { HeroTwoBlockProps } from '../components/HeroTwoBlock'
@@ -121,6 +122,7 @@ export type ResponseBlocks =
   | ItemCardBlockApi
   | PageSearchBlockApi
   | PaypalDonateBlockApi
+  | EventTemplateApi
 
 export type Block =
   | HeroBlock

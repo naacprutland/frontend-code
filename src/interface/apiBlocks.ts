@@ -3,6 +3,19 @@ import { EventApi } from './eventApi'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface EventTemplateApi {
+  __component: 'blocks.event-template'
+  id: string
+  title: string
+  description: string
+  date: string
+  startTime: string
+  endTime: string
+  location: string
+  rsvp?: string
+  image: Image
+  imageAlt: string
+}
 export interface PaypalDonateBlockApi {
   __component: 'blocks.pay-pal-donation'
   id: number

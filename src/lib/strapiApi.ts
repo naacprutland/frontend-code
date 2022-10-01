@@ -17,6 +17,7 @@ const apiEndPoints = {
   getCheckoutConfirmationPage: `${baseApiUrl}/checkout-confirmation-page`,
   getDonationConfirmationPage: `${baseApiUrl}/donation-confirmation-page`,
   getDonatePage: `${baseApiUrl}/donate-page`,
+  getEventPage: `${baseApiUrl}/events`,
 }
 
 export default apiEndPoints

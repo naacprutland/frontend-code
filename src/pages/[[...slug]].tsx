@@ -13,8 +13,9 @@ export async function getStaticPaths() {
 
 export const getStaticProps = async ({ params, preview }) => {
   const location = params.slug?.pop() || ''
+  const rootSlug = params.slug?.shift() || ''
 
-  return getPageProps(location, preview);
+  return getPageProps(rootSlug, location, preview);
 
 }
 
