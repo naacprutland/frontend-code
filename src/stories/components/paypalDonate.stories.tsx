@@ -1,5 +1,6 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
-import PaypalDonate, { PaypalDonateProps } from '../../components/PaypalDonateBlock';
+import React from 'react';
+import PaypalDonate, { PaypalDonateBlockProps } from '../../components/PaypalDonateBlock';
 import { defaultData } from '../data/paypalDonateData'
 
 export default {
@@ -7,7 +8,7 @@ export default {
     component: PaypalDonate,
 } as Meta;
 
-const Template: Story<PaypalDonateProps> = (args) => <PaypalDonate {...args} />;
+const Template: Story<PaypalDonateBlockProps> = (args) => <PaypalDonate {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = defaultData;

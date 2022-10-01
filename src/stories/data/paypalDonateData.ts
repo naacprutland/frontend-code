@@ -1,8 +1,8 @@
-import { PaypalDonateProps } from '../../components/PaypalDonateBlock'
+import { PaypalDonateBlockProps } from '../../components/PaypalDonateBlock'
 import { Image } from '../../interface/generalApi'
 import originalUrl from '../../../public/librarygirl.jpg'
 
-const image: Image = {
+export const image: Image = {
   mime: 'image/jpeg',
   size: 349.68,
   width: 2400,
@@ -42,7 +42,7 @@ const image: Image = {
   },
 }
 
-export const defaultData: PaypalDonateProps = {
+export const defaultData: PaypalDonateBlockProps = {
   brandName: 'Rutland Area NAACP',
   heading: 'Sample Handing',
   image: {
@@ -50,7 +50,6 @@ export const defaultData: PaypalDonateProps = {
     alt: 'sample img',
   },
   placeholder: 'Enter An Amount',
-  defaultValue: 10,
   fundingStyling: ['paypal', 'card'],
   clientId:
     'AVtptSNrZtDYwfbt69rI9biLQ2FBLlOqPGaeWWR9eIdSaFbBrtqAToDsEVxAtQUQEv4nyX0eBsUcSIHP',

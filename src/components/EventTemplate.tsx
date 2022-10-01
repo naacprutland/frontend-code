@@ -1,65 +1,41 @@
-import { useMemo } from 'react'
 import HeroTwoBlock from './HeroTwoBlock'
 import Breadcrumbs, { Breadcrumb } from './Breadcrumbs'
 import TextBlock from './TextBlock'
 import { Image } from '../interface/generalApi'
+import { CTABtn } from './HeroBlock'
 
 export interface EventTemplateProps {
     title: string
     description: string
-    date: Date
-    startTime?: string
-    endTime?: string
-    host: string
+    breadcrumbs: Breadcrumb[]
+    date: string
+    time?: string
     location: string
-    rsvp?: string
+    rsvp?: CTABtn
     image: Image
     imageAlt: string
 }
 
-const breadcrumbs: Breadcrumb[] = [
-    {
-        path: '/',
-        label: 'home'
-    },
-    {
-        path: 'event',
-        label: 'event'
-    }
-]
-
-
-
 const EventTemplate = ({
     title,
     description,
+    breadcrumbs,
     date,
-    startTime,
-    endTime,
+    time,
     location,
     rsvp,
     image,
     imageAlt
 }: EventTemplateProps) => {
-    const rsvpCTA = useMemo(() => {
-        if (rsvp) {
-            return {
-                label: "RSVP",
-                link: `mailto: ${rsvp}`,
-                external: false
-            }
-        }
-        return null
-    }, [rsvp]);
     return (
         <>
             <HeroTwoBlock position={0}
                 title={title}
                 imgSrc={image.url}
                 imgAlt={imageAlt}
-                subText1={date.getDate().toString()}
-                subText2={`${startTime} - ${endTime}`}
-                cta={rsvpCTA}
+                subText1={date}
+                subText2={time}
+                cta={rsvp}
             />
             <Breadcrumbs breadcrumbs={breadcrumbs} />
             <TextBlock

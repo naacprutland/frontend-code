@@ -26,6 +26,7 @@ import { ItemDeckBlockProps } from '../components/ItemDeckBlock'
 import { PageSearchBlockProps } from '../components/PageSearchBlock'
 import { CheckoutBlockProps } from '../components/CheckoutBlock'
 import { PaypalDonateBlockProps } from '../components/PaypalDonateBlock'
+import { EventTemplateProps } from '../components/EventTemplate'
 
 interface ComponentBlock {
   template: string
@@ -98,6 +99,10 @@ export interface CheckoutBlock extends ComponentBlock, CheckoutBlockProps {
   template: 'blocks.checkout-block'
 }
 
+export interface EventTemplate extends ComponentBlock, EventTemplateProps {
+  template: 'blocks.event-template'
+}
+
 export interface PaypalDonateBlock
   extends ComponentBlock,
     PaypalDonateBlockProps {
@@ -134,5 +139,6 @@ export type Block =
   | PageSearchBlock
   | CheckoutBlock
   | PaypalDonateBlock
+  | EventTemplate
 
 export type PageBlocks = Block[]
