@@ -10,8 +10,8 @@ import { v4 as uuidv4 } from 'uuid';
 import Container from './Container';
 
 export interface Breadcrumb {
-    path: '',
-    label: ''
+    path: string
+    label: string
 }
 
 export interface BreadcrumbsProps {
@@ -45,7 +45,7 @@ const Breadcrumbs = ({
                     span: {
                         display: 'flex'
                     }
-                }} 
+                }}
                 separator={<ChevronRightIcon color='secondary6.500' />}>
                 {
                     breadcrumbs.map(crumb => (
