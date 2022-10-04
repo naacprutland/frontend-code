@@ -15,7 +15,7 @@ import Image from 'next/image'
 import { Image as MediaImage } from '../interface/generalApi'
 
 export interface ArticleCardProps {
-    image: {
+    image?: {
         src: MediaImage;
         alt: string;
     },
@@ -40,7 +40,7 @@ const ArticleCard = ({
     badges = [],
 }: ArticleCardProps) => {
     return (
-        image && (<LinkBox as="article"
+        <LinkBox as="article"
             display="flex"
             flexDirection={["column", "row"]}
             overflow="hidden"
@@ -108,6 +108,7 @@ const ArticleCard = ({
                                 <NextLink href={link?.path} passHref>
                                     <LinkOverlay isExternal={link?.isExternal} >
                                         <Button as="span" size="xs"
+                                            fontWeight="bold"
                                             rightIcon={<ChevronRightIcon />}
                                             colorScheme="secondary4">
                                             {link?.label}
@@ -119,7 +120,7 @@ const ArticleCard = ({
                     </VStack>
                 )
             }
-        </LinkBox>)
+        </LinkBox>
     )
 }
 
