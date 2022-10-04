@@ -118,11 +118,6 @@ const Header = ({
       position={fixed ? "absolute" : "static"}
       zIndex="1"
       w="100%"
-      sx={{
-        "&>*": {
-          width: "100%"
-        }
-      }}
       bg={transparent ? "none" :
         fixed ? '#000000BF' : "black"}
     >
