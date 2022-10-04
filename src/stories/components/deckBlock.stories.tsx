@@ -1,6 +1,8 @@
 import { Story, Meta } from '@storybook/react/types-6-0';
+import React from 'react';
 import DeckBlock, { DeckBlockProps } from '../../components/DeckBlock'
 import { cardData } from '../data/cardData'
+import { basicData } from '../data/articleCardData'
 
 export default {
     title: "Components/Deck Block",
@@ -70,4 +72,16 @@ StyleBlue.args = {
         external: true
     },
     style: "blue"
+};
+
+export const BasicStacked = Template.bind({});
+BasicStacked.args = {
+    heading: 'News & Announcements',
+    cards: new Array(4).fill(basicData),
+    stackDeck: true,
+    link: {
+        label: "View More Articles",
+        path: 'http://www.google.com',
+        external: true
+    }
 };

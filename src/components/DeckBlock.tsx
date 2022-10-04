@@ -1,7 +1,8 @@
-import { Heading, Flex, Button, SimpleGrid, useBreakpointValue } from "@chakra-ui/react"
+import { VStack, Heading, Flex, Button, SimpleGrid, useBreakpointValue } from "@chakra-ui/react"
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
 import Card, { CardProps } from './Card'
+import ArticleCard, { ArticleCardProps } from "./ArticleCard"
 import Container from "./Container"
 import { Link, StyleType } from "../interface/general"
 import { Styling } from "../interface/enums"
@@ -9,7 +10,7 @@ import { Styling } from "../interface/enums"
 export interface DeckBlockProps {
   position?: number;
   heading?: string;
-  cards: CardProps[];
+  cards: CardProps[] | ArticleCardProps[];
   link?: Link,
   onAction?: {
     action: () => void;
@@ -18,6 +19,7 @@ export interface DeckBlockProps {
   hideButton?: boolean;
   style?: StyleType;
   disableButton?: boolean;
+  stackDeck?: boolean;
 }
 
 const DeckBlock = ({
@@ -28,28 +30,39 @@ const DeckBlock = ({
   onAction,
   hideButton,
   style = "none",
-  disableButton
+  disableButton,
+  stackDeck = false
 }: DeckBlockProps) => {
   const setFull = useBreakpointValue({ base: true, sm: false })
   return (
-    <Container as="section" py={[8, 12, 14]}
+    <Container className="grid" as="section" py={[8, 12, 14]}
       layerStyle={Styling[style]} >
       {heading && (
-        <Heading as={position > 0 ? 'h2' : 'h1'}
+        <Heading className={stackDeck ? "gcol-12 gcol-md-12 gcol-lg-10 center" : "gcol-12"} as={position > 0 ? 'h2' : 'h1'}
           lineHeight="1"
           paddingBottom={["6", "8", "12"]}
           fontSize={['4xl', '5xl', '6xl']}>
           {heading}
         </Heading>)
       }
-      <SimpleGrid columns={[1, 2, 4]} spacingX={[1, 6, 8]} spacingY={[6, 8]} >
-        {cards.map((data, i) => (
-          <Card key={data.title + i} {...data} />
-        ))}
-      </SimpleGrid>
+      {!stackDeck &&
+        <SimpleGrid className="gcol-12" columns={[1, 2, 4]} spacingX={[1, 6, 8]} spacingY={[6, 8]} >
+          {cards.map((data, i) => (
+            <Card key={data.title + i} {...data} />
+          ))}
+        </SimpleGrid>
+      }
+      {stackDeck &&
+        <VStack className="gcol-12 gcol-md-12 gcol-lg-10 center" spacing="6" >
+          {cards.map((data, i) => (
+            <ArticleCard key={data.title + i} {...data} />
+          ))}
+        </VStack>
+      }
       {
         (link || onAction) && (
           <Flex width="100%"
+            className={stackDeck ? "gcol-12 gcol-md-12 gcol-lg-10 center" : "gcol-12"}
             paddingTop={["6", "8", "12"]}
             justify={link && !onAction ? "start" : "center"}>
             {
