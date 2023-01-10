@@ -24,6 +24,7 @@ const {
   getDonationConfirmationPage,
   getDonatePage,
   getEventPage,
+  getResourcePage,
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
 interface ApiError {
@@ -116,6 +117,9 @@ export async function getPageProps(
       break
     case 'donation-confirmation':
       pageData = await getStaticPageData(getDonationConfirmationPage)
+      break
+    case 'resources':
+      pageData = await getStaticPageData(getResourcePage)
       break
     case '404':
       pageData = await getStaticPageData(get404Page)
