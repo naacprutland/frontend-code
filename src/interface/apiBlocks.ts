@@ -3,6 +3,13 @@ import { EventApi } from './eventApi'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface SearchSortBlockApi {
+  __component: 'blocks.search-sort-block'
+  id: number
+  collection_type: string
+  filter?: string
+}
+
 export interface EventTemplateApi {
   __component: 'blocks.event-template'
   id: string

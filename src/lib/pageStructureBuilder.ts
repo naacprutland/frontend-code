@@ -17,6 +17,7 @@ import {
   CheckoutBlockApi,
   PaypalDonateBlockApi,
   EventTemplateApi,
+  SearchSortBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -34,6 +35,7 @@ import {
   CheckoutBlock,
   PaypalDonateBlock,
   EventTemplate,
+  SearchSortBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -428,6 +430,18 @@ const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
   slug,
 })
 
+const searchSortBuilder = ({
+  __component: template,
+  filter,
+}: SearchSortBlockApi): SearchSortBlock => {
+  // const results =
+  return {
+    template,
+    filter,
+    results: [],
+  }
+}
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -442,6 +456,7 @@ const builders = {
   'blocks.checkout-block': checkoutBlockBuilder,
   'blocks.pay-pal-donation': paypalDonateBlockBuilder,
   'blocks.event-template': eventTemplateBuilder,
+  'blocks.search-sort-block': searchSortBuilder,
 }
 
 export async function buildPageStructure(

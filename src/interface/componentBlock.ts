@@ -2,7 +2,7 @@ import { HeroProps } from '../components/HeroBlock'
 import { TextBlockProps } from '../components/TextBlock'
 import { DeckBlockProps } from '../components/DeckBlock'
 import { MediaBlockProps } from '../components/MediaBlock'
-import { SearchSortProps } from '../components/SearchSortBlock'
+import { SearchSortBlockProps } from '../components/SearchSortBlock'
 import {
   BreadcrumbsApi,
   FeatureBlockApi,
@@ -50,7 +50,7 @@ export interface MediaBlock extends ComponentBlock, MediaBlockProps {
   template: 'blocks.media-block'
 }
 
-export interface SearchSortBlock extends ComponentBlock, SearchSortProps {
+export interface SearchSortBlock extends ComponentBlock, SearchSortBlockProps {
   template: 'blocks.search-sort-block'
 }
 

@@ -1,120 +1,179 @@
-import React, { useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
-  Box,
-  Container,
-  InputLeftElement,
-  Icon,
-  InputGroup,
-  Input,
-  Stack,
-  Select,
-  useToast,
-  FormControl } from '@chakra-ui/react'
+    Box,
+    InputLeftElement,
+    Icon,
+    InputGroup,
+    Input,
+    Select,
+    useToast,
+    FormControl,
+    IconButton
+} from '@chakra-ui/react'
 import { AiOutlineSearch } from "react-icons/ai"
+import Container from './Container';
 import DeckBlock from "./DeckBlock"
-import useCardData from '../hooks/useCardsData'
 import { MediaImage } from '../interface/media'
-import { useForm, useWatch } from "react-hook-form";
-import { debounce } from '../lib/util';
+import { useForm } from "react-hook-form";
 import { searchSortQuery } from '../lib/strapiClient'
 import { CardProps } from '../components/Card'
+import { InfinityPage } from "../lib/pagesSearch";
+import {
+    QueryFunctionContext,
+    useInfiniteQuery
+} from 'react-query'
+import { SearchIcon } from "@chakra-ui/icons";
 
 export interface ResultItem {
-  id: string;
-  title: string;
-  slug: string;
-  description?: string;
-  image: {
-    src: MediaImage;
-    alt: string;
-  },
-  page: {
     id: string;
-    slug: string;
-    homePage: boolean;
-    path: string;
-  },
-  tile: {
     title: string;
-    copy?: string;
+    slug: string;
+    description?: string;
     image: {
-      src: MediaImage;
-      alt: string;
+        src: MediaImage;
+        alt: string;
     },
-    link: {
-      isExternal: boolean,
-      label: string,
-      path: string
-    }
-  }
-}
-
-export interface SearchSortProps {
-  collectionType: string;
-  results: CardProps[];
-}
-
-const SearchSortBlock = ({ collectionType, results }: SearchSortProps) => {
-  const [ cardsData, setCardsData ] = useCardData(null)
-  const { register, control } = useForm();
-
-  const formData = useWatch({ control });
-  const firstTime = useRef(true);
-  const toast = useToast()
-
-  const searchFilter = useCallback(
-    debounce(async (data) => {
-      if (Object.keys(data)?.length > 0 ) {
-        try { 
-          const response = await searchSortQuery( collectionType, data)
-          setCardsData(response)
-        } catch (e) {
-          toast({
-            title: 'Server Error',
-            description: 'There was an issue with your request. Please try again later',
-            status: 'error',
-            isClosable: true,
-          })
+    page: {
+        id: string;
+        slug: string;
+        homePage: boolean;
+        path: string;
+    },
+    tile: {
+        title: string;
+        copy?: string;
+        image: {
+            src: MediaImage;
+            alt: string;
+        },
+        link: {
+            isExternal: boolean,
+            label: string,
+            path: string
         }
-      }
-    }, 500), [])
-
-  useEffect(() => {
-    if (!firstTime.current) {
-      searchFilter(formData)
-    } else {
-      firstTime.current = false;
     }
-  }, [formData])
+}
 
-  return (<Stack align="center" spacing={4} w="100%">
-    <Container maxW="container.lg">
-      <Box as="form" className="grid" w="100%">
-        <FormControl className="gcol-6 gcol-md-8">
-          <InputGroup id="search">
-            <InputLeftElement pointerEvents="none">
-                <Icon as={AiOutlineSearch} />
-            </InputLeftElement>
-            <Input type="text" 
-                  placeholder="Search"
-                  {...register("search")} />
-        </InputGroup>
-        </FormControl>
-        <FormControl className="gcol-6 gcol-md-4" id="sort">
-            <Select aria-label="Sort" 
-                    placeholder="Sort Options"
-                    {...register("sort")}>
-              <option value="NEW">Newest</option>
-              <option value="OLD">Oldest</option>
-              <option value="ASC">Ascending</option>
-              <option value="DESC">Descending</option>
-            </Select>
-          </FormControl>
-      </Box>
-    </Container>
-    {cardsData || results ? <DeckBlock position={2} cards={cardsData || results} />
-      : <p>No Results</p>}
-  </Stack>)
+export interface SearchSortBlockProps {
+    results: CardProps[];
+    filter?: string;
+}
+
+const SearchSortBlock = ({ results, filter = '' }: SearchSortBlockProps) => {
+    const [loaded, setLoaded] = useState(false);
+    const [cardsData, setCardsData] = useState(results)
+    const { register, handleSubmit } = useForm();
+    const [options, setOptions] = useState({ filter: filter || '' })
+    const [total, setTotal] = useState(null)
+    const {
+        refetch,
+        fetchNextPage,
+        error,
+        hasNextPage,
+        isFetchingNextPage,
+    } = useInfiniteQuery<InfinityPage, Error>(`sort-${filter}`,
+        async ({ pageParam = 0 }: QueryFunctionContext) => {
+            const res = await searchSortQuery(pageParam, options)
+            setTotal(res.resultTotal)
+            setCardsData(res.page.cards)
+            return res;
+        }, {
+        enabled: false,
+        getNextPageParam: (lastPage) => lastPage?.nextCursor,
+    })
+
+    const toast = useToast()
+
+    const onLoadMore = () => {
+        fetchNextPage()
+    }
+
+    const onSubmit = async (searchData) => {
+        setOptions(prevState => ({
+            ...prevState,
+            ...searchData
+        }))
+    }
+
+    useEffect(() => {
+        if (loaded) {
+            console.log('run')
+            refetch();
+        }
+    }, [options])
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: 'Search Error',
+                description: 'There was an error while processing the search.',
+                status: 'error',
+                isClosable: true,
+            })
+        }
+    }, [error])
+
+    useEffect(() => {
+        setLoaded(true)
+    }, [])
+
+    return (<>
+        <Container as="form" py={[8, 12, 14]} onSubmit={handleSubmit(onSubmit)}>
+            <Box className="grid">
+                <Box className="gcol-12 gcol-md-12 gcol-lg-10 gcol-xl-8 center" w="100%">
+                    <Box display="flex" flexDirection={["column", "row"]} gap={[5, 5, 8]}>
+                        <FormControl flex="1 1">
+                            <InputGroup id="search">
+                                <InputLeftElement pointerEvents="none">
+                                    <Icon as={AiOutlineSearch} />
+                                </InputLeftElement>
+                                <Input type="text"
+                                    placeholder="Search"
+                                    {...register("search")} />
+                            </InputGroup>
+                        </FormControl>
+                        <Box display="flex" flex="1 1">
+                            <FormControl id="sort">
+                                <Select aria-label="Sort"
+                                    placeholder="Sort Options"
+                                    {...register("sort")}>
+                                    <option value="NEW">Newest</option>
+                                    <option value="OLD">Oldest</option>
+                                    <option value="ASC">Ascending</option>
+                                    <option value="DESC">Descending</option>
+                                </Select>
+                            </FormControl>
+                            <IconButton
+                                colorScheme='prime1'
+                                borderRadius='50%'
+                                type="submit"
+                                aria-label='Submit'
+                                marginLeft="4px"
+                                icon={<SearchIcon color='prime2.500' />}
+                            />
+                        </Box>
+                    </Box>
+                </Box>
+            </Box>
+            {typeof total === 'number' && (
+                <Box fontSize="24px"
+                    fontWeight="bold"
+                    textAlign="center"
+                    paddingTop="24px"
+                    w="100%">{total} Results</Box>)}
+        </Container>
+        {cardsData ? <DeckBlock position={2}
+            onAction={{
+                action: onLoadMore,
+                label: 'Load More'
+            }}
+            disableButton={isFetchingNextPage}
+            hideButton={!hasNextPage}
+            cards={cardsData} />
+            : (<Container paddingBottom={[8, 12, 14]} textAlign="center">
+                <p>No Results</p>
+            </Container>)}
+    </>)
 }
 
 export default SearchSortBlock
