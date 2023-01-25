@@ -21,32 +21,48 @@ const arg: SearchFilter = {
 
 interface QueryObject {
   find?: string
-  sort?: string
+  sort?: string[]
   parent?: string
-  filter?: object
-}
-
-interface SearchSortResponse {
-  data: {
-    id: number
-    attributes: {
-      label: string
-      slug: string
-      path: string
-      static_path: {
-        slug: string[]
+  filters?: {
+    $or: [
+      {
+        slug: {
+          $containsi: string
+        }
+      },
+      {
+        seo: {
+          metaTitle: {
+            $containsi: string
+          }
+        }
+      },
+      {
+        seo: {
+          metaDescription: {
+            $containsi: string
+          }
+        }
       }
-      bulletin: boolean
-      resource: boolean
+    ]
+    seo: {
+      metaTitle: {
+        $notNull: boolean
+      }
     }
-  }[]
-  meta: {
-    pagination: {
-      page: number
-      pageSize: number
-      pageCount: number
-      total: number
+  }
+  populate: {
+    seo: {
+      populate: {
+        metaTitle: boolean
+        metaDescription: boolean
+        metaImage: string
+      }
     }
+  }
+  pagination: {
+    page: number
+    pageSize: number
   }
 }
 
@@ -58,80 +74,77 @@ interface SearchSortResponse {
  */
 export const searchSortQuery = async (
   pageParam = 1,
-  { search, sort, parentPage, filter }: SearchFilter = arg
+  { search, sort, filter }: SearchFilter = arg
 ): Promise<InfinityPage> => {
-  const queryObject: QueryObject = {}
-  if (search) {
-    queryObject.find = search
-  }
-
-  if (sort) {
-    queryObject.sort = sort
-  }
-
-  if (parentPage) {
-    queryObject.parent = parentPage
-  }
-
-  if (filter) {
-    queryObject.filter = {
-      [filter]: true,
-    }
-  }
-
-  const query = stringify(
-    {
-      populate: {
-        seo: {
-          populate: {
-            metaTitle: true,
-            metaDescription: true,
-            metaImage: '*',
-          },
+  const queryObject: QueryObject = {
+    populate: {
+      seo: {
+        populate: {
+          metaTitle: true,
+          metaDescription: true,
+          metaImage: '*',
         },
       },
-      filters: {
-        $or: [
-          {
-            slug: {
+    },
+    filters: {
+      [filter]: true,
+      $or: [
+        {
+          slug: {
+            $containsi: search,
+          },
+        },
+        {
+          seo: {
+            metaTitle: {
               $containsi: search,
             },
           },
-          {
-            seo: {
-              metaTitle: {
-                $containsi: search,
-              },
+        },
+        {
+          seo: {
+            metaDescription: {
+              $containsi: search,
             },
-          },
-          {
-            seo: {
-              metaDescription: {
-                $containsi: search,
-              },
-            },
-          },
-        ],
-        seo: {
-          metaTitle: {
-            $notNull: true,
           },
         },
-      },
-      pagination: {
-        page: pageParam,
-        pageSize: 16,
+      ],
+      seo: {
+        metaTitle: {
+          $notNull: true,
+        },
       },
     },
-    {
-      encodeValuesOnly: true,
+    pagination: {
+      page: pageParam,
+      pageSize: 16,
+    },
+  }
+
+  if (sort) {
+    switch (sort) {
+      case 'NEW':
+        queryObject.sort = ['publishedAt:desc']
+        break
+      case 'OLD':
+        queryObject.sort = ['publishedAt:asc']
+        break
+      case 'ASC':
+        queryObject.sort = ['slug:asc']
+        break
+      case 'DEC':
+        queryObject.sort = ['slug:desc']
+        break
     }
-  )
+  }
+
+  const query = stringify(queryObject, {
+    encodeValuesOnly: true,
+  })
 
   const url = `${apiEndPoints.getPages}/${query ? '?' : ''}${query}`
 
   const json: SearchApi = await fetchApi(url)
-  console.log({ json })
   const pagination: Pagination = json.meta.pagination
   const cards: CardProps[] = json.data.map((page) =>
     cardBuilder(page.attributes)
