@@ -1,4 +1,4 @@
-import { PageTemplateProps } from '../interface/page'
+import { GetPageProps, PageTemplateProps } from '../interface/page'
 import { PageResponseProps } from '../interface/pageResponse'
 import { buildPageStructure } from './pageStructureBuilder'
 import apiEndPoints from './strapiApi'
@@ -9,6 +9,7 @@ import convertToConfig from './getConfig'
 import { seoBuilder } from './seoBuilder'
 import { SEOApi } from '../interface/apiSeo'
 import { NextSeoProps } from 'next-seo'
+import { QueryClient, dehydrate } from 'react-query'
 
 const {
   getStaticPaths,
@@ -27,7 +28,7 @@ const {
   getResourcePage,
 } = apiEndPoints
 // const siteBaseUrl = process.env.SITE_BASE_URL
-interface ApiError {
+export interface ApiError {
   status: string
   message: string
 }
@@ -91,8 +92,9 @@ export async function getPageProps(
   rootSlug: string,
   location: string,
   preview: boolean
-) {
+): Promise<GetPageProps> {
   const config = await getConfigData()
+  const queryClient = new QueryClient()
 
   let pageData: PageResponseProps
 
@@ -147,7 +149,7 @@ export async function getPageProps(
       : null
     data = {
       pageSEO,
-      ...(await buildPageStructure(pageData)),
+      ...(await buildPageStructure(pageData, queryClient)),
     } as PageTemplateProps
   }
 
@@ -156,6 +158,7 @@ export async function getPageProps(
       formTitle: location,
       preview: false,
       notFound: false,
+      dehydratedState: dehydrate(queryClient),
       config,
       data,
     },

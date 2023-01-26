@@ -5,7 +5,7 @@ import { HeroProps } from './HeroBlock'
 import { TextBlockProps } from './TextBlock'
 import { DeckBlockProps } from './DeckBlock'
 import { MediaBlockProps } from './MediaBlock'
-import { SearchSortProps } from './SearchSortBlock'
+import { SearchSortBlockProps } from './SearchSortBlock'
 import { StackBlockProps } from './StackBlock'
 import { HeroTwoBlockProps } from './HeroTwoBlock'
 import { FormBlockProps } from './FormBlock'
@@ -22,7 +22,7 @@ const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
 const DynamicDeckBlock: ComponentType<DeckBlockProps> = dynamic(() => import('./DeckBlock'))
 const DynamicMediaBlock: ComponentType<MediaBlockProps> = dynamic(() => import('./MediaBlock'))
-const DynamicSearchSortBlock: ComponentType<SearchSortProps> = dynamic(() => import('./SearchSortBlock'))
+const DynamicSearchSortBlock: ComponentType<SearchSortBlockProps> = dynamic(() => import('./SearchSortBlock'))
 const DynamicStackBlock: ComponentType<StackBlockProps> = dynamic(() => import('./StackBlock'))
 const DynamicHeroTwoBlock: ComponentType<HeroTwoBlockProps> = dynamic(() => import('./HeroTwoBlock'))
 const DynamicFormBlock: ComponentType<FormBlockProps> = dynamic(() => import('./FormBlock'))

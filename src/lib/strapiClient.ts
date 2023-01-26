@@ -117,7 +117,7 @@ export const searchSortQuery = async (
     },
     pagination: {
       page: pageParam,
-      pageSize: 16,
+      pageSize: 1,
     },
   }
 

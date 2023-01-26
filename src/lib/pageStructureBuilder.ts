@@ -44,6 +44,9 @@ import { PageResponseProps } from '../interface/pageResponse'
 import { rowBuilder } from './formBuilder'
 import { seoBreadcrumbsBuilder } from './seoBuilder'
 import moment from 'moment'
+import { searchSortQuery } from './strapiClient'
+import { QueryClient } from 'react-query'
+import { v4 as uuidv4 } from 'uuid'
 
 export const heroBlockBuilder = ({
   __component,
@@ -430,13 +433,27 @@ const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
   slug,
 })
 
-const searchSortBuilder = ({
-  __component: template,
-  filter,
-}: SearchSortBlockApi): SearchSortBlock => {
-  // const results =
+const searchSortBuilder = async (
+  { __component: template, filter = '' }: SearchSortBlockApi,
+  _,
+  queryClient: QueryClient
+): Promise<SearchSortBlock> => {
+  const queryID = `sort-${filter}-${uuidv4()}`
+  //let results = []
+  try {
+    //const res = await searchSortQuery(1, { filter })
+    // results = res.page.cards
+    await queryClient.prefetchQuery(
+      queryID,
+      async () => await searchSortQuery(1, { filter })
+    )
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log('error loading search sort default')
+  }
   return {
     template,
+    queryID,
     filter,
     results: [],
   }
@@ -460,16 +477,20 @@ const builders = {
 }
 
 export async function buildPageStructure(
-  data: PageResponseProps
+  data: PageResponseProps,
+  queryClient: QueryClient
 ): Promise<Partial<PageTemplateProps>> {
   const clone: PageResponseProps = JSON.parse(JSON.stringify(data))
   const clonePageStructure: ResponseBlocks[] = clone.blocks || []
-  const pageStructure: Block[] = clonePageStructure.map((block) => {
+  const pageStructure: Block[] = []
+  for (const block of clonePageStructure) {
     if (block.__component in builders) {
-      return builders[block.__component](block, data)
+      pageStructure.push(
+        await builders[block.__component](block, data, queryClient)
+      )
     }
-    return block
-  })
+    pageStructure.push(block as Block)
+  }
   let breadCrumbsSEO: BreadCrumbJsonLdProps | null = null
   const breadcrumbData = pageStructure?.find(
     (v) => v.template === 'blocks.breadcrumbs'

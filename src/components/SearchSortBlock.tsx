@@ -55,11 +55,12 @@ export interface ResultItem {
 }
 
 export interface SearchSortBlockProps {
+    queryID?: string;
     results: CardProps[];
     filter?: string;
 }
 
-const SearchSortBlock = ({ results, filter = '' }: SearchSortBlockProps) => {
+const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '' }: SearchSortBlockProps) => {
     const [loaded, setLoaded] = useState(false);
     const [cardsData, setCardsData] = useState(results)
     const { register, handleSubmit } = useForm();
@@ -71,14 +72,14 @@ const SearchSortBlock = ({ results, filter = '' }: SearchSortBlockProps) => {
         error,
         hasNextPage,
         isFetchingNextPage,
-    } = useInfiniteQuery<InfinityPage, Error>(`sort-${filter}`,
-        async ({ pageParam = 0 }: QueryFunctionContext) => {
+    } = useInfiniteQuery<InfinityPage, Error>(queryID,
+        async (arg: QueryFunctionContext) => {
+            const { pageParam = 1 } = arg
             const res = await searchSortQuery(pageParam, options)
             setTotal(res.resultTotal)
             setCardsData(res.page.cards)
             return res;
         }, {
-        enabled: false,
         getNextPageParam: (lastPage) => lastPage?.nextCursor,
     })
 
@@ -97,7 +98,6 @@ const SearchSortBlock = ({ results, filter = '' }: SearchSortBlockProps) => {
 
     useEffect(() => {
         if (loaded) {
-            console.log('run')
             refetch();
         }
     }, [options])

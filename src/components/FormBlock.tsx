@@ -139,7 +139,7 @@ const FormBlock = forwardRef(({
                 })
             }
         } else {
-            const success: boolean = onCallBack({
+            const success: boolean | void = onCallBack({
                 isValid,
                 data: getValues()
             })

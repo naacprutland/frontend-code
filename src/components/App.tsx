@@ -6,11 +6,17 @@ import Fonts from '../theme/fonts'
 import theme from '../theme/theme'
 import Layout from './Layout'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { PageProps } from '../interface/page'
+import { SiteConfig } from '../interface/siteConfig'
 
 const manager = createLocalStorageManager('naacp-key')
 
+interface MainApp extends AppProps {
+  pageProps: PageProps
+}
 
-const App = ({ Component, pageProps }: AppProps) => {
+
+const App = ({ Component, pageProps }: MainApp) => {
   const [queryClient] = useState(() => new QueryClient({
     defaultOptions: {
       queries: {
@@ -26,9 +32,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Fonts />
       <QueryClientProvider client={queryClient}>
         <Hydrate state={pageProps.dehydratedState}>
-          <DefaultSeo {...pageProps?.config?.defaultSeo} />
-          <Layout headerProps={pageProps?.config?.headerProps}
-            footerProps={pageProps?.config?.footerProps}>
+          <DefaultSeo {...(pageProps?.config as SiteConfig)?.defaultSeo} />
+          <Layout headerProps={(pageProps?.config as SiteConfig)?.headerProps}
+            footerProps={(pageProps?.config as SiteConfig)?.footerProps}>
             <Component {...pageProps} />
           </Layout>
         </Hydrate>
