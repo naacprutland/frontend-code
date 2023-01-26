@@ -11,7 +11,7 @@ import { SiteConfig } from '../interface/siteConfig'
 
 const manager = createLocalStorageManager('naacp-key')
 
-interface MainApp extends AppProps {
+export interface MainApp extends AppProps {
   pageProps: PageProps
 }
 

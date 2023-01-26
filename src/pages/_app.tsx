@@ -1,7 +1,6 @@
-import type { AppProps } from 'next/app'
-import App from '../components/App'
+import App, { MainApp } from '../components/App'
 
-const MyApp = (props: AppProps) => (
+const MyApp = (props: MainApp) => (
   <App {...props} />
 )
 

@@ -169,10 +169,9 @@ const formBlockBuilder = ({
   __component,
   page_form,
 }: FormBlockApi): FormBlock => {
-  const { label = '', action = '', sections = [] } = page_form
+  const { action = '', sections = [] } = page_form
   return {
     template: __component as 'blocks.form-block',
-    label,
     action,
     sections: sections.map((section) => {
       return {
