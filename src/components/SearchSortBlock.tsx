@@ -58,14 +58,17 @@ export interface SearchSortBlockProps {
     queryID?: string;
     results: CardProps[];
     filter?: string;
+    resultTotal?: number;
+    hasMore?: boolean;
 }
 
-const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '' }: SearchSortBlockProps) => {
+const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '', hasMore, resultTotal }: SearchSortBlockProps) => {
     const [loaded, setLoaded] = useState(false);
     const [cardsData, setCardsData] = useState(results)
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState({ filter: filter || '' })
-    const [total, setTotal] = useState(null)
+    const [moreToLoad, setMoreToLoad] = useState(false)
+    const [total, setTotal] = useState(resultTotal)
     const {
         refetch,
         fetchNextPage,
@@ -112,6 +115,14 @@ const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '' }: S
             })
         }
     }, [error])
+
+    useEffect(() => {
+        if (loaded) {
+            setMoreToLoad(hasNextPage)
+        } else {
+            setMoreToLoad(hasMore)
+        }
+    }, [hasMore, hasNextPage])
 
     useEffect(() => {
         setLoaded(true)
@@ -168,7 +179,7 @@ const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '' }: S
                 label: 'Load More'
             }}
             disableButton={isFetchingNextPage}
-            hideButton={!hasNextPage}
+            hideButton={!moreToLoad}
             cards={cardsData} />
             : (<Container paddingBottom={[8, 12, 14]} textAlign="center">
                 <p>No Results</p>

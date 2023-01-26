@@ -47,6 +47,7 @@ import moment from 'moment'
 import { searchSortQuery } from './strapiClient'
 import { QueryClient } from 'react-query'
 import { v4 as uuidv4 } from 'uuid'
+import { InfinityPage } from './pagesSearch'
 
 export const heroBlockBuilder = ({
   __component,
@@ -438,14 +439,18 @@ const searchSortBuilder = async (
   queryClient: QueryClient
 ): Promise<SearchSortBlock> => {
   const queryID = `sort-${filter}-${uuidv4()}`
-  //let results = []
+  let results = []
+  let hasMore = false
+  let resultTotal = null
   try {
-    //const res = await searchSortQuery(1, { filter })
-    // results = res.page.cards
     await queryClient.prefetchQuery(
       queryID,
       async () => await searchSortQuery(1, { filter })
     )
+    const data: InfinityPage = queryClient.getQueryData(queryID)
+    results = data.page.cards
+    hasMore = data.page.hasMore
+    resultTotal = data.resultTotal
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('error loading search sort default')
@@ -454,7 +459,9 @@ const searchSortBuilder = async (
     template,
     queryID,
     filter,
-    results: [],
+    results,
+    hasMore,
+    resultTotal,
   }
 }
 
