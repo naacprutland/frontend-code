@@ -117,7 +117,7 @@ export const searchSortQuery = async (
     },
     pagination: {
       page: pageParam,
-      pageSize: 1,
+      pageSize: 16,
     },
   }
 
@@ -150,8 +150,6 @@ export const searchSortQuery = async (
     cardBuilder(page.attributes)
   )
 
-  console.log('strapi client', pagination.page + 1 <= pagination.pageCount)
-  console.log(pagination.page + 1)
   return {
     nextCursor:
       pagination.page + 1 <= pagination.pageCount
