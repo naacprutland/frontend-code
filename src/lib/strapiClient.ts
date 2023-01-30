@@ -149,6 +149,9 @@ export const searchSortQuery = async (
   const cards: CardProps[] = json.data.map((page) =>
     cardBuilder(page.attributes)
   )
+
+  console.log('strapi client', pagination.page + 1 <= pagination.pageCount)
+  console.log(pagination.page + 1)
   return {
     nextCursor:
       pagination.page + 1 <= pagination.pageCount

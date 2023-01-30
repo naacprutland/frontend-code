@@ -31,7 +31,7 @@ const App = ({ Component, pageProps }: MainApp) => {
     <ChakraProvider colorModeManager={manager} resetCSS theme={theme}>
       <Fonts />
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
+        <Hydrate state={{}}>
           <DefaultSeo {...(pageProps?.config as SiteConfig)?.defaultSeo} />
           <Layout headerProps={(pageProps?.config as SiteConfig)?.headerProps}
             footerProps={(pageProps?.config as SiteConfig)?.footerProps}>

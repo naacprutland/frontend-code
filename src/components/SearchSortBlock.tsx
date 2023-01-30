@@ -17,12 +17,8 @@ import { MediaImage } from '../interface/media'
 import { useForm } from "react-hook-form";
 import { searchSortQuery } from '../lib/strapiClient'
 import { CardProps } from '../components/Card'
-import { InfinityPage } from "../lib/pagesSearch";
-import {
-    QueryFunctionContext,
-    useInfiniteQuery
-} from 'react-query'
 import { SearchIcon } from "@chakra-ui/icons";
+import useInfinityRequest from "../hooks/useInfiniteRequest";
 
 export interface ResultItem {
     id: string;
@@ -62,28 +58,36 @@ export interface SearchSortBlockProps {
     hasMore?: boolean;
 }
 
-const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '', hasMore, resultTotal }: SearchSortBlockProps) => {
+const SearchSortBlock = ({
+    results,
+    filter = '',
+    hasMore,
+    resultTotal
+}: SearchSortBlockProps) => {
     const [loaded, setLoaded] = useState(false);
-    const [cardsData, setCardsData] = useState(results)
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState({ filter: filter || '' })
-    const [moreToLoad, setMoreToLoad] = useState(false)
-    const [total, setTotal] = useState(resultTotal)
+
     const {
-        refetch,
-        fetchNextPage,
-        error,
+        isError,
         hasNextPage,
         isFetchingNextPage,
-    } = useInfiniteQuery<InfinityPage, Error>(queryID,
-        async (arg: QueryFunctionContext) => {
-            const { pageParam = 1 } = arg
-            const res = await searchSortQuery(pageParam, options)
-            setTotal(res.resultTotal)
-            setCardsData(res.page.cards)
-            return res;
-        }, {
-        getNextPageParam: (lastPage) => lastPage?.nextCursor,
+        cards,
+        fetchNextPage,
+        freshRequest,
+        totalResults
+    } = useInfinityRequest(async (pageParam) => {
+        const res = await searchSortQuery(pageParam, options)
+        return res;
+    }, {
+        initials: {
+            nextCursor: hasMore ? 2 : null,
+            page: {
+                cards: results,
+                hasMore
+            },
+            resultTotal
+        }
     })
 
     const toast = useToast()
@@ -101,12 +105,12 @@ const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '', has
 
     useEffect(() => {
         if (loaded) {
-            refetch();
+            freshRequest();
         }
     }, [options])
 
     useEffect(() => {
-        if (error) {
+        if (isError) {
             toast({
                 title: 'Search Error',
                 description: 'There was an error while processing the search.',
@@ -114,15 +118,7 @@ const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '', has
                 isClosable: true,
             })
         }
-    }, [error])
-
-    useEffect(() => {
-        if (loaded) {
-            setMoreToLoad(hasNextPage)
-        } else {
-            setMoreToLoad(hasMore)
-        }
-    }, [hasMore, hasNextPage])
+    }, [isError])
 
     useEffect(() => {
         setLoaded(true)
@@ -166,21 +162,21 @@ const SearchSortBlock = ({ queryID = `sort-something`, results, filter = '', has
                     </Box>
                 </Box>
             </Box>
-            {typeof total === 'number' && (
+            {typeof totalResults === 'number' && (
                 <Box fontSize="24px"
                     fontWeight="bold"
                     textAlign="center"
                     paddingTop="24px"
-                    w="100%">{total} Results</Box>)}
+                    w="100%">{totalResults} Results</Box>)}
         </Container>
-        {cardsData ? <DeckBlock position={2}
+        {cards ? <DeckBlock position={2}
             onAction={{
                 action: onLoadMore,
                 label: 'Load More'
             }}
             disableButton={isFetchingNextPage}
-            hideButton={!moreToLoad}
-            cards={cardsData} />
+            hideButton={!hasNextPage}
+            cards={cards} />
             : (<Container paddingBottom={[8, 12, 14]} textAlign="center">
                 <p>No Results</p>
             </Container>)}

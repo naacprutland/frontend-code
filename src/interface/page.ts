@@ -2,7 +2,6 @@ import { BreadCrumbJsonLdProps, NextSeoProps } from 'next-seo'
 import { HeroBlock, PageBlocks, Breadcrumbs } from './componentBlock'
 import { PageResponseProps } from './pageResponse'
 import { SiteConfig } from './siteConfig'
-import { DehydratedState } from 'react-query'
 import { ApiError } from '../lib/pageProps'
 
 export interface PageTemplateProps
@@ -26,7 +25,6 @@ export interface PageProps {
   formTitle: string
   preview: boolean
   notFound: boolean
-  dehydratedState: DehydratedState
   config: SiteConfig | ApiError
   data: PageTemplateProps
 }

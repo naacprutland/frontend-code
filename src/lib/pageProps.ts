@@ -94,7 +94,6 @@ export async function getPageProps(
   preview: boolean
 ): Promise<GetPageProps> {
   const config = await getConfigData()
-  const queryClient = new QueryClient()
 
   let pageData: PageResponseProps
 
@@ -149,7 +148,7 @@ export async function getPageProps(
       : null
     data = {
       pageSEO,
-      ...(await buildPageStructure(pageData, queryClient)),
+      ...(await buildPageStructure(pageData)),
     } as PageTemplateProps
   }
 
@@ -158,7 +157,6 @@ export async function getPageProps(
       formTitle: location,
       preview: false,
       notFound: false,
-      dehydratedState: dehydrate(queryClient),
       config,
       data,
     },

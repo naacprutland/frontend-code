@@ -433,21 +433,16 @@ const pageSearchBlockBuilder = ({ __component, slug }: PageSearchBlockApi) => ({
   slug,
 })
 
-const searchSortBuilder = async (
-  { __component: template, filter = '' }: SearchSortBlockApi,
-  _,
-  queryClient: QueryClient
-): Promise<SearchSortBlock> => {
+const searchSortBuilder = async ({
+  __component: template,
+  filter = '',
+}: SearchSortBlockApi): Promise<SearchSortBlock> => {
   const queryID = `sort-${filter}-${uuidv4()}`
   let results = []
   let hasMore = false
   let resultTotal = null
   try {
-    await queryClient.prefetchQuery(
-      queryID,
-      async () => await searchSortQuery(1, { filter })
-    )
-    const data: InfinityPage = queryClient.getQueryData(queryID)
+    const data = await searchSortQuery(1, { filter })
     results = data.page.cards
     hasMore = data.page.hasMore
     resultTotal = data.resultTotal
@@ -483,17 +478,14 @@ const builders = {
 }
 
 export async function buildPageStructure(
-  data: PageResponseProps,
-  queryClient: QueryClient
+  data: PageResponseProps
 ): Promise<Partial<PageTemplateProps>> {
   const clone: PageResponseProps = JSON.parse(JSON.stringify(data))
   const clonePageStructure: ResponseBlocks[] = clone.blocks || []
   const pageStructure: Block[] = []
   for (const block of clonePageStructure) {
     if (block.__component in builders) {
-      pageStructure.push(
-        await builders[block.__component](block, data, queryClient)
-      )
+      pageStructure.push(await builders[block.__component](block, data))
     }
     pageStructure.push(block as Block)
   }
