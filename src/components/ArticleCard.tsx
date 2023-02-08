@@ -45,6 +45,7 @@ const ArticleCard = ({
             flexDirection={["column", "row"]}
             overflow="hidden"
             borderRadius="6px"
+            width="100%"
             backgroundColor="white"
             layerStyle="boxShadowLight" >
             {
