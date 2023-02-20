@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { InfinityPage } from '../lib/pagesSearch'
 import { CardProps } from '../components/Card'
+import { ArticleCardProps } from '../components/ArticleCard'
 
 interface InfinityOption {
   initials?: InfinityPage
@@ -10,7 +11,9 @@ type QueryFn = (pageParam: number) => Promise<InfinityPage>
 
 const useInfinityRequest = (queryFN: QueryFn, { initials }: InfinityOption) => {
   const [data, setData] = useState<InfinityPage>(null)
-  const [cards, setCards] = useState<CardProps[]>(initials?.page?.cards || [])
+  const [cards, setCards] = useState<CardProps[] | ArticleCardProps[]>(
+    initials?.page?.cards || []
+  )
   const [pageParam, setPageParam] = useState<number>(initials?.nextCursor || 1)
   const [isSuccess, setIsSuccess] = useState<boolean>(null)
   const [isError, setIsError] = useState<boolean>(null)

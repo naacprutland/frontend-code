@@ -19,7 +19,7 @@ const arg: SearchFilter = {
   filter: '',
 }
 
-interface QueryObject {
+interface QueryBase {
   find?: string
   sort?: string[]
   parent?: string
@@ -51,6 +51,13 @@ interface QueryObject {
       }
     }
   }
+  pagination: {
+    page: number
+    pageSize: number
+  }
+}
+
+interface QueryObject extends QueryBase {
   populate: {
     seo: {
       populate: {
@@ -60,9 +67,35 @@ interface QueryObject {
       }
     }
   }
-  pagination: {
-    page: number
-    pageSize: number
+}
+
+interface ResourceQueryObject extends QueryBase {
+  populate: {
+    link: {
+      populate: {
+        label: boolean
+        path: boolean
+        external: boolean
+      }
+    }
+    badges: boolean
+    image: {
+      populate: {
+        src: boolean
+        alt: boolean
+      }
+    }
+    page: {
+      populate: {
+        seo: {
+          populate: {
+            metaTitle: boolean
+            metaDescription: boolean
+            metaImage: string
+          }
+        }
+      }
+    }
   }
 }
 
@@ -143,6 +176,121 @@ export const searchSortQuery = async (
   })
 
   const url = `${apiEndPoints.getPages}/${query ? '?' : ''}${query}`
+
+  const json: SearchApi = await fetchApi(url)
+  const pagination: Pagination = json.meta.pagination
+  const cards: CardProps[] = json.data.map((page) =>
+    cardBuilder(page.attributes)
+  )
+
+  return {
+    nextCursor:
+      pagination.page + 1 <= pagination.pageCount
+        ? pagination.page + 1
+        : undefined,
+    resultTotal: pagination.total || 0,
+    page: {
+      cards,
+      hasMore: pagination.page + 1 <= pagination.pageCount,
+    },
+  }
+}
+
+/**
+ * Search and Sort get request for pages
+ * @param path
+ * @param param1
+ * @returns
+ */
+export const resourceQuery = async (
+  pageParam = 1,
+  { search, sort, filter }: SearchFilter = arg
+): Promise<InfinityPage> => {
+  const queryObject: ResourceQueryObject = {
+    populate: {
+      link: {
+        populate: {
+          label: true,
+          path: true,
+          external: true,
+        },
+      },
+      badges: true,
+      image: {
+        populate: {
+          src: true,
+          alt: true,
+        },
+      },
+      page: {
+        populate: {
+          seo: {
+            populate: {
+              metaTitle: true,
+              metaDescription: true,
+              metaImage: '*',
+            },
+          },
+        },
+      },
+    },
+    filters: {
+      [filter]: true,
+      $or: [
+        {
+          slug: {
+            $containsi: search,
+          },
+        },
+        {
+          seo: {
+            metaTitle: {
+              $containsi: search,
+            },
+          },
+        },
+        {
+          seo: {
+            metaDescription: {
+              $containsi: search,
+            },
+          },
+        },
+      ],
+      seo: {
+        metaTitle: {
+          $notNull: true,
+        },
+      },
+    },
+    pagination: {
+      page: pageParam,
+      pageSize: 16,
+    },
+  }
+
+  if (sort) {
+    switch (sort) {
+      case 'NEW':
+        queryObject.sort = ['publishedAt:desc']
+        break
+      case 'OLD':
+        queryObject.sort = ['publishedAt:asc']
+        break
+      case 'ASC':
+        queryObject.sort = ['slug:asc']
+        break
+      case 'DEC':
+        queryObject.sort = ['slug:desc']
+        break
+    }
+  }
+
+  const query = stringify(queryObject, {
+    encodeValuesOnly: true,
+  })
+
+  const url = `${apiEndPoints.getResources}/${query ? '?' : ''}${query}`
 
   const json: SearchApi = await fetchApi(url)
   const pagination: Pagination = json.meta.pagination

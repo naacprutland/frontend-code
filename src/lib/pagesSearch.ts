@@ -3,12 +3,13 @@ import { stringify } from 'qs'
 import { fetchApi } from './util'
 import { SearchApi, DatumAttributes, Pagination } from '../interface/apiSearch'
 import { CardProps } from '../components/Card'
+import { ArticleCardProps } from '../components/ArticleCard'
 
 export interface InfinityPage {
   nextCursor: number | undefined
   resultTotal: number | undefined
   page: {
-    cards: CardProps[]
+    cards: CardProps[] | ArticleCardProps[]
     hasMore: boolean
   }
 }
