@@ -9,7 +9,6 @@ import convertToConfig from './getConfig'
 import { seoBuilder } from './seoBuilder'
 import { SEOApi } from '../interface/apiSeo'
 import { NextSeoProps } from 'next-seo'
-import { QueryClient, dehydrate } from 'react-query'
 
 const {
   getStaticPaths,

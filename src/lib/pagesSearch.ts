@@ -4,6 +4,7 @@ import { fetchApi } from './util'
 import { SearchApi, DatumAttributes, Pagination } from '../interface/apiSearch'
 import { CardProps } from '../components/Card'
 import { ArticleCardProps } from '../components/ArticleCard'
+import { ResourceData } from '../interface/apiResoruce'
 
 export interface InfinityPage {
   nextCursor: number | undefined
@@ -27,6 +28,39 @@ export const cardBuilder = (data: DatumAttributes): CardProps => {
       src: data?.seo?.metaImage?.data?.attributes,
       alt: data?.seo?.metaTitle,
     },
+  }
+}
+
+export const articleBuilder = ({
+  title,
+  copy,
+  link,
+  badges,
+  image,
+  page,
+}: ResourceData): ArticleCardProps => {
+  let linkData = {
+    label: 'Read On',
+    ...link,
+    isExternal: link?.external,
+  }
+  if (page) {
+    linkData = {
+      ...linkData,
+      path: page.data.attributes.path,
+      isExternal: false,
+    }
+  }
+
+  return {
+    title: title || page?.data?.attributes?.seo?.metaTitle,
+    copy: copy || page?.data?.attributes?.seo?.metaDescription,
+    image: image || {
+      src: page.data.attributes.seo.metaImage.data.attributes,
+      alt: page?.data?.attributes?.seo?.metaTitle,
+    },
+    link: linkData,
+    badges,
   }
 }
 

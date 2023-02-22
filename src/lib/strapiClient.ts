@@ -1,9 +1,11 @@
 import { stringify } from 'qs'
 import { fetchApi } from './util'
 import apiEndPoints from './strapiApi'
-import { InfinityPage, cardBuilder } from './pagesSearch'
+import { InfinityPage, articleBuilder, cardBuilder } from './pagesSearch'
 import { Pagination, SearchApi } from '../interface/apiSearch'
 import { CardProps } from '../components/Card'
+import { ResourceApiData } from '../interface/apiResoruce'
+import { ArticleCardProps } from '../components/ArticleCard'
 
 interface SearchFilter {
   search?: string
@@ -292,10 +294,10 @@ export const resourceQuery = async (
 
   const url = `${apiEndPoints.getResources}/${query ? '?' : ''}${query}`
 
-  const json: SearchApi = await fetchApi(url)
+  const json: ResourceApiData = await fetchApi(url)
   const pagination: Pagination = json.meta.pagination
-  const cards: CardProps[] = json.data.map((page) =>
-    cardBuilder(page.attributes)
+  const cards: ArticleCardProps[] = json.data.map((page) =>
+    articleBuilder(page.attributes)
   )
 
   return {
