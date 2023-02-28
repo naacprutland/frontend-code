@@ -46,17 +46,17 @@ export const articleBuilder = ({
   }
 
   const image = {
-    alt: apiImage?.alt,
-    src: apiImage?.src?.data?.attributes,
+    alt: apiImage?.alt || null,
+    src: apiImage?.src?.data?.attributes || null,
   }
 
   if (page) {
-    const alt = page.data?.attributes?.seo?.metaTitle
-    const src = page.data?.attributes?.seo?.metaImage?.data?.attributes
+    const alt = page.data?.attributes?.seo?.metaTitle || null
+    const src = page.data?.attributes?.seo?.metaImage?.data?.attributes || null
 
     linkData = {
       ...linkData,
-      path: page?.data?.attributes?.path,
+      path: page?.data?.attributes?.path || null,
       isExternal: false,
     }
 

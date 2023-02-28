@@ -36,6 +36,7 @@ import {
   PaypalDonateBlock,
   EventTemplate,
   SearchSortBlock,
+  ResourceBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -458,7 +459,9 @@ const searchSortBuilder = async ({
   }
 }
 
-const resourceBlockBuilder = async ({ __component: template }) => {
+const resourceBlockBuilder = async ({
+  __component: template,
+}): Promise<ResourceBlock> => {
   let results = []
   let hasMore = false
   let resultTotal = null
@@ -475,7 +478,7 @@ const resourceBlockBuilder = async ({ __component: template }) => {
 
   return {
     template,
-    // results,
+    results,
     hasMore,
     resultTotal,
   }
