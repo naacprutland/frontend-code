@@ -21,7 +21,12 @@ export interface ResourceData {
   link: Link
   badges: Badge[]
   image: {
-    src: Image
+    src: {
+      data: {
+        id: number
+        attributes: Image
+      }
+    }
     alt: string
   }
   page: Page

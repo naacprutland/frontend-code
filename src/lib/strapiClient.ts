@@ -208,7 +208,7 @@ export const resourceQuery = async (
   pageParam = 1,
   { search, sort, filter }: SearchFilter = arg
 ): Promise<InfinityPage> => {
-  const queryObject: ResourceQueryObject = {
+  const queryObject = {
     populate: {
       link: {
         populate: {
@@ -236,35 +236,35 @@ export const resourceQuery = async (
         },
       },
     },
-    filters: {
-      [filter]: true,
-      $or: [
-        {
-          slug: {
-            $containsi: search,
-          },
-        },
-        {
-          seo: {
-            metaTitle: {
-              $containsi: search,
-            },
-          },
-        },
-        {
-          seo: {
-            metaDescription: {
-              $containsi: search,
-            },
-          },
-        },
-      ],
-      seo: {
-        metaTitle: {
-          $notNull: true,
-        },
-      },
-    },
+    // filters: {
+    //   [filter]: true,
+    //   $or: [
+    //     {
+    //       slug: {
+    //         $containsi: search,
+    //       },
+    //     },
+    //     // {
+    //     //   seo: {
+    //     //     metaTitle: {
+    //     //       $containsi: search,
+    //     //     },
+    //     //   },
+    //     // },
+    //     // {
+    //     //   seo: {
+    //     //     metaDescription: {
+    //     //       $containsi: search,
+    //     //     },
+    //     //   },
+    //     // },
+    //   ],
+    //   seo: {
+    //     metaTitle: {
+    //       $notNull: true,
+    //     },
+    //   },
+    // },
     pagination: {
       page: pageParam,
       pageSize: 16,
@@ -293,7 +293,7 @@ export const resourceQuery = async (
   })
 
   const url = `${apiEndPoints.getResources}/${query ? '?' : ''}${query}`
-
+  // console.log(url)
   const json: ResourceApiData = await fetchApi(url)
   const pagination: Pagination = json.meta.pagination
   const cards: ArticleCardProps[] = json.data.map((page) =>

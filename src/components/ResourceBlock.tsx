@@ -50,8 +50,7 @@ export interface ResultItem {
     }
 }
 
-export interface SearchSortBlockProps {
-    queryID?: string;
+export interface ResourceBlockProps {
     results: ArticleCardProps[];
     filter?: string;
     resultTotal?: number;
@@ -63,7 +62,7 @@ const ResourceBlock = ({
     filter = '',
     hasMore,
     resultTotal
-}: SearchSortBlockProps) => {
+}: ResourceBlockProps) => {
     const [loaded, setLoaded] = useState(false);
     const { register, handleSubmit } = useForm();
     const [options, setOptions] = useState({ filter: filter || '' })
@@ -176,6 +175,7 @@ const ResourceBlock = ({
             }}
             disableButton={isFetchingNextPage}
             hideButton={!hasNextPage}
+            stackDeck
             cards={cards} />
             : (<Container paddingBottom={[8, 12, 14]} textAlign="center">
                 <p>No Results</p>

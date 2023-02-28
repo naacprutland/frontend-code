@@ -49,7 +49,7 @@ const ArticleCard = ({
             backgroundColor="white"
             layerStyle="boxShadowLight" >
             {
-                image && (
+                (image && image.src) && (
                     <AspectRatio ratio={7 / 3}
                         flex={['none', "1 1 50%"]}
                     >

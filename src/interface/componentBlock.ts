@@ -28,6 +28,7 @@ import { PageSearchBlockProps } from '../components/PageSearchBlock'
 import { CheckoutBlockProps } from '../components/CheckoutBlock'
 import { PaypalDonateBlockProps } from '../components/PaypalDonateBlock'
 import { EventTemplateProps } from '../components/EventTemplate'
+import { ResourceBlockProps } from '../components/ResourceBlock'
 
 interface ComponentBlock {
   template: string
@@ -110,6 +111,10 @@ export interface PaypalDonateBlock
   template: 'blocks.pay-pal-donation'
 }
 
+export interface ResourceBlock extends ComponentBlock, ResourceBlockProps {
+  template: 'blocks.resource-block'
+}
+
 export type ResponseBlocks =
   | HeroBlockApi
   | BreadcrumbsApi
@@ -142,5 +147,6 @@ export type Block =
   | CheckoutBlock
   | PaypalDonateBlock
   | EventTemplate
+  | ResourceBlock
 
 export type PageBlocks = Block[]

@@ -36,7 +36,7 @@ export const articleBuilder = ({
   copy,
   link,
   badges,
-  image,
+  image: apiImage,
   page,
 }: ResourceData): ArticleCardProps => {
   let linkData = {
@@ -44,21 +44,35 @@ export const articleBuilder = ({
     ...link,
     isExternal: link?.external,
   }
+
+  const image = {
+    alt: apiImage?.alt,
+    src: apiImage?.src?.data?.attributes,
+  }
+
   if (page) {
+    const alt = page.data?.attributes?.seo?.metaTitle
+    const src = page.data?.attributes?.seo?.metaImage?.data?.attributes
+
     linkData = {
       ...linkData,
-      path: page.data.attributes.path,
+      path: page?.data?.attributes?.path,
       isExternal: false,
+    }
+
+    if (alt) {
+      image.alt = alt
+    }
+
+    if (src) {
+      image.src = src
     }
   }
 
   return {
     title: title || page?.data?.attributes?.seo?.metaTitle,
     copy: copy || page?.data?.attributes?.seo?.metaDescription,
-    image: image || {
-      src: page.data.attributes.seo.metaImage.data.attributes,
-      alt: page?.data?.attributes?.seo?.metaTitle,
-    },
+    image,
     link: linkData,
     badges,
   }

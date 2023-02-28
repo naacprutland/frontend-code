@@ -44,10 +44,8 @@ import { PageResponseProps } from '../interface/pageResponse'
 import { rowBuilder } from './formBuilder'
 import { seoBreadcrumbsBuilder } from './seoBuilder'
 import moment from 'moment'
-import { searchSortQuery } from './strapiClient'
-import { QueryClient } from 'react-query'
+import { resourceQuery, searchSortQuery } from './strapiClient'
 import { v4 as uuidv4 } from 'uuid'
-import { InfinityPage } from './pagesSearch'
 
 export const heroBlockBuilder = ({
   __component,
@@ -460,6 +458,29 @@ const searchSortBuilder = async ({
   }
 }
 
+const resourceBlockBuilder = async ({ __component: template }) => {
+  let results = []
+  let hasMore = false
+  let resultTotal = null
+  try {
+    const data = await resourceQuery(1)
+    results = data.page.cards
+    console.log(results)
+    hasMore = data.page.hasMore
+    resultTotal = data.resultTotal
+  } catch (e) {
+    // eslint-disable-next-line no-console
+    console.log('error loading search sort default')
+  }
+
+  return {
+    template,
+    // results,
+    hasMore,
+    resultTotal,
+  }
+}
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -475,6 +496,7 @@ const builders = {
   'blocks.pay-pal-donation': paypalDonateBlockBuilder,
   'blocks.event-template': eventTemplateBuilder,
   'blocks.search-sort-block': searchSortBuilder,
+  'blocks.resource-block': resourceBlockBuilder,
 }
 
 export async function buildPageStructure(
