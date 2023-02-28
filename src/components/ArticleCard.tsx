@@ -13,6 +13,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
 import Image from 'next/image'
 import { Image as MediaImage } from '../interface/generalApi'
+import { createMarkup } from "../lib/util"
 
 export interface ArticleCardProps {
     image?: {
@@ -99,8 +100,7 @@ const ArticleCard = ({
                                 )
                             }
                             {
-                                copy && <Text mt="3">
-                                    {copy}
+                                copy && <Text as="div" mt="3" dangerouslySetInnerHTML={createMarkup(copy)}>
                                 </Text>
                             }
                         </VStack>
