@@ -135,6 +135,7 @@ const SearchSortBlock = ({
                                     <Icon as={AiOutlineSearch} />
                                 </InputLeftElement>
                                 <Input type="text"
+                                    backgroundColor="white"
                                     placeholder="Search"
                                     {...register("search")} />
                             </InputGroup>
@@ -142,6 +143,7 @@ const SearchSortBlock = ({
                         <Box display="flex" flex="1 1">
                             <FormControl id="sort">
                                 <Select aria-label="Sort"
+                                    backgroundColor="white"
                                     placeholder="Sort Options"
                                     {...register("sort")}>
                                     <option value="NEW">Newest</option>
