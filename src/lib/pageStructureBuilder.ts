@@ -468,7 +468,6 @@ const resourceBlockBuilder = async ({
   try {
     const data = await resourceQuery(1)
     results = data.page.cards
-    console.log(results)
     hasMore = data.page.hasMore
     resultTotal = data.resultTotal
   } catch (e) {

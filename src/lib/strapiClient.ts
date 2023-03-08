@@ -99,6 +99,9 @@ interface ResourceQueryObject extends QueryBase {
       }
     }
   }
+  filters: {
+    $or: object[]
+  }
 }
 
 /**
@@ -206,9 +209,9 @@ export const searchSortQuery = async (
  */
 export const resourceQuery = async (
   pageParam = 1,
-  { search, sort, filter }: SearchFilter = arg
+  { search, sort }: SearchFilter = arg
 ): Promise<InfinityPage> => {
-  const queryObject = {
+  const queryObject: ResourceQueryObject = {
     populate: {
       link: {
         populate: {
@@ -236,35 +239,52 @@ export const resourceQuery = async (
         },
       },
     },
-    // filters: {
-    //   [filter]: true,
-    //   $or: [
-    //     {
-    //       slug: {
-    //         $containsi: search,
-    //       },
-    //     },
-    //     // {
-    //     //   seo: {
-    //     //     metaTitle: {
-    //     //       $containsi: search,
-    //     //     },
-    //     //   },
-    //     // },
-    //     // {
-    //     //   seo: {
-    //     //     metaDescription: {
-    //     //       $containsi: search,
-    //     //     },
-    //     //   },
-    //     // },
-    //   ],
-    //   seo: {
-    //     metaTitle: {
-    //       $notNull: true,
-    //     },
-    //   },
-    // },
+    filters: {
+      $or: [
+        {
+          title: {
+            $containsi: search,
+          },
+        },
+        {
+          copy: {
+            $containsi: search,
+          },
+        },
+        {
+          link: {
+            path: {
+              $containsi: search,
+            },
+          },
+        },
+        {
+          page: {
+            slug: {
+              $containsi: search,
+            },
+          },
+        },
+        {
+          page: {
+            seo: {
+              metaTitle: {
+                $containsi: search,
+              },
+            },
+          },
+        },
+        {
+          page: {
+            seo: {
+              metaDescription: {
+                $containsi: search,
+              },
+            },
+          },
+        },
+      ],
+    },
     pagination: {
       page: pageParam,
       pageSize: 16,
@@ -274,16 +294,24 @@ export const resourceQuery = async (
   if (sort) {
     switch (sort) {
       case 'NEW':
-        queryObject.sort = ['publishedAt:desc']
+        queryObject.sort = ['publishedAt:desc', 'page.publishedAt:desc']
         break
       case 'OLD':
-        queryObject.sort = ['publishedAt:asc']
+        queryObject.sort = ['publishedAt:asc', 'page.publishedAt:asc']
         break
       case 'ASC':
-        queryObject.sort = ['slug:asc']
+        queryObject.sort = [
+          'title:asc',
+          'page.slug:asc',
+          'page.seo.metaTitle:asc',
+        ]
         break
       case 'DEC':
-        queryObject.sort = ['slug:desc']
+        queryObject.sort = [
+          'title:desc',
+          'page.slug:desc',
+          'page.seo.metaTitle:desc',
+        ]
         break
     }
   }
@@ -293,7 +321,7 @@ export const resourceQuery = async (
   })
 
   const url = `${apiEndPoints.getResources}/${query ? '?' : ''}${query}`
-  // console.log(url)
+
   const json: ResourceApiData = await fetchApi(url)
   const pagination: Pagination = json.meta.pagination
   const cards: ArticleCardProps[] = json.data.map((page) =>
