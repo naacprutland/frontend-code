@@ -3,7 +3,7 @@ import EventDeckBlock, { EventDeckBlockProps } from '../../components/EventDeckB
 import React from 'react';
 
 export default {
-    title: "Components/EventDeckBlock",
+    title: "Components/Event Deck Block",
     component: EventDeckBlock,
 } as Meta;
 

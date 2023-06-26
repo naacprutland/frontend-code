@@ -1,10 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Heading, Flex, Button, SimpleGrid, Box, IconButton } from "@chakra-ui/react"
 import { ChevronRightIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Card, { CardProps } from './Card'
 import Container from "./Container"
 import { StyleType } from "../interface/general"
 import { Styling } from "../interface/enums"
+import Moment from 'react-moment'
+import { getEvents } from '../lib/eventSearch'
 
 export interface EventDeckBlockProps {
     position?: number;
@@ -22,23 +24,30 @@ const EventDeckBlock = ({
     cards = [],
     headingPos = "start"
 }: EventDeckBlockProps) => {
+    const [currentMonth, setCurrentMonth] = useState(0);
     const [cardResults, setCardResults] = useState<CardProps[]>(cards)
     const [hideButton, setHideButton] = useState(true)
     const [disableButton, setDisableButton] = useState(false)
-    const [disableBackBtn, setDisableBackBtn] = useState(true)
+    //const [disableBackBtn, setDisableBackBtn] = useState(true)
 
     const onPreviousMonth = () => {
-        console.log('previous month')
+        setCurrentMonth(prev => prev > 0 ? --prev : 0)
     }
 
     const onNextMonth = () => {
-        console.log('next month')
+        setCurrentMonth(prev => ++prev)
     }
 
     const onLoadMore = () => {
-        console.log('load more')
         setDisableButton(true)
     }
+
+    useEffect(() => {
+        getEvents(1, currentMonth).then((data) => {
+            setHideButton(data.page.hasMore)
+            setCardResults(data.page.cards as CardProps[])
+        })
+    }, [currentMonth])
 
     return (
         <Container className="grid" as="section" py={[8, 12, 14]}
@@ -65,12 +74,12 @@ const EventDeckBlock = ({
                     _hover={{
                         background: 'prime1.300'
                     }}
-                    disabled={disableBackBtn}
+                    disabled={!currentMonth}
                     onClick={onPreviousMonth}
                     icon={<ChevronLeftIcon />} />
                 <Box as="p" fontSize={["3xl", "3xl", "4xl"]}
                     fontWeight="semibold">
-                    February, 2022
+                    <Moment format="MMMM, YYYY" add={{ months: currentMonth }} />
                 </Box>
                 <IconButton aria-label='Forward'
                     bg="prime1.500"
