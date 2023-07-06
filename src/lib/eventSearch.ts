@@ -20,8 +20,8 @@ export const cardBuilder = (data): CardProps => {
       isExternal: false,
     },
     image: {
-      src: data?.seo?.metaImage?.data?.attributes,
-      alt: data?.seo?.metaTitle,
+      src: data?.image?.data?.attributes,
+      alt: data?.imageAlt || data?.seo?.metaTitle,
     },
   }
 }
@@ -34,9 +34,9 @@ export const getEvents = async (pageParam = 1, month: number) => {
           populate: {
             metaTitle: true,
             metaDescription: true,
-            metaImage: '*',
           },
         },
+        image: '*',
       },
       filters: {
         date: {
@@ -57,6 +57,9 @@ export const getEvents = async (pageParam = 1, month: number) => {
           metaTitle: {
             $notNull: true,
           },
+          metaDescription: {
+            $notNull: true,
+          },
         },
       },
       pagination: {
@@ -72,9 +75,9 @@ export const getEvents = async (pageParam = 1, month: number) => {
     `${apiEndPoints.getEventPage}?$${query}`
   )
   const pagination: Pagination = json.meta.pagination
-  const cards: CardProps[] = json.data.map((page) =>
-    cardBuilder(page.attributes)
-  )
+  const cards: CardProps[] = json.data.map((page) => {
+    return cardBuilder(page.attributes)
+  })
   return {
     nextCursor:
       pagination.page + 1 <= pagination.pageCount
