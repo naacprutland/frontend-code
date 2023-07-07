@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react'
-import { Heading, Flex, Button, SimpleGrid, Box, IconButton } from "@chakra-ui/react"
+import {
+    Heading,
+    Flex,
+    Button,
+    SimpleGrid,
+    Box,
+    IconButton,
+    useToast
+} from "@chakra-ui/react"
 import { ChevronRightIcon, ChevronLeftIcon } from '@chakra-ui/icons'
 import Card, { CardProps } from './Card'
 import Container from "./Container"
@@ -28,26 +36,57 @@ const EventDeckBlock = ({
     const [cardResults, setCardResults] = useState<CardProps[]>(cards)
     const [hideButton, setHideButton] = useState(true)
     const [disableButton, setDisableButton] = useState(false)
-    //const [disableBackBtn, setDisableBackBtn] = useState(true)
+    const [page, setPage] = useState(1)
+    const [isError, setIsError] = useState(false)
+
+    const toast = useToast()
 
     const onPreviousMonth = () => {
+        setPage(1)
         setCurrentMonth(prev => prev > 0 ? --prev : 0)
     }
 
     const onNextMonth = () => {
+        setPage(1)
         setCurrentMonth(prev => ++prev)
     }
 
     const onLoadMore = () => {
         setDisableButton(true)
+        getEvents(page, currentMonth).then((data) => {
+            setIsError(false)
+            setHideButton(data.page.hasMore)
+            setCardResults(prevState => {
+                return [...prevState, ...data.page.cards] as CardProps[]
+            })
+            if (data.page.hasMore) setPage(prevState => ++prevState)
+            setDisableButton(false)
+        }).catch(() => {
+            setIsError(true)
+        })
     }
 
     useEffect(() => {
-        getEvents(1, currentMonth).then((data) => {
+        getEvents(page, currentMonth).then((data) => {
+            setIsError(false)
             setHideButton(data.page.hasMore)
             setCardResults(data.page.cards as CardProps[])
+            if (data.page.hasMore) setPage(2)
+        }).catch(() => {
+            setIsError(true)
         })
     }, [currentMonth])
+
+    useEffect(() => {
+        if (isError) {
+            toast({
+                title: 'Event Error',
+                description: 'Unable Populate Event Results',
+                status: 'error',
+                isClosable: true,
+            })
+        }
+    }, [isError])
 
     return (
         <Container className="grid" as="section" py={[8, 12, 14]}

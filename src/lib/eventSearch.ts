@@ -64,7 +64,7 @@ export const getEvents = async (pageParam = 1, month: number) => {
       },
       pagination: {
         page: pageParam,
-        pageSize: 2,
+        pageSize: 16,
       },
     },
     {
