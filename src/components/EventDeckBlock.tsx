@@ -100,6 +100,18 @@ const EventDeckBlock = ({
                 ))}
             </SimpleGrid>
             {
+                cardResults.length === 0 && <Box className="gcol-6 center"
+                    width="100%"
+                    fontSize="2xl"
+                    color="prime.500"
+                    border="2px solid"
+                    borderRadius="6px"
+                    padding="2"
+                    aria-live="polite"
+                    fontWeight="bold"
+                    textAlign="center">No Available Events </Box>
+            }
+            {
                 (hideButton) && (
                     <Flex width="100%"
                         className="gcol-12"
