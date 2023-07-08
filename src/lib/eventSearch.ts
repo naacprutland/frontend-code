@@ -26,51 +26,75 @@ export const cardBuilder = (data): CardProps => {
   }
 }
 
-export const getEvents = async (pageParam = 1, month: number) => {
-  const query = stringify(
-    {
-      populate: {
-        seo: {
-          populate: {
-            metaTitle: true,
-            metaDescription: true,
-          },
-        },
-        image: '*',
-      },
-      filters: {
-        date: {
-          $gte: month
-            ? momentDate()
-                .add(month, 'months')
-                .startOf('month')
-                .format('YYYY-MM-DD')
-                .toString()
-            : momentDate().add(month, 'months').format('YYYY-MM-DD').toString(),
-          $lte: momentDate()
-            .add(month, 'months')
-            .endOf('month')
-            .format('YYYY-MM-DD')
-            .toString(),
-        },
-        seo: {
-          metaTitle: {
-            $notNull: true,
-          },
-          metaDescription: {
-            $notNull: true,
-          },
+export const getEvents = async (
+  pageParam = 1,
+  month: number,
+  pastEvents = false
+) => {
+  const queryObj = {
+    populate: {
+      seo: {
+        populate: {
+          metaTitle: true,
+          metaDescription: true,
         },
       },
-      pagination: {
-        page: pageParam,
-        pageSize: 16,
+      image: '*',
+    },
+    filters: {
+      date: {},
+      seo: {
+        metaTitle: {
+          $notNull: true,
+        },
+        metaDescription: {
+          $notNull: true,
+        },
       },
     },
-    {
-      encodeValuesOnly: true,
+    sort: { date: 'asc' },
+    pagination: {
+      page: pageParam,
+      pageSize: 16,
+    },
+  }
+
+  if (pastEvents) {
+    queryObj.filters.date = {
+      $gte: momentDate()
+        .add(month, 'months')
+        .startOf('month')
+        .format('YYYY-MM-DD')
+        .toString(),
+      $lt:
+        month < 0
+          ? momentDate()
+              .add(month, 'months')
+              .endOf('month')
+              .format('YYYY-MM-DD')
+              .toString()
+          : momentDate().add(month, 'months').format('YYYY-MM-DD').toString(),
     }
-  )
+  } else {
+    queryObj.filters.date = {
+      $gte: month
+        ? momentDate()
+            .add(month, 'months')
+            .startOf('month')
+            .format('YYYY-MM-DD')
+            .toString()
+        : momentDate().add(month, 'months').format('YYYY-MM-DD').toString(),
+      $lte: momentDate()
+        .add(month, 'months')
+        .endOf('month')
+        .format('YYYY-MM-DD')
+        .toString(),
+    }
+  }
+
+  const query = stringify(queryObj, {
+    encodeValuesOnly: true,
+  })
   const json: SearchApi = await fetchApi(
     `${apiEndPoints.getEventPage}?$${query}`
   )

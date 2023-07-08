@@ -492,6 +492,7 @@ const eventDeckBlockBuilder = ({
   heading,
   headingPosition: headingPos,
   style,
+  pastEvents,
 }: EventBlockBlockApi): EventDeckBlock => ({
   template,
   heading,
@@ -499,6 +500,7 @@ const eventDeckBlockBuilder = ({
   noResultsText,
   errorMessage,
   style,
+  pastEvents,
 })
 
 const builders = {

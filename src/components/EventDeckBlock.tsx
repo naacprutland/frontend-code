@@ -25,6 +25,7 @@ export interface EventDeckBlockProps {
     style?: StyleType;
     noResultsText: string;
     errorMessage: string;
+    pastEvents: boolean;
 }
 
 const EventDeckBlock = ({
@@ -34,7 +35,8 @@ const EventDeckBlock = ({
     cards = [],
     headingPos = "start",
     noResultsText,
-    errorMessage
+    errorMessage,
+    pastEvents = false
 }: EventDeckBlockProps) => {
     const [currentMonth, setCurrentMonth] = useState(0);
     const [cardResults, setCardResults] = useState<CardProps[]>(cards)
@@ -47,17 +49,27 @@ const EventDeckBlock = ({
 
     const onPreviousMonth = () => {
         setPage(1)
-        setCurrentMonth(prev => prev > 0 ? --prev : 0)
+        setCurrentMonth(prev => {
+            if (pastEvents) {
+                return --prev
+            }
+            return prev > 0 ? --prev : 0
+        })
     }
 
     const onNextMonth = () => {
         setPage(1)
-        setCurrentMonth(prev => ++prev)
+        setCurrentMonth(prev => {
+            if (pastEvents) {
+                return prev < 0 ? ++prev : 0
+            }
+            return ++prev
+        })
     }
 
     const onLoadMore = () => {
         setDisableButton(true)
-        getEvents(page, currentMonth).then((data) => {
+        getEvents(page, currentMonth, pastEvents).then((data) => {
             setIsError(false)
             setHideButton(data.page.hasMore)
             setCardResults(prevState => {
@@ -71,7 +83,7 @@ const EventDeckBlock = ({
     }
 
     useEffect(() => {
-        getEvents(page, currentMonth).then((data) => {
+        getEvents(page, currentMonth, pastEvents).then((data) => {
             setIsError(false)
             setHideButton(data.page.hasMore)
             setCardResults(data.page.cards as CardProps[])
@@ -117,7 +129,7 @@ const EventDeckBlock = ({
                     _hover={{
                         background: 'prime1.300'
                     }}
-                    disabled={!currentMonth}
+                    disabled={!pastEvents ? !currentMonth : false}
                     onClick={onPreviousMonth}
                     icon={<ChevronLeftIcon />} />
                 <Box as="p" fontSize={["3xl", "3xl", "4xl"]}
@@ -134,6 +146,7 @@ const EventDeckBlock = ({
                     _hover={{
                         background: 'prime1.300'
                     }}
+                    disabled={pastEvents ? !currentMonth : false}
                     onClick={onNextMonth}
                     icon={<ChevronRightIcon />} />
             </Flex>

@@ -12,6 +12,7 @@ export interface EventBlockBlockApi {
   heading: string
   headingPosition: 'start' | 'center' | 'end'
   style: StyleType
+  pastEvents: boolean
 }
 
 export interface SearchSortBlockApi {

@@ -20,3 +20,15 @@ Primary.args = {
     noResultsText: 'No Results',
     errorMessage: 'Unable Populate Event Results'
 };
+
+export const PastEvent = Template.bind({});
+PastEvent.args = {
+    position: 2,
+    pastEvents: true,
+    heading: 'Past Events',
+    cards: [],
+    style: 'none ',
+    headingPos: "start",
+    noResultsText: 'No Results',
+    errorMessage: 'Unable Populate Event Results'
+};
