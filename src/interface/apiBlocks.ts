@@ -1,7 +1,18 @@
 import { AlignItemsOptions } from './enums'
 import { EventApi } from './eventApi'
+import { StyleType } from './general'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
+
+export interface EventBlockBlockApi {
+  __component: 'blocks.event-deck-block'
+  id: number
+  noResultsText: string
+  errorMessage: string
+  heading: string
+  headingPosition: 'start' | 'center' | 'end'
+  style: StyleType
+}
 
 export interface SearchSortBlockApi {
   __component: 'blocks.search-sort-block'

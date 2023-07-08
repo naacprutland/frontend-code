@@ -16,5 +16,7 @@ Primary.args = {
     heading: 'Upcoming Events',
     cards: [],
     style: 'none ',
-    headingPos: "center"
+    headingPos: "center",
+    noResultsText: 'No Results',
+    errorMessage: 'Unable Populate Event Results'
 };

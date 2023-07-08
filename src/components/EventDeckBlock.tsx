@@ -23,6 +23,8 @@ export interface EventDeckBlockProps {
     cards?: CardProps[];
     hideButton?: boolean;
     style?: StyleType;
+    noResultsText: string;
+    errorMessage: string;
 }
 
 const EventDeckBlock = ({
@@ -30,7 +32,9 @@ const EventDeckBlock = ({
     style = "none",
     position,
     cards = [],
-    headingPos = "start"
+    headingPos = "start",
+    noResultsText,
+    errorMessage
 }: EventDeckBlockProps) => {
     const [currentMonth, setCurrentMonth] = useState(0);
     const [cardResults, setCardResults] = useState<CardProps[]>(cards)
@@ -81,7 +85,7 @@ const EventDeckBlock = ({
         if (isError) {
             toast({
                 title: 'Event Error',
-                description: 'Unable Populate Event Results',
+                description: errorMessage,
                 status: 'error',
                 isClosable: true,
             })
@@ -148,7 +152,9 @@ const EventDeckBlock = ({
                     padding="2"
                     aria-live="polite"
                     fontWeight="bold"
-                    textAlign="center">No Available Events </Box>
+                    textAlign="center">
+                    {noResultsText}
+                </Box>
             }
             {
                 (hideButton) && (

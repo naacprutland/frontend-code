@@ -18,6 +18,7 @@ import { CheckoutBlockProps } from './CheckoutBlock'
 import { PaypalDonateBlockProps } from './PaypalDonateBlock'
 import { EventTemplateProps } from './EventTemplate'
 import { ResourceBlockProps } from './ResourceBlock'
+import { EventDeckBlockProps } from './EventDeckBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -36,6 +37,7 @@ const DynamicCheckoutBlock: ComponentType<CheckoutBlockProps> = dynamic(() => im
 const DynamicPaypalDonateBlock: ComponentType<PaypalDonateBlockProps> = dynamic(() => import('./PaypalDonateBlock'))
 const DynamicEventTemplate: ComponentType<EventTemplateProps> = dynamic(() => import('./EventTemplate'))
 const DynamicResourceBlock: ComponentType<ResourceBlockProps> = dynamic(() => import('./ResourceBlock'))
+const DynamicEventDeckBlock: ComponentType<EventDeckBlockProps> = dynamic(() => import('./EventDeckBlock'))
 
 function DynamicComponent({ template, ...props }: Block) {
 
@@ -74,6 +76,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicEventTemplate {...props as EventTemplateProps} />
     case 'blocks.resource-block':
       return <DynamicResourceBlock {...props as ResourceBlockProps} />
+    case 'blocks.event-deck-block':
+      return <DynamicEventDeckBlock {...props as EventDeckBlockProps} />
     default:
       return null
   }

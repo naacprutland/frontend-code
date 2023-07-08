@@ -18,6 +18,7 @@ import {
   PaypalDonateBlockApi,
   EventTemplateApi,
   SearchSortBlockApi,
+  EventBlockBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -37,6 +38,7 @@ import {
   EventTemplate,
   SearchSortBlock,
   ResourceBlock,
+  EventDeckBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -483,6 +485,22 @@ const resourceBlockBuilder = async ({
   }
 }
 
+const eventDeckBlockBuilder = ({
+  __component: template,
+  noResultsText,
+  errorMessage,
+  heading,
+  headingPosition: headingPos,
+  style,
+}: EventBlockBlockApi): EventDeckBlock => ({
+  template,
+  heading,
+  headingPos,
+  noResultsText,
+  errorMessage,
+  style,
+})
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -499,6 +517,7 @@ const builders = {
   'blocks.event-template': eventTemplateBuilder,
   'blocks.search-sort-block': searchSortBuilder,
   'blocks.resource-block': resourceBlockBuilder,
+  'blocks.event-deck-block': eventDeckBlockBuilder,
 }
 
 export async function buildPageStructure(
