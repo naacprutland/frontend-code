@@ -19,6 +19,7 @@ import {
   EventTemplateApi,
   SearchSortBlockApi,
   EventBlockBlockApi,
+  DividerBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -39,6 +40,7 @@ import {
   SearchSortBlock,
   ResourceBlock,
   EventDeckBlock,
+  DividerBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -503,6 +505,14 @@ const eventDeckBlockBuilder = ({
   pastEvents,
 })
 
+const dividerBlockBuilder = ({
+  __component: template,
+  style,
+}: DividerBlockApi): DividerBlock => ({
+  template,
+  style,
+})
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -520,6 +530,7 @@ const builders = {
   'blocks.search-sort-block': searchSortBuilder,
   'blocks.resource-block': resourceBlockBuilder,
   'blocks.event-deck-block': eventDeckBlockBuilder,
+  'blocks.divider-block': dividerBlockBuilder,
 }
 
 export async function buildPageStructure(

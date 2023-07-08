@@ -4,6 +4,12 @@ import { StyleType } from './general'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface DividerBlockApi {
+  __component: 'blocks.divider-block'
+  id: number
+  style?: 'none' | 'dark' | 'white'
+}
+
 export interface EventBlockBlockApi {
   __component: 'blocks.event-deck-block'
   id: number
