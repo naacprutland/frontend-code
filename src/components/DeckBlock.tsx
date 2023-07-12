@@ -10,6 +10,7 @@ import { Styling } from "../interface/enums"
 export interface DeckBlockProps {
   position?: number;
   heading?: string;
+  headingPosition?: 'start' | 'center' | 'end';
   cards: CardProps[] | ArticleCardProps[];
   link?: Link,
   onAction?: {
@@ -24,6 +25,7 @@ export interface DeckBlockProps {
 
 const DeckBlock = ({
   heading,
+  headingPosition = 'start',
   cards = [],
   position = 1,
   link,
@@ -40,6 +42,7 @@ const DeckBlock = ({
       {heading && (
         <Heading className={stackDeck ? "gcol-12 gcol-md-12 gcol-lg-10 center" : "gcol-12"} as={position > 0 ? 'h2' : 'h1'}
           lineHeight="1"
+          textAlign={headingPosition}
           paddingBottom={["6", "8", "12"]}
           fontSize={['4xl', '5xl', '6xl']}>
           {heading}

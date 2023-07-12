@@ -1,8 +1,18 @@
+import { CardProps } from '../components/Card'
 import { AlignItemsOptions } from './enums'
 import { EventApi } from './eventApi'
 import { StyleType } from './general'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
+
+export interface DeckBlockApi {
+  __component: 'blocks.deck-block'
+  id: number
+  heading: string
+  headingPosition: 'start' | 'center' | 'end'
+  style: StyleType
+  cards: CardProps[]
+}
 
 export interface DividerBlockApi {
   __component: 'blocks.divider-block'
