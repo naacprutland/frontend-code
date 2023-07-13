@@ -34,14 +34,14 @@ interface QueryBase {
       },
       {
         seo: {
-          metaTitle: {
+          metaTitle?: {
             $containsi: string
           }
         }
       },
       {
         seo: {
-          metaDescription: {
+          metaDescription?: {
             $containsi: string
           }
         }
@@ -71,7 +71,8 @@ interface QueryObject extends QueryBase {
   }
 }
 
-interface ResourceQueryObject extends QueryBase {
+interface ResourceQueryObject {
+  sort?: string[]
   populate: {
     link: {
       populate: {
@@ -100,7 +101,11 @@ interface ResourceQueryObject extends QueryBase {
     }
   }
   filters: {
-    $or: object[]
+    $or?: object[]
+  }
+  pagination: {
+    page: number
+    pageSize: number
   }
 }
 
