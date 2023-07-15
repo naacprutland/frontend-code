@@ -33,6 +33,7 @@ const OptionsTypeSelector = forwardRef(({
     const {
         register,
         getValues,
+        setValue,
         watch,
         trigger,
         resetField,
@@ -61,7 +62,7 @@ const OptionsTypeSelector = forwardRef(({
     const [currentOpt, setCurrentOpt] = useState<FullOption>(null)
     const [label, setLabel] = useState(null)
     const [amount, setAmount] = useState(null)
-    const watchShowType = watch("type", '');
+    const watchShowType = watch("type", getValues('type'));
 
     const handleUpdate = (values: FormValues) => {
         setAmount(null)
@@ -104,14 +105,36 @@ const OptionsTypeSelector = forwardRef(({
         // clearing this filed when ever the type changes
         resetField('paymentType');
         if (checkoutOptions) {
-            router.push({
-                pathname: router.pathname,
-                query: { type: watchShowType },
-            }, undefined, { shallow: true })
+
             const option = checkoutOptions.find(v => v.value == watchShowType) || null
             setCurrentOpt(option)
         }
     }, [watchShowType, checkoutOptions])
+
+    useEffect(() => {
+        if (router.query.type !== watchShowType) {
+
+            router.push({
+                query: {
+                    slug: router.query.slug,
+                    type: watchShowType
+                },
+            }, undefined, { shallow: true })
+        }
+    }, [watchShowType])
+
+    useEffect(() => {
+        if (router.query.type !== getValues('type')) {
+            const query = router?.query;
+
+            if (typeof query.type === 'string') {
+                const findOption = checkoutOptions.find(v => v.value === query.type)
+                // if option is in available values
+                if (findOption) setValue('type', findOption.value);
+            }
+
+        }
+    }, [router])
 
     useEffect(() => {
         if (currentOpt) {

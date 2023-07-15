@@ -48,7 +48,7 @@ const BuyBox = ({
         ]
 
         if (selectedItem && optionType) {
-            if (optionType?.values?.paymentType) {
+            if (optionType?.values?.paymentType && selectedItem.paymentOptions) {
                 const pymtOption = selectedItem.paymentOptions.find(opt => {
                     return opt.slug === optionType.values.paymentType
                 })
