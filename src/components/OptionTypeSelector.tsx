@@ -104,6 +104,10 @@ const OptionsTypeSelector = forwardRef(({
         // clearing this filed when ever the type changes
         resetField('paymentType');
         if (checkoutOptions) {
+            router.push({
+                pathname: router.pathname,
+                query: { type: watchShowType },
+            }, undefined, { shallow: true })
             const option = checkoutOptions.find(v => v.value == watchShowType) || null
             setCurrentOpt(option)
         }
