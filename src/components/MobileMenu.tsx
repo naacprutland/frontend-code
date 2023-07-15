@@ -20,6 +20,7 @@ import NextLink from "next/link"
 import { MenuItem, SubItem } from './Header'
 import { CTA } from '../interface/general'
 import { MdClose } from "react-icons/md"
+import { useRouter } from 'next/router'
 
 
 export interface MobileMenuProps {
@@ -65,6 +66,7 @@ const MobileMenu = ({
     isOpen }: MobileMenuProps) => {
     const firstField = useRef(null);
     const [topPad, setTopPad] = useState(12)
+    const router = useRouter()
 
     const btnH = (size: 'sm' | 'md', fullHeight: number) => {
         const headerHeight = headerHeights[size]
@@ -79,6 +81,14 @@ const MobileMenu = ({
             setTopPad(height)
         }
     }, [isOpen, headerRef])
+
+    useEffect(() => {
+        router.events.on('routeChangeComplete', onClose)
+
+        return () => {
+            router.events.off('routeChangeComplete', onClose)
+        }
+    }, [])
 
     return (
         <Drawer
