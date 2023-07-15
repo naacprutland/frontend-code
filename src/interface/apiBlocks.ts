@@ -5,6 +5,18 @@ import { StyleType } from './general'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface QuoteBlockApi {
+  __component: 'blocks.quote-block'
+  id: number
+  quote: string
+  statedBy?: string
+  citeUrl?: string
+  image: {
+    src: Image
+    alt: string
+  }
+}
+
 export interface DeckBlockApi {
   __component: 'blocks.deck-block'
   id: number

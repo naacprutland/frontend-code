@@ -21,6 +21,7 @@ import {
   EventBlockBlockApi,
   DividerBlockApi,
   DeckBlockApi,
+  QuoteBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -43,6 +44,7 @@ import {
   EventDeckBlock,
   DividerBlock,
   DeckBlock,
+  QuoteBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -529,6 +531,21 @@ const deckBlockBuilder = ({
   cards,
 })
 
+const quoteBlockBuilder = ({
+  __component: template,
+  quote,
+  statedBy,
+  citeUrl,
+  image,
+}: QuoteBlockApi): QuoteBlock => ({
+  template,
+  quote,
+  statedBy,
+  citeUrl,
+  imageSrc: image?.src?.url || null,
+  imageAlt: image?.alt || null,
+})
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -548,6 +565,7 @@ const builders = {
   'blocks.event-deck-block': eventDeckBlockBuilder,
   'blocks.divider-block': dividerBlockBuilder,
   'blocks.deck-block': deckBlockBuilder,
+  'blocks.quote-block': quoteBlockBuilder,
 }
 
 export async function buildPageStructure(

@@ -30,6 +30,7 @@ import { PaypalDonateBlockProps } from '../components/PaypalDonateBlock'
 import { EventTemplateProps } from '../components/EventTemplate'
 import { ResourceBlockProps } from '../components/ResourceBlock'
 import { EventDeckBlockProps } from '../components/EventDeckBlock'
+import { QuoteBlockProps } from '../components/QuoteBlock'
 
 interface ComponentBlock {
   template: string
@@ -120,6 +121,10 @@ export interface EventDeckBlock extends ComponentBlock, EventDeckBlockProps {
   template: 'blocks.event-deck-block'
 }
 
+export interface QuoteBlock extends ComponentBlock, QuoteBlockProps {
+  template: 'blocks.quote-block'
+}
+
 export type ResponseBlocks =
   | HeroBlockApi
   | BreadcrumbsApi
@@ -154,5 +159,6 @@ export type Block =
   | EventTemplate
   | ResourceBlock
   | EventDeckBlock
+  | QuoteBlock
 
 export type PageBlocks = Block[]

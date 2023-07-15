@@ -143,8 +143,8 @@ const Header = ({
               alt={logo.alt}
               layout="intrinsic"
               sizes="100%"
-              width="132px"
-              height="46px"
+              width={132}
+              height={46}
               priority
             />}
           </Box>

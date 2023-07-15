@@ -33,8 +33,8 @@ const Stack = ({ img, title, text, reverse }: StackProps) => {
                 <Image src={img.src} alt={img.alt}
                     objectFit="cover"
                     objectPosition="center"
-                    height="156px"
-                    width={"156px"} />
+                    height={156}
+                    width={156} />
             </Box>
             <VStack spacing="2" w="100%">
                 <Heading as="h3" fontSize={"2xl"}
