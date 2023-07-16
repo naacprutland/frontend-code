@@ -1,12 +1,16 @@
+import { useMemo } from 'react'
 import {
     Heading,
     Box,
-    Button
+    Button,
+    Image
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import Image from 'next/image'
+// import Image from "next/future/image";
 import Container from './Container'
 import { CTABtn } from './HeroBlock'
+import { Image as ImageApi } from '../interface/generalApi'
+import { imageSrcSet } from '../lib/util'
 
 export interface HeroTwoBlockProps {
     position?: number;
@@ -15,7 +19,7 @@ export interface HeroTwoBlockProps {
     subText2?: string;
     subText3?: string;
     cta?: CTABtn;
-    imgSrc: string;
+    image: ImageApi;
     imgAlt: string;
     colorScheme?: string;
 }
@@ -27,77 +31,88 @@ const HeroTwoBlock = ({
     subText2,
     subText3,
     cta,
-    imgSrc,
+    image,
     imgAlt,
     colorScheme = "prime1"
-}: HeroTwoBlockProps) => (
-    <Box as="section"
-        backgroundColor="secondary7.500"
-        color="white"
-        overflow="hi"
-        height={[null, "500px"]}
-        maxHeight={[null, "500px"]}>
-        <Box display={["block", "flex"]}
-            height="100%"
-            maxW="1452px"
-            marginLeft="auto"
-            marginRight="auto">
-            <Box
-                height={["0", "auto"]}
-                position="relative"
-                paddingTop={["100%", "0"]}
-                flex={[null, '1 1 50%']}
-                width="100%">
-                <Box position={"absolute"}
-                    overflow="hidden"
-                    height="100%"
-                    width="100%"
-                    top={["0", "-50%"]}
-                    transform={[null, "translateY(50%)"]}
-                    right="0">
-                    <Image
-                        src={imgSrc}
-                        objectFit="cover"
-                        objectPosition="center"
-                        alt={imgAlt}
-                        layout="fill" />
+}: HeroTwoBlockProps) => {
+    const srcSet = useMemo(() => {
+        return imageSrcSet(image, {
+            min: 350,
+            max: 800
+        })
+    }, [image]);
+    return (
+        <Box as="section"
+            backgroundColor="secondary7.500"
+            color="white"
+            overflow="hi"
+            height={[null, "500px"]}
+            maxHeight={[null, "500px"]}>
+            <Box display={["block", "flex"]}
+                height="100%"
+                maxW="1452px"
+                marginLeft="auto"
+                marginRight="auto">
+                <Box
+                    height={["0", "auto"]}
+                    position="relative"
+                    paddingTop={["100%", "0"]}
+                    flex={[null, '1 1 50%']}
+                    width="100%">
+                    <Box position={"absolute"}
+                        overflow="hidden"
+                        height="100%"
+                        width="100%"
+                        top={["0", "-50%"]}
+                        transform={[null, "translateY(50%)"]}
+                        right="0">
+                        <Image
+                            src={image.url}
+                            alt={imgAlt}
+                            srcSet={srcSet}
+                            loading="lazy"
+                            objectFit='cover'
+                            objectPosition='center'
+                            h="100%"
+                            w="100%" />
+                    </Box>
                 </Box>
+
+                <Container
+                    py={["8", "12", "14"]}
+                    marginTop={["auto"]}
+                    marginBottom={["auto", "0"]}
+                    flex={[null, '1 1 50%']}>
+                    {title && (
+                        <Heading as={position > 0 ? 'h2' : 'h1'}
+                            lineHeight="1.2"
+                            marginBottom={(subText1 || subText2 || subText3 || cta) && "4"}
+                            fontSize={["4xl", "4xl", "5xl"]}>
+                            {title}
+                        </Heading>)
+                    }
+                    <Box marginBottom={cta ? "4" : null}>
+                        {subText1 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText1}</Box>}
+                        {subText2 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText2}</Box>}
+                        {subText3 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText3}</Box>}
+                    </Box>
+
+                    {
+                        (cta && cta?.label && cta?.link) && <Link href={cta.link} passHref>
+                            <Button as="a"
+                                size="md"
+                                target={cta.external ? "_blank" : undefined}
+                                rel={cta.external ? "noopener noreferrer" : undefined}
+                                cursor="pointer"
+                                colorScheme={colorScheme}>
+                                {cta.label}
+                            </Button>
+                        </Link>
+                    }
+                </Container>
             </Box>
-
-            <Container
-                py={["8", "12", "14"]}
-                marginTop={["auto"]}
-                marginBottom={["auto", "0"]}
-                flex={[null, '1 1 50%']}>
-                {title && (
-                    <Heading as={position > 0 ? 'h2' : 'h1'}
-                        lineHeight="1.2"
-                        marginBottom={(subText1 || subText2 || subText3 || cta) && "4"}
-                        fontSize={["4xl", "4xl", "5xl"]}>
-                        {title}
-                    </Heading>)
-                }
-                <Box marginBottom={cta ? "4" : null}>
-                    {subText1 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText1}</Box>}
-                    {subText2 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText2}</Box>}
-                    {subText3 && <Box as="p" fontSize="2xl" lineHeight="1.2">{subText3}</Box>}
-                </Box>
-
-                {
-                    (cta && cta?.label && cta?.link) && <Link href={cta.link} passHref>
-                        <Button as="a"
-                            size="md"
-                            target={cta.external ? "_blank" : undefined}
-                            rel={cta.external ? "noopener noreferrer" : undefined}
-                            cursor="pointer"
-                            colorScheme={colorScheme}>
-                            {cta.label}
-                        </Button>
-                    </Link>
-                }
-            </Container>
-        </Box>
-    </Box>
-)
+        </Box >
+    )
+}
 
 export default HeroTwoBlock

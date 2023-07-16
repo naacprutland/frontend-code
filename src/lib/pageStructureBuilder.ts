@@ -164,7 +164,7 @@ const heroTwoBlockBuilder = ({
   template: __component as 'blocks.hero-two-block',
   title,
   subText1: subText,
-  imgSrc: image?.url,
+  image,
   imgAlt: imageAlt,
   cta: {
     ...cta,
