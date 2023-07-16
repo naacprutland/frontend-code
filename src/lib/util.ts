@@ -93,7 +93,7 @@ const imgSizeVariable = {
   72: 'thumbnailXsmall',
 }
 
-interface imgWidth {
+export interface imgWidth {
   min?: number
   max?: number
 }

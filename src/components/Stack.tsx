@@ -4,14 +4,15 @@ import {
     Stack as ChakraStack,
     VStack
 } from '@chakra-ui/react'
-import Image from 'next/image'
 import { AlignItemsOptions } from '../interface/enums'
-import ContentText from './ContentText';
+import ContentText from './ContentText'
+import Image from './Image'
+import { Image as ImageApi } from '../interface/generalApi'
 
 
 export interface StackProps {
     img: {
-        src: string;
+        src: ImageApi;
         alt: string;
     },
     title: string;
@@ -30,11 +31,13 @@ const Stack = ({ img, title, text, reverse }: StackProps) => {
                 overflow="hidden"
                 minWidth="156px"
                 width="156px">
-                <Image src={img.src} alt={img.alt}
-                    objectFit="cover"
-                    objectPosition="center"
-                    height={156}
-                    width={156} />
+                <Image image={img.src}
+                    alt={img.alt}
+                    srcSetWidth={{
+                        min: 100,
+                        max: 300
+                    }}
+                />
             </Box>
             <VStack spacing="2" w="100%">
                 <Heading as="h3" fontSize={"2xl"}

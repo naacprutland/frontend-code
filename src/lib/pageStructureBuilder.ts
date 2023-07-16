@@ -138,7 +138,7 @@ const stackBlockBuilder = ({
       textAlign,
       reverse,
       img: {
-        src: Image.url,
+        src: Image || null,
         alt: imageAlt || Image.alternativeText,
       },
     })
@@ -212,6 +212,7 @@ export const breadcrumbBuilder = (
   pageData?: PageResponseProps
 ): Breadcrumbs => {
   const slugs: string[] = pageData?.static_path?.slug || []
+
   const breadcrumbs: Breadcrumb[] = getBreadcrumbs(slugs)
   return {
     template: __component,
@@ -542,7 +543,7 @@ const quoteBlockBuilder = ({
   quote,
   statedBy,
   citeUrl,
-  imageSrc: image?.src?.url || null,
+  image: image?.src || null,
   imageAlt: image?.alt || null,
 })
 

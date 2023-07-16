@@ -93,6 +93,7 @@ const MediaBlock = ({
               src={mediaImage?.src?.url || ''}
               alt={mediaImage?.alt}
               srcSet={srcSet}
+              loading='lazy'
               objectFit="cover"
               objectPosition="center"
               h="100%"
@@ -122,6 +123,7 @@ const MediaBlock = ({
                   <Image
                     src={mediaImage?.src?.url || ''}
                     alt={mediaImage?.alt}
+                    loading='lazy'
                     srcSet={srcSet}
                     objectFit="cover"
                     objectPosition="center"
