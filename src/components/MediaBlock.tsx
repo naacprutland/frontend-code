@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   Box,
   AspectRatio,
@@ -10,12 +11,14 @@ import {
   ModalContent,
   ModalBody,
   ModalCloseButton,
-  Text
+  Text,
+  Image
 } from '@chakra-ui/react'
 import { FaRegPlayCircle } from "react-icons/fa";
 import YouTube, { Options } from "react-youtube";
-import Image from 'next/image'
 import Container from './Container';
+import { Image as ImageApi } from '../interface/generalApi'
+import { imageSrcSet } from '../lib/util'
 
 export interface VideoType {
   src: string;
@@ -23,7 +26,7 @@ export interface VideoType {
 }
 
 interface MediaImage {
-  src: string | 'StaticImageData';
+  src: ImageApi;
   alt: string;
 }
 export interface MediaBlockProps {
@@ -59,6 +62,14 @@ const MediaBlock = ({
 }: MediaBlockProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
+  const srcSet = useMemo(() => {
+
+    return imageSrcSet(mediaImage.src, {
+      min: 200,
+      max: 800
+    })
+  }, [mediaImage]);
+
   return (
     <>
       <Container className="grid"
@@ -79,11 +90,13 @@ const MediaBlock = ({
             }}
             zIndex="-1">
             <Image
-              src={mediaImage?.src || ''}
+              src={mediaImage?.src?.url || ''}
               alt={mediaImage?.alt}
+              srcSet={srcSet}
               objectFit="cover"
               objectPosition="center"
-              layout="fill"
+              h="100%"
+              w="100%"
             />
           </Box>)}
         <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
@@ -107,14 +120,13 @@ const MediaBlock = ({
               <Box >
                 <Box width="100%">
                   <Image
-                    src={mediaImage?.src || ''}
+                    src={mediaImage?.src?.url || ''}
                     alt={mediaImage?.alt}
+                    srcSet={srcSet}
                     objectFit="cover"
                     objectPosition="center"
-                    height={376.88}
-                    width={670}
-                    layout="responsive"
-                    sizes="(min-width: 992px) 35vw, (min-width: 760px) 50vw, 80vw"
+                    h="100%"
+                    w="100%"
                   />
                 </Box>
 

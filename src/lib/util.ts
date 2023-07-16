@@ -94,8 +94,8 @@ const imgSizeVariable = {
 }
 
 interface imgWidth {
-  min: number
-  max: number
+  min?: number
+  max?: number
 }
 
 /**
@@ -105,11 +105,13 @@ export function imageSrcSet(img: Image, width: imgWidth) {
   const min = width?.min || Math.min(...imageWidths)
   const max = width?.max || Math.max(...imageWidths)
   let set = ''
+
+  if (!img?.formats) return set
   for (let i = 0; i < imageWidths.length; i++) {
     const size = imageWidths[i]
     if (min <= size && size <= max) {
       set = `${set ? set + ', ' : ''}${
-        img.formats[imgSizeVariable[size]].url
+        img?.formats[imgSizeVariable[size]]?.url
       } ${size}w`
     }
   }

@@ -1,3 +1,4 @@
+import { useMemo } from 'react'
 import {
   Heading,
   Box,
@@ -5,13 +6,14 @@ import {
   GridItem,
   Button,
   Wrap,
-  WrapItem
+  WrapItem,
+  Image
 } from '@chakra-ui/react'
 import Link from 'next/link'
-import Image from 'next/image'
 import Container from './Container'
 import { AlignItems } from '../interface/enums'
 import { Image as ImageApi } from '../interface/generalApi'
+import { imageSrcSet } from '../lib/util'
 
 
 export interface HeroProps {
@@ -90,71 +92,81 @@ const HeroBlock = ({
   verPos = 'middle',
   position = 0,
   size = "full"
-}: HeroProps) => (
-  <Box position="relative"
-    maxW="100%"
-    h={size === "full" ? "100vh" : containedSize}>
+}: HeroProps) => {
+  const srcSet = useMemo(() => {
+    return imageSrcSet(backgroundImage.src, {
+      min: 350
+    })
+  }, [backgroundImage]);
 
-    <Box position="absolute"
-      bg="black"
-      w="100%"
-      h="100%"
-      top="0"
-    >
-      {backgroundImage?.src?.url && <Image
-        src={backgroundImage?.src?.url}
-        alt={backgroundImage?.alt}
-        objectFit="cover"
-        objectPosition="center"
-        layout='fill'
-      />}
-    </Box>
-    <Container py={[8, 12, 14]} h="100%">
-      <Grid
+  return (
+    <Box position="relative"
+      maxW="100%"
+      h={size === "full" ? "100vh" : containedSize}>
+
+      <Box position="absolute"
+        bg="black"
+        w="100%"
         h="100%"
-        templateRows="repeat(3, 1fr)"
-        gap={[6, 6, 8]}
-        templateColumns="repeat(12, 1fr)">
-        {title && <GridItem rowStart={VerPos[verPos]}
-          alignSelf="center"
-          textAlign={textPos}
-          display="flex"
-          flexDirection="column"
-          alignItems={AlignItems[textPos]}
-          borderRadius="6px"
-          bgColor="rgba(0, 0, 0, 0.75)"
-          py={{ base: '4', lg: '8' }}
-          px={{ base: '4', lg: '10' }}
-          color='white'
-          colStart={[posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
-          colSpan={[posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
-          zIndex="1" >
-          {title && (
-            <Heading as={position > 0 ? 'h2' : 'h1'}
-              fontSize={['4xl', '5xl', '6xl']}>
-              {title}
-            </Heading>)
-          }
-          {(cta?.length > 0) && (
-            <Wrap justify={AlignItems[textPos]} spacing={2} paddingTop={2}>
-              {cta && cta.map(({ label, link, external }, i) => (
-                <WrapItem key={label + i}>
-                  <Link href={link} passHref>
-                    <Button as="a"
-                      size="md"
-                      target={external ? "_blank" : undefined}
-                      rel={external ? "noopener noreferrer" : undefined}
-                      cursor="pointer"
-                      colorScheme="purple">
-                      {label}
-                    </Button>
-                  </Link>
-                </WrapItem>)).slice(0, 4)}
-            </Wrap>)}
-        </GridItem>}
-      </Grid>
-    </Container>
-  </Box>
-)
+        top="0"
+      >
+        {backgroundImage?.src?.url && <Image
+          src={backgroundImage?.src?.url}
+          alt={backgroundImage?.alt}
+          objectFit="cover"
+          objectPosition="center"
+          h="100%"
+          w="100%"
+          srcSet={srcSet}
+        />}
+      </Box>
+      <Container py={[8, 12, 14]} h="100%">
+        <Grid
+          h="100%"
+          templateRows="repeat(3, 1fr)"
+          gap={[6, 6, 8]}
+          templateColumns="repeat(12, 1fr)">
+          {title && <GridItem rowStart={VerPos[verPos]}
+            alignSelf="center"
+            textAlign={textPos}
+            display="flex"
+            flexDirection="column"
+            alignItems={AlignItems[textPos]}
+            borderRadius="6px"
+            bgColor="rgba(0, 0, 0, 0.75)"
+            py={{ base: '4', lg: '8' }}
+            px={{ base: '4', lg: '10' }}
+            color='white'
+            colStart={[posProMobile?.col, posPropMd[horPos]?.col, posPropLG[horPos]?.col]}
+            colSpan={[posProMobile?.span, posPropMd[horPos]?.span, posPropLG[horPos]?.span]}
+            zIndex="1" >
+            {title && (
+              <Heading as={position > 0 ? 'h2' : 'h1'}
+                fontSize={['4xl', '5xl', '6xl']}>
+                {title}
+              </Heading>)
+            }
+            {(cta?.length > 0) && (
+              <Wrap justify={AlignItems[textPos]} spacing={2} paddingTop={2}>
+                {cta && cta.map(({ label, link, external }, i) => (
+                  <WrapItem key={label + i}>
+                    <Link href={link} passHref>
+                      <Button as="a"
+                        size="md"
+                        target={external ? "_blank" : undefined}
+                        rel={external ? "noopener noreferrer" : undefined}
+                        cursor="pointer"
+                        colorScheme="purple">
+                        {label}
+                      </Button>
+                    </Link>
+                  </WrapItem>)).slice(0, 4)}
+              </Wrap>)}
+          </GridItem>}
+        </Grid>
+      </Container>
+    </Box>
+  )
+}
 
 export default HeroBlock

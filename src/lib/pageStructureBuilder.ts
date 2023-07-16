@@ -119,7 +119,7 @@ const mediaBlockBuilder = ({
   youTubeVideo,
   textPosition: textPosition as 'center' | 'start' | 'end',
   mediaImage: {
-    src: image.url,
+    src: image,
     alt: imageAlt || image.alternativeText,
   },
 })

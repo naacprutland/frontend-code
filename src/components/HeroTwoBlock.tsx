@@ -6,7 +6,6 @@ import {
     Image
 } from '@chakra-ui/react'
 import Link from 'next/link'
-// import Image from "next/future/image";
 import Container from './Container'
 import { CTABtn } from './HeroBlock'
 import { Image as ImageApi } from '../interface/generalApi'

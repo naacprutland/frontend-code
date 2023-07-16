@@ -12,9 +12,7 @@ module.exports = {
     deviceSizes: [320, 420, 540, 640, 750, 828, 1080, 1200, 1920, 2048],
     imageSizes: [72, 96, 128, 256, 350, 500, 730],
   },
-  experimental: {
-    images: {
-      allowFutureImage: true
-    }
-  }
+  compiler: {
+    styledComponents: true,
+  },
 }
