@@ -254,7 +254,7 @@ export const featureBlockBuilder = ({
     date: date || page?.publishedAt || event?.publishedAt || null,
     link: {
       label: link?.label || 'Read On',
-      path: link?.link || page?.path || 'calender/' + event?.slug,
+      path: link?.link || page?.path || event?.path,
       isExternal: link?.external || false,
     },
     badge: cardLabel
