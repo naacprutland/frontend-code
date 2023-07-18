@@ -11,9 +11,9 @@ import {
 } from "@chakra-ui/react"
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from "next/link"
-import Image from 'next/image'
 import { Image as MediaImage } from '../interface/generalApi'
 import { createMarkup } from "../lib/util"
+import Image from "./Image"
 
 export interface ArticleCardProps {
     image?: {
@@ -56,11 +56,12 @@ const ArticleCard = ({
                     >
                         <div>
                             <Image
-                                src={image?.src?.url}
+                                image={image?.src}
                                 alt={image?.alt}
-                                objectFit="cover"
-                                objectPosition="center"
-                                layout="fill"
+                                srcSetWidth={{
+                                    min: 200,
+                                    max: 800
+                                }}
                             />
                         </div>
                     </AspectRatio>)

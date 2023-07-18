@@ -21,7 +21,9 @@ import NextLink from "next/link"
 import MenuLink from './MenuLink'
 import Banner, { BannerProps } from './Banner'
 import SkipToMainContent from './SkipToMainContent'
-import Image from 'next/image'
+import Image from "./Image"
+import { Image as ImageApi } from "../interface/generalApi"
+
 
 const DynamicMobileMenu: ComponentType<MobileMenuProps> = dynamic(() => import('./MobileMenu'))
 const DynamicSearch: ComponentType<SearchDrawerProps> = dynamic(() => import('./SearchDrawer'))
@@ -41,7 +43,7 @@ export interface SubItem {
 
 export interface HeaderProps {
   logo?: {
-    src: string;
+    src: ImageApi;
     alt: string;
   },
   ctas?: CTA[];
@@ -138,14 +140,12 @@ const Header = ({
         <NextLink href="/" passHref>
           <Box as="a" h="100%" maxH="2.875rem" w={["78px", "132px"]} cursor="pointer" >
             {logo && <Image
-              className="largeLogo"
-              src={logo.src}
+              image={logo.src}
               alt={logo.alt}
-              layout="intrinsic"
-              sizes="100%"
-              width={132}
-              height={46}
-              priority
+              srcSetWidth={{
+                min: 50,
+                max: 200
+              }}
             />}
           </Box>
         </NextLink>

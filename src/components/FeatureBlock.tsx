@@ -13,12 +13,12 @@ import {
 } from '@chakra-ui/react'
 import { ChevronRightIcon } from '@chakra-ui/icons'
 import NextLink from 'next/link'
-import Image from 'next/image'
 import { Image as MediaImage } from '../interface/generalApi'
 import Moment from 'react-moment'
 import Container from './Container'
 import { ColorScheme } from '../interface/general'
 import { AlignItemsOptions } from '../interface/enums'
+import Image from "./Image"
 
 
 export interface FeatureBlockProps {
@@ -78,11 +78,12 @@ const FeatureBlock = ({
                                     >
                                         <div>
                                             <Image
-                                                src={image?.src?.url}
+                                                image={image?.src}
                                                 alt={image?.alt || heading}
-                                                objectFit="cover"
-                                                objectPosition="center"
-                                                layout="fill"
+                                                srcSetWidth={{
+                                                    min: 200,
+                                                    max: 750,
+                                                }}
                                             />
                                         </div>
                                     </AspectRatio>

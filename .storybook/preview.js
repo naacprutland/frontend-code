@@ -1,5 +1,5 @@
 import * as NextImage from "next/image";
-import { RouterContext } from "next/dist/shared/lib/router-context"; 
+import { RouterContext } from "next/dist/shared/lib/router-context";
 import theme from '../src/theme/theme'
 import Fonts from '../src/theme/fonts'
 
@@ -10,7 +10,7 @@ Object.defineProperty(NextImage, "default", {
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
 
-const withThemeProvider=(Story,context)=>{
+const withThemeProvider = (Story, context) => {
   return (
     <>
       <Fonts />
@@ -28,14 +28,14 @@ const customViewports = {
       height: '812px',
     },
   },
-  iPadmini8 : {
+  iPadmini8: {
     name: 'iPad mini 8.3',
     styles: {
       width: '744px',
       height: '1133px',
     },
   },
-  macBookPro14 : {
+  macBookPro14: {
     name: 'MacBook Pro 14',
     styles: {
       width: '1512px',
@@ -43,34 +43,34 @@ const customViewports = {
     },
   },
 }
-  
+
 export const parameters = {
-    actions: { argTypesRegex: "^on[A-Z].*" },
-    chakra: {
-        theme,
+  actions: { argTypesRegex: "^on[A-Z].*" },
+  chakra: {
+    theme,
+  },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
     },
-    controls: {
-        matchers: {
-          color: /(background|color)$/i,
-          date: /Date$/,
-        },
-    },
-    layout: 'fullscreen',
-    viewport: { viewports: customViewports },
-    backgrounds: {
-      default: 'default',
-      values: [
-        {
-          name: 'default',
-          value: '#EFEFEF',
-        },
-        {
-          name: 'dark',
-          value: '#282828',
-        },
-      ],
-    },
-    nextRouter: {
-      Provider: RouterContext.Provider,
-    },
-  }
+  },
+  layout: 'fullscreen',
+  viewport: { viewports: customViewports },
+  backgrounds: {
+    default: 'default',
+    values: [
+      {
+        name: 'default',
+        value: '#EFEFEF',
+      },
+      {
+        name: 'dark',
+        value: '#282828',
+      },
+    ],
+  },
+  nextRouter: {
+    Provider: RouterContext.Provider,
+  },
+}

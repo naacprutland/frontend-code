@@ -106,7 +106,7 @@ const HeroBlock = ({
           image={backgroundImage?.src}
           alt={backgroundImage?.alt}
           srcSetWidth={{
-            min: 350
+            min: 700
           }}
         />}
       </Box>
