@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import {
   Box,
   AspectRatio,
@@ -12,13 +11,12 @@ import {
   ModalBody,
   ModalCloseButton,
   Text,
-  Image
 } from '@chakra-ui/react'
 import { FaRegPlayCircle } from "react-icons/fa";
 import YouTube, { Options } from "react-youtube";
 import Container from './Container';
 import { Image as ImageApi } from '../interface/generalApi'
-import { imageSrcSet } from '../lib/util'
+import Image from './Image'
 
 export interface VideoType {
   src: string;
@@ -62,14 +60,6 @@ const MediaBlock = ({
 }: MediaBlockProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
 
-  const srcSet = useMemo(() => {
-
-    return imageSrcSet(mediaImage.src, {
-      min: 200,
-      max: 800
-    })
-  }, [mediaImage]);
-
   return (
     <>
       <Container className="grid"
@@ -90,14 +80,12 @@ const MediaBlock = ({
             }}
             zIndex="-1">
             <Image
-              src={mediaImage?.src?.url || ''}
+              image={mediaImage?.src}
               alt={mediaImage?.alt}
-              srcSet={srcSet}
-              loading='lazy'
-              objectFit="cover"
-              objectPosition="center"
-              h="100%"
-              w="100%"
+              srcSetWidth={{
+                min: 200,
+                max: 800
+              }}
             />
           </Box>)}
         <Box className="gcol-12 gcol-md-8 gcol-lg-6 center"
@@ -121,14 +109,12 @@ const MediaBlock = ({
               <Box >
                 <Box width="100%">
                   <Image
-                    src={mediaImage?.src?.url || ''}
+                    image={mediaImage?.src}
                     alt={mediaImage?.alt}
-                    loading='lazy'
-                    srcSet={srcSet}
-                    objectFit="cover"
-                    objectPosition="center"
-                    h="100%"
-                    w="100%"
+                    srcSetWidth={{
+                      min: 200,
+                      max: 800
+                    }}
                   />
                 </Box>
 

@@ -31,7 +31,7 @@ const EventTemplate = ({
         <>
             <HeroTwoBlock position={0}
                 title={title}
-                imgSrc={image.url}
+                image={image}
                 imgAlt={imageAlt}
                 subText1={date}
                 subText2={time}

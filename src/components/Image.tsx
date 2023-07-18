@@ -16,19 +16,21 @@ const Image = ({
     ...props
 }: ImageProps) => {
     const srcSet = useMemo(() => {
-        return imageSrcSet(image, srcSetWidth)
+        return image ? imageSrcSet(image, srcSetWidth) : ''
     }, [image]);
     return (
-        <ChakraImage
-            src={image?.url}
-            alt={alt}
-            srcSet={srcSet}
-            loading="lazy"
-            objectFit='cover'
-            objectPosition='center'
-            h="100%"
-            w="100%"
-            {...props} />
+        <>{(image && image?.url) ? (
+            <ChakraImage
+                src={image?.url}
+                alt={alt}
+                srcSet={srcSet}
+                loading="lazy"
+                objectFit='cover'
+                objectPosition='center'
+                h="100%"
+                w="100%"
+                {...props} />) : (<div></div>)
+        }</>
     )
 }
 

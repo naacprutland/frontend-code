@@ -16,6 +16,26 @@ export const basicData: ArticleCardProps = {
       height: 1600,
       url: originalUrl as unknown as string,
       formats: {
+        thumbnailLarge: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailMedium: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailXsmall: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailSmall: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
         xsmall: {
           url: xSmallImg as unknown as string,
           width: 480,
@@ -108,6 +128,26 @@ export const noLinkData: ArticleCardProps = {
       height: 1600,
       url: originalUrl as unknown as string,
       formats: {
+        thumbnailLarge: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailMedium: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailSmall: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
+        thumbnailXsmall: {
+          url: xSmallImg as unknown as string,
+          width: 480,
+          height: 300,
+        },
         xsmall: {
           url: xSmallImg as unknown as string,
           width: 480,

@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import {
   Heading,
   Box,
@@ -6,14 +5,13 @@ import {
   GridItem,
   Button,
   Wrap,
-  WrapItem,
-  Image
+  WrapItem
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import Container from './Container'
 import { AlignItems } from '../interface/enums'
 import { Image as ImageApi } from '../interface/generalApi'
-import { imageSrcSet } from '../lib/util'
+import Image from './Image'
 
 
 export interface HeroProps {
@@ -93,12 +91,6 @@ const HeroBlock = ({
   position = 0,
   size = "full"
 }: HeroProps) => {
-  const srcSet = useMemo(() => {
-    return imageSrcSet(backgroundImage.src, {
-      min: 350
-    })
-  }, [backgroundImage]);
-
   return (
     <Box position="relative"
       maxW="100%"
@@ -110,14 +102,12 @@ const HeroBlock = ({
         h="100%"
         top="0"
       >
-        {backgroundImage?.src?.url && <Image
-          src={backgroundImage?.src?.url}
+        {backgroundImage?.src && <Image
+          image={backgroundImage?.src}
           alt={backgroundImage?.alt}
-          objectFit="cover"
-          objectPosition="center"
-          h="100%"
-          w="100%"
-          srcSet={srcSet}
+          srcSetWidth={{
+            min: 350
+          }}
         />}
       </Box>
       <Container py={[8, 12, 14]} h="100%">

@@ -1,15 +1,13 @@
-import { useMemo } from 'react'
 import {
     Heading,
     Box,
     Button,
-    Image
 } from '@chakra-ui/react'
 import Link from 'next/link'
 import Container from './Container'
 import { CTABtn } from './HeroBlock'
+import Image from './Image'
 import { Image as ImageApi } from '../interface/generalApi'
-import { imageSrcSet } from '../lib/util'
 
 export interface HeroTwoBlockProps {
     position?: number;
@@ -34,12 +32,6 @@ const HeroTwoBlock = ({
     imgAlt,
     colorScheme = "prime1"
 }: HeroTwoBlockProps) => {
-    const srcSet = useMemo(() => {
-        return imageSrcSet(image, {
-            min: 350,
-            max: 800
-        })
-    }, [image]);
     return (
         <Box as="section"
             backgroundColor="secondary7.500"
@@ -66,14 +58,13 @@ const HeroTwoBlock = ({
                         transform={[null, "translateY(50%)"]}
                         right="0">
                         <Image
-                            src={image.url}
+                            image={image}
                             alt={imgAlt}
-                            srcSet={srcSet}
-                            loading="lazy"
-                            objectFit='cover'
-                            objectPosition='center'
-                            h="100%"
-                            w="100%" />
+                            srcSetWidth={{
+                                min: 350,
+                                max: 800
+                            }}
+                        />
                     </Box>
                 </Box>
 

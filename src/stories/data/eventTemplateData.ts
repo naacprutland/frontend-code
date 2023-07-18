@@ -1,5 +1,5 @@
 import { EventTemplateProps } from '../../components/EventTemplate'
-import { image } from './paypalDonateData'
+import { imageApi } from './cardData'
 
 export const basicData: EventTemplateProps = {
   title: 'SENSE OF PLACE: YOGA SERIES WITH SASHA FINNELL',
@@ -19,7 +19,7 @@ export const basicData: EventTemplateProps = {
   date: 'Wednesday  |  November 22, 2022',
   time: '2:00pm - 5:00pm',
   location: '178 Conservation Way. Sunderland, Vermont 05250-4465',
-  image: image,
+  image: imageApi,
   imageAlt: 'test alt',
   rsvp: {
     label: 'RSVP',
