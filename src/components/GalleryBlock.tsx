@@ -5,12 +5,6 @@ import {
     SimpleGrid,
     AspectRatio,
     useDisclosure,
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalBody,
-    ModalCloseButton,
 } from '@chakra-ui/react'
 import Container from './Container'
 import { AlignItemsOptions } from '../interface/enums'
@@ -18,6 +12,7 @@ import { Image as ImageApi } from '../interface/generalApi'
 import { StyleType } from "../interface/general"
 import { Styling } from "../interface/enums"
 import Image from './Image'
+import MediaModal from './MediaModal'
 
 export interface GalleryBlockProps {
     position?: number
@@ -77,21 +72,17 @@ const GalleryBlock = ({
 
                 </Container>
             </Box>
-            <Modal onClose={onClose} isOpen={isOpen} size="5xl" isCentered>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Modal Title</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Image
-                            image={currentImg?.src}
-                            alt={currentImg?.alt}
-                            srcSetWidth={{
-                                min: 500,
-                            }} />
-                    </ModalBody>
-                </ModalContent>
-            </Modal>
+            <MediaModal onClose={onClose} isOpen={isOpen} >
+                <Image
+                    image={currentImg?.src}
+                    alt={currentImg?.alt}
+                    w="auto"
+                    height="initial"
+                    maxH="100%"
+                    srcSetWidth={{
+                        min: 500,
+                    }} />
+            </MediaModal >
         </>
     )
 }

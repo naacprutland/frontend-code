@@ -5,11 +5,6 @@ import {
   IconButton,
   Icon,
   useDisclosure,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalCloseButton,
   Text,
 } from '@chakra-ui/react'
 import { FaRegPlayCircle } from "react-icons/fa";
@@ -17,6 +12,7 @@ import YouTube, { Options } from "react-youtube";
 import Container from './Container';
 import { Image as ImageApi } from '../interface/generalApi'
 import Image from './Image'
+import MediaModal from './MediaModal'
 
 export interface VideoType {
   src: string;
@@ -155,27 +151,17 @@ const MediaBlock = ({
         </Box>
       </Container >
       {
-        youTubeVideo?.key && <Modal onClose={onClose} size="5xl" isOpen={isOpen} isCentered>
-          <ModalOverlay />
-          <ModalContent
-            sx={{
-              "@media only screen and (orientation : landscape) and (min-width: calc(100vh * 1.8)) ": {
-                maxWidth: "calc(100vh * 1.8)",
-              }
-            }}
-            color="white"
-            backgroundColor="blackAlpha.300">
-            <ModalCloseButton />
-            <ModalBody pl="12" pr="12">
-              <AspectRatio bgColor="black" ratio={16 / 9}>
-                <YouTube
-                  videoId={youTubeVideo?.key || ''}
-                  opts={opts}
-                />
-              </AspectRatio>
-            </ModalBody>
-          </ModalContent>
-        </Modal>
+        youTubeVideo?.key && <MediaModal onClose={onClose} isOpen={isOpen} >
+          <AspectRatio
+            w="100%"
+            h="100%"
+            bgColor="black" ratio={16 / 9}>
+            <YouTube
+              videoId={youTubeVideo?.key || ''}
+              opts={opts}
+            />
+          </AspectRatio>
+        </MediaModal >
       }
 
     </>
