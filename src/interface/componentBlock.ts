@@ -31,6 +31,7 @@ import { EventTemplateProps } from '../components/EventTemplate'
 import { ResourceBlockProps } from '../components/ResourceBlock'
 import { EventDeckBlockProps } from '../components/EventDeckBlock'
 import { QuoteBlockProps } from '../components/QuoteBlock'
+import { GalleryBlockProps } from '../components/GalleryBlock'
 
 interface ComponentBlock {
   template: string
@@ -125,6 +126,10 @@ export interface QuoteBlock extends ComponentBlock, QuoteBlockProps {
   template: 'blocks.quote-block'
 }
 
+export interface GalleryBlock extends ComponentBlock, GalleryBlockProps {
+  template: 'blocks.gallery-block'
+}
+
 export type ResponseBlocks =
   | HeroBlockApi
   | BreadcrumbsApi
@@ -160,5 +165,6 @@ export type Block =
   | ResourceBlock
   | EventDeckBlock
   | QuoteBlock
+  | GalleryBlock
 
 export type PageBlocks = Block[]

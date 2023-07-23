@@ -20,6 +20,7 @@ import { EventTemplateProps } from './EventTemplate'
 import { ResourceBlockProps } from './ResourceBlock'
 import { EventDeckBlockProps } from './EventDeckBlock'
 import { QuoteBlockProps } from './QuoteBlock'
+import { GalleryBlockProps } from './GalleryBlock'
 
 const DynamicHero: ComponentType<HeroProps> = dynamic(() => import('./HeroBlock'))
 const DynamicTextBlock: ComponentType<TextBlockProps> = dynamic(() => import('./TextBlock'))
@@ -40,6 +41,7 @@ const DynamicEventTemplate: ComponentType<EventTemplateProps> = dynamic(() => im
 const DynamicResourceBlock: ComponentType<ResourceBlockProps> = dynamic(() => import('./ResourceBlock'))
 const DynamicEventDeckBlock: ComponentType<EventDeckBlockProps> = dynamic(() => import('./EventDeckBlock'))
 const DynamicQuoteBlock: ComponentType<QuoteBlockProps> = dynamic(() => import('./QuoteBlock'))
+const DynamicGalleryBlock: ComponentType<GalleryBlockProps> = dynamic(() => import('./GalleryBlock'))
 
 function DynamicComponent({ template, ...props }: Block) {
 
@@ -82,6 +84,8 @@ function DynamicComponent({ template, ...props }: Block) {
       return <DynamicEventDeckBlock {...props as EventDeckBlockProps} />
     case 'blocks.quote-block':
       return <DynamicQuoteBlock {...props as QuoteBlockProps} />
+    case 'blocks.gallery-block':
+      return <DynamicGalleryBlock {...props as GalleryBlockProps} />
     default:
       return null
   }

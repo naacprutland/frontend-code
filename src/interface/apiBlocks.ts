@@ -5,6 +5,18 @@ import { StyleType } from './general'
 import { Image } from './generalApi'
 import { PageResponseProps } from './pageResponse'
 
+export interface GalleryBlockApi {
+  __component: 'blocks.gallery-block'
+  id: number
+  heading: string
+  headingPosition: AlignItemsOptions
+  style: StyleType
+  images: {
+    id: number
+    alt: string
+    src: Image
+  }[]
+}
 export interface QuoteBlockApi {
   __component: 'blocks.quote-block'
   id: number

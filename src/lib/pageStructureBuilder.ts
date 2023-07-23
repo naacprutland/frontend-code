@@ -22,6 +22,7 @@ import {
   DividerBlockApi,
   DeckBlockApi,
   QuoteBlockApi,
+  GalleryBlockApi,
 } from '../interface/apiBlocks'
 import { MemberOptions } from '../interface/checkout'
 import {
@@ -45,6 +46,7 @@ import {
   DividerBlock,
   DeckBlock,
   QuoteBlock,
+  GalleryBlock,
 } from '../interface/componentBlock'
 import { AlignItemsOptions } from '../interface/enums'
 import { ColorScheme } from '../interface/general'
@@ -547,6 +549,20 @@ const quoteBlockBuilder = ({
   imageAlt: image?.alt || null,
 })
 
+const galleryBlockBuilder = ({
+  __component: template,
+  heading,
+  headingPosition,
+  style,
+  images,
+}: GalleryBlockApi): GalleryBlock => ({
+  template,
+  heading,
+  headingPosition,
+  style,
+  images,
+})
+
 const builders = {
   'blocks.hero-block': heroBlockBuilder,
   'blocks.text-block': textBlockBuilder,
@@ -567,6 +583,7 @@ const builders = {
   'blocks.divider-block': dividerBlockBuilder,
   'blocks.deck-block': deckBlockBuilder,
   'blocks.quote-block': quoteBlockBuilder,
+  'blocks.gallery-block': galleryBlockBuilder,
 }
 
 export async function buildPageStructure(
