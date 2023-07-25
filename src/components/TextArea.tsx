@@ -17,7 +17,7 @@ const TextArea = ({
     id,
     name,
     label,
-    value,
+    value = '',
     placeholder,
     isRequired,
     requiredMessage,

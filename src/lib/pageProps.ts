@@ -42,9 +42,9 @@ export async function getDynamicPageData(
 ): Promise<PageResponseProps | null> {
   try {
     if (preview) {
-      const url = `${getPagesPreview}${page}`
+      const url = `${getPages}/${page}?preview=true`
       const res = await fetchApi(url)
-      return res[0]
+      return res
     }
     const url = `${getPages}/${page}`
     return await fetchApi(url)
@@ -93,7 +93,7 @@ export async function getPageProps(
   preview: boolean
 ): Promise<GetPageProps> {
   const config = await getConfigData()
-
+  console.log({ rootSlug, location, preview })
   let pageData: PageResponseProps
 
   switch (location.toLowerCase()) {
