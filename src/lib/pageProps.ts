@@ -14,7 +14,6 @@ const {
   getStaticPaths,
   getPages,
   getGlobal,
-  getPagesPreview,
   getHomePage,
   get404Page,
   getCalenderPage,
@@ -57,9 +56,12 @@ export async function getDynamicPageData(
  * Get data associated with page from markdown file
  * @param {string} url - api url
  */
-export async function getStaticPageData<T>(url: string): Promise<T | null> {
+export async function getStaticPageData<T>(
+  url: string,
+  preview: boolean
+): Promise<T | null> {
   try {
-    return await fetchApi(url)
+    return await fetchApi(`${url}${preview ? '?preview=true' : ''}`)
   } catch (e) {
     return null
   }
@@ -93,41 +95,42 @@ export async function getPageProps(
   preview: boolean
 ): Promise<GetPageProps> {
   const config = await getConfigData()
-  console.log({ rootSlug, location, preview })
+
   let pageData: PageResponseProps
 
   switch (location.toLowerCase()) {
     case '':
-      pageData = await getStaticPageData(getHomePage)
+      pageData = await getStaticPageData(getHomePage, preview)
       break
     case 'calender':
-      pageData = await getStaticPageData(getCalenderPage)
+      pageData = await getStaticPageData(getCalenderPage, preview)
       break
     case 'checkout':
-      pageData = await getStaticPageData(getCheckoutPage)
+      pageData = await getStaticPageData(getCheckoutPage, preview)
       break
     case 'donate':
-      pageData = await getStaticPageData(getDonatePage)
+      pageData = await getStaticPageData(getDonatePage, preview)
       break
     case 'search':
-      pageData = await getStaticPageData(getSearchPage)
+      pageData = await getStaticPageData(getSearchPage, preview)
       break
     case 'checkout-confirmation':
-      pageData = await getStaticPageData(getCheckoutConfirmationPage)
+      pageData = await getStaticPageData(getCheckoutConfirmationPage, preview)
       break
     case 'donation-confirmation':
-      pageData = await getStaticPageData(getDonationConfirmationPage)
+      pageData = await getStaticPageData(getDonationConfirmationPage, preview)
       break
     case 'resources':
-      pageData = await getStaticPageData(getResourcePage)
+      pageData = await getStaticPageData(getResourcePage, preview)
       break
     case '404':
-      pageData = await getStaticPageData(get404Page)
+      pageData = await getStaticPageData(get404Page, preview)
       break
     default:
       if (rootSlug === 'calender') {
         pageData = await getStaticPageData(
-          getEventPage + `/${location.toLowerCase()}`
+          getEventPage + `/${location.toLowerCase()}`,
+          preview
         )
       } else {
         pageData = await getDynamicPageData(location, preview)
@@ -138,7 +141,7 @@ export async function getPageProps(
 
   // 404 doesn't appear in preview mode with out this
   if (!pageData) {
-    pageData = await getStaticPageData(get404Page)
+    pageData = await getStaticPageData(get404Page, preview)
   }
 
   if (pageData) {
@@ -164,9 +167,9 @@ export async function getPageProps(
 
 /**
  * Get full list of static paths
- * @returns {
+ * @returns ({
       "params": { "slug": string[]}
-    }[]
+    }[])
  */
 export async function getPathsList(): Promise<
   {

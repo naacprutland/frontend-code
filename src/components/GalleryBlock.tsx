@@ -32,7 +32,7 @@ const GalleryBlock = ({
     headingPosition = 'start',
     style = 'none',
     images = []
-}) => {
+}: GalleryBlockProps) => {
     const [currentImg, setCurrentImg] = useState(null);
     const { isOpen, onOpen, onClose } = useDisclosure()
 
